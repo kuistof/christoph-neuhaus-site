@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Christoph Neuhaus — Unternehmensberatung für Performance Marketing & Digitalen Vertrieb</title>
+<meta name="description" content="Christoph Neuhaus berät Unternehmen in Performance Marketing, digitalem Vertrieb und Wachstumsstrategie. BAFA-zertifiziert. Standort Berlin.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F8F6F1;
+    --bg-alt: #EFECE4;
+    --text: #1A1A18;
+    --text-mid: #4A4A45;
+    --text-light: #7A7A72;
+    --accent: #B8860B;
+    --accent-light: #D4A84220;
+    --rule: #D0CCC0;
+    --serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    --sans: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* --- Grain overlay --- */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* --- Layout --- */
+  .page-wrapper {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* --- Header --- */
+  header {
+    padding: 6rem 0 4rem;
+    position: relative;
+  }
+
+  .header-label {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.8rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s forwards;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.8rem, 6vw, 4.2rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.35s forwards;
+  }
+
+  .header-sub {
+    font-family: var(--sans);
+    font-size: 1.15rem;
+    font-weight: 300;
+    color: var(--text-mid);
+    line-height: 1.65;
+    max-width: 600px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.5s forwards;
+  }
+
+  .header-rule {
+    width: 60px;
+    height: 1.5px;
+    background: var(--accent);
+    margin-top: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.65s forwards;
+  }
+
+  /* --- Sections --- */
+  section {
+    padding: 3rem 0;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .section-label {
+    font-family: var(--sans);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
+  }
+
+  h2 {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    margin-bottom: 1.5rem;
+    color: var(--text);
+  }
+
+  p {
+    font-size: 1rem;
+    color: var(--text-mid);
+    margin-bottom: 1.2rem;
+    max-width: 640px;
+  }
+
+  p:last-child { margin-bottom: 0; }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 1rem 0;
+  }
+
+  /* --- Highlight Block --- */
+  .highlight-block {
+    background: var(--bg-alt);
+    border-left: 3px solid var(--accent);
+    padding: 2rem 2.2rem;
+    margin: 2rem 0;
+    border-radius: 0 6px 6px 0;
+  }
+
+  .highlight-block p {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* --- Competence Grid --- */
+  .competence-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .competence-card {
+    padding: 1.8rem;
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    transition: border-color 0.3s ease, background 0.3s ease;
+  }
+
+  .competence-card:hover {
+    border-color: var(--accent);
+    background: var(--accent-light);
+  }
+
+  .competence-card h3 {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.6rem;
+  }
+
+  .competence-card p {
+    font-size: 0.88rem;
+    color: var(--text-light);
+    line-height: 1.55;
+  }
+
+  /* --- Timeline --- */
+  .timeline { margin: 2rem 0; }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+
+  .timeline-item:last-child { border-bottom: none; }
+
+  .timeline-year {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--accent);
+    padding-top: 0.15rem;
+  }
+
+  .timeline-content h3 {
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.35rem;
+  }
+
+  .timeline-content p {
+    font-size: 0.88rem;
+    color: var(--text-light);
+    line-height: 1.55;
+  }
+
+  /* --- Facts row --- */
+  .facts-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1.5rem;
+    margin: 2.5rem 0;
+  }
+
+  .fact-item {
+    text-align: center;
+    padding: 1.5rem 1rem;
+  }
+
+  .fact-number {
+    font-family: var(--serif);
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+
+  .fact-label {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-light);
+  }
+
+  /* --- Principles --- */
+  .principles-list {
+    list-style: none;
+    margin: 1.5rem 0;
+  }
+
+  .principles-list li {
+    position: relative;
+    padding: 0.9rem 0 0.9rem 1.8rem;
+    font-size: 0.95rem;
+    color: var(--text-mid);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .principles-list li:last-child { border-bottom: none; }
+
+  .principles-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* --- CTA --- */
+  .cta-section {
+    background: var(--text);
+    color: var(--bg);
+    padding: 4rem 3rem;
+    border-radius: 8px;
+    margin: 3rem 0;
+    text-align: center;
+  }
+
+  .cta-section h2 {
+    color: var(--bg);
+    margin-bottom: 1rem;
+  }
+
+  .cta-section p {
+    color: #B0ADA5;
+    max-width: 520px;
+    margin: 0 auto 2rem;
+  }
+
+  .cta-email {
+    display: inline-block;
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1.5px solid transparent;
+    transition: border-color 0.3s ease;
+  }
+
+  .cta-email:hover {
+    border-bottom-color: var(--accent);
+  }
+
+  /* --- Footer --- */
+  footer {
+    padding: 3rem 0;
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--text-light);
+    letter-spacing: 0.03em;
+  }
+
+  footer span {
+    color: var(--accent);
+  }
+
+  /* --- Animations --- */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* --- Responsive --- */
+  @media (max-width: 600px) {
+    header { padding: 4rem 0 3rem; }
+    .page-wrapper { padding: 0 1.3rem; }
+    .timeline-item {
+      grid-template-columns: 1fr;
+      gap: 0.3rem;
+    }
+    .cta-section { padding: 3rem 1.5rem; }
+    .highlight-block { padding: 1.5rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-wrapper">
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-label">Unternehmensberatung · Berlin</div>
+    <h1>Christoph Neuhaus</h1>
+    <p class="header-sub">
+      Ich helfe Unternehmen, ihre digitale Vertriebs- und Marketingmaschine aufzubauen — von der ersten Anzeige bis zum abgeschlossenen Deal. Performance Marketing, Funnel-Architektur und Vertriebsprozesse, die messbar Umsatz liefern.
+    </p>
+    <div class="header-rule"></div>
+  </header>
+
+  <!-- POSITIONIERUNG -->
+  <section>
+    <div class="section-label">Positionierung</div>
+    <h2>Marketing allein reicht nicht. Vertrieb allein auch nicht.</h2>
+    <p>
+      Die meisten Unternehmen investieren entweder in Marketing oder in Vertrieb — und wundern sich, warum die Ergebnisse ausbleiben. Mein Ansatz verbindet beides: Ich baue digitale Systeme, die qualifizierte Leads generieren, vorqualifizieren und nahtlos in einen optimierten Sales-Prozess überführen.
+    </p>
+    <p>
+      Das Ergebnis ist keine Kampagne. Es ist eine dauerhafte Umsatzinfrastruktur — ein Revenue Asset, das unabhängig von Einzelpersonen funktioniert und skalierbar wächst.
+    </p>
+    <div class="highlight-block">
+      <p>„Ich ersetze Cold Outbound durch vorqualifizierte Inbound-Leads und mache aus fragmentierten Sales-Prozessen eine digitale Pipeline, die planbar Umsatz liefert."</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- KERNKOMPETENZEN -->
+  <section>
+    <div class="section-label">Kernkompetenzen</div>
+    <h2>Was ich für Unternehmen leiste</h2>
+    <div class="competence-grid">
+      <div class="competence-card">
+        <h3>Performance Marketing</h3>
+        <p>Meta Ads, Google Ads, LinkedIn — datengetriebene Kampagnen mit Fokus auf CAC, ROAS und echtem Umsatz statt Vanity Metrics.</p>
+      </div>
+      <div class="competence-card">
+        <h3>Funnel & Lead-Generierung</h3>
+        <p>Von der Anzeige über die Landing Page bis zur Qualifizierung — vollständige Funnel-Architekturen, die konvertieren.</p>
+      </div>
+      <div class="competence-card">
+        <h3>Sales-Prozess-Optimierung</h3>
+        <p>Den gesamten Vertriebsprozess analysieren: Setter-Closer-Systeme, Sales-Skripte, Conversion Rates pro Pipeline-Stufe, Speed to Lead, Lead Scoring und KPI-Tracking. Jede Stellschraube messbar machen.</p>
+      </div>
+      <div class="competence-card">
+        <h3>Vertriebsschulungen & Team-Analyse</h3>
+        <p>Sales Calls auswerten, Gesprächsführung und Einwandbehandlung optimieren. Teamstruktur analysieren, Rollen klären und das Vertriebsteam systematisch auf höhere Abschlussquoten bringen.</p>
+      </div>
+      <div class="competence-card">
+        <h3>Beratung & Strategie</h3>
+        <p>BAFA-zertifizierte Unternehmensberatung. Wachstumsstrategie, Go-to-Market-Planung und operative Umsetzungsbegleitung.</p>
+      </div>
+      <div class="competence-card">
+        <h3>Marketing-Automation</h3>
+        <p>E-Mail-Sequenzen, Tracking-Infrastruktur (CAPI, UTM, Server-Side), Retargeting-Systeme und automatisierte Nurturing-Flows.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- REFERENZPROJEKT -->
+  <section>
+    <div class="section-label">Referenzprojekt</div>
+    <h2>Vom Cold Outbound zur digitalen Vertriebspipeline</h2>
+    <p>
+      Ein mittelständisches Unternehmen arbeitete mit einer externen Vertriebsagentur, die ausschließlich auf telefonische Kaltakquise setzte — hohe Kosten, niedrige Conversion, keine Skalierbarkeit. Ich wurde beauftragt, den gesamten Akquise-Prozess zu transformieren.
+    </p>
+    <p>
+      Im ersten Schritt habe ich das Performance Marketing komplett neu aufgesetzt: Zielgruppen-Segmentierung, Anzeigentexte, Landing Pages und Tracking-Infrastruktur. Parallel dazu habe ich den Sales-Prozess digitalisiert — CRM-Einführung, Lead-Scoring, automatisierte Qualifizierung und strukturierte Follow-up-Sequenzen.
+    </p>
+    <p>
+      Das Ergebnis: Die Vertriebsagentur erhielt statt kalter Listen vorqualifizierte Leads, die bereits Interesse gezeigt und sich durch den Funnel bewegt hatten. Der Sales Cycle verkürzte sich signifikant, die Abschlussquote stieg, und das Unternehmen gewann eine planbare, skalierbare Vertriebsinfrastruktur — unabhängig von einzelnen Vertriebsmitarbeitern.
+    </p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ZAHLEN -->
+  <section>
+    <div class="facts-row">
+      <div class="fact-item">
+        <div class="fact-number">7+</div>
+        <div class="fact-label">Jahre Digital-Erfahrung</div>
+      </div>
+      <div class="fact-item">
+        <div class="fact-number">6-stellig</div>
+        <div class="fact-label">verwaltetes Ad-Budget p.a.</div>
+      </div>
+      <div class="fact-item">
+        <div class="fact-number">BAFA</div>
+        <div class="fact-label">Zertifizierter Berater</div>
+      </div>
+      <div class="fact-item">
+        <div class="fact-number">Berlin</div>
+        <div class="fact-label">Standort</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- WERDEGANG -->
+  <section>
+    <div class="section-label">Werdegang</div>
+    <h2>Von der Agentur zur Unternehmensberatung</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-year">2019 – 2024</div>
+        <div class="timeline-content">
+          <h3>Agenturinhaber — Performance Marketing & Digitale Produktion</h3>
+          <p>Eigene Agentur mit Fokus auf Performance Marketing, Content-Produktion und digitale Wachstumsstrategien. Aufbau und Betreuung von Kampagnen für Kunden aus E-Commerce, B2B, Events und Creator Economy. Meta Ads, Google Ads, Funnel-Architektur und datengetriebene Optimierung.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2024 – heute</div>
+        <div class="timeline-content">
+          <h3>Unternehmensberater — Performance Marketing & Digitaler Vertrieb</h3>
+          <p>BAFA-zertifizierte Unternehmensberatung mit klarem Fokus: Unternehmen dabei helfen, ihre Marketing- und Vertriebsprozesse zu digitalisieren, zu systematisieren und messbar profitabel zu machen. Integration von Performance Marketing und Sales — vom Lead bis zum Abschluss.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ARBEITSPRINZIPIEN -->
+  <section>
+    <div class="section-label">Arbeitsprinzipien</div>
+    <h2>Wie ich arbeite</h2>
+    <ul class="principles-list">
+      <li>Ergebnisorientiert: Jede Maßnahme wird an Umsatzwirkung gemessen, nicht an Klicks oder Impressionen.</li>
+      <li>Systeme statt Kampagnen: Ich baue nachhaltige Infrastruktur, keine einmaligen Aktionen.</li>
+      <li>Marketing + Sales = ein Prozess: Keine Silos, sondern eine durchgängige Pipeline vom Lead bis zum Abschluss.</li>
+      <li>Datengetrieben: Attribution, Tracking und Analytics sind die Grundlage jeder Entscheidung.</li>
+      <li>Umsetzungsnah: Ich berate nicht nur — ich implementiere, optimiere und begleite operativ.</li>
+      <li>Skalierbar: Was ich aufbaue, funktioniert unabhängig von Einzelpersonen und wächst mit dem Unternehmen.</li>
+    </ul>
+  </section>
+
+  <hr class="divider">
+
+  <!-- BRANCHEN -->
+  <section>
+    <div class="section-label">Spezialisierung</div>
+    <h2>B2B-Marketing & Vertrieb für hochpreisige Produkte und Dienstleistungen</h2>
+    <p>
+      Meine Beratung richtet sich an Unternehmen im B2B-Umfeld und Anbieter hochpreisiger Produkte und Dienstleistungen — dort, wo jeder Lead zählt, Sales Cycles länger sind und die Abschlussqualität über den Unternehmenserfolg entscheidet. Besonders wirksam, wenn Marketing und Vertrieb noch nicht als integriertes System funktionieren und der Schritt von Cold Outbound zu planbarem Inbound überfällig ist.
+    </p>
+  </section>
+
+  <!-- CTA -->
+  <section>
+    <div class="cta-section">
+      <h2>Lassen Sie uns sprechen.</h2>
+      <p>
+        Wenn Sie wissen wollen, wie eine digitale Vertriebs- und Marketing-Infrastruktur für Ihr Unternehmen aussehen kann — melden Sie sich.
+      </p>
+      <a href="mailto:mail@christophneuhaus.de" class="cta-email">mail@christophneuhaus.de</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>Christoph Neuhaus</span> · Unternehmensberatung · Berlin<br>
+    NovaCasa GmbH &middot; Alle Rechte vorbehalten
+  </footer>
+
+</div>
+
+<script>
+  // Intersection Observer for scroll-triggered section reveals
+  const sections = document.querySelectorAll('section');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  sections.forEach(section => observer.observe(section));
+</script>
+
+</body>
+</html>
