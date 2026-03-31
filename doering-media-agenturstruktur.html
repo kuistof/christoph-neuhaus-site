@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Döring Media — Agenturstruktur</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0c0c0e;
+  --surface: #16161a;
+  --surface-hover: #1e1e24;
+  --border: #2a2a32;
+  --border-active: #4a4a56;
+  --text: #e8e6e3;
+  --text-dim: #8a8a96;
+  --text-muted: #5a5a66;
+  --accent-acq: #f0c040;
+  --accent-acq-dim: rgba(240,192,64,0.12);
+  --accent-del: #40b0f0;
+  --accent-del-dim: rgba(64,176,240,0.12);
+  --accent-sprint: #f06040;
+  --accent-sprint-dim: rgba(240,96,64,0.12);
+  --accent-magic: #b060f0;
+  --accent-magic-dim: rgba(176,96,240,0.12);
+  --accent-ai: #40d890;
+  --accent-ai-dim: rgba(64,216,144,0.12);
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 56px;
+  position: relative;
+}
+
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-acq), var(--accent-del));
+  border-radius: 1px;
+}
+
+.header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+}
+
+.header p {
+  color: var(--text-dim);
+  font-size: 14px;
+}
+
+.tag {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+/* Two Pillars */
+.pillars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+@media (max-width: 768px) {
+  .pillars { grid-template-columns: 1fr; }
+}
+
+.pillar {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.pillar:hover {
+  border-color: var(--border-active);
+}
+
+.pillar-header {
+  padding: 24px 24px 16px;
+  cursor: default;
+}
+
+.pillar-header h2 {
+  font-size: 18px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pillar-header .icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.pillar-header .subtitle {
+  color: var(--text-dim);
+  font-size: 13px;
+  margin-top: 6px;
+  padding-left: 42px;
+}
+
+.pillar-body {
+  padding: 0 24px 24px;
+}
+
+/* Expandable Cards */
+.card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  margin-bottom: 10px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.card:last-child { margin-bottom: 0; }
+
+.card:hover { border-color: var(--border-active); }
+
+.card-trigger {
+  width: 100%;
+  background: none;
+  border: none;
+  color: var(--text);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  gap: 12px;
+}
+
+.card-trigger:hover { background: var(--surface-hover); }
+
+.card-trigger .left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card-trigger .badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.card-trigger .chevron {
+  color: var(--text-muted);
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+  font-size: 12px;
+}
+
+.card.open .card-trigger .chevron {
+  transform: rotate(90deg);
+}
+
+.card-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+
+.card.open .card-content {
+  max-height: 800px;
+}
+
+.card-inner {
+  padding: 0 16px 16px;
+}
+
+.card-inner h4 {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  margin-top: 10px;
+}
+
+.card-inner h4:first-child { margin-top: 0; }
+
+.task-list {
+  list-style: none;
+}
+
+.task-list li {
+  font-size: 13px;
+  color: var(--text-dim);
+  padding: 5px 0;
+  padding-left: 18px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.task-list li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--text-muted);
+}
+
+.ai-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: 3px;
+  background: var(--accent-ai-dim);
+  color: var(--accent-ai);
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+/* Connecting Flow Section */
+.flow-section {
+  margin-bottom: 32px;
+}
+
+.flow-section .section-label {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.flow-connector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.flow-step {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  text-align: center;
+  min-width: 140px;
+  max-width: 200px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.flow-step:hover {
+  border-color: var(--border-active);
+  transform: translateY(-2px);
+}
+
+.flow-step .step-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.flow-step .step-title {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.flow-step .step-sub {
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-top: 3px;
+}
+
+.flow-arrow {
+  color: var(--text-muted);
+  font-size: 18px;
+  padding: 0 8px;
+  flex-shrink: 0;
+}
+
+/* Sprint Section */
+.sprint-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  margin-bottom: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.sprint-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-sprint), var(--accent-magic));
+}
+
+.sprint-card h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sprint-card .sprint-desc {
+  color: var(--text-dim);
+  font-size: 13px;
+  margin-bottom: 18px;
+  max-width: 700px;
+}
+
+.sprint-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+@media (max-width: 768px) {
+  .sprint-grid { grid-template-columns: 1fr; }
+}
+
+.sprint-item {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+}
+
+.sprint-item .si-title {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.sprint-item .si-desc {
+  font-size: 12px;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+/* Magic Trick */
+.magic-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  margin-bottom: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.magic-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-magic), var(--accent-ai));
+}
+
+.magic-steps {
+  display: flex;
+  gap: 14px;
+  margin-top: 18px;
+  flex-wrap: wrap;
+}
+
+.magic-step {
+  flex: 1;
+  min-width: 180px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+}
+
+.magic-step .ms-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent-magic);
+  opacity: 0.5;
+  margin-bottom: 6px;
+}
+
+.magic-step .ms-title {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.magic-step .ms-desc {
+  font-size: 12px;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+/* Team Grid */
+.team-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+}
+
+.team-section h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.team-member {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.tm-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.tm-info .tm-role {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.tm-info .tm-scope {
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+
+.tm-info .tm-pillar {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 5px;
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: 3px;
+}
+
+/* Color accents */
+.acq { color: var(--accent-acq); }
+.acq-bg { background: var(--accent-acq-dim); }
+.acq-border { border-left: 3px solid var(--accent-acq); }
+
+.del { color: var(--accent-del); }
+.del-bg { background: var(--accent-del-dim); }
+.del-border { border-left: 3px solid var(--accent-del); }
+
+.sprint-color { color: var(--accent-sprint); }
+.sprint-bg { background: var(--accent-sprint-dim); }
+
+.magic-color { color: var(--accent-magic); }
+.magic-bg { background: var(--accent-magic-dim); }
+
+.ai-color { color: var(--accent-ai); }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Header -->
+  <div class="header">
+    <span class="tag" style="background: var(--accent-acq-dim); color: var(--accent-acq);">Internes Strategie-Dokument</span>
+    <h1>Döring Media — Agenturstruktur 2.0</h1>
+    <p>Money In → Kunde zufrieden. Zwei Säulen, ein System.</p>
+  </div>
+
+  <!-- Client Journey Flow -->
+  <div class="flow-section">
+    <div class="section-label">
+      <span class="tag" style="background: var(--surface); color: var(--text-dim);">Client Journey</span>
+    </div>
+    <div class="flow-connector">
+      <div class="flow-step acq-border">
+        <div class="step-num">01</div>
+        <div class="step-title acq">Lead kommt rein</div>
+        <div class="step-sub">Outbound / Ads / Referral</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step acq-border">
+        <div class="step-num">02</div>
+        <div class="step-title acq">Sales Call</div>
+        <div class="step-sub">Qualifizierung + Close</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step" style="border-left: 3px solid var(--accent-sprint);">
+        <div class="step-num">03</div>
+        <div class="step-title sprint-color">Sprint-Session</div>
+        <div class="step-sub">Potenzialanalyse + Roadmap</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step" style="border-left: 3px solid var(--accent-magic);">
+        <div class="step-num">04</div>
+        <div class="step-title magic-color">Kunden-HTML</div>
+        <div class="step-sub">Der Zaubertrick ✦</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step del-border">
+        <div class="step-num">05</div>
+        <div class="step-title del">Retainer / Delivery</div>
+        <div class="step-sub">Laufende Betreuung</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Two Pillars -->
+  <div class="pillars">
+    <!-- Pillar 1: Customer Acquisition -->
+    <div class="pillar">
+      <div class="pillar-header">
+        <h2>
+          <span class="icon acq-bg acq">⚡</span>
+          <span>Customer Acquisition</span>
+        </h2>
+        <div class="subtitle">Money In — Leads generieren, qualifizieren, closen</div>
+      </div>
+      <div class="pillar-body">
+
+        <div class="card" onclick="this.classList.toggle('open')">
+          <button class="card-trigger">
+            <span class="left">
+              <span class="badge acq-bg acq">NEUE ROLLE</span>
+              Sales & Outreach
+            </span>
+            <span class="chevron">▶</span>
+          </button>
+          <div class="card-content"><div class="card-inner">
+            <h4>Verantwortung</h4>
+            <ul class="task-list">
+              <li>LinkedIn Sales Navigator Prospecting</li>
+              <li>Cold Outreach (E-Mail, LinkedIn DMs)</li>
+              <li>Lead-Qualifizierung & Erstgespräche</li>
+              <li>Anamnese-Calls / Setting Calls führen</li>
+              <li>Pipeline-Management (Pipedrive)</li>
+              <li>Follow-Up-Sequenzen & Nurturing</li>
+            </ul>
+            <h4>Automatisierungsgrad</h4>
+            <ul class="task-list">
+              <li>Prospect-Research & Personalisierung <span class="ai-indicator">KI ~70%</span></li>
+              <li>E-Mail-Sequenzen & Follow-Ups <span class="ai-indicator">KI ~60%</span></li>
+              <li>Calls & Closing — rein menschlich</li>
+            </ul>
+          </div></div>
+        </div>
+
+        <div class="card" onclick="this.classList.toggle('open')">
+          <button class="card-trigger">
+            <span class="left">
+              <span class="badge acq-bg acq">NEUE ROLLE</span>
+              Marketing & Content
+            </span>
+            <span class="chevron">▶</span>
+          </button>
+          <div class="card-content"><div class="card-inner">
+            <h4>Verantwortung</h4>
+            <ul class="task-list">
+              <li>Eigene Meta Ads (Döring Media als Kunde)</li>
+              <li>LinkedIn Content-Strategie & Posting</li>
+              <li>Lead Magnets / Freebies erstellen</li>
+              <li>Landing Pages für Eigenvermarktung</li>
+              <li>Newsletter / E-Mail-Nurture</li>
+              <li>Case Studies & Proof-Material aufbereiten</li>
+            </ul>
+            <h4>Automatisierungsgrad</h4>
+            <ul class="task-list">
+              <li>Content-Drafts & Repurposing <span class="ai-indicator">KI ~50%</span></li>
+              <li>Kampagnen-Optimierung — menschlich + Tool</li>
+              <li>Strategie & Kreativdirektion — rein menschlich</li>
+            </ul>
+          </div></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Pillar 2: Delivery -->
+    <div class="pillar">
+      <div class="pillar-header">
+        <h2>
+          <span class="icon del-bg del">◆</span>
+          <span>Delivery & Retention</span>
+        </h2>
+        <div class="subtitle">Kunde zufrieden — Ergebnisse liefern, Churn verhindern</div>
+      </div>
+      <div class="pillar-body">
+
+        <div class="card" onclick="this.classList.toggle('open')">
+          <button class="card-trigger">
+            <span class="left">
+              <span class="badge del-bg del">KEY ROLE</span>
+              Customer Success Manager
+            </span>
+            <span class="chevron">▶</span>
+          </button>
+          <div class="card-content"><div class="card-inner">
+            <h4>Verantwortung</h4>
+            <ul class="task-list">
+              <li>Hauptansprechpartner für den Kunden</li>
+              <li>Regelmäßige Check-ins & Reporting</li>
+              <li>Frühwarnsystem: Unzufriedenheit erkennen</li>
+              <li>Interne Sprints triggern bei Problemen</li>
+              <li>Upsell-Möglichkeiten identifizieren</li>
+              <li>Onboarding neuer Kunden steuern</li>
+            </ul>
+            <h4>Trigger für Sprint</h4>
+            <ul class="task-list">
+              <li>Kunde meldet Unzufriedenheit</li>
+              <li>KPIs unter Zielwerten (Leads, ROAS, CPL)</li>
+              <li>Kunde wird still / kein Feedback mehr</li>
+              <li>Vertragsverlängerung steht an</li>
+            </ul>
+          </div></div>
+        </div>
+
+        <div class="card" onclick="this.classList.toggle('open')">
+          <button class="card-trigger">
+            <span class="left">
+              <span class="badge del-bg del">KREATIV</span>
+              Creative Production
+            </span>
+            <span class="chevron">▶</span>
+          </button>
+          <div class="card-content"><div class="card-inner">
+            <h4>Team & Assets</h4>
+            <ul class="task-list">
+              <li><strong>Kreativdirektor / Regisseur</strong> — Treatments, Konzepte, Storyboards</li>
+              <li><strong>Designer</strong> — Grafik, Branding, LP-Design, Ad Creatives</li>
+              <li><strong>Video Editor / Cutter</strong> — Schnitt, Motion, Postproduktion</li>
+              <li><strong>Copywriter</strong> — Ad Copy, LP-Texte, E-Mail-Sequenzen</li>
+            </ul>
+            <h4>Automatisierungsgrad</h4>
+            <ul class="task-list">
+              <li>Video & Design — menschlich, Qualitätsanspruch <span class="ai-indicator">KI ~10%</span></li>
+              <li>Copywriting / LP-Texte <span class="ai-indicator">KI ~40%</span></li>
+              <li>Ad-Varianten & Iterations <span class="ai-indicator">KI ~30%</span></li>
+            </ul>
+          </div></div>
+        </div>
+
+        <div class="card" onclick="this.classList.toggle('open')">
+          <button class="card-trigger">
+            <span class="left">
+              <span class="badge del-bg del">PERFORMANCE</span>
+              Strategie & Media Buying
+            </span>
+            <span class="chevron">▶</span>
+          </button>
+          <div class="card-content"><div class="card-inner">
+            <h4>Verantwortung</h4>
+            <ul class="task-list">
+              <li>Kundenstrategie & Kampagnenarchitektur</li>
+              <li>Meta Ads Setup, Testing, Scaling</li>
+              <li>Google Ads (Search, Display)</li>
+              <li>Funnel-Architektur & Conversion-Optimierung</li>
+              <li>Tracking-Setup (Pixel, CAPI, UTMs)</li>
+              <li>Reporting & Datenanalyse</li>
+            </ul>
+            <h4>Automatisierungsgrad</h4>
+            <ul class="task-list">
+              <li>Reporting-Templates <span class="ai-indicator">KI ~70%</span></li>
+              <li>Kampagnen-Analyse & Empfehlungen <span class="ai-indicator">KI ~40%</span></li>
+              <li>Strategische Entscheidungen — rein menschlich</li>
+            </ul>
+          </div></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Sprint Mechanic -->
+  <div class="sprint-card">
+    <span class="tag sprint-bg sprint-color">Eskalationsmechanik</span>
+    <h3><span class="sprint-color">🔥</span> 4-Stunden-Sprint</h3>
+    <p class="sprint-desc">Wenn der Customer Success Manager ein Problem erkennt, wird die gesamte Agentur für 4 Stunden auf dieses eine Problem geblockt. Kein Multitasking, kein „machen wir nächste Woche".</p>
+    <div class="sprint-grid">
+      <div class="sprint-item">
+        <div class="si-title">Trigger</div>
+        <div class="si-desc">CSM erkennt Problem → meldet es → Sprint wird für nächsten verfügbaren Slot geblockt</div>
+      </div>
+      <div class="sprint-item">
+        <div class="si-title">Wer arbeitet?</div>
+        <div class="si-desc">Alle relevanten Rollen: Stratege, Copywriter, Designer, Editor — zusammen an einem Tisch</div>
+      </div>
+      <div class="sprint-item">
+        <div class="si-title">Output</div>
+        <div class="si-desc">Neue Ad-Strategien, frische Creatives, Roadmap, klare Verantwortlichkeiten — alles in 4h</div>
+      </div>
+      <div class="sprint-item">
+        <div class="si-title">Ergebnis</div>
+        <div class="si-desc">CSM geht ins nächste Kundenmeeting mit konkreter Lösung → Zufriedenheit wiederhergestellt</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Magic Trick -->
+  <div class="magic-card">
+    <span class="tag magic-bg magic-color">Der Zaubertrick</span>
+    <h3><span class="magic-color">✦</span> Individuelle Kunden-HTML nach Sprint-Session</h3>
+    <p class="sprint-desc">Nach der initialen Sprint-Session bekommt der Kunde eine individuelle URL mit einer Seite in seinem Branding. Zusammenfassung, Roadmap, KPIs — der „Wow, die haben's verstanden"-Moment.</p>
+    <div class="magic-steps">
+      <div class="magic-step">
+        <div class="ms-num">01</div>
+        <div class="ms-title">Setting Call + Marktrecherche</div>
+        <div class="ms-desc">Input sammeln: Was macht die Firma, Branche, Ziele, bisherige Versuche</div>
+      </div>
+      <div class="magic-step">
+        <div class="ms-num">02</div>
+        <div class="ms-title">KI-Agent füllt Template</div>
+        <div class="ms-desc">Automatisiert: Template + Call-Notizen + Branchendaten → 90% vorgefüllt <span class="ai-indicator">KI ~90%</span></div>
+      </div>
+      <div class="magic-step">
+        <div class="ms-num">03</div>
+        <div class="ms-title">Menschlicher Feinschliff</div>
+        <div class="ms-desc">Stratege prüft, ergänzt individuelle Insights, schärft Roadmap</div>
+      </div>
+      <div class="magic-step">
+        <div class="ms-num">04</div>
+        <div class="ms-title">HTML im Kundenbranding</div>
+        <div class="ms-desc">Claude generiert Seite mit Farben/Logo des Kunden → Subdomain oder URL</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Team Overview -->
+  <div class="team-section">
+    <span class="tag" style="background: var(--surface-hover); color: var(--text-dim);">Team-Setup</span>
+    <h3 style="margin-top: 12px;">Rollenverteilung (8–9 Personen + 2 neue Hires)</h3>
+    <div class="team-grid" style="margin-top: 16px;">
+      <div class="team-member">
+        <div class="tm-avatar acq-bg acq">⚡</div>
+        <div class="tm-info">
+          <div class="tm-role">Sales & Outreach</div>
+          <div class="tm-scope">Neuer Hire</div>
+          <div class="tm-pillar acq-bg acq">Acquisition</div>
+        </div>
+      </div>
+      <div class="team-member">
+        <div class="tm-avatar acq-bg acq">⚡</div>
+        <div class="tm-info">
+          <div class="tm-role">Marketing & Content</div>
+          <div class="tm-scope">Neuer Hire</div>
+          <div class="tm-pillar acq-bg acq">Acquisition</div>
+        </div>
+      </div>
+      <div class="team-member">
+        <div class="tm-avatar del-bg del">◆</div>
+        <div class="tm-info">
+          <div class="tm-role">Customer Success Manager</div>
+          <div class="tm-scope">Kundenkontakt, Sprints, Retention</div>
+          <div class="tm-pillar del-bg del">Delivery</div>
+        </div>
+      </div>
+      <div class="team-member">
+        <div class="tm-avatar del-bg del">◆</div>
+        <div class="tm-info">
+          <div class="tm-role">Stratege / Media Buyer</div>
+          <div class="tm-scope">Kampagnen, Funnels, Daten</div>
+          <div class="tm-pillar del-bg del">Delivery</div>
+        </div>
+      </div>
+      <div class="team-member">
+        <div class="tm-avatar del-bg del">◆</div>
+        <div class="tm-info">
+          <div class="tm-role">Kreativdirektor / Regisseur</div>
+          <div class="tm-scope">Treatments, Konzepte, Qualität</div>
+          <div class="tm-pillar del-bg del">Delivery</div>
+        </div>
+      </div>
+      <div class="team-member">
+        <div class="tm-avatar del-bg del">◆</div>
+        <div class="tm-info">
+          <div class="tm-role">Designer</div>
+          <div class="tm-scope">Grafik, Branding, LPs, Creatives</div>
+          <div class="tm-pillar del-bg del">Delivery</div>
+        </div>
+      </div>
+      <div class="team-member">
+        <div class="tm-avatar del-bg del">◆</div>
+        <div class="tm-info">
+          <div class="tm-role">Video Editor / Cutter</div>
+          <div class="tm-scope">Schnitt, Motion, Post</div>
+          <div class="tm-pillar del-bg del">Delivery</div>
+        </div>
+      </div>
+      <div class="team-member">
+        <div class="tm-avatar del-bg del">◆</div>
+        <div class="tm-info">
+          <div class="tm-role">Copywriter</div>
+          <div class="tm-scope">Ad Copy, LP-Texte, E-Mails</div>
+          <div class="tm-pillar del-bg del">Delivery</div>
+        </div>
+      </div>
+      <div class="team-member">
+        <div class="tm-avatar" style="background: var(--accent-ai-dim); color: var(--accent-ai);">◆</div>
+        <div class="tm-info">
+          <div class="tm-role">Projektmanagement / Generalist</div>
+          <div class="tm-scope">Orga, Prozesse, Zuarbeit</div>
+          <div class="tm-pillar" style="background: var(--accent-ai-dim); color: var(--accent-ai);">Beide Säulen</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
