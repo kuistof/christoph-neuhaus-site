@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Business OS — Christoph Neuhaus — Systemarchitektur</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FAFAF8;
+  --bg2: #F2F1ED;
+  --bg3: #E8E7E3;
+  --text: #1A1A18;
+  --text2: #6B6A65;
+  --text3: #9C9B96;
+  --border: rgba(0,0,0,0.08);
+  --border2: rgba(0,0,0,0.14);
+  --blue: #2563EB;
+  --blue-bg: #EFF6FF;
+  --blue-text: #1E40AF;
+  --teal: #0D9488;
+  --teal-bg: #F0FDFA;
+  --teal-text: #115E59;
+  --coral: #DC4A1A;
+  --coral-bg: #FFF7ED;
+  --coral-text: #9A3412;
+  --purple: #7C3AED;
+  --purple-bg: #F5F3FF;
+  --purple-text: #5B21B6;
+  --amber: #D97706;
+  --amber-bg: #FFFBEB;
+  --amber-text: #92400E;
+  --green: #16A34A;
+  --green-bg: #F0FDF4;
+  --green-text: #166534;
+  --red: #DC2626;
+  --red-bg: #FEF2F2;
+  --red-text: #991B1B;
+  --gray-bg: #F4F4F2;
+  --font: 'DM Sans', -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --radius: 10px;
+  --radius-lg: 16px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #141413;
+    --bg2: #1E1E1C;
+    --bg3: #2A2A27;
+    --text: #E8E7E3;
+    --text2: #9C9B96;
+    --text3: #6B6A65;
+    --border: rgba(255,255,255,0.06);
+    --border2: rgba(255,255,255,0.12);
+    --blue-bg: #172554;
+    --blue-text: #93C5FD;
+    --teal-bg: #134E4A;
+    --teal-text: #5EEAD4;
+    --coral-bg: #431407;
+    --coral-text: #FDBA74;
+    --purple-bg: #2E1065;
+    --purple-text: #C4B5FD;
+    --amber-bg: #451A03;
+    --amber-text: #FCD34D;
+    --green-bg: #052E16;
+    --green-text: #86EFAC;
+    --red-bg: #450A0A;
+    --red-text: #FCA5A5;
+    --gray-bg: #1E1E1C;
+  }
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+header {
+  margin-bottom: 48px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--border2);
+}
+
+header h1 {
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+}
+
+header p {
+  font-size: 15px;
+  color: var(--text2);
+  max-width: 640px;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 99px;
+}
+
+.pill::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.pill-blue { background: var(--blue-bg); color: var(--blue-text); }
+.pill-blue::before { background: var(--blue); }
+.pill-teal { background: var(--teal-bg); color: var(--teal-text); }
+.pill-teal::before { background: var(--teal); }
+.pill-coral { background: var(--coral-bg); color: var(--coral-text); }
+.pill-coral::before { background: var(--coral); }
+.pill-purple { background: var(--purple-bg); color: var(--purple-text); }
+.pill-purple::before { background: var(--purple); }
+.pill-amber { background: var(--amber-bg); color: var(--amber-text); }
+.pill-amber::before { background: var(--amber); }
+.pill-green { background: var(--green-bg); color: var(--green-text); }
+.pill-green::before { background: var(--green); }
+.pill-gray { background: var(--gray-bg); color: var(--text2); }
+.pill-gray::before { background: var(--text3); }
+
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  margin: 0 -24px;
+  padding: 0 24px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+nav .tabs {
+  display: flex;
+  gap: 0;
+  min-width: max-content;
+}
+
+nav .tab {
+  padding: 12px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text3);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s;
+  white-space: nowrap;
+  user-select: none;
+}
+
+nav .tab:hover { color: var(--text2); }
+nav .tab.active { color: var(--text); border-bottom-color: var(--text); }
+
+.section { display: none; padding-top: 36px; }
+.section.active { display: block; }
+
+h2 {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text2);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 14px;
+}
+
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px 24px;
+}
+
+.card + .card { margin-top: 12px; }
+
+.card-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-sub {
+  font-size: 13px;
+  color: var(--text2);
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 12px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 12px;
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr));
+  gap: 10px;
+}
+
+.metric {
+  background: var(--bg3);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+}
+
+.metric-label {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text3);
+  margin-bottom: 2px;
+}
+
+.metric-value {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.metric-desc {
+  font-size: 12px;
+  color: var(--text2);
+  margin-top: 2px;
+}
+
+/* FLOW DIAGRAM */
+
+.flow-diagram {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.flow-tier {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding: 8px 0;
+  width: 100%;
+}
+
+.flow-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 10px 16px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  font-size: 13px;
+  font-weight: 500;
+  min-width: 110px;
+  text-align: center;
+  transition: transform 0.15s;
+}
+
+.flow-node:hover { transform: translateY(-1px); }
+
+.flow-node .sub {
+  font-size: 11px;
+  font-weight: 400;
+  opacity: 0.7;
+}
+
+.flow-node.blue { background: var(--blue-bg); color: var(--blue-text); border-color: transparent; }
+.flow-node.teal { background: var(--teal-bg); color: var(--teal-text); border-color: transparent; }
+.flow-node.coral { background: var(--coral-bg); color: var(--coral-text); border-color: transparent; }
+.flow-node.purple { background: var(--purple-bg); color: var(--purple-text); border-color: transparent; }
+.flow-node.amber { background: var(--amber-bg); color: var(--amber-text); border-color: transparent; }
+.flow-node.green { background: var(--green-bg); color: var(--green-text); border-color: transparent; }
+
+.flow-arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4px 0;
+  color: var(--text3);
+  font-size: 11px;
+  gap: 2px;
+}
+
+.flow-arrow .arrow-line {
+  width: 1px;
+  height: 20px;
+  background: var(--border2);
+}
+
+.flow-arrow .arrow-head {
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 5px solid var(--text3);
+}
+
+.flow-arrow .arrow-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text3);
+  padding: 0 8px;
+}
+
+.flow-container {
+  width: 100%;
+  border: 1.5px dashed var(--border2);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  margin: 4px 0;
+  position: relative;
+}
+
+.flow-container-label {
+  position: absolute;
+  top: -9px;
+  left: 20px;
+  background: var(--bg);
+  padding: 0 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text2);
+}
+
+.flow-container .flow-tier { padding: 4px 0; }
+
+.flow-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.flow-row .sep {
+  color: var(--text3);
+  font-size: 14px;
+}
+
+/* WORKFLOW CARDS */
+
+.wf-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px 24px;
+  margin-bottom: 16px;
+}
+
+.wf-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.wf-num {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  min-width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.wf-num.coral { background: var(--coral-bg); color: var(--coral-text); }
+
+.wf-title { font-size: 16px; font-weight: 600; }
+
+.wf-trigger {
+  font-size: 12px;
+  color: var(--text2);
+  margin-bottom: 12px;
+  font-family: var(--mono);
+}
+
+.wf-chain {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.wf-step {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.wf-step.gray { background: var(--gray-bg); color: var(--text2); }
+.wf-step.purple { background: var(--purple-bg); color: var(--purple-text); }
+.wf-step.teal { background: var(--teal-bg); color: var(--teal-text); }
+.wf-step.blue { background: var(--blue-bg); color: var(--blue-text); }
+.wf-step.coral { background: var(--coral-bg); color: var(--coral-text); }
+.wf-step.amber { background: var(--amber-bg); color: var(--amber-text); }
+.wf-step.green { background: var(--green-bg); color: var(--green-text); }
+
+.wf-sep { color: var(--text3); font-size: 12px; }
+
+.wf-note {
+  font-size: 12px;
+  color: var(--text3);
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+
+/* AGENT CARDS */
+
+.agent-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 12px;
+}
+
+.agent-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  border-left: 3px solid var(--border2);
+}
+
+.agent-card.blue-accent { border-left-color: var(--blue); }
+.agent-card.teal-accent { border-left-color: var(--teal); }
+.agent-card.purple-accent { border-left-color: var(--purple); }
+.agent-card.amber-accent { border-left-color: var(--amber); }
+.agent-card.coral-accent { border-left-color: var(--coral); }
+
+.agent-name {
+  font-size: 14px;
+  font-weight: 600;
+  font-family: var(--mono);
+  margin-bottom: 4px;
+}
+
+.agent-scope {
+  font-size: 13px;
+  color: var(--text2);
+  margin-bottom: 8px;
+}
+
+.agent-context {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.agent-tag {
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: var(--bg3);
+  color: var(--text2);
+  font-family: var(--mono);
+}
+
+/* ROUTING TABLE */
+
+.routing {
+  width: 100%;
+  font-size: 13px;
+  border-collapse: collapse;
+}
+
+.routing th {
+  text-align: left;
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: var(--text3);
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border2);
+}
+
+.routing td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.routing td:first-child {
+  font-family: var(--mono);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+/* INFRA */
+
+.infra-layer {
+  border: 1.5px solid var(--border2);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.infra-layer-label {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.infra-badge {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 99px;
+}
+
+.infra-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.infra-item {
+  background: var(--bg3);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  font-size: 13px;
+  flex: 1;
+  min-width: 180px;
+}
+
+.infra-item-title {
+  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: 2px;
+}
+
+.infra-item-desc {
+  font-size: 12px;
+  color: var(--text2);
+}
+
+.connector {
+  text-align: center;
+  padding: 6px 0;
+  color: var(--text3);
+  font-size: 12px;
+  font-family: var(--mono);
+}
+
+/* SYNERGIES */
+
+.synergy-item {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+
+.synergy-item:last-child { border-bottom: none; }
+
+.synergy-arrow {
+  color: var(--text3);
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.conflict-item {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+
+.conflict-item:last-child { border-bottom: none; }
+
+.conflict-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.conflict-icon.high { background: var(--red-bg); color: var(--red-text); }
+.conflict-icon.med { background: var(--amber-bg); color: var(--amber-text); }
+.conflict-icon.low { background: var(--gray-bg); color: var(--text3); }
+
+/* BUILD TIMELINE */
+
+.timeline-item {
+  display: flex;
+  gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.timeline-item:last-child { border-bottom: none; }
+
+.timeline-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--bg3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text2);
+  flex-shrink: 0;
+}
+
+.timeline-num.done {
+  background: var(--green-bg);
+  color: var(--green-text);
+}
+
+.timeline-content {
+  flex: 1;
+}
+
+.timeline-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.timeline-desc {
+  font-size: 12px;
+  color: var(--text2);
+}
+
+.mb-12 { margin-bottom: 12px; }
+.mb-16 { margin-bottom: 16px; }
+.mb-24 { margin-bottom: 24px; }
+.mb-32 { margin-bottom: 32px; }
+.mt-24 { margin-top: 24px; }
+
+@media (max-width: 640px) {
+  .page { padding: 24px 16px 60px; }
+  header h1 { font-size: 22px; }
+  nav .tab { padding: 10px 14px; font-size: 12px; }
+  .flow-node { min-width: 90px; padding: 8px 10px; font-size: 12px; }
+  .routing { font-size: 12px; }
+  .routing td, .routing th { padding: 8px; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<header>
+  <h1>Business OS — Christoph Neuhaus</h1>
+  <p>Systemarchitektur, Datenstr&ouml;me, Automation und Schnittstellen. Solo-Unternehmensberater, Berlin. 5 Projekte, 4 Postf&auml;cher, 6 AI-Agenten, 4 n8n-Workflows, 1 Dashboard.</p>
+  <div class="legend">
+    <span class="pill pill-blue">Unternehmensberatung</span>
+    <span class="pill pill-teal">TimeLapseWorlds</span>
+    <span class="pill pill-purple">LennyMotion</span>
+    <span class="pill pill-amber">Aidvise</span>
+    <span class="pill pill-coral">Automation / n8n</span>
+    <span class="pill pill-gray">Infrastruktur</span>
+  </div>
+</header>
+
+<nav>
+  <div class="tabs">
+    <div class="tab active" data-tab="flow">Hauptfluss</div>
+    <div class="tab" data-tab="agents">AI-Agenten</div>
+    <div class="tab" data-tab="workflows">n8n Workflows</div>
+    <div class="tab" data-tab="infra">Infrastruktur</div>
+    <div class="tab" data-tab="synergies">Synergien &amp; Konflikte</div>
+    <div class="tab" data-tab="build">Build-Plan</div>
+  </div>
+</nav>
+
+<!-- ========== HAUPTFLUSS ========== -->
+<div class="section active" id="sec-flow">
+  <h2>Datenfluss: Eingang &rarr; Verarbeitung &rarr; Output</h2>
+
+  <div class="flow-diagram">
+    <h3>1. Eingangskan&auml;le</h3>
+    <div class="flow-tier">
+      <div class="flow-node blue">@panamono.com<span class="sub">IMAP</span></div>
+      <div class="flow-node blue">@doering.media<span class="sub">IMAP</span></div>
+      <div class="flow-node teal">@timelapseworlds<span class="sub">IMAP</span></div>
+      <div class="flow-node coral">WhatsApp<span class="sub">WA Business API</span></div>
+      <div class="flow-node purple">LinkedIn<span class="sub">manuell</span></div>
+    </div>
+
+    <div class="flow-arrow">
+      <div class="arrow-line"></div>
+      <div class="arrow-head"></div>
+      <span class="arrow-label">IMAP Polling / Webhook / manuell</span>
+    </div>
+
+    <div class="flow-container">
+      <div class="flow-container-label">n8n (Mac Mini, Docker)</div>
+      <h3 style="margin-top:6px">2. Trigger &amp; Routing</h3>
+      <div class="flow-tier">
+        <div class="flow-node" style="background:var(--bg3);">IMAP Node<span class="sub">4 Postf&auml;cher, 5 min</span></div>
+        <div class="flow-node" style="background:var(--bg3);">WA Webhook<span class="sub">Business API</span></div>
+        <div class="flow-node" style="background:var(--bg3);">File Upload<span class="sub">Transkripte</span></div>
+        <div class="flow-node" style="background:var(--bg3);">Cron 08:00<span class="sub">Morning Brief</span></div>
+      </div>
+    </div>
+
+    <div class="flow-arrow">
+      <div class="arrow-line"></div>
+      <div class="arrow-head"></div>
+      <span class="arrow-label">Nachricht + Metadaten</span>
+    </div>
+
+    <h3>3. AI-Verarbeitung (Claude API)</h3>
+    <div class="flow-row">
+      <div class="flow-node purple" style="min-width: 200px;">Triage-Agent<span class="sub">Projekt erkennen + Priorit&auml;t</span></div>
+      <span class="flow-row sep">&rarr;</span>
+      <div class="flow-node teal" style="min-width: 200px;">Projekt-Agent<span class="sub">Draft + Zusammenfassung</span></div>
+    </div>
+
+    <div class="flow-arrow">
+      <div class="arrow-line"></div>
+      <div class="arrow-head"></div>
+      <span class="arrow-label">Task + Draft</span>
+    </div>
+
+    <h3>4. Datenschicht</h3>
+    <div class="flow-row">
+      <div class="flow-node blue" style="min-width: 200px;">Supabase<span class="sub">Tasks, Drafts, Inbox, Pipeline</span></div>
+      <span class="flow-row sep">&larr;</span>
+      <div class="flow-node" style="background:var(--bg3); min-width: 160px;">Pipedrive API<span class="sub">Deal-Status sync</span></div>
+    </div>
+
+    <div class="flow-arrow">
+      <div class="arrow-line"></div>
+      <div class="arrow-head"></div>
+      <span class="arrow-label">Realtime Subscriptions</span>
+    </div>
+
+    <h3>5. Dashboard (Next.js / Vercel)</h3>
+    <div class="flow-tier">
+      <div class="flow-node blue">Inbox<span class="sub">Triage + AI-Drafts</span></div>
+      <div class="flow-node teal">Kanban<span class="sub">Tasks, 4h-Bl&ouml;cke</span></div>
+      <div class="flow-node purple">Pipeline<span class="sub">CRM + TLW Deals</span></div>
+      <div class="flow-node coral">Kalender<span class="sub">GCal sync</span></div>
+    </div>
+
+    <div class="flow-arrow">
+      <div class="arrow-line"></div>
+      <div class="arrow-head"></div>
+      <span class="arrow-label">Notification</span>
+    </div>
+
+    <h3>6. Benachrichtigung</h3>
+    <div class="flow-row">
+      <div class="flow-node coral">WhatsApp<span class="sub">Zusammenfassung</span></div>
+      <div class="flow-node" style="background:var(--bg3);">Dashboard<span class="sub">Notification</span></div>
+    </div>
+
+    <div class="flow-arrow">
+      <div class="arrow-line"></div>
+      <div class="arrow-head"></div>
+    </div>
+
+    <div class="flow-node amber" style="min-width: 280px; border-width: 2px;">
+      Christoph best&auml;tigt
+      <span class="sub">Human-in-the-loop &mdash; nichts geht raus ohne Freigabe</span>
+    </div>
+
+    <div class="flow-arrow">
+      <div class="arrow-line"></div>
+      <div class="arrow-head"></div>
+      <span class="arrow-label">Best&auml;tigung / &Auml;nderung</span>
+    </div>
+
+    <div class="flow-row">
+      <div class="flow-node green">E-Mail senden<span class="sub">SMTP</span></div>
+      <div class="flow-node green">WA antworten<span class="sub">WA API</span></div>
+      <div class="flow-node green">Task schlie&szlig;en<span class="sub">Supabase</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== AI-AGENTEN ========== -->
+<div class="section" id="sec-agents">
+  <h2>AI-Agenten (Claude API, .md-Files)</h2>
+  <p class="card-sub mb-24">Jeder Agent ist eine Markdown-Datei mit eigenem Kontext, Scope und Tonalit&auml;t. Der Triage-Agent ist der Router &mdash; er erkennt das Projekt und leitet an den richtigen Agenten weiter.</p>
+
+  <div class="card mb-16" style="border-left: 3px solid var(--text2); border-radius: 0;">
+    <div class="card-title">triage-agent.md &mdash; Router</div>
+    <div class="card-sub mb-12">Scope: Alle Kan&auml;le. Ordnet Nachrichten dem richtigen Projekt zu. Sch&auml;tzt Priorit&auml;t. Schreibt Auto-Acknowledgments.</div>
+    <div class="card-sub" style="font-style: italic;">Kennt: Alle Projekte, alle Postf&auml;cher, alle aktiven Deals, alle Agenten-Scopes.</div>
+  </div>
+
+  <h3 class="mb-12">Routing-Logik</h3>
+  <div class="card mb-24">
+    <table class="routing">
+      <thead>
+        <tr><th>Bedingung</th><th>Agent</th><th>Kontext</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>sender &isin; @panamono + Beratung</td><td><span class="pill pill-blue">berater-agent</span></td><td>BAFA, F&ouml;rderprogramme, Pipedrive</td></tr>
+        <tr><td>sender &isin; @doering.media</td><td><span class="pill pill-blue">performance-agent</span></td><td>Meta Ads, Funnel, Cases</td></tr>
+        <tr><td>sender &isin; @timelapseworlds</td><td><span class="pill pill-teal">tlw-agent</span></td><td>Rate Cards, Vertr&auml;ge, Partner</td></tr>
+        <tr><td>content ~ Funding / Pitch / Aidvise</td><td><span class="pill pill-amber">aidvise-agent</span></td><td>Pitch Deck, Pro FIT, Wettbewerb</td></tr>
+        <tr><td>content ~ LinkedIn / Content / Post</td><td><span class="pill pill-coral">linkedin-agent</span></td><td>3 Profile, Hooks, Outreach</td></tr>
+        <tr><td>ELSE</td><td><span class="pill pill-gray">manuelle Queue</span></td><td>&mdash;</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="mb-12">Projekt-Agenten &amp; Kontext-Quellen</h3>
+  <div class="agent-grid">
+    <div class="agent-card blue-accent">
+      <div class="agent-name">berater-agent.md</div>
+      <div class="agent-scope">E-Mail-Drafts, BAFA-Antr&auml;ge, Strategiedokumente. Tonalit&auml;t: Professionell, l&ouml;sungsorientiert, deutsch.</div>
+      <div class="agent-context">
+        <span class="agent-tag">BAFA-Richtlinien</span>
+        <span class="agent-tag">ZIM, Pro FIT, EXIST</span>
+        <span class="agent-tag">Pricing &euro;7K Sprint</span>
+        <span class="agent-tag">Pipedrive Deals</span>
+        <span class="agent-tag">Strategievorlagen</span>
+      </div>
+    </div>
+    <div class="agent-card blue-accent">
+      <div class="agent-name">performance-agent.md</div>
+      <div class="agent-scope">Kampagnen-Reports, Strategie-Empfehlungen, Kunden-Updates. Tonalit&auml;t: Datengetrieben, D&ouml;ring-Branding.</div>
+      <div class="agent-context">
+        <span class="agent-tag">Meta Ads KPIs</span>
+        <span class="agent-tag">Funnel-Strategien</span>
+        <span class="agent-tag">Reload Land</span>
+        <span class="agent-tag">HanVera</span>
+        <span class="agent-tag">Geheimrezept</span>
+        <span class="agent-tag">Report-Templates</span>
+      </div>
+    </div>
+    <div class="agent-card teal-accent">
+      <div class="agent-name">tlw-agent.md</div>
+      <div class="agent-scope">Kunden-E-Mails f&uuml;r Paul, Vertr&auml;ge, Invoices, Brand-Pitches. Tonalit&auml;t: Kreativbranche, EN + DE.</div>
+      <div class="agent-context">
+        <span class="agent-tag">Rate Cards</span>
+        <span class="agent-tag">Vertragsvorlagen</span>
+        <span class="agent-tag">Adobe</span>
+        <span class="agent-tag">Samsung</span>
+        <span class="agent-tag">F1</span>
+        <span class="agent-tag">Delta</span>
+        <span class="agent-tag">Invoice-Tracking</span>
+      </div>
+    </div>
+    <div class="agent-card amber-accent">
+      <div class="agent-name">aidvise-agent.md</div>
+      <div class="agent-scope">Pro FIT Drafts, Pitch-Deck, Investor-Komm., Wettbewerbsanalysen. Tonalit&auml;t: Startup, vision&auml;r.</div>
+      <div class="agent-context">
+        <span class="agent-tag">Pitch Deck</span>
+        <span class="agent-tag">Pro FIT &euro;500K</span>
+        <span class="agent-tag">DATEV</span>
+        <span class="agent-tag">milia.io</span>
+        <span class="agent-tag">Steuerboard</span>
+      </div>
+    </div>
+    <div class="agent-card coral-accent">
+      <div class="agent-name">linkedin-agent.md</div>
+      <div class="agent-scope">Posts, Outreach-DMs, Content-Kalender. 3 Profile mit unterschiedlicher Tonalit&auml;t.</div>
+      <div class="agent-context">
+        <span class="agent-tag">CN: Experte</span>
+        <span class="agent-tag">Lenny: Jung</span>
+        <span class="agent-tag">TLW: Kreativ</span>
+        <span class="agent-tag">Peslar-Playbook</span>
+        <span class="agent-tag">Hook-Frameworks</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== N8N WORKFLOWS ========== -->
+<div class="section" id="sec-workflows">
+  <h2>n8n-Workflows (Mac Mini, Docker)</h2>
+  <p class="card-sub mb-24">Alle Workflows folgen dem Prinzip: <strong>Human-in-the-Loop</strong> &mdash; Agenten schlagen vor, Christoph best&auml;tigt. Kein Agent tritt eigenst&auml;ndig in Kundenkontakt.</p>
+
+  <div class="wf-card">
+    <div class="wf-header">
+      <div class="wf-num coral">1</div>
+      <div class="wf-title">E-Mail-Triage &amp; Erstreaktion</div>
+    </div>
+    <div class="wf-trigger">Trigger: IMAP (4 Postf&auml;cher, alle 5 min)</div>
+    <div class="wf-chain">
+      <span class="wf-step gray">IMAP Node</span>
+      <span class="wf-sep">&rarr;</span>
+      <span class="wf-step purple">Claude: Triage</span>
+      <span class="wf-sep">&rarr;</span>
+      <span class="wf-step teal">Projekt-Agent</span>
+      <span class="wf-sep">&rarr;</span>
+      <span class="wf-step blue">Supabase Write</span>
+      <span class="wf-sep">&rarr;</span>
+      <span class="wf-step coral">WA Notification</span>
+      <span class="wf-sep">&rarr;</span>
+      <span class="wf-step amber">HITL</span>
+      <span class="wf-sep">&rarr;</span>
+      <span class="wf-step green">SMTP senden</span>
+    </div>
+    <div class="wf-note">Ziel: Nie wieder E-Mail &uuml;bersehen. Erstreaktion innerhalb von Stunden.</div>
+  </div>
+
+  <div class="wf-card">
+    <div class="wf-header">
+      <div class="wf-num coral">2</div>
+      <div class="wf-title">WhatsApp auto-acknowledge &amp; triage</div>
+    </div>
+    <div class="wf-trigger">Trigger: WhatsApp Business API Webhook</div>
+    <div class="wf-chain">
+      <span class="wf-step gray">WA Webhook</span>
+      <span class="wf-sep">&rarr;</span>
+      <span class="wf-step coral">Auto-Reply &#x2713;</span>
+      <span class="wf-sep">&rarr;</span>
+      <span class="wf-step purple">Claude: Triage</span>
+      <span class="wf-sep">&rarr;</span>
+      <span class="wf-step blue">Supabase Task</span>
+      <span class="wf-sep">&rarr;</span>
+      <span class="wf-step amber">HITL</span>
+    </div>
+    <div class="wf-note">Voraussetzung: WhatsApp Business API + Webhook-Endpoint. H&ouml;chste Setup-H&uuml;rde.</div>
+  </div>
+
+  <div class="wf-card">
+    <div class="wf-header">
+      <div class="wf-num coral">3</div>
+      <div class="wf-title">Meeting &rarr; Action Items &rarr; Tasks</div>
+    </div>
+    <div class="wf-trigger">Trigger: Transkript-Upload (manuell oder Webhook z.B. Otter.ai, Fathom)</div>
+    <div class="wf-chain">
+      <span class="wf-step gray">File Upload</span>
+      <span class="wf-sep">&rarr;</span>
+      <span class="wf-step purple">Projekt-Agent</span>
+      <span class="wf-sep">&rarr;</span>
+      <span class="wf-step teal">Action Items</span>
+      <span class="wf-sep">&rarr;</span>
+      <span class="wf-step blue">Drafts in DB</span>
+      <span class="wf-sep">&rarr;</span>
+      <span class="wf-step amber">HITL</span>
+    </div>
+    <div class="wf-note">Ziel: Nach jedem Meeting sofort alle Follow-ups als Draft.</div>
+  </div>
+
+  <div class="wf-card">
+    <div class="wf-header">
+      <div class="wf-num coral">4</div>
+      <div class="wf-title">Morning Brief (t&auml;glich 08:00)</div>
+    </div>
+    <div class="wf-trigger">Trigger: Cron, 08:00 Uhr</div>
+    <div class="wf-chain">
+      <span class="wf-step gray">Cron</span>
+      <span class="wf-sep">&rarr;</span>
+      <span class="wf-step gray">IMAP Scan</span>
+      <span class="wf-sep">&rarr;</span>
+      <span class="wf-step gray">GCal API</span>
+      <span class="wf-sep">&rarr;</span>
+      <span class="wf-step blue">Supabase Query</span>
+      <span class="wf-sep">&rarr;</span>
+      <span class="wf-step purple">Claude: Briefing</span>
+      <span class="wf-sep">&rarr;</span>
+      <span class="wf-step coral">WA an Christoph</span>
+    </div>
+    <div class="wf-note">Inhalt: Offene Tasks, heutiger Kalender, &uuml;berf&auml;llige Antworten, Priorit&auml;ten.</div>
+  </div>
+
+  <h3 class="mt-24 mb-12">Gemeinsame Abh&auml;ngigkeiten aller Workflows</h3>
+  <div class="grid-4">
+    <div class="metric"><div class="metric-label">AI</div><div class="metric-value" style="font-size:14px;">Claude API Key</div><div class="metric-desc">WF 1, 2, 3, 4</div></div>
+    <div class="metric"><div class="metric-label">Datenbank</div><div class="metric-value" style="font-size:14px;">Supabase</div><div class="metric-desc">WF 1, 2, 3, 4</div></div>
+    <div class="metric"><div class="metric-label">Messaging</div><div class="metric-value" style="font-size:14px;">WA Bus. API</div><div class="metric-desc">WF 2 + Notifications</div></div>
+    <div class="metric"><div class="metric-label">E-Mail</div><div class="metric-value" style="font-size:14px;">IMAP Creds</div><div class="metric-desc">WF 1, 4</div></div>
+  </div>
+</div>
+
+<!-- ========== INFRASTRUKTUR ========== -->
+<div class="section" id="sec-infra">
+  <h2>Infrastruktur-Schichten</h2>
+
+  <div class="infra-layer">
+    <div class="infra-layer-label"><span class="infra-badge" style="background:var(--coral-bg);color:var(--coral-text);">Lokal</span> Mac Mini (Berlin, Docker)</div>
+    <div class="infra-items">
+      <div class="infra-item"><div class="infra-item-title">n8n</div><div class="infra-item-desc">Self-hosted. 4 Workflows, IMAP, Cron, Webhooks. Docker Container.</div></div>
+      <div class="infra-item"><div class="infra-item-title">Agent .md-Files</div><div class="infra-item-desc">6 Agenten-Personas als Markdown. Werden von n8n an Claude API &uuml;bergeben.</div></div>
+      <div class="infra-item"><div class="infra-item-title">Trigger-Endpoints</div><div class="infra-item-desc">IMAP (4x Polling), WA Webhook, File-Upload Webhook, Cron.</div></div>
+    </div>
+  </div>
+
+  <div class="connector">&darr; HTTP / API &darr;</div>
+
+  <div class="infra-layer">
+    <div class="infra-layer-label"><span class="infra-badge" style="background:var(--purple-bg);color:var(--purple-text);">Cloud</span> Externe APIs</div>
+    <div class="infra-items">
+      <div class="infra-item"><div class="infra-item-title">Claude API (Anthropic)</div><div class="infra-item-desc">Triage, Zusammenfassung, Draft-Erstellung, Briefing-Generierung.</div></div>
+      <div class="infra-item"><div class="infra-item-title">WhatsApp Business API</div><div class="infra-item-desc">Eingehende Webhooks + Ausgehende Nachrichten + Auto-Replies.</div></div>
+      <div class="infra-item"><div class="infra-item-title">Google Calendar API</div><div class="infra-item-desc">Lesen via @panamono.com GWorkspace. Kalender-Daten f&uuml;rs Dashboard.</div></div>
+      <div class="infra-item"><div class="infra-item-title">Pipedrive API</div><div class="infra-item-desc">CRM-Sync f&uuml;r Beratungskunden. Deal-Status &rarr; Pipeline-Modul.</div></div>
+    </div>
+  </div>
+
+  <div class="connector">&darr; Write / Read &darr;</div>
+
+  <div class="infra-layer">
+    <div class="infra-layer-label"><span class="infra-badge" style="background:var(--blue-bg);color:var(--blue-text);">Cloud</span> Supabase</div>
+    <div class="infra-items">
+      <div class="infra-item"><div class="infra-item-title">PostgreSQL</div><div class="infra-item-desc">Tasks, Drafts, Inbox, Pipeline, Kalender-Events.</div></div>
+      <div class="infra-item"><div class="infra-item-title">Realtime</div><div class="infra-item-desc">Live-Subscriptions f&uuml;r Dashboard-Updates ohne Polling.</div></div>
+      <div class="infra-item"><div class="infra-item-title">Auth (optional)</div><div class="infra-item-desc">Single-User Auth. Oder einfacher: Token-basiert.</div></div>
+    </div>
+  </div>
+
+  <div class="connector">&darr; Realtime Subscriptions &darr;</div>
+
+  <div class="infra-layer">
+    <div class="infra-layer-label"><span class="infra-badge" style="background:var(--teal-bg);color:var(--teal-text);">Cloud</span> Vercel &mdash; Next.js Dashboard</div>
+    <div class="infra-items">
+      <div class="infra-item"><div class="infra-item-title">Next.js (App Router)</div><div class="infra-item-desc">TypeScript, Tailwind CSS, ESLint. 4 Module: Inbox, Kanban, Pipeline, Kalender.</div></div>
+      <div class="infra-item"><div class="infra-item-title">Deployment</div><div class="infra-item-desc">Auto-Deploy von GitHub main Branch. Preview-Deploys f&uuml;r Feature-Branches.</div></div>
+    </div>
+  </div>
+
+  <div class="connector">&darr; Browser &darr;</div>
+
+  <div class="infra-layer" style="border-color: var(--amber); border-width: 2px;">
+    <div class="infra-layer-label"><span class="infra-badge" style="background:var(--amber-bg);color:var(--amber-text);">User</span> Christoph (Browser + WhatsApp)</div>
+    <div class="infra-items">
+      <div class="infra-item"><div class="infra-item-title">Dashboard im Browser</div><div class="infra-item-desc">Review, Best&auml;tigung, Task-Management, Pipeline-&Uuml;bersicht.</div></div>
+      <div class="infra-item"><div class="infra-item-title">WhatsApp auf Handy</div><div class="infra-item-desc">Morning Brief, Notifications, Quick-Approve.</div></div>
+    </div>
+  </div>
+
+  <h3 class="mt-24 mb-12">Bestehende Tools (extern, angebunden)</h3>
+  <div class="grid-3">
+    <div class="metric"><div class="metric-label">CRM</div><div class="metric-value" style="font-size:14px;">Pipedrive</div><div class="metric-desc">API &rarr; Supabase sync. Eigene Kunden.</div></div>
+    <div class="metric"><div class="metric-label">PM (D&ouml;ring)</div><div class="metric-value" style="font-size:14px;">Monday.com</div><div class="metric-desc">Read-only f&uuml;r Dashboard. Team nutzt es.</div></div>
+    <div class="metric"><div class="metric-label">Content (Lenny)</div><div class="metric-value" style="font-size:14px;">Notion + Asana</div><div class="metric-desc">Bleibt extern. Lennys Stack.</div></div>
+    <div class="metric"><div class="metric-label">Kalender</div><div class="metric-value" style="font-size:14px;">Google Calendar</div><div class="metric-desc">@panamono.com GWorkspace.</div></div>
+    <div class="metric"><div class="metric-label">Dateien</div><div class="metric-value" style="font-size:14px;">Google Drive</div><div class="metric-desc">Panamono GWorkspace. Zentral.</div></div>
+    <div class="metric"><div class="metric-label">Social</div><div class="metric-value" style="font-size:14px;">LinkedIn</div><div class="metric-desc">3 Zwecke: Leads, Pitches, Outreach.</div></div>
+  </div>
+</div>
+
+<!-- ========== SYNERGIEN & KONFLIKTE ========== -->
+<div class="section" id="sec-synergies">
+  <h2>Synergien zwischen den Sph&auml;ren</h2>
+  <div class="card mb-24">
+    <div class="synergy-item"><span class="pill pill-blue" style="min-width:80px;justify-content:center;">BAFA</span><span class="synergy-arrow">&rarr;</span><span class="pill pill-amber">Aidvise</span> F&ouml;rdermittel-Know-how (Pro FIT, ZIM) direkt &uuml;bertragbar auf eigenen Antrag</div>
+    <div class="synergy-item"><span class="pill pill-blue" style="min-width:80px;justify-content:center;">D&ouml;ring</span><span class="synergy-arrow">&rarr;</span><span class="pill pill-blue">Eigene</span> Meta Ads Funnel generiert Beratungs-Leads f&uuml;r Christoph</div>
+    <div class="synergy-item"><span class="pill pill-gray" style="min-width:80px;justify-content:center;">Legacy</span><span class="synergy-arrow">&rarr;</span><span class="pill pill-blue">D&ouml;ring</span> Panamono-Anfragen &rarr; Weiterleitung auf Kickback-Basis</div>
+    <div class="synergy-item"><span class="pill pill-blue" style="min-width:80px;justify-content:center;">Netzwerk</span><span class="synergy-arrow">&rarr;</span><span class="pill pill-teal">TLW</span> Beratungskontakte k&ouml;nnen zu Brand Deals f&uuml;r Paul f&uuml;hren</div>
+    <div class="synergy-item"><span class="pill pill-purple" style="min-width:80px;justify-content:center;">LinkedIn</span><span class="synergy-arrow">&rarr;</span><span class="pill pill-gray">Alle</span> Thought Leadership + Brand Pitches + Outreach auf einer Plattform</div>
+    <div class="synergy-item"><span class="pill pill-blue" style="min-width:80px;justify-content:center;">KMUs</span><span class="synergy-arrow">&rarr;</span><span class="pill pill-amber">Aidvise</span> Beratungskunden als potenzielle Early Adopter</div>
+    <div class="synergy-item"><span class="pill pill-purple" style="min-width:80px;justify-content:center;">Lenny</span><span class="synergy-arrow">&rarr;</span><span class="pill pill-gray">Eigene</span> Workflows f&uuml;r Lenny direkt auf eigene Automations &uuml;bertragbar</div>
+  </div>
+
+  <h2>Konflikte &amp; Risiken</h2>
+  <div class="card">
+    <div class="conflict-item"><div class="conflict-icon high">!</div><div><strong>Tagesgesch&auml;ft vs. Aidvise:</strong> Beratung frisst Deep-Work-Zeit. Aidvise bekommt nur Reste. Kritischster Konflikt.</div></div>
+    <div class="conflict-item"><div class="conflict-icon high">!</div><div><strong>WhatsApp (1 Nummer):</strong> Alle Projekte auf einer Nummer. Kein Kontext, Chats bleiben offen, Kunden warten tagelang.</div></div>
+    <div class="conflict-item"><div class="conflict-icon med">~</div><div><strong>TLW Admin vs. Beratung:</strong> Beides Ops-intensiv, beides braucht Fokus &mdash; direkte Zeitkonkurrenz.</div></div>
+    <div class="conflict-item"><div class="conflict-icon med">~</div><div><strong>D&ouml;ring PM-Drift:</strong> Wird in PM/Asset-Erstellung reingezogen statt nur Sales + Strategy.</div></div>
+    <div class="conflict-item"><div class="conflict-icon low">&mdash;</div><div><strong>2 Beratungsadressen:</strong> @panamono.com vs. @christoph-neuhaus.de &mdash; Infrastruktur-Schulden, kein GWorkspace.</div></div>
+    <div class="conflict-item"><div class="conflict-icon low">&mdash;</div><div><strong>Tool-Wildwuchs:</strong> Pipedrive + Monday + Notion + Asana + GDrive + 4 Postf&auml;cher. Kein Single Source of Truth.</div></div>
+  </div>
+</div>
+
+<!-- ========== BUILD-PLAN ========== -->
+<div class="section" id="sec-build">
+  <h2>Build-Reihenfolge</h2>
+  <p class="card-sub mb-24">Priorisiert nach Abh&auml;ngigkeiten. Jeder Schritt baut auf dem vorherigen auf. Claude.ai = Architekt/Planer, Claude Code = Builder.</p>
+
+  <div class="card">
+    <div class="timeline-item">
+      <div class="timeline-num done">&#x2713;</div>
+      <div class="timeline-content"><div class="timeline-title">Umgebung aufgesetzt</div><div class="timeline-desc">Node.js, Git, Claude Code installiert. Next.js scaffolded (App Router, TypeScript, Tailwind). CLAUDE.md erstellt.</div></div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-num">1</div>
+      <div class="timeline-content"><div class="timeline-title">Kanban-Modul (Local State)</div><div class="timeline-desc">Tasks pro Projekt, Drag &amp; Drop, 4h-Block-Gruppierung. Kein Supabase, nur React State.</div></div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-num">2</div>
+      <div class="timeline-content"><div class="timeline-title">Supabase aufsetzen + Kanban anbinden</div><div class="timeline-desc">PostgreSQL-Schema, Realtime-Subscriptions, Kanban-Modul auf Supabase umstellen.</div></div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-num">3</div>
+      <div class="timeline-content"><div class="timeline-title">n8n auf Mac Mini (Docker)</div><div class="timeline-desc">Docker installieren, n8n Container starten, IMAP-Credentials einrichten, Netzwerk konfigurieren.</div></div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-num">4</div>
+      <div class="timeline-content"><div class="timeline-title">Morning Brief (WF 4)</div><div class="timeline-desc">Erster n8n-Workflow als Test. Cron &rarr; IMAP Scan &rarr; GCal &rarr; Supabase &rarr; Claude &rarr; WhatsApp.</div></div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-num">5</div>
+      <div class="timeline-content"><div class="timeline-title">E-Mail-Triage (WF 1) + Triage-Agent</div><div class="timeline-desc">triage-agent.md ausformulieren. IMAP &rarr; Claude &rarr; Projekt-Agent &rarr; Supabase &rarr; Notification.</div></div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-num">6</div>
+      <div class="timeline-content"><div class="timeline-title">Inbox-Modul im Dashboard</div><div class="timeline-desc">E-Mail + Triage-Ergebnisse anzeigen, AI-Drafts reviewen, Best&auml;tigungs-Flow.</div></div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-num">7</div>
+      <div class="timeline-content"><div class="timeline-title">WhatsApp Business API + WF 2</div><div class="timeline-desc">WA Business API Setup. Webhook-Endpoint. Auto-Acknowledge + Triage-Flow.</div></div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-num">8</div>
+      <div class="timeline-content"><div class="timeline-title">Pipeline-Modul + Pipedrive-Sync</div><div class="timeline-desc">CRM-&Uuml;bersicht: Beratungskunden + TLW Deals. Pipedrive API &rarr; Supabase &rarr; Dashboard.</div></div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-num">9</div>
+      <div class="timeline-content"><div class="timeline-title">Kalender-Modul + GCal-Integration</div><div class="timeline-desc">Tagesbl&ouml;cke (Deep Work / Calls / Ops / Flex). GCal API &rarr; Dashboard. Synced mit @panamono.com.</div></div>
+    </div>
+  </div>
+
+  <h3 class="mt-24 mb-12">Wichtige Regeln f&uuml;r alle Agenten</h3>
+  <div class="card">
+    <div class="conflict-item"><div class="conflict-icon" style="background:var(--amber-bg);color:var(--amber-text);">!</div><div>E-Mail-Antworten IMMER in der Sprache des Senders / des bestehenden Threads</div></div>
+    <div class="conflict-item"><div class="conflict-icon" style="background:var(--amber-bg);color:var(--amber-text);">!</div><div>Christoph Neuhaus ist IMMER &bdquo;Christoph Neuhaus&ldquo; &mdash; niemals &bdquo;Christoph D&ouml;ring&ldquo;</div></div>
+    <div class="conflict-item"><div class="conflict-icon" style="background:var(--amber-bg);color:var(--amber-text);">!</div><div>Christoph ist IMMER unabh&auml;ngiger Berater, niemals Angestellter</div></div>
+    <div class="conflict-item"><div class="conflict-icon" style="background:var(--amber-bg);color:var(--amber-text);">!</div><div>&bdquo;TimeLapseWorlds&ldquo; wird IMMER exakt so geschrieben</div></div>
+    <div class="conflict-item"><div class="conflict-icon" style="background:var(--red-bg);color:var(--red-text);">&#x2717;</div><div>Human-in-the-Loop: NICHTS geht raus ohne explizite Best&auml;tigung. Kein Agent tritt in Kundenkontakt.</div></div>
+  </div>
+</div>
+
+</div>
+
+<script>
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('sec-' + tab.dataset.tab).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+</script>
+</body>
+</html>
