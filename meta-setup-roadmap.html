@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meta Ads — Agentur & Kunden Setup Roadmap 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --surface-2: #1a2236;
+    --surface-3: #222d44;
+    --border: #2a3654;
+    --border-active: #3b82f6;
+    --text: #e2e8f0;
+    --text-muted: #8899b4;
+    --text-dim: #5a6a85;
+    --accent: #3b82f6;
+    --accent-glow: rgba(59, 130, 246, 0.15);
+    --success: #10b981;
+    --success-bg: rgba(16, 185, 129, 0.08);
+    --warning: #f59e0b;
+    --warning-bg: rgba(245, 158, 11, 0.08);
+    --agency: #8b5cf6;
+    --agency-bg: rgba(139, 92, 246, 0.08);
+    --client: #06b6d4;
+    --client-bg: rgba(6, 182, 212, 0.08);
+    --both: #f472b6;
+    --both-bg: rgba(244, 114, 182, 0.08);
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  .noise-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 48px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .meta-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #1877f2 0%, #0866ff 100%);
+    color: white;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-size: clamp(28px, 5vw, 42px);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, #e2e8f0 0%, #94a3b8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  header p {
+    color: var(--text-muted);
+    font-size: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* Progress Bar */
+  .progress-wrapper {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10, 14, 26, 0.92);
+    backdrop-filter: blur(12px);
+    padding: 16px 0;
+    margin: 0 -24px;
+    padding-left: 24px;
+    padding-right: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .progress-bar-outer {
+    background: var(--surface);
+    border-radius: 6px;
+    height: 8px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .progress-bar-inner {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), #60a5fa);
+    border-radius: 6px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  .progress-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .progress-stats strong {
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+  }
+
+  /* Legend */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 36px;
+    padding: 16px 20px;
+    background: var(--surface);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* Sections / Phases */
+  .phase {
+    margin-bottom: 36px;
+  }
+
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .phase-number {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+    flex-shrink: 0;
+    background: var(--surface-2);
+    border: 2px solid var(--border);
+    color: var(--text-muted);
+    transition: all 0.3s;
+  }
+
+  .phase.completed .phase-number {
+    background: var(--success);
+    border-color: var(--success);
+    color: white;
+  }
+
+  .phase-title {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .phase-subtitle {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  .phase-chevron {
+    margin-left: auto;
+    color: var(--text-dim);
+    transition: transform 0.3s;
+    font-size: 20px;
+  }
+
+  .phase.collapsed .phase-chevron {
+    transform: rotate(-90deg);
+  }
+
+  .phase-content {
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+
+  .phase.collapsed .phase-content {
+    max-height: 0 !important;
+  }
+
+  /* Task Items */
+  .task {
+    display: flex;
+    gap: 14px;
+    padding: 16px 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    margin-bottom: 8px;
+    transition: all 0.2s;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .task:hover {
+    border-color: var(--border-active);
+    background: var(--surface-2);
+  }
+
+  .task.done {
+    opacity: 0.55;
+    border-color: var(--border);
+  }
+
+  .task.done .task-text { text-decoration: line-through; text-decoration-color: var(--text-dim); }
+
+  .task-check {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+    transition: all 0.2s;
+    background: transparent;
+  }
+
+  .task.done .task-check {
+    background: var(--success);
+    border-color: var(--success);
+  }
+
+  .task.done .task-check::after {
+    content: '✓';
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .task-body { flex: 1; min-width: 0; }
+
+  .task-text {
+    font-size: 14.5px;
+    font-weight: 500;
+    line-height: 1.5;
+    margin-bottom: 4px;
+  }
+
+  .task-detail {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+
+  .task-detail code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    background: var(--surface-3);
+    padding: 2px 7px;
+    border-radius: 4px;
+    color: #93c5fd;
+  }
+
+  .task-tags {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 12px;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+  }
+
+  .tag-agency { background: var(--agency-bg); color: var(--agency); border: 1px solid rgba(139,92,246,0.2); }
+  .tag-client { background: var(--client-bg); color: var(--client); border: 1px solid rgba(6,182,212,0.2); }
+  .tag-both { background: var(--both-bg); color: var(--both); border: 1px solid rgba(244,114,182,0.2); }
+  .tag-tech { background: rgba(245,158,11,0.08); color: var(--warning); border: 1px solid rgba(245,158,11,0.2); }
+
+  /* Info Boxes */
+  .info-box {
+    padding: 16px 18px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 8px;
+    font-size: 13.5px;
+    line-height: 1.6;
+    border-left: 3px solid;
+  }
+
+  .info-box.tip {
+    background: rgba(59, 130, 246, 0.06);
+    border-color: var(--accent);
+    color: #93c5fd;
+  }
+
+  .info-box.warning {
+    background: rgba(245, 158, 11, 0.06);
+    border-color: var(--warning);
+    color: #fcd34d;
+  }
+
+  .info-box.important {
+    background: rgba(239, 68, 68, 0.06);
+    border-color: #ef4444;
+    color: #fca5a5;
+  }
+
+  .info-box strong {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+
+  /* Connector Line */
+  .connector {
+    width: 2px;
+    height: 20px;
+    background: var(--border);
+    margin: 0 auto;
+  }
+
+  /* Section Divider */
+  .section-divider {
+    text-align: center;
+    padding: 24px 0;
+    position: relative;
+  }
+
+  .section-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .section-divider span {
+    background: var(--bg);
+    padding: 0 20px;
+    position: relative;
+    font-size: 13px;
+    color: var(--text-dim);
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* Reset Button */
+  .reset-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .reset-btn:hover {
+    border-color: #ef4444;
+    color: #ef4444;
+  }
+
+  footer {
+    margin-top: 60px;
+    padding-top: 30px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 13px;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .container { padding: 24px 16px 60px; }
+    .legend { flex-direction: column; gap: 8px; }
+    .phase-title { font-size: 17px; }
+    .task { padding: 14px; }
+    h1 { font-size: 26px; }
+  }
+
+  /* Print */
+  @media print {
+    .noise-overlay, .progress-wrapper, .reset-btn, .phase-chevron { display: none; }
+    body { background: white; color: black; }
+    .task { border: 1px solid #ccc; break-inside: avoid; }
+    .phase.collapsed .phase-content { max-height: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="noise-overlay"></div>
+
+<div class="container">
+  <header>
+    <div class="meta-badge">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/></svg>
+      Meta Ads 2026
+    </div>
+    <h1>Agentur ↔ Kunden<br>Setup Roadmap</h1>
+    <p>Schritt-für-Schritt Anleitung für die korrekte Einrichtung der Zusammenarbeit zwischen Agentur und Kunden im Meta Business Ökosystem.</p>
+  </header>
+
+  <div class="progress-wrapper">
+    <div class="progress-bar-outer">
+      <div class="progress-bar-inner" id="progressBar"></div>
+    </div>
+    <div class="progress-stats">
+      <span><strong id="doneCount">0</strong> von <strong id="totalCount">0</strong> erledigt</span>
+      <span id="progressPercent">0%</span>
+    </div>
+  </div>
+
+  <div style="height: 24px"></div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background: var(--agency)"></div> Agentur-Aufgabe</div>
+    <div class="legend-item"><div class="legend-dot" style="background: var(--client)"></div> Kunden-Aufgabe</div>
+    <div class="legend-item"><div class="legend-dot" style="background: var(--both)"></div> Beide Seiten</div>
+    <div class="legend-item"><div class="legend-dot" style="background: var(--warning)"></div> Technisch</div>
+  </div>
+
+  <div id="phases">
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- PHASE 1 -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <div class="phase" data-phase="1">
+      <div class="phase-header" onclick="togglePhase(this)">
+        <div class="phase-number">1</div>
+        <div>
+          <div class="phase-title">Agentur-Account einrichten</div>
+          <div class="phase-subtitle">Einmalig — Dein eigenes Business Portfolio aufsetzen</div>
+        </div>
+        <div class="phase-chevron">▾</div>
+      </div>
+      <div class="phase-content">
+
+        <div class="info-box tip">
+          <strong>💡 Grundprinzip</strong>
+          Jede Agentur braucht ein eigenes Meta Business Portfolio (ehemals „Business Manager"). Darüber werden später alle Kunden als Partner angebunden. Kunden fügt man NIEMALS als „People/Mitarbeiter" hinzu — sondern immer als „Partner".
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Persönliches Facebook-Profil absichern</div>
+            <div class="task-detail">Dein persönliches Profil ist der Schlüssel zu allem. Aktiviere <strong>2-Faktor-Authentifizierung</strong> (2FA) unter Einstellungen → Sicherheit. Nutze eine Authenticator-App, keine SMS.</div>
+            <div class="task-tags"><span class="tag tag-agency">Agentur</span></div>
+          </div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Meta Business Portfolio erstellen</div>
+            <div class="task-detail">Gehe zu <code>business.facebook.com</code> → „Business Portfolio erstellen". Nutze deine <strong>geschäftliche E-Mail</strong> (z.B. info@doering.media), niemals eine private Gmail/Yahoo-Adresse. Ein persönliches FB-Profil wird als digitale Identität verknüpft.</div>
+            <div class="task-tags"><span class="tag tag-agency">Agentur</span></div>
+          </div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Business-Informationen vervollständigen</div>
+            <div class="task-detail">Unter „Business Portfolio Info" alle Felder ausfüllen: Firmenname, Adresse, Telefon, Steuernummer. Unvollständige Profile können zu Einschränkungen führen.</div>
+            <div class="task-tags"><span class="tag tag-agency">Agentur</span></div>
+          </div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Business-Verifizierung durchführen</div>
+            <div class="task-detail">Unter Business Settings → Security Center die Verifizierung starten. Offizielle Dokumente hochladen (Handelsregisterauszug, Steuerbescheid, Nebenkostenabrechnung). Verifizierte Portfolios erhalten <strong>höhere Ad-Limits</strong> und besseren Schutz.</div>
+            <div class="task-tags"><span class="tag tag-agency">Agentur</span></div>
+          </div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">2FA für alle Admins erzwingen</div>
+            <div class="task-detail">Business Settings → Security Center → 2FA für alle Admins einschalten. Ab 2026 ist das Pflicht für alle Business-Portfolio-Admins.</div>
+            <div class="task-tags"><span class="tag tag-agency">Agentur</span></div>
+          </div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Business Portfolio ID notieren</div>
+            <div class="task-detail">Deine Portfolio-ID findest du unter Business Settings → Business Info. Diese ID gibst du später deinen Kunden, damit sie dich als Partner hinzufügen können. <strong>Nicht verwechseln</strong> mit der Ad-Account-ID!</div>
+            <div class="task-tags"><span class="tag tag-agency">Agentur</span></div>
+          </div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Backup-Admin einrichten</div>
+            <div class="task-detail">Mindestens eine zweite Person als Admin hinzufügen. Wenn der Haupt-Admin den Zugang verliert, kann der Backup sofort einspringen. Ohne Backup-Admin riskierst du den Totalverlust des Accounts.</div>
+            <div class="task-tags"><span class="tag tag-agency">Agentur</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="connector"></div>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- PHASE 2 -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <div class="phase" data-phase="2">
+      <div class="phase-header" onclick="togglePhase(this)">
+        <div class="phase-number">2</div>
+        <div>
+          <div class="phase-title">Agentur-Mitarbeiter einladen</div>
+          <div class="phase-subtitle">Dein Team ins Business Portfolio holen</div>
+        </div>
+        <div class="phase-chevron">▾</div>
+      </div>
+      <div class="phase-content">
+
+        <div class="info-box tip">
+          <strong>💡 People vs. Partners</strong>
+          Mitarbeiter deiner Agentur werden als <strong>„People" (Personen)</strong> hinzugefügt. Kunden/externe Firmen dagegen werden als <strong>„Partners"</strong> verbunden. Niemals Kunden als People hinzufügen!
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Mitarbeiter mit geschäftlicher E-Mail einladen</div>
+            <div class="task-detail">Business Settings → People → „+ Add". E-Mail-Adresse eingeben. <strong>Achtung:</strong> Bei einem neuen Portfolio muss man nach Erstellung mindestens <strong>1 Stunde warten</strong>, bevor man weitere Nutzer hinzufügen kann.</div>
+            <div class="task-tags"><span class="tag tag-agency">Agentur</span></div>
+          </div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Rollen richtig vergeben</div>
+            <div class="task-detail">
+              <strong>Admin (Full Control)</strong> — Kann alles: Nutzer verwalten, Billing sehen, Assets hinzufügen. Nur für Geschäftsführer/Inhaber.<br>
+              <strong>Employee (Standard Access)</strong> — Kann auf zugewiesene Assets zugreifen. Kann KEINE Nutzer hinzufügen oder Business-Settings ändern. Für alle Mitarbeiter.
+            </div>
+            <div class="task-tags"><span class="tag tag-agency">Agentur</span></div>
+          </div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Asset-Berechtigungen pro Mitarbeiter zuweisen</div>
+            <div class="task-detail">Nach dem Einladen: Jedem Mitarbeiter gezielt Ad Accounts, Pages und Pixel/Datasets zuweisen. Ein Media Buyer braucht z.B. Ads-Zugang, aber keine Page-Verwaltung. Ein Content Manager braucht Page-Zugang, aber keine Ads.</div>
+            <div class="task-tags"><span class="tag tag-agency">Agentur</span></div>
+          </div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Mitarbeiter akzeptiert Einladung</div>
+            <div class="task-detail">Der Mitarbeiter erhält eine E-Mail von Meta mit einem Einladungslink. Der Link muss geklickt werden, um den Zugang zu aktivieren. Der Mitarbeiter braucht ein persönliches Facebook-Profil als Identität.</div>
+            <div class="task-tags"><span class="tag tag-agency">Agentur</span></div>
+          </div>
+        </div>
+
+        <div class="info-box warning">
+          <strong>⚠️ Managed Meta Accounts (für größere Agenturen)</strong>
+          Ab 2026 bietet Meta „Managed Meta Accounts" an — Mitarbeiter loggen sich über SSO (Single Sign-On) ein statt über persönliche Facebook-Profile. Relevant für Agenturen mit vielen Mitarbeitern. Externe Partner (Kunden) sind davon NICHT betroffen.
+        </div>
+
+      </div>
+    </div>
+
+    <div class="connector"></div>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- PHASE 3 -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <div class="phase" data-phase="3">
+      <div class="phase-header" onclick="togglePhase(this)">
+        <div class="phase-number">3</div>
+        <div>
+          <div class="phase-title">Kunden-Account vorbereiten</div>
+          <div class="phase-subtitle">Was der Kunde auf seiner Seite einrichten muss</div>
+        </div>
+        <div class="phase-chevron">▾</div>
+      </div>
+      <div class="phase-content">
+
+        <div class="info-box important">
+          <strong>🔴 Goldene Regel</strong>
+          Der Kunde behält IMMER die Ownership über alle seine Assets (Facebook Page, Instagram, Ad Account, Pixel/Dataset). Die Agentur bekommt nur Partner-Zugang. Niemals Assets zur Agentur übertragen!
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Kunde: Persönliches FB-Profil mit 2FA absichern</div>
+            <div class="task-detail">Bevor irgendetwas anderes passiert, muss der Admin-Account des Kunden mit 2-Faktor-Authentifizierung gesichert sein. Ohne 2FA kann Meta den „Genehmigen"-Button für Partner-Anfragen grau schalten.</div>
+            <div class="task-tags"><span class="tag tag-client">Kunde</span></div>
+          </div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Kunde: Eigenes Meta Business Portfolio erstellen</div>
+            <div class="task-detail">Falls noch nicht vorhanden: <code>business.facebook.com</code> → „Business Portfolio erstellen". Mit geschäftlicher E-Mail des Kunden. Der Kunde braucht sein eigenes Portfolio — er darf nicht in deinem arbeiten.</div>
+            <div class="task-tags"><span class="tag tag-client">Kunde</span></div>
+          </div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Kunde: Facebook Page im Portfolio claimen</div>
+            <div class="task-detail">Business Settings → Pages → „Add a Page". Wenn der Kunde Admin der bestehenden Page ist, wird sie sofort verbunden. Falls eine andere Person/Agentur die Page hält, muss der Zugang erst übertragen werden.</div>
+            <div class="task-tags"><span class="tag tag-client">Kunde</span></div>
+          </div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Kunde: Instagram Business Account verknüpfen</div>
+            <div class="task-detail">Business Settings → Accounts → Instagram Accounts → „Add". Der Instagram-Account muss ein Business- oder Creator-Profil sein (kein persönliches Profil).</div>
+            <div class="task-tags"><span class="tag tag-client">Kunde</span></div>
+          </div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Kunde: Ad Account erstellen (falls nicht vorhanden)</div>
+            <div class="task-detail">Business Settings → Ad Accounts → „+ Add" → „Create a new ad account". Der Ad Account gehört ins Business Portfolio des <strong>Kunden</strong>. Zahlungsmethode muss ebenfalls auf Kundenseite hinterlegt werden.</div>
+            <div class="task-tags"><span class="tag tag-client">Kunde</span></div>
+          </div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Kunde: Meta Pixel / Dataset erstellen</div>
+            <div class="task-detail">Events Manager → „Connect data" → „Web" → Dataset/Pixel erstellen. Die Pixel-ID (= Dataset-ID) notieren. Auch der Pixel bleibt im Portfolio des Kunden — der Agentur wird später Zugang geteilt.</div>
+            <div class="task-tags"><span class="tag tag-client">Kunde</span></div>
+          </div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Kunde: Business Portfolio ID an Agentur schicken</div>
+            <div class="task-detail">Die Portfolio-ID (nicht Ad-Account-ID!) findet man unter Business Settings → Business Info. Diese ID geht per E-Mail oder Nachricht an die Agentur.</div>
+            <div class="task-tags"><span class="tag tag-client">Kunde</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="connector"></div>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- PHASE 4 -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <div class="phase" data-phase="4">
+      <div class="phase-header" onclick="togglePhase(this)">
+        <div class="phase-number">4</div>
+        <div>
+          <div class="phase-title">Partner-Verbindung herstellen</div>
+          <div class="phase-subtitle">Agentur und Kunde verknüpfen — der Kern des Setups</div>
+        </div>
+        <div class="phase-chevron">▾</div>
+      </div>
+      <div class="phase-content">
+
+        <div class="info-box tip">
+          <strong>💡 Zwei Wege, ein Ziel</strong>
+          Es gibt zwei Methoden: (A) Der Kunde fügt die Agentur als Partner hinzu, oder (B) Die Agentur stellt eine Anfrage. Methode A ist einfacher, Methode B gibt der Agentur mehr Kontrolle.
+        </div>
+
+        <div class="section-divider"><span>Methode A — Kunde fügt Agentur hinzu</span></div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Kunde: Partner hinzufügen im Business Portfolio</div>
+            <div class="task-detail">Business Settings → Partners → „+ Add" → <strong>„Give a partner access to your assets"</strong>. Die Business Portfolio ID der Agentur eingeben (die du in Phase 1 notiert hast).</div>
+            <div class="task-tags"><span class="tag tag-client">Kunde</span></div>
+          </div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Kunde: Assets und Berechtigungen zuweisen</div>
+            <div class="task-detail">
+              Im nächsten Schritt wählt der Kunde aus, welche Assets geteilt werden. Empfohlene Berechtigungen:<br>
+              • <strong>Ad Account</strong> → „Manage Ad Accounts" (voller Kampagnen-Zugang)<br>
+              • <strong>Facebook Page</strong> → „Manage Page" (Content erstellen & veröffentlichen)<br>
+              • <strong>Instagram</strong> → „Manage" (Posten, Insights, Ads)<br>
+              • <strong>Pixel / Dataset</strong> → „Manage" (Tracking konfigurieren)<br>
+              • <strong>Katalog</strong> (falls E-Commerce) → unter Data Sources → Catalogues
+            </div>
+            <div class="task-tags"><span class="tag tag-client">Kunde</span></div>
+          </div>
+        </div>
+
+        <div class="section-divider"><span>Methode B — Agentur stellt Anfrage</span></div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Agentur: Partner-Zugang anfragen</div>
+            <div class="task-detail">Business Settings → Partners → „+ Add" → <strong>„Ask a partner to share their assets"</strong>. Kontaktname, E-Mail und die Business Portfolio ID des Kunden eingeben. Berechtigungen für Ad Account, Page, Pixel etc. auswählen.</div>
+            <div class="task-tags"><span class="tag tag-agency">Agentur</span></div>
+          </div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Kunde: Anfrage genehmigen</div>
+            <div class="task-detail">Der Kunde geht zu Business Settings → Requests → „Received" Tab. Die Agentur-Anfrage finden und auf <strong>„Approve"</strong> klicken. Meta prüft seit September 2025 dabei, ob die E-Mail des Genehmigenden zur verifizierten Domain passt und ob 2FA aktiv ist.</div>
+            <div class="task-tags"><span class="tag tag-client">Kunde</span></div>
+          </div>
+        </div>
+
+        <div class="section-divider"><span>Verbindung prüfen</span></div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Beide Seiten: Verbindung verifizieren</div>
+            <div class="task-detail">Agentur prüft unter Partners, ob alle Assets sichtbar sind. Kunde prüft unter Partners, ob die Agentur mit korrekten Berechtigungen angezeigt wird. Screenshot zur Dokumentation machen!</div>
+            <div class="task-tags"><span class="tag tag-both">Beide</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="connector"></div>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- PHASE 5 -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <div class="phase" data-phase="5">
+      <div class="phase-header" onclick="togglePhase(this)">
+        <div class="phase-number">5</div>
+        <div>
+          <div class="phase-title">Agentur-Mitarbeiter auf Kunden-Assets zuweisen</div>
+          <div class="phase-subtitle">Wer in deinem Team darf was beim Kunden?</div>
+        </div>
+        <div class="phase-chevron">▾</div>
+      </div>
+      <div class="phase-content">
+
+        <div class="info-box tip">
+          <strong>💡 So funktioniert es</strong>
+          Sobald die Partner-Verbindung steht, kann der Agentur-Admin innerhalb seines eigenen Business Portfolios festlegen, welche Mitarbeiter Zugriff auf welche Kunden-Assets erhalten. Der Kunde muss dafür nichts weiter tun.
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Agentur-Admin: Mitarbeiter den Kunden-Assets zuweisen</div>
+            <div class="task-detail">Business Settings → People → Mitarbeiter auswählen → „Assign Assets". Dort tauchen jetzt auch die per Partner-Zugang geteilten Assets auf. Dem Media Buyer den Ad Account zuweisen, dem Content Manager die Page.</div>
+            <div class="task-tags"><span class="tag tag-agency">Agentur</span></div>
+          </div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Berechtigungs-Level pro Asset festlegen</div>
+            <div class="task-detail">
+              Für jeden Mitarbeiter und jedes Asset gibt es Abstufungen:<br>
+              • <strong>View</strong> — Nur Daten einsehen (für Analysten, Reporting)<br>
+              • <strong>Manage</strong> — Kampagnen erstellen, Content posten, Pixel konfigurieren<br>
+              • <strong>Admin</strong> — Alles + andere Nutzer verwalten (nur für Leads)
+            </div>
+            <div class="task-tags"><span class="tag tag-agency">Agentur</span></div>
+          </div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Test: Mitarbeiter-Zugriff prüfen</div>
+            <div class="task-detail">Jeder zugewiesene Mitarbeiter sollte sich einloggen und prüfen, ob er in der Business Suite den Kunden-Ad Account, die Page und den Events Manager sehen kann. Probleme früh erkennen!</div>
+            <div class="task-tags"><span class="tag tag-agency">Agentur</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="connector"></div>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- PHASE 6 -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <div class="phase" data-phase="6">
+      <div class="phase-header" onclick="togglePhase(this)">
+        <div class="phase-number">6</div>
+        <div>
+          <div class="phase-title">Tracking einrichten (Pixel + CAPI)</div>
+          <div class="phase-subtitle">Pixel & Conversions API — Pflicht für jeden Kunden in 2026</div>
+        </div>
+        <div class="phase-chevron">▾</div>
+      </div>
+      <div class="phase-content">
+
+        <div class="info-box warning">
+          <strong>⚠️ 2026 Pflicht: Pixel + Conversions API</strong>
+          Pixel allein reicht nicht mehr. Durch iOS-Privacy, Ad Blocker und Cookie-Banner verliert reines Pixel-Tracking über 50% der Conversions. Meta empfiehlt seit 2025 ausdrücklich die Kombination aus Pixel (Browser) + Conversions API (Server) mit Event-Deduplizierung.
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Meta Pixel auf Kunden-Website installieren</div>
+            <div class="task-detail">Das Pixel-Base-Code-Snippet in den <code>&lt;head&gt;</code>-Bereich jeder Seite einbauen. Möglichst weit oben platzieren, vor anderen Scripts. Alternativ per Tag Manager (GTM) oder Partner-Integration (Shopify, WordPress etc.).</div>
+            <div class="task-tags"><span class="tag tag-tech">Technisch</span><span class="tag tag-agency">Agentur</span></div>
+          </div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Standard-Events konfigurieren</div>
+            <div class="task-detail">Mindestens: <code>PageView</code>, <code>ViewContent</code>, <code>AddToCart</code>, <code>InitiateCheckout</code>, <code>Purchase</code>, <code>Lead</code>. Über Event Setup Tool (No-Code) oder manuell im Code.</div>
+            <div class="task-tags"><span class="tag tag-tech">Technisch</span></div>
+          </div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Conversions API (CAPI) einrichten</div>
+            <div class="task-detail">Drei Optionen:<br>
+              • <strong>Partner-Integration</strong> (Shopify, WooCommerce, WordPress-Plugins) — einfachste Methode<br>
+              • <strong>Conversions API Gateway</strong> — Meta-eigene Lösung, kein Dev nötig (~10$/Monat Hosting)<br>
+              • <strong>Server-Side GTM</strong> — Maximale Kontrolle, braucht aber technisches Setup
+            </div>
+            <div class="task-tags"><span class="tag tag-tech">Technisch</span><span class="tag tag-agency">Agentur</span></div>
+          </div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Event Deduplizierung aktivieren</div>
+            <div class="task-detail">Wenn Pixel UND CAPI laufen, wird jedes Event von beiden Quellen gesendet. Ohne Deduplizierung zählt Meta alles doppelt. Lösung: Gleiche <code>event_id</code> in Pixel- und CAPI-Events verwenden.</div>
+            <div class="task-tags"><span class="tag tag-tech">Technisch</span></div>
+          </div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Advanced Matching aktivieren</div>
+            <div class="task-detail">Im Events Manager → Dataset Settings → „Automatic Advanced Matching" einschalten. Sendet gehashte Kundendaten (E-Mail, Telefon, Name) an Meta, was die Event Match Quality (EMQ) deutlich verbessert.</div>
+            <div class="task-tags"><span class="tag tag-tech">Technisch</span></div>
+          </div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Pixel mit Ad Account verknüpfen</div>
+            <div class="task-detail">Events Manager → Dataset auswählen → Settings → Connected Assets → Ad Account zuweisen. Ohne diese Verknüpfung kann der Pixel nicht für Kampagnen-Optimierung genutzt werden.</div>
+            <div class="task-tags"><span class="tag tag-tech">Technisch</span></div>
+          </div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Event Match Quality (EMQ) prüfen</div>
+            <div class="task-detail">Events Manager → Dataset → Event-Score prüfen. Ziel: <strong>EMQ ≥ 6.0</strong> für alle wichtigen Events. Je mehr First-Party-Daten gesendet werden (E-Mail, Telefon, fbp, fbc), desto höher der Score.</div>
+            <div class="task-tags"><span class="tag tag-tech">Technisch</span><span class="tag tag-agency">Agentur</span></div>
+          </div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Test Events Tool nutzen</div>
+            <div class="task-detail">Events Manager → „Test Events" Tab. Eine Test-Conversion auf der Website auslösen und prüfen, ob sie sowohl als Browser-Event (Pixel) als auch Server-Event (CAPI) ankommt. Meta Pixel Helper Chrome-Extension zur Kontrolle installieren.</div>
+            <div class="task-tags"><span class="tag tag-tech">Technisch</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="connector"></div>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- PHASE 7 -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <div class="phase" data-phase="7">
+      <div class="phase-header" onclick="togglePhase(this)">
+        <div class="phase-number">7</div>
+        <div>
+          <div class="phase-title">Domain verifizieren & Aggregated Events</div>
+          <div class="phase-subtitle">Letzte Schritte für volle Kampagnen-Performance</div>
+        </div>
+        <div class="phase-chevron">▾</div>
+      </div>
+      <div class="phase-content">
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Domain des Kunden verifizieren</div>
+            <div class="task-detail">Business Settings → Brand Safety → Domains → „Add" → Kunden-Domain eintragen. Meta gibt einen DNS-TXT-Record oder eine Meta-Tag-Option zur Verifizierung. Der Kunde (oder sein Webmaster) muss diesen eintragen.</div>
+            <div class="task-tags"><span class="tag tag-both">Beide</span></div>
+          </div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Aggregated Event Measurement konfigurieren</div>
+            <div class="task-detail">Events Manager → Aggregated Event Measurement → Domain auswählen → Bis zu 8 Conversion-Events priorisieren. Reihenfolge nach Wichtigkeit (z.B. Purchase > AddToCart > Lead). Wichtig für iOS-Nutzer!</div>
+            <div class="task-tags"><span class="tag tag-agency">Agentur</span></div>
+          </div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Zahlungsmethode im Kunden-Ad-Account hinterlegen</div>
+            <div class="task-detail">Ad Account Settings → Payment Methods. Der Kunde hinterlegt seine Kreditkarte/Zahlungsmethode. <strong>Die Agentur hinterlegt NICHT ihre eigene Zahlungsmethode im Kunden-Account</strong> (außer bei expliziter Vereinbarung).</div>
+            <div class="task-tags"><span class="tag tag-client">Kunde</span></div>
+          </div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Test-Kampagne starten</div>
+            <div class="task-detail">Eine kleine Test-Kampagne (z.B. 5€ Budget) anlegen, um zu prüfen: Pixel feuert korrekt, Conversion-Events kommen an, Billing funktioniert, alle Berechtigungen greifen. Erst dann in die Produktion gehen.</div>
+            <div class="task-tags"><span class="tag tag-agency">Agentur</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="connector"></div>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- PHASE 8 -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <div class="phase" data-phase="8">
+      <div class="phase-header" onclick="togglePhase(this)">
+        <div class="phase-number">8</div>
+        <div>
+          <div class="phase-title">Laufende Hygiene & Offboarding</div>
+          <div class="phase-subtitle">Regelmäßige Wartung & saubere Trennung</div>
+        </div>
+        <div class="phase-chevron">▾</div>
+      </div>
+      <div class="phase-content">
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Quartalsweise Zugriffsrechte prüfen</div>
+            <div class="task-detail">Business Settings → People & Partners regelmäßig durchgehen. Ex-Mitarbeiter oder alte Agentur-Verbindungen sofort entfernen. Berechtigungen anpassen, wenn sich Rollen ändern.</div>
+            <div class="task-tags"><span class="tag tag-both">Beide</span></div>
+          </div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Bei Kunden-Offboarding: Partner-Zugang sauber entfernen</div>
+            <div class="task-detail">Der Kunde geht zu Partners → Agentur auswählen → „Remove". Die Agentur verliert sofort Zugang zu allen geteilten Assets. Alternativ kann auch die Agentur die Verbindung lösen.</div>
+            <div class="task-tags"><span class="tag tag-both">Beide</span></div>
+          </div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Bei Mitarbeiter-Offboarding: Account sofort entfernen</div>
+            <div class="task-detail">Business Settings → People → Ex-Mitarbeiter → „Remove". Sofortige Sperre aller Zugänge. Bei Managed Meta Accounts zusätzlich über IT/SSO deaktivieren.</div>
+            <div class="task-tags"><span class="tag tag-agency">Agentur</span></div>
+          </div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+          <div class="task-check"></div>
+          <div class="task-body">
+            <div class="task-text">Kampagnen-Daten & Creatives sichern</div>
+            <div class="task-detail">Vor jedem Offboarding: Kampagnen-Performance exportieren, Creative-Assets lokal sichern. Nach dem Entfernen des Partner-Zugangs hat die Agentur keinen Zugriff mehr auf historische Daten im Kunden-Account.</div>
+            <div class="task-tags"><span class="tag tag-agency">Agentur</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div style="height: 32px"></div>
+  <div style="text-align: center;">
+    <button class="reset-btn" onclick="resetAll()">✕ Alle Checkboxen zurücksetzen</button>
+  </div>
+
+  <footer>
+    Meta Ads Agentur-Setup Roadmap 2026 — Erstellt für Döring Media<br>
+    Stand: April 2026 · Basierend auf aktueller Meta-Dokumentation
+  </footer>
+</div>
+
+<script>
+  const STORAGE_KEY = 'meta-setup-roadmap-2026';
+
+  function getState() {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    } catch { return {}; }
+  }
+
+  function saveState(state) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }
+
+  function getTaskId(taskEl) {
+    const phase = taskEl.closest('.phase');
+    const phaseNum = phase.dataset.phase;
+    const tasks = Array.from(phase.querySelectorAll('.task'));
+    const idx = tasks.indexOf(taskEl);
+    return `p${phaseNum}-t${idx}`;
+  }
+
+  function toggleTask(taskEl) {
+    const state = getState();
+    const id = getTaskId(taskEl);
+    const isDone = taskEl.classList.toggle('done');
+    state[id] = isDone;
+    saveState(state);
+    updateProgress();
+    updatePhaseStatus();
+  }
+
+  function togglePhase(headerEl) {
+    headerEl.closest('.phase').classList.toggle('collapsed');
+  }
+
+  function updateProgress() {
+    const tasks = document.querySelectorAll('.task');
+    const done = document.querySelectorAll('.task.done');
+    const total = tasks.length;
+    const doneCount = done.length;
+    const pct = total ? Math.round((doneCount / total) * 100) : 0;
+
+    document.getElementById('progressBar').style.width = pct + '%';
+    document.getElementById('doneCount').textContent = doneCount;
+    document.getElementById('totalCount').textContent = total;
+    document.getElementById('progressPercent').textContent = pct + '%';
+  }
+
+  function updatePhaseStatus() {
+    document.querySelectorAll('.phase').forEach(phase => {
+      const tasks = phase.querySelectorAll('.task');
+      const doneTasks = phase.querySelectorAll('.task.done');
+      if (tasks.length > 0 && tasks.length === doneTasks.length) {
+        phase.classList.add('completed');
+      } else {
+        phase.classList.remove('completed');
+      }
+    });
+  }
+
+  function restoreState() {
+    const state = getState();
+    document.querySelectorAll('.task').forEach(task => {
+      const id = getTaskId(task);
+      if (state[id]) task.classList.add('done');
+    });
+    updateProgress();
+    updatePhaseStatus();
+  }
+
+  function resetAll() {
+    if (!confirm('Alle Checkboxen zurücksetzen?')) return;
+    localStorage.removeItem(STORAGE_KEY);
+    document.querySelectorAll('.task.done').forEach(t => t.classList.remove('done'));
+    updateProgress();
+    updatePhaseStatus();
+  }
+
+  // Set max-height for animation
+  document.querySelectorAll('.phase-content').forEach(c => {
+    c.style.maxHeight = c.scrollHeight + 2000 + 'px';
+  });
+
+  restoreState();
+</script>
+</body>
+</html>
