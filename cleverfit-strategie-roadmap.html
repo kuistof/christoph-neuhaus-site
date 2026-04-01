@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DÖRING MEDIA × clever fit — Strategic Roadmap</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --clever-red: #e30613;
+  --clever-red-dark: #b8050f;
+  --clever-red-deep: #8a030b;
+  --black: #0a0a0a;
+  --dark: #141414;
+  --dark-surface: #1a1a1a;
+  --dark-card: #1f1f1f;
+  --dark-border: #2a2a2a;
+  --gray-600: #6b6b6b;
+  --gray-400: #999;
+  --gray-300: #bbb;
+  --white: #f5f5f5;
+  --white-pure: #ffffff;
+  --accent-gold: #d4a853;
+  --accent-green: #34d399;
+  --accent-amber: #f59e0b;
+  --accent-blue: #60a5fa;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--clever-red);
+  color: var(--white-pure);
+}
+
+/* ── NAVIGATION ── */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(10,10,10,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--dark-border);
+  padding: 0 2rem;
+}
+
+.nav-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.nav-brand {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.nav-brand span { color: var(--clever-red); }
+
+.nav-links {
+  display: flex;
+  gap: 0.25rem;
+  list-style: none;
+  overflow-x: auto;
+}
+
+.nav-links a {
+  color: var(--gray-400);
+  text-decoration: none;
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  transition: all 0.2s;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+.nav-links a:hover {
+  color: var(--white);
+  background: var(--dark-surface);
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8rem 2rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  right: -200px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(227,6,19,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.hero-eyebrow {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--clever-red);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  width: 32px;
+  height: 2px;
+  background: var(--clever-red);
+}
+
+.hero h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.5rem;
+  max-width: 900px;
+}
+
+.hero h1 em {
+  font-style: normal;
+  color: var(--clever-red);
+}
+
+.hero-sub {
+  font-size: 1.15rem;
+  color: var(--gray-400);
+  max-width: 680px;
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+}
+
+.hero-meta {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.hero-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.hero-meta-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gray-600);
+  font-weight: 600;
+}
+
+.hero-meta-value {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--gray-300);
+}
+
+/* ── SECTIONS ── */
+.section {
+  padding: 6rem 2rem;
+  border-top: 1px solid var(--dark-border);
+}
+
+.section-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.section-header {
+  margin-bottom: 3.5rem;
+}
+
+.section-number {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--clever-red);
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.section-number::before {
+  content: '';
+  width: 24px;
+  height: 2px;
+  background: var(--clever-red);
+}
+
+.section h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+
+.section h2 em {
+  font-style: normal;
+  color: var(--clever-red);
+}
+
+.section-desc {
+  font-size: 1.05rem;
+  color: var(--gray-400);
+  max-width: 720px;
+  line-height: 1.7;
+}
+
+/* ── CARDS ── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 1.25rem;
+}
+
+.card {
+  background: var(--dark-card);
+  border: 1px solid var(--dark-border);
+  border-radius: 12px;
+  padding: 2rem;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.card:hover {
+  border-color: rgba(227,6,19,0.3);
+  transform: translateY(-2px);
+}
+
+.card-tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.tag-problem { background: rgba(239,68,68,0.15); color: #f87171; }
+.tag-opportunity { background: rgba(52,211,153,0.15); color: #34d399; }
+.tag-action { background: rgba(96,165,250,0.15); color: #60a5fa; }
+.tag-warning { background: rgba(245,158,11,0.15); color: #f59e0b; }
+.tag-branding { background: rgba(227,6,19,0.15); color: var(--clever-red); }
+.tag-phase { background: rgba(212,168,83,0.15); color: var(--accent-gold); }
+
+.card h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.card p {
+  color: var(--gray-400);
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+.card ul {
+  list-style: none;
+  margin-top: 0.75rem;
+}
+
+.card ul li {
+  position: relative;
+  padding-left: 1.25rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--gray-300);
+  line-height: 1.5;
+}
+
+.card ul li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--clever-red);
+  font-weight: 600;
+}
+
+/* ── TENSION BOX ── */
+.tension-box {
+  background: linear-gradient(135deg, rgba(227,6,19,0.08) 0%, rgba(227,6,19,0.02) 100%);
+  border: 1px solid rgba(227,6,19,0.2);
+  border-radius: 12px;
+  padding: 2.5rem;
+  margin: 2rem 0;
+}
+
+.tension-box h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  color: var(--clever-red);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tension-box p {
+  color: var(--gray-300);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+/* ── COMPARISON TABLE ── */
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+.compare-table th {
+  font-family: 'Space Grotesk', sans-serif;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gray-600);
+  border-bottom: 1px solid var(--dark-border);
+}
+
+.compare-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--dark-border);
+  color: var(--gray-300);
+  vertical-align: top;
+}
+
+.compare-table .label-old { color: #f87171; }
+.compare-table .label-new { color: var(--accent-green); }
+
+/* ── TIMELINE ── */
+.timeline {
+  position: relative;
+  padding-left: 2.5rem;
+  margin: 2rem 0;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--clever-red), var(--dark-border));
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 2.5rem;
+  padding-bottom: 0;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -2.65rem;
+  top: 0.35rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--clever-red);
+  border: 2px solid var(--black);
+}
+
+.timeline-item h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+  color: var(--white);
+}
+
+.timeline-item .tl-period {
+  font-size: 0.75rem;
+  color: var(--clever-red);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+}
+
+.timeline-item p {
+  color: var(--gray-400);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* ── QUOTE ── */
+.quote-block {
+  border-left: 3px solid var(--clever-red);
+  padding: 1.5rem 1.5rem 1.5rem 2rem;
+  margin: 2rem 0;
+  background: var(--dark-surface);
+  border-radius: 0 8px 8px 0;
+}
+
+.quote-block p {
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--gray-300);
+  line-height: 1.7;
+}
+
+.quote-block cite {
+  display: block;
+  margin-top: 0.75rem;
+  font-style: normal;
+  font-size: 0.8rem;
+  color: var(--gray-600);
+  font-weight: 500;
+}
+
+/* ── FULL WIDTH CARD ── */
+.full-card {
+  background: var(--dark-card);
+  border: 1px solid var(--dark-border);
+  border-radius: 12px;
+  padding: 2.5rem;
+  margin: 1.5rem 0;
+}
+
+.full-card h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.full-card p, .full-card li {
+  color: var(--gray-400);
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+
+/* ── COLUMNS ── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+/* ── BADGE ── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  background: rgba(227,6,19,0.12);
+  color: var(--clever-red);
+}
+
+/* ── ACCORDION ── */
+.accordion-item {
+  border: 1px solid var(--dark-border);
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.accordion-item:hover {
+  border-color: rgba(227,6,19,0.25);
+}
+
+.accordion-toggle {
+  width: 100%;
+  background: var(--dark-card);
+  border: none;
+  color: var(--white);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 1.25rem 1.5rem;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.accordion-toggle::after {
+  content: '+';
+  font-size: 1.2rem;
+  color: var(--clever-red);
+  transition: transform 0.3s;
+  flex-shrink: 0;
+}
+
+.accordion-toggle.active::after {
+  transform: rotate(45deg);
+}
+
+.accordion-content {
+  display: none;
+  padding: 0 1.5rem 1.5rem;
+  background: var(--dark-card);
+}
+
+.accordion-content.open {
+  display: block;
+}
+
+.accordion-content p {
+  color: var(--gray-400);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin-bottom: 0.75rem;
+}
+
+/* ── FOOTER ── */
+.footer {
+  padding: 3rem 2rem;
+  border-top: 1px solid var(--dark-border);
+  text-align: center;
+}
+
+.footer p {
+  font-size: 0.8rem;
+  color: var(--gray-600);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .two-col { grid-template-columns: 1fr; }
+  .card-grid { grid-template-columns: 1fr; }
+  .hero { padding: 6rem 1.25rem 3rem; }
+  .section { padding: 4rem 1.25rem; }
+  .hero-meta { gap: 1.25rem; }
+}
+
+/* ── SMOOTH REVEAL ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── DIVIDER ── */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--dark-border), transparent);
+  margin: 1.5rem 0;
+}
+
+/* ── KPI ROW ── */
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.kpi-box {
+  background: var(--dark-surface);
+  border: 1px solid var(--dark-border);
+  border-radius: 8px;
+  padding: 1.25rem;
+  text-align: center;
+}
+
+.kpi-value {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--clever-red);
+  line-height: 1.2;
+}
+
+.kpi-label {
+  font-size: 0.75rem;
+  color: var(--gray-600);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 0.35rem;
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand"><span>DÖRING</span> MEDIA × clever fit</div>
+    <ul class="nav-links">
+      <li><a href="#diagnose">Diagnose</a></li>
+      <li><a href="#spannungsfeld">Spannungsfeld</a></li>
+      <li><a href="#branding">Branding-Strategie</a></li>
+      <li><a href="#kampagnen">Kampagnen-Audit</a></li>
+      <li><a href="#social">Social Blueprint</a></li>
+      <li><a href="#playbook">Playbook-Prinzipien</a></li>
+      <li><a href="#roadmap">Roadmap</a></li>
+      <li><a href="#workshop">Workshop-Plan</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Strategic Roadmap &amp; Workshop Blueprint</div>
+    <h1>Von Discount zu <em>Lovebrand</em> — die Transformation richtig kommunizieren.</h1>
+    <p class="hero-sub">
+      Eine strategische Roadmap für den Creative Sprint Workshop mit clever fit. Dieses Dokument verbindet die Analyse der Rebranding-Unterlagen mit konkreten Social-Media-Strategien, Branding-Frameworks und operativen Empfehlungen für Döring Media.
+    </p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Kunde</span>
+        <span class="hero-meta-value">clever fit (Pierre & Team)</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Agentur</span>
+        <span class="hero-meta-value">Döring Media</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Format</span>
+        <span class="hero-meta-value">Creative Sprint (2×3h)</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Fokus</span>
+        <span class="hero-meta-value">Branding → Social Strategy</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Teilnehmer</span>
+        <span class="hero-meta-value">4–5 Pers. + Döring Team</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 01 — DIAGNOSE -->
+<section class="section" id="diagnose">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-number">01 — Situationsanalyse</div>
+      <h2>Die <em>Diagnose</em>: Wo clever fit heute steht</h2>
+      <p class="section-desc">
+        Basierend auf der Analyse des Brand-Decks (118 Seiten), des Corporate Design Manuals und der Kampagnenplanung 2026 — plus die Insights aus unserem internen Briefing.
+      </p>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi-box">
+        <div class="kpi-value">~1 Mio.</div>
+        <div class="kpi-label">Mitglieder</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-value">~20</div>
+        <div class="kpi-label">Kampagnen 2026</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-value">60/40</div>
+        <div class="kpi-label">Männer / Frauen</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-value">Gen Z + Mill.</div>
+        <div class="kpi-label">Kernzielgruppe</div>
+      </div>
+      <div class="kpi-box">
+        <div class="kpi-value">Franchise</div>
+        <div class="kpi-label">Geschäftsmodell</div>
+      </div>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <span class="card-tag tag-opportunity">Was gut ist</span>
+        <h3>Starke strategische Grundlage im Deck</h3>
+        <p>Die Brand-Strategie auf Papier ist durchdacht:</p>
+        <ul>
+          <li>Klare Vision: „Think Global. Train Local."</li>
+          <li>Positionierung Richtung Medium-Premium</li>
+          <li>Lovebrand-Ambitionen mit Community-Fokus</li>
+          <li>Core Message „Wir sind echt!" ist authentisch</li>
+          <li>HYROX-, Running- & Cycling-Club-Ideen treffen Trends</li>
+          <li>Tone of Voice: familiär, empathisch, motivierend</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-problem">Das Kernproblem</span>
+        <h3>Strategie und Exekution widersprechen sich</h3>
+        <p>Die Kampagnen-Exekution konterkariert die eigene Strategie systematisch:</p>
+        <ul>
+          <li>Deck sagt „keine plumpen Rabattschreier" — Kampagnen schreien Rabatte</li>
+          <li>„Tiefer kann man nicht sinken" steht auf Postern einer Marke, die „Premium" will</li>
+          <li>„Umsonst, umsonster, Clever Week" zerstört jede Wertigkeit</li>
+          <li>„Billiger als jede Anmache" — wörtliches Billig-Framing</li>
+          <li>Der Pfeil geht nach oben, die Sprache zieht nach unten</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-warning">Zusätzliche Risiken</span>
+        <h3>Widersprüche in den Unterlagen</h3>
+        <p>Offene Fragen, die im Workshop geklärt werden müssen:</p>
+        <ul>
+          <li>Frauenanteil: 40% oder 60%? Zwei Decks, zwei Zahlen</li>
+          <li>„Gym Crush"-Sprüche vs. Safe-Space für Frauen</li>
+          <li>Reborn-Umbau: Wie weit sind die Studios tatsächlich?</li>
+          <li>Franchise-Realität: Können Studios das neue Premium überhaupt liefern?</li>
+          <li>20 Kampagnen/Jahr = alle 2 Wochen → Qualitätskontrolle?</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tension-box" style="margin-top: 2rem;">
+      <h3>⚡ Kerndiagnose für den Workshop</h3>
+      <p>
+        clever fit hat eine ambitionierte und grundsätzlich richtige Strategie-Richtung. Das Problem ist nicht die Vision — es ist die fehlende Übersetzung in die Exekution. Die Kampagnen sabotieren aktiv das eigene Rebranding. Bevor wir über Social-Media-Formate reden, muss dieses Alignment hergestellt werden. Social Media verstärkt nur, was die Marke sendet — und wenn das Signal widersprüchlich ist, verstärken wir Verwirrung.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 02 — SPANNUNGSFELD -->
+<section class="section" id="spannungsfeld">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-number">02 — Das zentrale Spannungsfeld</div>
+      <h2>Von „Billig" zu „Smart" — <em>ohne</em> die Basis zu verlieren</h2>
+      <p class="section-desc">
+        Das Spannungsfeld zwischen der bestehenden Kundenbasis (preissensibel, über Rabatte gewonnen) und der Ziel-Positionierung (Premium-Lovebrand) ist DER strategische Balanceakt für jede Maßnahme.
+      </p>
+    </div>
+
+    <div class="full-card">
+      <h3>Das Reframing-Prinzip: Preise neu erzählen</h3>
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th style="width:35%;">Altes Framing ❌</th>
+            <th style="width:35%;">Neues Framing ✓</th>
+            <th>Warum es wirkt</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="label-old">„Tiefer kann man nicht sinken"</td>
+            <td class="label-new">„Premium-Qualität. Fairer Preis. Clevere Entscheidung."</td>
+            <td>Positioniert den niedrigen Preis als Intelligenz des Kunden, nicht als Billigkeit der Marke</td>
+          </tr>
+          <tr>
+            <td class="label-old">„Umsonst, umsonster"</td>
+            <td class="label-new">„Investier in dich — wir machen es dir einfach."</td>
+            <td>Wert statt Gratis-Mentalität. Der Kunde investiert, clever fit senkt die Einstiegshürde</td>
+          </tr>
+          <tr>
+            <td class="label-old">„Gruselig günstig"</td>
+            <td class="label-new">„Gruselig gute Ausstattung. Erschreckend fair."</td>
+            <td>Qualität wird zum Adjektiv, nicht der Preis</td>
+          </tr>
+          <tr>
+            <td class="label-old">„Billiger als jede Anmache"</td>
+            <td class="label-new">„Dein Match fürs Leben. Kein Swipe nötig."</td>
+            <td>Beziehungsmetapher statt Schnäppchen. Emotionale Verbindung</td>
+          </tr>
+          <tr>
+            <td class="label-old">„Du drückst Kilos, wir die Preise"</td>
+            <td class="label-new">„Du gibst alles. Wir machen's möglich."</td>
+            <td>Ermächtigung statt Preisfokus. Partner auf Augenhöhe</td>
+          </tr>
+          <tr>
+            <td class="label-old">„Jung, brutal günstig, gutaussehend"</td>
+            <td class="label-new">„Jung. Clever. Unstoppable."</td>
+            <td>Günstig raus, Identität rein. Spricht das Selbstbild der Gen Z an</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="quote-block">
+      <p>
+        „Statt plumper Rabattschreier setzen wir auf Energie, Haltung und Lifestyle und positionieren clever fit als Marke, zu der Menschen eine emotionale Verbindung aufbauen — nicht nur wegen eines Angebots, sondern wegen eines Gefühls."
+      </p>
+      <cite>— Aus dem eigenen Brand-Deck von clever fit. Dieses Versprechen muss eingelöst werden.</cite>
+    </div>
+
+    <div class="two-col" style="margin-top: 2rem;">
+      <div class="card">
+        <span class="card-tag tag-branding">Die Brücke</span>
+        <h3>So nehmt ihr Bestandskunden mit</h3>
+        <ul>
+          <li>Preisvorteile weiter kommunizieren — aber als „Smart Choice", nie als „billig"</li>
+          <li>Rabatte neu framen: „Zugänglichkeit" statt „Discount"</li>
+          <li>Tonalität shiften: Von Ramsch-Rhetorik zu wertiger, selbstbewusster Sprache</li>
+          <li>Bildsprache upgraden: Weg von Clip-Art-Vibes, hin zu echtem, hochwertigem Content</li>
+          <li>Community als Bindungsinstrument nutzen — wer Teil einer Community ist, kündigt langsamer</li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="card-tag tag-warning">Red Lines</span>
+        <h3>Was auf keinen Fall passieren darf</h3>
+        <ul>
+          <li>„Premium" versprechen, wenn die Studios noch nicht umgebaut sind → Gaslighting</li>
+          <li>Bestehende Mitglieder durch zu schnellen Preis-Shift verprellen</li>
+          <li>Eine Bildwelt zeigen, die null mit dem echten Gym-Erlebnis zu tun hat</li>
+          <li>Influencer-Kampagnen ohne glaubwürdiges Produkt dahinter</li>
+          <li>Social Media als Fassade bauen, die beim ersten Besuch zusammenbricht</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 — BRANDING-STRATEGIE -->
+<section class="section" id="branding">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-number">03 — Branding-Strategie</div>
+      <h2>Die Brand-<em>Transformation</em> richtig aufziehen</h2>
+      <p class="section-desc">
+        Branding ist nicht Logo und Farben — es ist die bewusste Verknüpfung der Marke mit Dingen, die die Zielgruppe mag. Und das systematisch, über Zeit.
+      </p>
+    </div>
+
+    <div class="tension-box">
+      <h3>⚡ Der Branding-Zyklus: Was wirklich zählt</h3>
+      <p>
+        <strong>Stufe 1: „What We Say"</strong> — Werbung und Content. Hat den geringsten Einfluss auf die Markenwahrnehmung.<br>
+        <strong>Stufe 2: „What Others Say"</strong> — Mundpropaganda und Member Stories. Deutlich stärker.<br>
+        <strong>Stufe 3: „What They Experience"</strong> — Die tatsächliche Gym-Erfahrung. Hat die höchste Autorität.<br><br>
+        <strong>Konsequenz für clever fit:</strong> Social Media (Stufe 1) kann die Wahrnehmung starten, aber die Reborn-Transformation muss im Produkt (Stufe 3) real sein. Negative Gym-Erfahrungen arbeiten 5–7x stärker gegen die Marke als positive Social-Posts dafür.
+      </p>
+    </div>
+
+    <div class="card-grid" style="margin-top: 2rem;">
+      <div class="card">
+        <span class="card-tag tag-branding">Assoziations-Strategie</span>
+        <h3>clever fit mit den richtigen Dingen verknüpfen</h3>
+        <p>Branding = Marke + Dinge, die die Zielgruppe liebt. Konkret für clever fit:</p>
+        <ul>
+          <li><strong>HYROX-Events:</strong> clever fit wird assoziiert mit dem größten Fitness-Trend der Dekade</li>
+          <li><strong>Running Clubs:</strong> Community-Faktor, Outdoor, kostenlos → „mehr als ein Gym"</li>
+          <li><strong>Fitness-Influencer:</strong> Authentische Creator, die glaubwürdig im clever fit trainieren</li>
+          <li><strong>Lokale Partnerschaften:</strong> Barter-Deals mit lokalen Brands schaffen Verankerung</li>
+          <li><strong>Merch als Lifestyle:</strong> „CLVR"-Kollektion — Fitness-Wear, das man auch außerhalb trägt</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-branding">„It's Toasted" für clever fit</span>
+        <h3>Die einzigartige Wahrheit finden</h3>
+        <p>Was kann clever fit sagen, was kein Konkurrent kann?</p>
+        <ul>
+          <li><strong>Standort-Dichte:</strong> „In deiner Nähe. Überall." — Kein Gym ist näher am Alltag</li>
+          <li><strong>Franchise = Lokal:</strong> Jedes clever fit gehört jemandem vor Ort. Kein Konzern — echte Menschen</li>
+          <li><strong>Frauen-Anteil:</strong> Wenn verifiziert, ist das ein starker Differentiator → Safe Space</li>
+          <li><strong>Preis-Leistung:</strong> „Alles, was Premium hat — ohne den Premium-Preis" (nicht: „billig")</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-action">70/30 Ratio</span>
+        <h3>Give vs. Ask — die richtige Balance</h3>
+        <p>70% der Social-Impressions müssen WERT liefern, nur 30% dürfen „asken" (Angebote, CTAs).</p>
+        <ul>
+          <li><strong>70% Give:</strong> Workout-Content, Community-Stories, Running-Club-Recaps, Motivation, Education</li>
+          <li><strong>30% Ask:</strong> Kampagnen, Angebote, Probetraining-CTAs</li>
+          <li>Aktuell ist das Ratio bei clever fit eher 80% Ask / 20% Give → Umkehrung nötig</li>
+          <li>New Balance Case Study zeigt: 70% Brand / 30% DR = massives Wachstum nach 18 Monaten</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="full-card" style="margin-top: 1.5rem;">
+      <h3>Die Blumenstrauß-Metapher für clever fit</h3>
+      <p>
+        Eine Marke ist wie ein Blumenstrauß. Einzelne Elemente (Preis, Location, Geräte) machen noch keine Marke — erst die Bündelung. clever fit hat aktuell eine „hässliche Blume" im Strauß: die Billig-Assoziation. 
+      </p>
+      <p style="margin-top: 0.75rem;">
+        <strong>Die Lösung ist nicht, die hässliche Blume zu verstecken oder auszureißen</strong> (den Preis zu ignorieren), sondern den Strauß mit so vielen starken, positiven Assoziationen zu überwältigen, dass die Billig-Wahrnehmung in die Irrelevanz rückt: HYROX, Community, moderne Studios, Running Clubs, Merch, lokale Events, Influencer-Partnerschaften — das alles muss so laut und konsistent sein, dass „günstig" nur noch ein netter Nebeneffekt ist, nicht die Haupteigenschaft.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 04 — KAMPAGNEN-AUDIT -->
+<section class="section" id="kampagnen">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-number">04 — Kampagnen-Audit</div>
+      <h2>20 Kampagnen, ein <em>Problem</em>: Die Exekution</h2>
+      <p class="section-desc">
+        clever fit plant 2026 ca. 20 modulare Kampagnen — jede 2 Wochen eine neue. Das Baukasten-Prinzip ist richtig. Die Sprache in den Headlines ist es nicht.
+      </p>
+    </div>
+
+    <div class="full-card">
+      <h3>Kampagnen-Kategorien: Was funktioniert, was nicht</h3>
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Kampagne</th>
+            <th>Status</th>
+            <th>Bewertung</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Januar (Neujahrsvorsätze)</strong></td>
+            <td><span class="label-new">Phase 2 mit UGC ist richtig</span></td>
+            <td>Guter Ansatz. Phase 1 Headlines noch zu generisch. Phase 2 mit Member-Content ist genau der richtige Move — mehr davon.</td>
+          </tr>
+          <tr>
+            <td><strong>CLEVER WEEK (Flash Sale)</strong></td>
+            <td><span class="label-old">Komplett gegen das Rebranding</span></td>
+            <td>„Tiefer kann man nicht sinken", „Umsonst, umsonster" — zerstört jeden Premium-Anspruch. Muss komplett neu getextet werden.</td>
+          </tr>
+          <tr>
+            <td><strong>FIT FOR FUN</strong></td>
+            <td><span class="label-old">Widersprüchlich</span></td>
+            <td>„Billig? Nein. Clever!" ist ein guter Ansatz im Titel — aber „Preise im Keller" konterkariert es sofort wieder.</td>
+          </tr>
+          <tr>
+            <td><strong>GYM BUDDY (Freundschaftswerbung)</strong></td>
+            <td><span class="label-new">Strategisch wertvoll</span></td>
+            <td>Community-driven Growth. „No Buddy, No Gains" ist gut. Passt zur Lovebrand-Strategie. Ausbauen.</td>
+          </tr>
+          <tr>
+            <td><strong>Running / Cycling Club</strong></td>
+            <td><span class="label-new">Höchstes Branding-Potenzial</span></td>
+            <td>Out-of-Gym-Erlebnis, Community, Trend-fit. Das ist der Content, der die Wahrnehmung verschiebt. Maximale Priorität.</td>
+          </tr>
+          <tr>
+            <td><strong>SINGLES DAY</strong></td>
+            <td><span class="label-old">Tonalitäts-Problem</span></td>
+            <td>„Billiger als jede Anmache", „Gym Crush" — toxische Assoziationen. Gerade für Frauen als Zielgruppe kontraproduktiv.</td>
+          </tr>
+          <tr>
+            <td><strong>RED FRIDAY</strong></td>
+            <td><span class="label-new">Gute Idee, braucht Schärfe</span></td>
+            <td>„Statt Black Friday: RED FRIDAY" differenziert von der Masse. Exklusivitäts-Framing stärken.</td>
+          </tr>
+          <tr>
+            <td><strong>REBORN (Umbau)</strong></td>
+            <td><span class="label-new">DER strategische Hebel</span></td>
+            <td>Hier muss alles stimmen. Das ist der Proof, dass die Transformation real ist. Content-Tag rund um den Umbau — Vorher/Nachher, echte Mitglieder-Reaktionen. Maximum effort.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tension-box" style="margin-top: 1.5rem;">
+      <h3>⚡ Spannungsfeld bei den Kampagnen</h3>
+      <p>
+        Clever fit hat ca. 20 Kampagnen geplant. Ein Content-Shooting soll das Material für alle liefern. Das ist effizient, aber gefährlich: Wenn die Bildsprache für alle Kampagnen gleich ist (Red-Studio-Visuals), fehlt die Differenzierung und es wirkt wie eine Endlosschleife von Angebots-Posts. Die Lösung: Unterschiedliche Visual-Welten für Brand-Content (Community, Lifestyle, Events) vs. Offer-Content (Kampagnen-Visuals). Nicht alles kann aus einem Shooting kommen.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 05 — SOCIAL BLUEPRINT -->
+<section class="section" id="social">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-number">05 — Social-Media-Blueprint</div>
+      <h2>Content-Strategie für die <em>Transformation</em></h2>
+      <p class="section-desc">
+        Social Media ist der Kanal, über den die Reborn-Transformation glaubwürdig kommuniziert werden muss. Aber nur, wenn die Inhalte die neue Marke reflektieren — nicht die alte.
+      </p>
+    </div>
+
+    <div class="full-card">
+      <h3>Content-Säulen für clever fit Social Media</h3>
+      <p>Jeder Post, jedes Reel, jede Story muss in eine dieser Säulen fallen. Kein Content ohne Zuordnung.</p>
+    </div>
+
+    <div class="card-grid" style="margin-top: 1rem;">
+      <div class="card">
+        <span class="card-tag tag-branding">Säule 1 — 35%</span>
+        <h3>Community & Lifestyle</h3>
+        <p>Zeigt, dass clever fit mehr ist als ein Gym. Baut emotionale Bindung auf.</p>
+        <ul>
+          <li>Running Club Recaps — echte Läufer, echte Stimmung</li>
+          <li>Cycling Club Content — Team-Spirit, keine Hochglanz-Ästhetik</li>
+          <li>Member Spotlights — echte Mitglieder, echte Geschichten</li>
+          <li>Behind-the-Scenes aus Studios (v.a. nach Reborn-Umbau)</li>
+          <li>lokale Events, Kooperationen, HYROX-Momente</li>
+        </ul>
+        <p style="margin-top: 0.75rem;"><strong>Spannungsfeld:</strong> Diese Säule ist das Herzstück der Transformation. Sie zeigt die neue Marke, ohne den Preis zu erwähnen — und macht clever fit dadurch aspirational.</p>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-action">Säule 2 — 25%</span>
+        <h3>Education & Value</h3>
+        <p>Positioniert clever fit als kompetente Fitness-Marke. Baut Trust und Verweildauer.</p>
+        <ul>
+          <li>Workout-Tipps — kurz, knackig, im clever fit Setting</li>
+          <li>Nutrition-Basics — verknüpft mit der eigenen Food-Range</li>
+          <li>Trainer-Insights — echte Coaches, echtes Wissen</li>
+          <li>Mythen-Brecher — „3 Fitness-Lügen, die du noch glaubst"</li>
+          <li>Form-Checks und Equipment-Guides</li>
+        </ul>
+        <p style="margin-top: 0.75rem;"><strong>Spannungsfeld:</strong> Zeigt fachliche Kompetenz. Wirkt gegen das Billig-Image, weil „billig" normalerweise nicht mit Expertise assoziiert wird.</p>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-opportunity">Säule 3 — 15%</span>
+        <h3>Reborn — Die Transformation zeigen</h3>
+        <p>Der direkte Proof, dass sich wirklich etwas verändert hat.</p>
+        <ul>
+          <li>Vorher/Nachher der Studio-Umbaus — maximaler Proof</li>
+          <li>Mitglieder-Reaktionen auf das neue Studio (UGC)</li>
+          <li>Neue Features und Geräte vorstellen</li>
+          <li>„Das hat sich geändert"-Formate: Tour durch das neue Gym</li>
+          <li>Timeline der Transformation als Serie</li>
+        </ul>
+        <p style="margin-top: 0.75rem;"><strong>Spannungsfeld:</strong> Das ist die Brücke. Alte Mitglieder sehen die Verbesserung und fühlen sich wertgeschätzt. Neue Interessenten sehen den Premium-Anspruch mit Beweis.</p>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-phase">Säule 4 — 15%</span>
+        <h3>Entertainment & Kultur</h3>
+        <p>Sorgt für Reichweite und Viralität. Macht clever fit relevant in den Feeds.</p>
+        <ul>
+          <li>Gym-Humor — relatable, nie auf Kosten anderer</li>
+          <li>Trend-Adaptionen — aktuelle Sounds, Formate, Memes</li>
+          <li>Challenges — community-driven, teilbar</li>
+          <li>Popkultur-Referenzen (passt zur Tonalität: „zeitgemäß, frisch, relevant")</li>
+          <li>Staff-Content — Personal zeigt Persönlichkeit</li>
+        </ul>
+        <p style="margin-top: 0.75rem;"><strong>Spannungsfeld:</strong> Reichweite und Viralität ohne Billig-Assoziationen. Humor darf nie ins Ramschige kippen — clever, nicht cringe.</p>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-warning">Säule 5 — 10%</span>
+        <h3>Angebote & Kampagnen</h3>
+        <p>Ja, Angebote dürfen kommuniziert werden. Aber maximal 10% des Gesamtcontents.</p>
+        <ul>
+          <li>Kampagnen-Posts mit neuem Framing (smart, nicht billig)</li>
+          <li>Probetraining-CTAs in hochwertiger Bildsprache</li>
+          <li>Flash-Sales nur mit Exklusivitäts-Framing</li>
+          <li>Saisonale Angebote als „clevere Gelegenheit"</li>
+          <li>Immer eingebettet in Lifestyle-Kontext, nie isoliert</li>
+        </ul>
+        <p style="margin-top: 0.75rem;"><strong>Spannungsfeld:</strong> Das ist der sensibelste Bereich. Jeder Angebots-Post muss die Frage bestehen: „Würde Fitness First das auch so posten?" Wenn ja → zu billig. Wenn nein → richtige Richtung.</p>
+      </div>
+    </div>
+
+    <div class="full-card" style="margin-top: 1.5rem;">
+      <h3>Hook-Formel für clever fit Social Content</h3>
+      <p>Jeder Social-Post folgt dem Proof → Promise → Plan Schema:</p>
+      <table class="compare-table" style="margin-top: 1rem;">
+        <thead>
+          <tr>
+            <th>Element</th>
+            <th>Beispiel Reels</th>
+            <th>Beispiel Post</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>PROOF</strong></td>
+            <td>Vorher/Nachher-Shot des Studios in den ersten 2 Sekunden</td>
+            <td>Karussell Slide 1: Beeindruckendes Gym-Foto nach Umbau</td>
+          </tr>
+          <tr>
+            <td><strong>PROMISE</strong></td>
+            <td>„So sieht dein neues clever fit aus."</td>
+            <td>Headline: „Premium-Training. Fairer Preis. Dein Gym hat ein Upgrade."</td>
+          </tr>
+          <tr>
+            <td><strong>PLAN</strong></td>
+            <td>„Komm vorbei und überzeug dich — kostenlos testen."</td>
+            <td>CTA: „Link in Bio — finde dein clever fit in der Nähe."</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 06 — PLAYBOOK-PRINZIPIEN -->
+<section class="section" id="playbook">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-number">06 — Strategische Playbook-Prinzipien</div>
+      <h2>Die Regeln, die <em>alles</em> leiten</h2>
+      <p class="section-desc">
+        Aus den Marketing-Playbooks destilliert — angewandt auf den konkreten clever-fit-Case. Diese Prinzipien sollten im Workshop als Leitplanken dienen.
+      </p>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <span class="card-tag tag-action">Prinzip 01</span>
+        <h3>Volume before Tweaking</h3>
+        <p>
+          clever fit hat ~1 Mio. Mitglieder, aber die Social-Präsenz spiegelt das nicht wider. Bevor einzelne Posts optimiert werden, muss die Posting-Frequenz und Content-Menge massiv hoch. Das Franchise-Netzwerk ist hier ein Riesenhebel: Hunderte Studios können lokalen Content produzieren, der in Summe enormes Volumen erzeugt.
+        </p>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-action">Prinzip 02</span>
+        <h3>Clear not Clever</h3>
+        <p>
+          Ironie ist: Die Marke heißt „clever", aber die Kommunikation muss klar und einfach sein. Sprache auf Drittklässler-Niveau. „Tiefer als diesen Preis kannst du nicht squatten" ist zu clever — die Botschaft geht in der Wortspiel-Ebene verloren. Besser: Direkte Aussagen, die jeder versteht. „Alles, was du brauchst. Nichts, was du nicht brauchst."
+        </p>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-action">Prinzip 03</span>
+        <h3>Proof over Promise</h3>
+        <p>
+          clever fit verspricht viel (Lovebrand, Premium, Community). Der nächste Schritt: Beweise sammeln. Jedes umgebaute Studio ist ein Proof-Moment. Jede Mitglieder-Transformation ist ein Proof-Moment. Jeder HYROX-Event ist ein Proof-Moment. Social Media muss diese Beweise zeigen — nicht Versprechen wiederholen.
+        </p>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-action">Prinzip 04</span>
+        <h3>Steal from Yourself (70/20/10)</h3>
+        <p>
+          Wenn ein Content-Format funktioniert: 70% wiederholen (gleicher Hook, anderes Setting), 20% leicht variieren, nur 10% komplett Neues testen. clever fit plant 20 Kampagnen — das ist viel Risiko für Neues. Besser: 2-3 Kampagnen-Frameworks, die bewiesen funktionieren und modular wiederholt werden.
+        </p>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-action">Prinzip 05</span>
+        <h3>Avatar bestimmt das Creative</h3>
+        <p>
+          Die Person im Content muss aussehen wie die Zielgruppe. clever fit definiert 6 Personas (Curve Chaser, Disco Pumper, Girls Who Lift, etc.) — jede Kampagne sollte einem spezifischen Avatar zugeordnet sein. Zeigt ihr Gen-Z-Frauen → zeigt Gen-Z-Frauen in der Ad. Zeigt ihr Everyday Pumper → zeigt Everyday Pumper im Setting.
+        </p>
+      </div>
+
+      <div class="card">
+        <span class="card-tag tag-action">Prinzip 06</span>
+        <h3>Negative WoM zerstört schneller</h3>
+        <p>
+          Eine negative Gym-Erfahrung wird 5–7x mehr weitererzählt als eine positive. Wenn clever fit „Reborn" postet, das Studio aber noch nicht umgebaut ist, produziert das massive negative Word of Mouth. Die Social-Strategie muss an den realen Umbau-Status gekoppelt sein — Studio für Studio.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 — ROADMAP -->
+<section class="section" id="roadmap">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-number">07 — Phasen-Roadmap</div>
+      <h2>Der <em>Fahrplan</em>: 3 Phasen der Transformation</h2>
+      <p class="section-desc">
+        Die Marken-Transformation kann nicht über Nacht passieren. Hier ist der realistische Zeitplan, den wir im Workshop als Framework empfehlen.
+      </p>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="tl-period">Phase 1 — Monate 1–4: Foundation</div>
+        <h4>Bestandskunden halten, Klarheit schaffen</h4>
+        <p>
+          Ziel: Die bestehende Basis stabilisieren und die strategische Grundlage für den Shift legen. Noch kein öffentliches „Wir sind jetzt Premium" — aber alle Weichen intern stellen.
+        </p>
+        <ul style="list-style: none; margin-top: 0.75rem;">
+          <li style="padding-left: 1.25rem; position: relative; margin-bottom: 0.4rem; color: var(--gray-300); font-size: 0.9rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> Kampagnen-Sprache sofort auditieren und alle Billig-Claims ersetzen</li>
+          <li style="padding-left: 1.25rem; position: relative; margin-bottom: 0.4rem; color: var(--gray-300); font-size: 0.9rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> Content-Säulen-Struktur implementieren (70% Give / 30% Ask)</li>
+          <li style="padding-left: 1.25rem; position: relative; margin-bottom: 0.4rem; color: var(--gray-300); font-size: 0.9rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> Community-Formate starten: Running Club, Events, Gym Buddy</li>
+          <li style="padding-left: 1.25rem; position: relative; margin-bottom: 0.4rem; color: var(--gray-300); font-size: 0.9rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> Content-Guidelines und Tonalitäts-Handbuch für Franchisenehmer erstellen</li>
+          <li style="padding-left: 1.25rem; position: relative; margin-bottom: 0.4rem; color: var(--gray-300); font-size: 0.9rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> Proof-Sammlung starten: Mitglieder-Stories, Trainer-Porträts, Studio-Fotos</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="tl-period">Phase 2 — Monate 5–12: Shift</div>
+        <h4>Wahrnehmung aktiv verschieben</h4>
+        <p>
+          Ziel: Die Reborn-Transformation wird sichtbar. Studios werden umgebaut, und der Content zeigt die neue Realität. Das 70/30 Give:Ask-Ratio wird konsequent umgesetzt.
+        </p>
+        <ul style="list-style: none; margin-top: 0.75rem;">
+          <li style="padding-left: 1.25rem; position: relative; margin-bottom: 0.4rem; color: var(--gray-300); font-size: 0.9rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> Reborn-Kampagnen für jedes umgebaute Studio launchen (Vorher/Nachher)</li>
+          <li style="padding-left: 1.25rem; position: relative; margin-bottom: 0.4rem; color: var(--gray-300); font-size: 0.9rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> HYROX- und Event-Kooperationen als Content-Anker nutzen</li>
+          <li style="padding-left: 1.25rem; position: relative; margin-bottom: 0.4rem; color: var(--gray-300); font-size: 0.9rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> Influencer-Partnerschaften mit glaubwürdigen Fitness-Creatorn</li>
+          <li style="padding-left: 1.25rem; position: relative; margin-bottom: 0.4rem; color: var(--gray-300); font-size: 0.9rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> UGC-Programm skalieren — Mitglieder als Markenbotschafter</li>
+          <li style="padding-left: 1.25rem; position: relative; margin-bottom: 0.4rem; color: var(--gray-300); font-size: 0.9rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> Merch-Launch als Lifestyle-Statement (CLVR-Kollektion) mit Social-Push</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="tl-period">Phase 3 — Ab Monat 13: Verankerung</div>
+        <h4>Premium-Positionierung verankern</h4>
+        <p>
+          Ziel: clever fit wird nicht mehr als „das günstige Gym" wahrgenommen, sondern als „die clevere Wahl". Der Preis ist ein Feature, nicht die Identität. Die Lovebrand-Strategie zahlt sich messbar aus.
+        </p>
+        <ul style="list-style: none; margin-top: 0.75rem;">
+          <li style="padding-left: 1.25rem; position: relative; margin-bottom: 0.4rem; color: var(--gray-300); font-size: 0.9rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> Brand-Tracking: Regelmäßige Messung der Markenwahrnehmung (Umfragen, Social Sentiment)</li>
+          <li style="padding-left: 1.25rem; position: relative; margin-bottom: 0.4rem; color: var(--gray-300); font-size: 0.9rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> Community-Events als feste Institution etablieren</li>
+          <li style="padding-left: 1.25rem; position: relative; margin-bottom: 0.4rem; color: var(--gray-300); font-size: 0.9rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> Eigenmarken-Food und -Merch als zusätzliche Revenue-Streams und Branding-Hebel</li>
+          <li style="padding-left: 1.25rem; position: relative; margin-bottom: 0.4rem; color: var(--gray-300); font-size: 0.9rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> Preis-Kommunikation komplett auf „Smart Choice" und „Zugänglichkeit" umgestellt</li>
+          <li style="padding-left: 1.25rem; position: relative; margin-bottom: 0.4rem; color: var(--gray-300); font-size: 0.9rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> Talent-Akquise: Die besten Trainer wollen bei clever fit arbeiten, weil die Marke attraktiv ist</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 — WORKSHOP-PLAN -->
+<section class="section" id="workshop">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-number">08 — Workshop-Blueprint</div>
+      <h2>Creative Sprint: Die <em>Agenda</em></h2>
+      <p class="section-desc">
+        Aufbau des 2×3h-Workshops, der sowohl die strategischen Grundsatzfragen klärt als auch konkrete Social-Media-Outputs liefert.
+      </p>
+    </div>
+
+    <div class="tension-box">
+      <h3>⚡ Strategische Positionierung des Workshops</h3>
+      <p>
+        Pierre hat einen Social-Media-Workshop angefragt. Unsere Analyse zeigt: Bevor Social Sinn macht, müssen Grundsatzfragen zur Markenstrategie geklärt werden. Der Workshop muss beides leisten — aber ohne clever fit auf die Füße zu treten. Das Framing: „Um den besten Social-Content für euch zu entwickeln, brauchen wir absolute Klarheit über eure Markenrichtung. Deshalb starten wir mit einem kurzen Alignment-Block — damit unsere Social-Ideen perfekt zu eurer Vision passen."
+      </p>
+    </div>
+
+    <div class="two-col" style="margin-top: 2rem;">
+      <div class="full-card">
+        <h3 style="color: var(--clever-red);">Session 1: Alignment & Strategie (3h)</h3>
+        <div class="section-divider"></div>
+
+        <div style="margin-top: 1rem;">
+          <p><strong style="color: var(--white);">Block 1 (60 Min.) — Brand-Alignment Check</strong></p>
+          <p>Offene Fragen klären, die aus dem Deck entstanden sind. Nicht als Kritik framen, sondern als „Wir wollen sicherstellen, dass wir euch perfekt verstehen."</p>
+          <ul style="list-style: none; margin-top: 0.5rem;">
+            <li style="padding-left: 1rem; position: relative; margin-bottom: 0.3rem; color: var(--gray-300); font-size: 0.88rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> Wo steht das Reborn-Remodeling tatsächlich? Wie viele Studios sind umgebaut?</li>
+            <li style="padding-left: 1rem; position: relative; margin-bottom: 0.3rem; color: var(--gray-300); font-size: 0.88rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> Positionierung klären: Discount, Medium oder Premium? Der Pfeil im Deck zeigt nach oben — wo genau sollt ihr landen?</li>
+            <li style="padding-left: 1rem; position: relative; margin-bottom: 0.3rem; color: var(--gray-300); font-size: 0.88rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> Rolle des Preises: Ist „günstig" ein Feature oder die Identität? (Entscheidende Frage!)</li>
+            <li style="padding-left: 1rem; position: relative; margin-bottom: 0.3rem; color: var(--gray-300); font-size: 0.88rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> Zielgruppe schärfen: Personas validieren, Frauenanteil-Zahl klären</li>
+            <li style="padding-left: 1rem; position: relative; margin-bottom: 0.3rem; color: var(--gray-300); font-size: 0.88rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> Widersprüche in den Kampagnen-Headlines sachlich aufzeigen und gemeinsam lösen</li>
+          </ul>
+        </div>
+
+        <div style="margin-top: 1.5rem;">
+          <p><strong style="color: var(--white);">Block 2 (60 Min.) — Zielgruppen-Deep-Dive</strong></p>
+          <p>Die 6 Personas aus dem Deck validieren und priorisieren. Wer ist die Primary Audience für Social?</p>
+          <ul style="list-style: none; margin-top: 0.5rem;">
+            <li style="padding-left: 1rem; position: relative; margin-bottom: 0.3rem; color: var(--gray-300); font-size: 0.88rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> Welche 2-3 Personas sind die wichtigsten für Neukunden-Akquise über Social?</li>
+            <li style="padding-left: 1rem; position: relative; margin-bottom: 0.3rem; color: var(--gray-300); font-size: 0.88rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> Welche Plattform spricht welche Persona an? (TikTok → Gen Z; Instagram → Millennials)</li>
+            <li style="padding-left: 1rem; position: relative; margin-bottom: 0.3rem; color: var(--gray-300); font-size: 0.88rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> Avatar-Übung: Wie sieht der ideale Mensch in unserer Social-Ad aus?</li>
+          </ul>
+        </div>
+
+        <div style="margin-top: 1.5rem;">
+          <p><strong style="color: var(--white);">Block 3 (60 Min.) — Kommunikations-Framework</strong></p>
+          <p>Reframing-Übung: Die bestehenden Kampagnen-Headlines gemeinsam „übersetzen".</p>
+          <ul style="list-style: none; margin-top: 0.5rem;">
+            <li style="padding-left: 1rem; position: relative; margin-bottom: 0.3rem; color: var(--gray-300); font-size: 0.88rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> Live-Übung: 5 bestehende Headlines → neues Framing (Workshop-Teilnehmer arbeiten mit)</li>
+            <li style="padding-left: 1rem; position: relative; margin-bottom: 0.3rem; color: var(--gray-300); font-size: 0.88rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> Tonalitäts-Leitplanken definieren: Was sagen wir? Was sagen wir nie?</li>
+            <li style="padding-left: 1rem; position: relative; margin-bottom: 0.3rem; color: var(--gray-300); font-size: 0.88rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> „It's Toasted"-Übung: Was kann clever fit sagen, was kein anderes Gym kann?</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="full-card">
+        <h3 style="color: var(--clever-red);">Session 2: Content & Umsetzung (3h)</h3>
+        <div class="section-divider"></div>
+
+        <div style="margin-top: 1rem;">
+          <p><strong style="color: var(--white);">Block 4 (60 Min.) — Content-Säulen & Formate</strong></p>
+          <p>Die 5 Content-Säulen vorstellen und mit clever fit validieren.</p>
+          <ul style="list-style: none; margin-top: 0.5rem;">
+            <li style="padding-left: 1rem; position: relative; margin-bottom: 0.3rem; color: var(--gray-300); font-size: 0.88rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> Content-Säulen-Modell präsentieren (Community, Education, Reborn, Entertainment, Offers)</li>
+            <li style="padding-left: 1rem; position: relative; margin-bottom: 0.3rem; color: var(--gray-300); font-size: 0.88rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> Prozentuale Verteilung abstimmen und für clever fit anpassen</li>
+            <li style="padding-left: 1rem; position: relative; margin-bottom: 0.3rem; color: var(--gray-300); font-size: 0.88rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> Format-Mapping: Welche Säule funktioniert in welchem Format? (Reel, Story, Karussell, etc.)</li>
+            <li style="padding-left: 1rem; position: relative; margin-bottom: 0.3rem; color: var(--gray-300); font-size: 0.88rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> Franchise-Thema: Wie kriegen lokale Studios konsistenten, markenkonformen Content hin?</li>
+          </ul>
+        </div>
+
+        <div style="margin-top: 1.5rem;">
+          <p><strong style="color: var(--white);">Block 5 (60 Min.) — Creative Ideation</strong></p>
+          <p>Konkrete Content-Ideen für die nächsten 4–8 Wochen entwickeln.</p>
+          <ul style="list-style: none; margin-top: 0.5rem;">
+            <li style="padding-left: 1rem; position: relative; margin-bottom: 0.3rem; color: var(--gray-300); font-size: 0.88rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> 3 Reels-Konzepte für die Reborn-Kampagne</li>
+            <li style="padding-left: 1rem; position: relative; margin-bottom: 0.3rem; color: var(--gray-300); font-size: 0.88rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> Running Club Launch-Content: Serie aus 5 Posts/Reels</li>
+            <li style="padding-left: 1rem; position: relative; margin-bottom: 0.3rem; color: var(--gray-300); font-size: 0.88rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> Community-Content: Member Spotlight Template</li>
+            <li style="padding-left: 1rem; position: relative; margin-bottom: 0.3rem; color: var(--gray-300); font-size: 0.88rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> Hook-Writing: Die 10 stärksten Hooks für clever fit definieren</li>
+            <li style="padding-left: 1rem; position: relative; margin-bottom: 0.3rem; color: var(--gray-300); font-size: 0.88rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> Content-Shooting-Briefing: Was muss beim nächsten Shoot unbedingt mit rein?</li>
+          </ul>
+        </div>
+
+        <div style="margin-top: 1.5rem;">
+          <p><strong style="color: var(--white);">Block 6 (60 Min.) — Roadmap & Next Steps</strong></p>
+          <p>Alles zusammenführen und die nächsten konkreten Schritte festlegen.</p>
+          <ul style="list-style: none; margin-top: 0.5rem;">
+            <li style="padding-left: 1rem; position: relative; margin-bottom: 0.3rem; color: var(--gray-300); font-size: 0.88rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> 3-Phasen-Roadmap vorstellen und gemeinsam priorisieren</li>
+            <li style="padding-left: 1rem; position: relative; margin-bottom: 0.3rem; color: var(--gray-300); font-size: 0.88rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> Quick Wins definieren: Was kann sofort umgesetzt werden?</li>
+            <li style="padding-left: 1rem; position: relative; margin-bottom: 0.3rem; color: var(--gray-300); font-size: 0.88rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> Zusammenarbeitsmodell klären: Wie unterstützt Döring Media ongoing?</li>
+            <li style="padding-left: 1rem; position: relative; margin-bottom: 0.3rem; color: var(--gray-300); font-size: 0.88rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> KPI-Framework: Welche Metriken zeigen, ob die Transformation Social-seitig wirkt?</li>
+            <li style="padding-left: 1rem; position: relative; margin-bottom: 0.3rem; color: var(--gray-300); font-size: 0.88rem;"><span style="position: absolute; left: 0; color: var(--clever-red);">→</span> Feedback-Runde und offene Fragen</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="full-card" style="margin-top: 1.5rem;">
+      <h3>Vorbereitungs-Checkliste: Was wir VOR dem Workshop von clever fit brauchen</h3>
+      <p>Diese Punkte sollten im Vorab-Call oder per E-Mail geklärt werden — damit wir im Workshop sofort tief einsteigen können.</p>
+      <ul style="list-style: none; margin-top: 1rem;">
+        <li style="padding-left: 1.5rem; position: relative; margin-bottom: 0.6rem; color: var(--gray-300); font-size: 0.9rem;"><span style="position: absolute; left: 0; color: var(--clever-red); font-weight: 700;">☐</span> <strong>Reborn-Status:</strong> Wie viele Studios sind bereits umgebaut? Zeitplan für weitere?</li>
+        <li style="padding-left: 1.5rem; position: relative; margin-bottom: 0.6rem; color: var(--gray-300); font-size: 0.9rem;"><span style="position: absolute; left: 0; color: var(--clever-red); font-weight: 700;">☐</span> <strong>Rolle des Preises:</strong> Ist „günstigstes Gym" eure Kern-Identity oder ein Feature unter vielen?</li>
+        <li style="padding-left: 1.5rem; position: relative; margin-bottom: 0.6rem; color: var(--gray-300); font-size: 0.9rem;"><span style="position: absolute; left: 0; color: var(--clever-red); font-weight: 700;">☐</span> <strong>Social-Media-Zugang:</strong> Aktuelle Accounts, Performance-Daten, bisherige Learnings</li>
+        <li style="padding-left: 1.5rem; position: relative; margin-bottom: 0.6rem; color: var(--gray-300); font-size: 0.9rem;"><span style="position: absolute; left: 0; color: var(--clever-red); font-weight: 700;">☐</span> <strong>Frauenanteil:</strong> 40% oder 60%? Und auf welche Basis bezogen?</li>
+        <li style="padding-left: 1.5rem; position: relative; margin-bottom: 0.6rem; color: var(--gray-300); font-size: 0.9rem;"><span style="position: absolute; left: 0; color: var(--clever-red); font-weight: 700;">☐</span> <strong>Franchise-Struktur:</strong> Wie viel Autonomie haben lokale Studios beim Content? Wer approved was?</li>
+        <li style="padding-left: 1.5rem; position: relative; margin-bottom: 0.6rem; color: var(--gray-300); font-size: 0.9rem;"><span style="position: absolute; left: 0; color: var(--clever-red); font-weight: 700;">☐</span> <strong>Bestehende Agentur-Landschaft:</strong> Wer macht aktuell was? Wie positioniert sich Döring im Agentur-Setup?</li>
+        <li style="padding-left: 1.5rem; position: relative; margin-bottom: 0.6rem; color: var(--gray-300); font-size: 0.9rem;"><span style="position: absolute; left: 0; color: var(--clever-red); font-weight: 700;">☐</span> <strong>Budget-Rahmen:</strong> Grobe Orientierung für Social-Media-Spend (Paid + Organic Production)</li>
+        <li style="padding-left: 1.5rem; position: relative; margin-bottom: 0.6rem; color: var(--gray-300); font-size: 0.9rem;"><span style="position: absolute; left: 0; color: var(--clever-red); font-weight: 700;">☐</span> <strong>Workshop-Ziel von clever fit:</strong> Was ist das eine Ergebnis, mit dem sie rausgehen wollen?</li>
+      </ul>
+    </div>
+
+    <div class="tension-box" style="margin-top: 1.5rem;">
+      <h3>⚡ Das Framing für den Call mit clever fit</h3>
+      <p>
+        Nicht: „Eure Kampagnen widersprechen eurer Strategie." <br>
+        Sondern: „Wir haben eure Unterlagen intensiv durchgearbeitet und finden die Richtung, die ihr mit Reborn einschlagt, extrem stark. Damit wir im Workshop direkt in die Tiefe gehen und euch den besten Social-Content entwickeln können, sind uns beim Durcharbeiten ein paar Punkte aufgefallen, die wir gern vorab kurz mit euch besprechen würden — damit wir sicherstellen, dass wir die Nuancen eurer Strategie richtig verstanden haben."
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>DÖRING MEDIA — Creative Sprint Preparation für clever fit</p>
+  <p style="margin-top: 0.5rem; color: var(--gray-600);">Internes Strategiedokument · April 2026 · Vertraulich</p>
+</footer>
+
+<script>
+// Accordion functionality
+document.querySelectorAll('.accordion-toggle').forEach(btn => {
+  btn.addEventListener('click', () => {
+    btn.classList.toggle('active');
+    const content = btn.nextElementSibling;
+    content.classList.toggle('open');
+  });
+});
+
+// Smooth reveal on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.card, .full-card, .tension-box, .timeline-item, .quote-block').forEach(el => {
+  el.classList.add('reveal');
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
