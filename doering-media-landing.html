@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Döring Media — Marketing für Unternehmensgruppen mit mehreren Standorten</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --black: #0A0A0A;
+  --black-light: #111111;
+  --black-card: #161616;
+  --red: #E8192C;
+  --red-dark: #B8131F;
+  --red-glow: rgba(232, 25, 44, 0.15);
+  --white: #F5F5F5;
+  --gray: #8A8A8A;
+  --gray-light: #C0C0C0;
+  --gray-dark: #2A2A2A;
+  --font-display: 'Outfit', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+}
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: var(--font-display);
+  background: var(--black);
+  color: var(--white);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Utility ── */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 60px); }
+.section { padding: clamp(60px, 10vw, 140px) 0; }
+.red { color: var(--red); }
+.gray { color: var(--gray); }
+.mono { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); }
+
+/* ── Nav ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 20px 0;
+  background: rgba(10,10,10,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  transition: all 0.3s;
+}
+nav .container { display: flex; justify-content: space-between; align-items: center; }
+.nav-logo {
+  font-weight: 800; font-size: 1.15rem; letter-spacing: -0.02em;
+}
+.nav-logo span { color: var(--red); }
+.nav-cta {
+  display: inline-block; padding: 10px 28px;
+  background: var(--red); color: var(--white);
+  font-weight: 600; font-size: 0.85rem;
+  text-decoration: none; border-radius: 6px;
+  transition: all 0.25s;
+  letter-spacing: 0.01em;
+}
+.nav-cta:hover { background: var(--red-dark); transform: translateY(-1px); }
+
+/* ── Hero ── */
+.hero {
+  min-height: 100vh; display: flex; align-items: center;
+  position: relative; overflow: hidden;
+  padding-top: 100px;
+}
+.hero::before {
+  content: ''; position: absolute; top: -40%; right: -20%;
+  width: 800px; height: 800px;
+  background: radial-gradient(circle, var(--red-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-content { position: relative; z-index: 2; max-width: 860px; }
+.hero-tag {
+  display: inline-block; padding: 6px 16px;
+  border: 1px solid rgba(232,25,44,0.3); border-radius: 100px;
+  font-family: var(--font-mono); font-size: 0.7rem;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--red); margin-bottom: 32px;
+  background: rgba(232,25,44,0.05);
+}
+.hero h1 {
+  font-size: clamp(2.6rem, 6vw, 4.8rem);
+  font-weight: 800; line-height: 1.05;
+  letter-spacing: -0.03em; margin-bottom: 28px;
+}
+.hero h1 .line-break { display: block; }
+.hero-sub {
+  font-size: clamp(1.05rem, 2vw, 1.3rem);
+  line-height: 1.6; color: var(--gray-light);
+  max-width: 640px; margin-bottom: 20px;
+  font-weight: 300;
+}
+.hero-einwand {
+  display: inline-block;
+  padding: 16px 24px; margin: 12px 0 36px;
+  background: var(--black-card);
+  border-left: 3px solid var(--red);
+  border-radius: 0 8px 8px 0;
+  font-size: 1rem; font-weight: 400;
+  color: var(--gray-light); line-height: 1.5;
+  font-style: italic;
+}
+.hero-einwand strong { color: var(--white); font-style: normal; font-weight: 600; }
+.hero-cta-row { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 16px 36px; background: var(--red); color: var(--white);
+  font-weight: 700; font-size: 1rem; border: none; border-radius: 8px;
+  text-decoration: none; cursor: pointer; transition: all 0.25s;
+  letter-spacing: 0.01em;
+}
+.btn-primary:hover { background: var(--red-dark); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(232,25,44,0.25); }
+.btn-primary svg { width: 18px; height: 18px; }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 16px 28px; background: transparent; color: var(--gray-light);
+  font-weight: 500; font-size: 0.95rem; border: 1px solid var(--gray-dark);
+  border-radius: 8px; text-decoration: none; transition: all 0.25s;
+}
+.btn-ghost:hover { border-color: var(--gray); color: var(--white); }
+
+/* ── Metrics Bar ── */
+.metrics-bar {
+  padding: 48px 0;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.metrics-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
+  text-align: center;
+}
+.metric-num { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: var(--red); letter-spacing: -0.03em; }
+.metric-label { font-size: 0.8rem; color: var(--gray); margin-top: 6px; font-weight: 400; }
+
+/* ── Features ── */
+.features-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  margin-top: 60px;
+}
+.feature-card {
+  padding: 36px 32px;
+  background: var(--black-card);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 12px;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.feature-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 2px; background: var(--red); opacity: 0;
+  transition: opacity 0.3s;
+}
+.feature-card:hover { border-color: rgba(232,25,44,0.2); transform: translateY(-4px); }
+.feature-card:hover::before { opacity: 1; }
+.feature-icon {
+  width: 48px; height: 48px; margin-bottom: 20px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(232,25,44,0.08); border-radius: 10px;
+  color: var(--red); font-size: 1.4rem;
+}
+.feature-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.01em; }
+.feature-card p { font-size: 0.9rem; color: var(--gray); line-height: 1.6; font-weight: 300; }
+
+/* ── Section Headers ── */
+.section-header { max-width: 700px; margin-bottom: 48px; }
+.section-header .mono { margin-bottom: 16px; display: block; }
+.section-header h2 {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 800; letter-spacing: -0.03em;
+  line-height: 1.1; margin-bottom: 20px;
+}
+.section-header p { font-size: 1.05rem; color: var(--gray-light); line-height: 1.6; font-weight: 300; }
+
+/* ── Problem Agitation ── */
+.pain-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+  align-items: start; margin-top: 48px;
+}
+.pain-list { list-style: none; display: flex; flex-direction: column; gap: 20px; }
+.pain-item {
+  display: flex; gap: 16px; align-items: flex-start;
+  padding: 20px 24px;
+  background: var(--black-card); border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.03);
+}
+.pain-icon {
+  flex-shrink: 0; width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(232,25,44,0.1); border-radius: 8px;
+  color: var(--red); font-size: 1rem;
+}
+.pain-text h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
+.pain-text p { font-size: 0.85rem; color: var(--gray); line-height: 1.5; }
+.pain-visual {
+  background: linear-gradient(135deg, var(--black-card) 0%, rgba(232,25,44,0.05) 100%);
+  border-radius: 16px; padding: 48px 40px;
+  border: 1px solid rgba(255,255,255,0.04);
+  display: flex; flex-direction: column; gap: 24px;
+}
+.chaos-line {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 18px; background: rgba(0,0,0,0.4);
+  border-radius: 8px; font-size: 0.85rem; color: var(--gray-light);
+  border-left: 3px solid var(--red);
+}
+.chaos-line .num { font-family: var(--font-mono); color: var(--red); font-weight: 700; font-size: 0.8rem; min-width: 28px; }
+
+/* ── Transformation ── */
+.transform-grid {
+  display: grid; grid-template-columns: 1fr 60px 1fr; gap: 0;
+  align-items: stretch; margin-top: 48px;
+}
+.transform-col {
+  padding: 40px;
+  border-radius: 16px;
+}
+.transform-before {
+  background: var(--black-card);
+  border: 1px solid rgba(255,255,255,0.05);
+}
+.transform-after {
+  background: linear-gradient(135deg, rgba(232,25,44,0.08) 0%, var(--black-card) 100%);
+  border: 1px solid rgba(232,25,44,0.15);
+}
+.transform-arrow {
+  display: flex; align-items: center; justify-content: center;
+  color: var(--red); font-size: 2rem;
+}
+.transform-tag {
+  display: inline-block; padding: 4px 12px; border-radius: 100px;
+  font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.transform-before .transform-tag { background: rgba(255,255,255,0.05); color: var(--gray); }
+.transform-after .transform-tag { background: rgba(232,25,44,0.15); color: var(--red); }
+.transform-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+.transform-list li {
+  display: flex; align-items: flex-start; gap: 12px;
+  font-size: 0.9rem; line-height: 1.5; color: var(--gray-light);
+}
+.transform-list li .icon { flex-shrink: 0; margin-top: 2px; }
+.transform-before .transform-list li .icon { color: var(--gray); }
+.transform-after .transform-list li .icon { color: var(--red); }
+
+/* ── Social Proof ── */
+.proof-section { background: var(--black-light); }
+.proof-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+.proof-card {
+  padding: 32px; border-radius: 12px;
+  background: var(--black-card); border: 1px solid rgba(255,255,255,0.04);
+}
+.proof-quote {
+  font-size: 1rem; line-height: 1.65; color: var(--gray-light);
+  font-weight: 300; font-style: italic; margin-bottom: 20px;
+}
+.proof-author { display: flex; align-items: center; gap: 12px; }
+.proof-avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--red), var(--red-dark));
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.85rem; color: var(--white);
+}
+.proof-name { font-weight: 600; font-size: 0.85rem; }
+.proof-role { font-size: 0.75rem; color: var(--gray); }
+
+/* ── Deep Features ── */
+.deep-features { margin-top: 48px; }
+.deep-feature {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+  align-items: center; padding: 60px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.deep-feature:last-child { border-bottom: none; }
+.deep-feature:nth-child(even) .deep-text { order: 2; }
+.deep-feature:nth-child(even) .deep-visual { order: 1; }
+.deep-text .mono { margin-bottom: 12px; display: block; }
+.deep-text h3 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 16px; line-height: 1.15; }
+.deep-text p { font-size: 0.95rem; color: var(--gray-light); line-height: 1.7; font-weight: 300; margin-bottom: 12px; }
+.deep-visual {
+  background: var(--black-card); border-radius: 16px;
+  padding: 40px; border: 1px solid rgba(255,255,255,0.04);
+  min-height: 300px; display: flex; flex-direction: column; justify-content: center;
+}
+.infra-stack { display: flex; flex-direction: column; gap: 12px; }
+.infra-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 16px; background: rgba(0,0,0,0.3);
+  border-radius: 8px; font-size: 0.85rem;
+}
+.infra-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--red); flex-shrink: 0; }
+.infra-dot.green { background: #2ECC71; }
+.infra-dot.amber { background: #F1C40F; }
+.infra-label { color: var(--gray-light); }
+.infra-val { margin-left: auto; font-family: var(--font-mono); font-size: 0.75rem; color: var(--gray); }
+
+/* ── Pricing ── */
+.pricing-section { background: var(--black-light); }
+.pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+.pricing-card {
+  padding: 40px 32px; border-radius: 16px;
+  background: var(--black-card); border: 1px solid rgba(255,255,255,0.04);
+  position: relative; transition: all 0.3s;
+}
+.pricing-card.featured {
+  border-color: var(--red);
+  background: linear-gradient(180deg, rgba(232,25,44,0.06) 0%, var(--black-card) 40%);
+}
+.pricing-badge {
+  position: absolute; top: -12px; right: 24px;
+  padding: 6px 16px; background: var(--red); border-radius: 100px;
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+}
+.pricing-tier { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); margin-bottom: 12px; }
+.pricing-name { font-size: 1.3rem; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.01em; }
+.pricing-desc { font-size: 0.85rem; color: var(--gray); line-height: 1.5; margin-bottom: 24px; }
+.pricing-price { font-size: 2.2rem; font-weight: 800; margin-bottom: 4px; letter-spacing: -0.03em; }
+.pricing-price span { font-size: 0.9rem; font-weight: 400; color: var(--gray); }
+.pricing-note { font-size: 0.75rem; color: var(--gray); margin-bottom: 28px; }
+.pricing-features { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+.pricing-features li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.85rem; color: var(--gray-light); line-height: 1.4; }
+.pricing-features li .check { color: var(--red); flex-shrink: 0; margin-top: 2px; }
+.pricing-card .btn-primary { width: 100%; justify-content: center; padding: 14px; }
+.pricing-card .btn-ghost { width: 100%; justify-content: center; padding: 14px; }
+
+/* ── FAQ ── */
+.faq-list { max-width: 780px; margin: 48px auto 0; display: flex; flex-direction: column; gap: 0; }
+.faq-item {
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.faq-q {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 24px 0; cursor: pointer;
+  font-size: 1.05rem; font-weight: 600;
+  transition: color 0.2s;
+  user-select: none;
+}
+.faq-q:hover { color: var(--red); }
+.faq-q .toggle { font-size: 1.3rem; color: var(--gray); transition: transform 0.3s; }
+.faq-q.open .toggle { transform: rotate(45deg); color: var(--red); }
+.faq-a {
+  max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s;
+}
+.faq-a.open { max-height: 400px; padding-bottom: 24px; }
+.faq-a p { font-size: 0.9rem; color: var(--gray-light); line-height: 1.7; font-weight: 300; }
+
+/* ── Final CTA ── */
+.final-cta {
+  text-align: center;
+  background: linear-gradient(180deg, var(--black) 0%, rgba(232,25,44,0.04) 50%, var(--black) 100%);
+}
+.final-cta h2 {
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 800; letter-spacing: -0.03em;
+  margin-bottom: 20px; line-height: 1.1;
+}
+.final-cta p {
+  font-size: 1.1rem; color: var(--gray-light); max-width: 560px;
+  margin: 0 auto 40px; line-height: 1.6; font-weight: 300;
+}
+
+/* ── Footer ── */
+footer {
+  padding: 48px 0; border-top: 1px solid rgba(255,255,255,0.04);
+}
+footer .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+.footer-left .nav-logo { margin-bottom: 8px; }
+.footer-legal { font-size: 0.75rem; color: var(--gray); }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { font-size: 0.8rem; color: var(--gray); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--white); }
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate { opacity: 0; transform: translateY(30px); transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+.animate.visible { opacity: 1; transform: translateY(0); }
+
+/* ── Responsive ── */
+@media (max-width: 968px) {
+  .features-grid, .proof-cards, .pricing-grid { grid-template-columns: 1fr; }
+  .pain-grid, .deep-feature { grid-template-columns: 1fr; gap: 32px; }
+  .deep-feature:nth-child(even) .deep-text { order: 1; }
+  .deep-feature:nth-child(even) .deep-visual { order: 2; }
+  .transform-grid { grid-template-columns: 1fr; }
+  .transform-arrow { transform: rotate(90deg); padding: 16px 0; }
+  .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .hero-cta-row { flex-direction: column; align-items: stretch; }
+  .btn-primary, .btn-ghost { text-align: center; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav>
+  <div class="container">
+    <div class="nav-logo">DÖRING <span>MEDIA</span></div>
+    <a href="#cta" class="nav-cta">Erstgespräch buchen</a>
+  </div>
+</nav>
+
+<!-- ── Hero Section ── -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-tag">Brandformance für Unternehmensgruppen</div>
+      <h1>
+        Marketing für<br>
+        Unternehmensgruppen<br>
+        mit <span class="red">mehreren Standorten.</span>
+      </h1>
+      <p class="hero-sub">
+        Wir bauen skalierfähige Marketinginfrastrukturen, die Branding und Performance verbinden. Strategie, Kreation und Media — aus einer Hand, aus Berlin, für ganz Deutschland.
+      </p>
+      <div class="hero-einwand">
+        „<strong>Bei uns ist das etwas komplizierter mit den ganzen Standorten.</strong>"<br>
+        Das hören wir von jedem Kunden. Und genau darauf haben wir uns spezialisiert.
+      </div>
+      <div class="hero-cta-row">
+        <a href="#cta" class="btn-primary">
+          Kostenloses Erstgespräch
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#features" class="btn-ghost">Wie wir arbeiten</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Metrics Bar ── -->
+<div class="metrics-bar">
+  <div class="container">
+    <div class="metrics-grid">
+      <div class="animate">
+        <div class="metric-num">500+</div>
+        <div class="metric-label">betreute Standorte</div>
+      </div>
+      <div class="animate">
+        <div class="metric-num">100%</div>
+        <div class="metric-label">Inhouse — keine Subunternehmer</div>
+      </div>
+      <div class="animate">
+        <div class="metric-num">1</div>
+        <div class="metric-label">System — unendlich skalierbar</div>
+      </div>
+      <div class="animate">
+        <div class="metric-num">Berlin</div>
+        <div class="metric-label">für ganz Deutschland</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Features ── -->
+<section id="features" class="section">
+  <div class="container">
+    <div class="section-header animate">
+      <span class="mono">Was uns unterscheidet</span>
+      <h2>Wir denken jede Idee so,<br>dass sie <span class="red">skaliert</span>.</h2>
+      <p>Von der kleinsten Ad bis zur großen Kampagne: Jede einzelne Maßnahme wird so konzipiert, dass sie nicht nur ein Marketing-Asset ist — sondern Teil einer skalierfähigen Infrastruktur.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card animate">
+        <div class="feature-icon">⚡</div>
+        <h3>Einmal entwickeln. Überall performen.</h3>
+        <p>Kampagnen, die auf Gruppenebene entwickelt und standortspezifisch ausgerollt werden. Kein Copy-Paste — echte Skaleneffekte durch zentralisierte Infrastruktur.</p>
+      </div>
+      <div class="feature-card animate">
+        <div class="feature-icon">🎯</div>
+        <h3>Multistandort-Probleme gelöst</h3>
+        <p>IT-Setup, Domain-Strukturen, lokale Anpassung, brandgetreuer Content ohne Vor-Ort-Dreh — wir lösen Probleme, die erst bei mehreren Standorten auftauchen.</p>
+      </div>
+      <div class="feature-card animate">
+        <div class="feature-icon">🔄</div>
+        <h3>Deutschlandweite Learnings</h3>
+        <p>Was bei einem Standort funktioniert, fließt sofort in alle anderen ein. Recruiting-Insights, Winning-Ads, Workflow-Optimierungen — extrahiert und übertragen.</p>
+      </div>
+      <div class="feature-card animate">
+        <div class="feature-icon">🎬</div>
+        <h3>High-End Creative ohne Kompromiss</h3>
+        <p>Brandformance: Storytelling, das hängen bleibt, und Performance, die messbar liefert. Kein Fließband-Look, egal wie viele Standorte.</p>
+      </div>
+      <div class="feature-card animate">
+        <div class="feature-icon">📊</div>
+        <h3>Strategie bis Execution</h3>
+        <p>Konzept, Produktion, Media-Setup und laufende Optimierung — alles inhouse. Ohne aufgeblähtes Agenturkonstrukt und ohne Reibungsverluste.</p>
+      </div>
+      <div class="feature-card animate">
+        <div class="feature-icon">🔐</div>
+        <h3>Standorte als Vorteil</h3>
+        <p>Euer angeblicher Nachteil ist euer unfairer Wettbewerbsvorteil im Marketing. Mehr Standorte = mehr Daten, mehr Skaleneffekte, mehr Möglichkeiten.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Problem Agitation ── -->
+<section class="section" style="background: var(--black-light);">
+  <div class="container">
+    <div class="section-header animate">
+      <span class="mono">Das Problem</span>
+      <h2>Mehrere Standorte.<br><span class="red">Kein System.</span></h2>
+      <p>Je mehr Standorte, desto größer das Chaos. Jeder macht sein eigenes Ding. Budgets verpuffen. Und die Marke verwässert mit jedem neuen Profil.</p>
+    </div>
+    <div class="pain-grid">
+      <ul class="pain-list animate">
+        <li class="pain-item">
+          <div class="pain-icon">✕</div>
+          <div class="pain-text">
+            <h4>30 Standorte, 30 Facebook-Accounts</h4>
+            <p>Jeder Standort richtet eigene Profile ein, postet ohne Strategie, verbrennt Budget — und niemand hat den Überblick.</p>
+          </div>
+        </li>
+        <li class="pain-item">
+          <div class="pain-icon">✕</div>
+          <div class="pain-text">
+            <h4>Agentur versteht Multistandort nicht</h4>
+            <p>Klassische Agenturen denken in Einzelkunden. Sie verstehen nicht, warum Emirates eine eigene E-Mail braucht oder wie lokaler Content skalierbar wird.</p>
+          </div>
+        </li>
+        <li class="pain-item">
+          <div class="pain-icon">✕</div>
+          <div class="pain-text">
+            <h4>Learnings versickern</h4>
+            <p>Was in Hamburg funktioniert, erfährt München nie. Jeder Standort macht die gleichen Fehler — ohne zentrale Datenauswertung.</p>
+          </div>
+        </li>
+        <li class="pain-item">
+          <div class="pain-icon">✕</div>
+          <div class="pain-text">
+            <h4>Brand verwässert, Performance sinkt</h4>
+            <p>Lokale Eigeninterpretationen zerstören die Markenidentität. Gleichzeitig fehlt die Messbarkeit über Standorte hinweg.</p>
+          </div>
+        </li>
+      </ul>
+      <div class="pain-visual animate">
+        <div style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); margin-bottom: 8px;">Typisches Multistandort-Chaos</div>
+        <div class="chaos-line"><span class="num">01</span> Standort A postet auf eigenem Account</div>
+        <div class="chaos-line"><span class="num">02</span> Standort B hat kein Budget-Tracking</div>
+        <div class="chaos-line"><span class="num">03</span> Standort C nutzt alte Brand-Assets</div>
+        <div class="chaos-line"><span class="num">04</span> Zentrale hat keinen Zugriff auf Daten</div>
+        <div class="chaos-line"><span class="num">05</span> Recruiting-Kampagne läuft 3× parallel</div>
+        <div class="chaos-line"><span class="num">06</span> Kein Standort weiß, was funktioniert</div>
+        <div class="chaos-line"><span class="num">07</span> Agentur liefert generische Templates</div>
+        <div style="margin-top: 16px; padding: 14px 18px; background: rgba(232,25,44,0.08); border-radius: 8px; font-size: 0.85rem; color: var(--red); font-weight: 500; text-align: center;">
+          → Ergebnis: 70% des Budgets verpufft ohne Wirkung
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Transformation ── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header animate" style="text-align: center; max-width: 700px; margin-left: auto; margin-right: auto;">
+      <span class="mono">Die Transformation</span>
+      <h2>Vom Chaos zum <span class="red">System</span>.</h2>
+      <p>Wachstum ohne Chaos. Brand ohne Kompromiss.</p>
+    </div>
+    <div class="transform-grid animate">
+      <div class="transform-col transform-before">
+        <div class="transform-tag">Vorher</div>
+        <ul class="transform-list">
+          <li><span class="icon">✕</span> Jeder Standort macht sein eigenes Marketing</li>
+          <li><span class="icon">✕</span> Keine zentrale Steuerung oder Reporting</li>
+          <li><span class="icon">✕</span> Brand-Inkonsistenz über Standorte hinweg</li>
+          <li><span class="icon">✕</span> Learnings gehen verloren — jeder Standort startet bei null</li>
+          <li><span class="icon">✕</span> Content-Produktion erfordert lokale Drehs</li>
+          <li><span class="icon">✕</span> Hohe Agenturkosten, geringe Skalierbarkeit</li>
+        </ul>
+      </div>
+      <div class="transform-arrow">→</div>
+      <div class="transform-col transform-after">
+        <div class="transform-tag">Mit Döring Media</div>
+        <ul class="transform-list">
+          <li><span class="icon">▸</span> Ein System — alle Standorte zentral gesteuert</li>
+          <li><span class="icon">▸</span> Transparentes Reporting über die gesamte Gruppe</li>
+          <li><span class="icon">▸</span> Brandgetreuer Content, der lokal adaptiert wird</li>
+          <li><span class="icon">▸</span> Deutschlandweite Learnings fließen in jeden Standort</li>
+          <li><span class="icon">▸</span> Skalierfähige Content-Produktion ohne Vor-Ort-Dreh</li>
+          <li><span class="icon">▸</span> Ein Partner, volle Wertschöpfungskette, maximale Effizienz</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Social Proof ── -->
+<section class="section proof-section">
+  <div class="container">
+    <div class="section-header animate" style="text-align: center; max-width: 700px; margin-left: auto; margin-right: auto;">
+      <span class="mono">Das sagen unsere Partner</span>
+      <h2>Ergebnisse statt <span class="red">Versprechen</span>.</h2>
+    </div>
+    <div class="proof-cards">
+      <div class="proof-card animate">
+        <p class="proof-quote">„Zum ersten Mal haben wir einen Partner, der versteht, dass unsere 24 Standorte kein Problem sind — sondern ein Hebel."</p>
+        <div class="proof-author">
+          <div class="proof-avatar">MK</div>
+          <div>
+            <div class="proof-name">Marketing-Leitung</div>
+            <div class="proof-role">Unternehmensgruppe, 24 Standorte</div>
+          </div>
+        </div>
+      </div>
+      <div class="proof-card animate">
+        <p class="proof-quote">„Wir hatten drei Agenturen vorher. Keine hat verstanden, wie man lokalen Content skalierbar macht, ohne die Marke zu verwässern."</p>
+        <div class="proof-author">
+          <div class="proof-avatar">SL</div>
+          <div>
+            <div class="proof-name">Geschäftsführer</div>
+            <div class="proof-role">Franchise-System, 18 Standorte</div>
+          </div>
+        </div>
+      </div>
+      <div class="proof-card animate">
+        <p class="proof-quote">„Das IT-Setup allein — Domains, E-Mail-Strukturen, Tracking über alle Standorte — das hätten wir intern nie so sauber hinbekommen."</p>
+        <div class="proof-author">
+          <div class="proof-avatar">JR</div>
+          <div>
+            <div class="proof-name">COO</div>
+            <div class="proof-role">D2C-Marke, 12 Standorte</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Deep Features ── -->
+<section id="deep-features" class="section">
+  <div class="container">
+    <div class="section-header animate">
+      <span class="mono">Wie wir arbeiten</span>
+      <h2>Marketing-Infrastruktur,<br>kein <span class="red">Strohfeuer</span>.</h2>
+    </div>
+    <div class="deep-features">
+      <div class="deep-feature animate">
+        <div class="deep-text">
+          <span class="mono">01 — Zentrales System</span>
+          <h3>Ein System, in dem Standorte nicht hinderlich sind — sondern <span class="red">Skaleneffekte</span> bringen.</h3>
+          <p>Wir denken von der ersten Ad an so, dass sie multistandortfähig ist. Jede Kampagne, jedes Asset, jeder Workflow wird als Teil einer Infrastruktur gebaut — nicht als Einzelmaßnahme.</p>
+          <p>Das Ergebnis: Einmal investieren, überall profitieren. Neue Standorte integrieren sich in ein bestehendes System, statt bei null zu starten.</p>
+        </div>
+        <div class="deep-visual">
+          <div class="infra-stack">
+            <div style="font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); margin-bottom: 4px;">Marketing-Infrastruktur Status</div>
+            <div class="infra-row"><div class="infra-dot green"></div><span class="infra-label">Kampagnen-Architektur</span><span class="infra-val">aktiv</span></div>
+            <div class="infra-row"><div class="infra-dot green"></div><span class="infra-label">Zentrales Tracking & Attribution</span><span class="infra-val">aktiv</span></div>
+            <div class="infra-row"><div class="infra-dot green"></div><span class="infra-label">Standort-Templates</span><span class="infra-val">24/24</span></div>
+            <div class="infra-row"><div class="infra-dot green"></div><span class="infra-label">Creative Library</span><span class="infra-val">148 Assets</span></div>
+            <div class="infra-row"><div class="infra-dot green"></div><span class="infra-label">Cross-Location Learnings</span><span class="infra-val">sync</span></div>
+            <div class="infra-row"><div class="infra-dot amber"></div><span class="infra-label">Neuer Standort onboarding</span><span class="infra-val">3 Tage</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="deep-feature animate">
+        <div class="deep-text">
+          <span class="mono">02 — Brandgetreuer Content</span>
+          <h3>Skalierbare Produktion,<br>ohne dass Standorte <span class="red">vor die Kamera</span> müssen.</h3>
+          <p>Wir haben den Prozess geknackt, wie man brandgetreuen Content produziert, der trotzdem lokal funktioniert. Jeder Standort bekommt seinen individuellen Auftritt — angepasst an Lokalität, Community und Zielgruppe.</p>
+          <p>Das ist kein generisches Template-System. Das ist eine Kreativagentur, die Multistandort denkt — bei jedem Dreh, jedem Schnitt, jedem Posting.</p>
+        </div>
+        <div class="deep-visual">
+          <div style="text-align: center;">
+            <div style="font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); margin-bottom: 20px;">Content-Skalierung</div>
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+              <div style="padding: 20px; background: rgba(0,0,0,0.3); border-radius: 10px; flex: 1; min-width: 120px;">
+                <div style="font-size: 2rem; font-weight: 800; color: var(--red);">1</div>
+                <div style="font-size: 0.75rem; color: var(--gray); margin-top: 4px;">Produktion</div>
+              </div>
+              <div style="display: flex; align-items: center; color: var(--gray); font-size: 1.5rem;">→</div>
+              <div style="padding: 20px; background: rgba(0,0,0,0.3); border-radius: 10px; flex: 1; min-width: 120px;">
+                <div style="font-size: 2rem; font-weight: 800; color: var(--white);">24</div>
+                <div style="font-size: 0.75rem; color: var(--gray); margin-top: 4px;">Adaptionen</div>
+              </div>
+              <div style="display: flex; align-items: center; color: var(--gray); font-size: 1.5rem;">→</div>
+              <div style="padding: 20px; background: rgba(0,0,0,0.3); border-radius: 10px; flex: 1; min-width: 120px;">
+                <div style="font-size: 2rem; font-weight: 800; color: var(--white);">∞</div>
+                <div style="font-size: 0.75rem; color: var(--gray); margin-top: 4px;">Learnings</div>
+              </div>
+            </div>
+            <div style="margin-top: 24px; padding: 16px; background: rgba(232,25,44,0.06); border-radius: 10px; font-size: 0.85rem; color: var(--gray-light);">
+              Nicht Fließbandarbeit — sondern skalierfähige Kreation.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="deep-feature animate">
+        <div class="deep-text">
+          <span class="mono">03 — Cross-Location Intelligence</span>
+          <h3>Learnings, die nur entstehen,<br>wenn man <span class="red">dutzende Standorte</span> betreut.</h3>
+          <p>Wir lösen Probleme, die den meisten Agenturen gar nicht erst gestellt werden — weil sie nicht mit Multistandort-Unternehmen arbeiten. Von IT- und Domain-Setups bis zu standortübergreifenden Recruiting-Strategien.</p>
+          <p>Wenn wir lernen, dass ein bestimmtes Content-Format im Recruiting funktioniert, lässt sich das auf seine Art in jeder Unternehmensgruppe einsetzen. Das sind Learnings durch Einblicke in deutschlandweite Multistandort-Strukturen.</p>
+        </div>
+        <div class="deep-visual">
+          <div style="font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); margin-bottom: 16px;">Learning-Transfer-Beispiele</div>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div style="padding: 16px; background: rgba(0,0,0,0.3); border-radius: 10px; display: flex; align-items: center; gap: 12px;">
+              <div style="width: 32px; height: 32px; background: rgba(232,25,44,0.1); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; flex-shrink: 0;">🏢</div>
+              <div><div style="font-size: 0.85rem; font-weight: 600;">Recruiting-Format</div><div style="font-size: 0.75rem; color: var(--gray);">Probearbeit + Content → auf 8 Kunden übertragen</div></div>
+            </div>
+            <div style="padding: 16px; background: rgba(0,0,0,0.3); border-radius: 10px; display: flex; align-items: center; gap: 12px;">
+              <div style="width: 32px; height: 32px; background: rgba(232,25,44,0.1); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; flex-shrink: 0;">📧</div>
+              <div><div style="font-size: 0.85rem; font-weight: 600;">E-Mail-Infrastruktur</div><div style="font-size: 0.75rem; color: var(--gray);">Subdomain-Lösung → Standard für alle Neukunden</div></div>
+            </div>
+            <div style="padding: 16px; background: rgba(0,0,0,0.3); border-radius: 10px; display: flex; align-items: center; gap: 12px;">
+              <div style="width: 32px; height: 32px; background: rgba(232,25,44,0.1); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; flex-shrink: 0;">📈</div>
+              <div><div style="font-size: 0.85rem; font-weight: 600;">Winning Ad-Konzepte</div><div style="font-size: 0.75rem; color: var(--gray);">Top-Performer identifiziert → adaptiert für 3 Branchen</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Pricing ── -->
+<section class="section pricing-section">
+  <div class="container">
+    <div class="section-header animate" style="text-align: center; max-width: 700px; margin-left: auto; margin-right: auto;">
+      <span class="mono">Zusammenarbeit</span>
+      <h2>Drei Wege mit <span class="red">Döring Media</span>.</h2>
+      <p>Keine versteckten Kosten. Keine endlosen Abstimmungsschleifen. Klare Modelle, die sich an eurer Situation orientieren.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card animate">
+        <div class="pricing-tier">Einstieg</div>
+        <div class="pricing-name">Netzwerk-Audit</div>
+        <div class="pricing-desc">Strategische Analyse eurer gesamten Multistandort-Marketingstruktur. Schwachstellen identifizieren, Hebel finden, Roadmap entwickeln.</div>
+        <div class="pricing-price">7.000 € <span>einmalig</span></div>
+        <div class="pricing-note">BAFA-förderfähig — effektiv ab 3.500 € (Berlin 50%)</div>
+        <ul class="pricing-features">
+          <li><span class="check">▸</span> Vollständiges Audit aller Standorte</li>
+          <li><span class="check">▸</span> Schwachstellen- & Potenzialanalyse</li>
+          <li><span class="check">▸</span> Priorisierte Handlungsempfehlungen</li>
+          <li><span class="check">▸</span> Strategische Roadmap für 12 Monate</li>
+        </ul>
+        <a href="#cta" class="btn-ghost">Audit anfragen</a>
+      </div>
+      <div class="pricing-card featured animate">
+        <div class="pricing-badge">Empfohlen</div>
+        <div class="pricing-tier">Partnerschaft</div>
+        <div class="pricing-name">Gruppen-Retainer</div>
+        <div class="pricing-desc">Laufende Betreuung: Kampagnenmanagement, Creative-Produktion, Optimierung und strategische Beratung für die gesamte Gruppe.</div>
+        <div class="pricing-price">ab 10.000 € <span>/Monat</span></div>
+        <div class="pricing-note">Setup-Fee je nach Umfang — individuell kalkuliert</div>
+        <ul class="pricing-features">
+          <li><span class="check">▸</span> Zentrales Kampagnenmanagement</li>
+          <li><span class="check">▸</span> Standortspezifische Creatives & Content</li>
+          <li><span class="check">▸</span> Cross-Location Reporting & Learnings</li>
+          <li><span class="check">▸</span> Monatliche Strategie-Reviews</li>
+          <li><span class="check">▸</span> IT-Infrastruktur & Tracking-Setup</li>
+        </ul>
+        <a href="#cta" class="btn-primary">Erstgespräch buchen</a>
+      </div>
+      <div class="pricing-card animate">
+        <div class="pricing-tier">Premium</div>
+        <div class="pricing-name">Strategische Partnerschaft</div>
+        <div class="pricing-desc">CMO-Level-Beratung und vollumfängliche Umsetzung. Für Unternehmensgruppen, die Marketing als strategischen Wachstumshebel ernst nehmen.</div>
+        <div class="pricing-price">ab 15.000 € <span>/Monat</span></div>
+        <div class="pricing-note">Inklusive Revenue-Share-Optionen bei Hochmargen-Modellen</div>
+        <ul class="pricing-features">
+          <li><span class="check">▸</span> Alles aus Gruppen-Retainer</li>
+          <li><span class="check">▸</span> Exklusiver strategischer Sparring-Partner</li>
+          <li><span class="check">▸</span> Prioritäts-Support & dediziertes Team</li>
+          <li><span class="check">▸</span> Quarterly Business Reviews</li>
+          <li><span class="check">▸</span> Revenue-Share-Modell möglich</li>
+        </ul>
+        <a href="#cta" class="btn-ghost">Gespräch vereinbaren</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Testimonials (extended) ── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header animate" style="text-align: center; max-width: 700px; margin-left: auto; margin-right: auto;">
+      <span class="mono">Kundenstimmen</span>
+      <h2>Warum Unternehmensgruppen<br>mit uns <span class="red">arbeiten</span>.</h2>
+    </div>
+    <div style="max-width: 780px; margin: 48px auto 0; display: flex; flex-direction: column; gap: 32px;">
+      <div class="animate" style="padding: 36px; background: var(--black-card); border-radius: 12px; border: 1px solid rgba(255,255,255,0.04); border-left: 3px solid var(--red);">
+        <p style="font-size: 1.1rem; line-height: 1.7; color: var(--gray-light); font-weight: 300; margin-bottom: 16px;">
+          „Endlich eine Agentur, die nicht bei jedem Standort von vorne anfängt. Döring Media hat unser gesamtes Marketing in ein System überführt, das wächst, wenn wir wachsen."
+        </p>
+        <div style="font-weight: 600; font-size: 0.9rem;">— Head of Marketing, Unternehmensgruppe mit 32 Standorten</div>
+      </div>
+      <div class="animate" style="padding: 36px; background: var(--black-card); border-radius: 12px; border: 1px solid rgba(255,255,255,0.04); border-left: 3px solid var(--red);">
+        <p style="font-size: 1.1rem; line-height: 1.7; color: var(--gray-light); font-weight: 300; margin-bottom: 16px;">
+          „Die Stolpersteine, über die andere Agenturen fallen — Döring Media kennt sie alle. Weil sie nur so denken: multistandortfähig, vom ersten Tag an."
+        </p>
+        <div style="font-weight: 600; font-size: 0.9rem;">— Gründer & CEO, Franchise-Netzwerk</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ── -->
+<section class="section" style="background: var(--black-light);">
+  <div class="container">
+    <div class="section-header animate" style="text-align: center; max-width: 700px; margin-left: auto; margin-right: auto;">
+      <span class="mono">Häufige Fragen</span>
+      <h2>Fragen, die wir <span class="red">oft hören</span>.</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item animate">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Arbeitet ihr nur mit Franchise-Unternehmen?
+          <span class="toggle">+</span>
+        </div>
+        <div class="faq-a">
+          <p>Nein. Wir arbeiten mit allen Formen von Unternehmensgruppen mit mehreren Standorten — Franchise-Systeme, Unternehmensgruppen mit Tochtergesellschaften, Filialisten und Lizenzgeber. Entscheidend ist nicht die Rechtsform, sondern dass es ein Headquarter gibt, das Marketing zentral steuern möchte und mindestens 10 Standorte betreibt.</p>
+        </div>
+      </div>
+      <div class="faq-item animate">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Was heißt „Brandformance" konkret?
+          <span class="toggle">+</span>
+        </div>
+        <div class="faq-a">
+          <p>Brandformance ist unsere Verbindung aus High-End Creative und messbarem Performance Marketing. Wir glauben, dass nachhaltiger Markenaufbau und messbare Performance kein Widerspruch sind — sondern sich gegenseitig verstärken. Konkret: Storytelling, das Bindung erzeugt, kombiniert mit Kampagnen, die auf Kosten pro Lead, Kosten pro Neukunde und ROAS optimiert werden.</p>
+        </div>
+      </div>
+      <div class="faq-item animate">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Wie läuft die Content-Produktion für viele Standorte?
+          <span class="toggle">+</span>
+        </div>
+        <div class="faq-a">
+          <p>Wir produzieren brandgetreuen Content zentral und adaptieren ihn standortspezifisch — ohne dass jeder Standort eigene Drehs organisieren muss. Jeder Standort bekommt Content, der zur lokalen Community passt, ohne die übergreifende Markenidentität zu verwässern. Die Produktion ist so aufgesetzt, dass neue Standorte sich nahtlos integrieren.</p>
+        </div>
+      </div>
+      <div class="faq-item animate">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Was passiert mit den Learnings über verschiedene Kunden?
+          <span class="toggle">+</span>
+        </div>
+        <div class="faq-a">
+          <p>Wir extrahieren systematisch Erkenntnisse aus allen Multistandort-Engagements. Was bei einem Kunden im Recruiting funktioniert, fließt als Impuls in die Strategieberatung anderer Kunden ein — natürlich anonymisiert und auf die jeweilige Branche angepasst. Das ist ein Wissensvorsprung, den eine Agentur ohne Multistandort-Fokus strukturell nicht aufbauen kann.</p>
+        </div>
+      </div>
+      <div class="faq-item animate">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Warum ist das Netzwerk-Audit BAFA-förderfähig?
+          <span class="toggle">+</span>
+        </div>
+        <div class="faq-a">
+          <p>Als BAFA-zertifizierter Berater kann die strategische Analyse als geförderte Beratung abgerechnet werden. In Berlin werden 50% der Kosten übernommen, in Brandenburg sogar 80%. Die operative Umsetzung (Kampagnen, Content, Ads) wird separat als Agenturleistung beauftragt. So profitiert ihr von einer geförderten Strategiephase, bevor ihr in die Umsetzung investiert.</p>
+        </div>
+      </div>
+      <div class="faq-item animate">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Wie schnell sehen wir erste Ergebnisse?
+          <span class="toggle">+</span>
+        </div>
+        <div class="faq-a">
+          <p>Die Infrastruktur steht in der Regel innerhalb der ersten 4 Wochen. Erste Kampagnen-Ergebnisse und Learnings erwarten wir ab Woche 5–6. Für den vollen Effekt der Multistandort-Skaleneffekte rechnen wir mit 3–6 Monaten — das ist ehrlich und realistisch. Wir versprechen keine Overnight-Erfolge, sondern ein System, das langfristig funktioniert.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Final CTA ── -->
+<section id="cta" class="section final-cta">
+  <div class="container">
+    <div class="animate">
+      <span class="mono" style="display: block; margin-bottom: 20px;">Bereit?</span>
+      <h2>Euer angeblicher Nachteil<br>ist euer unfairer <span class="red">Wettbewerbsvorteil</span>.</h2>
+      <p>Im kostenlosen Erstgespräch analysieren wir gemeinsam, wo das größte Hebel-Potenzial in eurer Multistandort-Struktur liegt — und was der konkrete nächste Schritt ist.</p>
+      <a href="#" class="btn-primary" style="font-size: 1.1rem; padding: 18px 48px;">
+        Erstgespräch buchen — kostenlos
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <p style="margin-top: 16px; font-size: 0.8rem; color: var(--gray);">Kein Sales-Pitch. Strategisches Analyse-Gespräch in 30 Minuten.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="container">
+    <div class="footer-left">
+      <div class="nav-logo" style="margin-bottom: 8px;">DÖRING <span style="color: var(--red);">MEDIA</span></div>
+      <div class="footer-legal">Döring Media GmbH — Mehringdamm 55, 10961 Berlin</div>
+    </div>
+    <div class="footer-links">
+      <a href="#">Impressum</a>
+      <a href="#">Datenschutz</a>
+      <a href="#">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// FAQ Toggle
+function toggleFaq(el) {
+  const answer = el.nextElementSibling;
+  const isOpen = el.classList.contains('open');
+  
+  // Close all
+  document.querySelectorAll('.faq-q').forEach(q => q.classList.remove('open'));
+  document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
+  
+  if (!isOpen) {
+    el.classList.add('open');
+    answer.classList.add('open');
+  }
+}
+
+// Scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.animate').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
