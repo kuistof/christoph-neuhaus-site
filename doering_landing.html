@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Döring Media — Multistandort-Wachstumspartner für Unternehmensgruppen</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0A0A0A;
+  --white: #F5F2ED;
+  --red: #D4322C;
+  --red-dark: #A82520;
+  --gray-100: #E8E5E0;
+  --gray-200: #D0CCC5;
+  --gray-300: #9A958C;
+  --gray-400: #6B665E;
+  --gray-500: #3A3733;
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body: 'DM Sans', -apple-system, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--red);
+  color: var(--white);
+}
+
+/* ─── UTILITY ─── */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 4vw, 3rem);
+}
+
+.label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 1.25rem 0;
+  background: rgba(10,10,10,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(245,242,237,0.06);
+}
+nav .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.nav-logo {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.03em;
+  color: var(--white);
+  text-decoration: none;
+}
+.nav-logo span { color: var(--red); }
+.nav-cta {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--white);
+  background: var(--red);
+  padding: 0.6rem 1.4rem;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+.nav-cta:hover { background: var(--red-dark); }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 8rem 0 6rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  right: -20%;
+  width: 70vw;
+  height: 70vw;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212,50,44,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+}
+.hero .label {
+  margin-bottom: 1.5rem;
+  display: inline-block;
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+  color: var(--white);
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--red);
+}
+.hero-sub {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  line-height: 1.25;
+  color: var(--gray-300);
+  margin-bottom: 2rem;
+  max-width: 750px;
+}
+.hero-body {
+  font-size: 1.1rem;
+  color: var(--gray-300);
+  max-width: 620px;
+  margin-bottom: 2.5rem;
+  line-height: 1.7;
+}
+.hero-cta-row {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--white);
+  background: var(--red);
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.btn-primary:hover { background: var(--red-dark); transform: translateY(-1px); }
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--gray-300);
+  text-decoration: none;
+  padding: 1rem 0.5rem;
+  transition: color 0.3s;
+}
+.btn-secondary:hover { color: var(--white); }
+
+/* ─── STAT BAR ─── */
+.stat-bar {
+  border-top: 1px solid rgba(245,242,237,0.08);
+  border-bottom: 1px solid rgba(245,242,237,0.08);
+  padding: 3rem 0;
+}
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  text-align: center;
+}
+.stat-number {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+.stat-number span { color: var(--red); }
+.stat-desc {
+  font-size: 0.85rem;
+  color: var(--gray-400);
+  line-height: 1.4;
+}
+
+/* ─── SECTIONS ─── */
+section {
+  padding: clamp(4rem, 8vw, 7rem) 0;
+}
+.section-divider {
+  width: 60px;
+  height: 2px;
+  background: var(--red);
+  margin-bottom: 1.5rem;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.15;
+  margin-bottom: 1.25rem;
+  color: var(--white);
+}
+.section-title em { font-style: italic; color: var(--red); }
+.section-intro {
+  font-size: 1.1rem;
+  color: var(--gray-300);
+  max-width: 650px;
+  margin-bottom: 3rem;
+  line-height: 1.7;
+}
+
+/* ─── PROBLEM SECTION ─── */
+.problem-section {
+  background: linear-gradient(180deg, var(--black) 0%, #0f0e0d 100%);
+}
+.problem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+.problem-card {
+  padding: 2.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(245,242,237,0.06);
+  background: rgba(245,242,237,0.02);
+}
+.problem-card.highlight {
+  border-color: rgba(212,50,44,0.3);
+  background: rgba(212,50,44,0.04);
+}
+.problem-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: var(--white);
+}
+.problem-card p {
+  color: var(--gray-300);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+.problem-card .pain-list {
+  list-style: none;
+  margin-top: 1.25rem;
+}
+.problem-card .pain-list li {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(245,242,237,0.05);
+  color: var(--gray-300);
+  font-size: 0.95rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+.problem-card .pain-list li::before {
+  content: '×';
+  color: var(--red);
+  font-weight: 700;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+.problem-card.highlight .pain-list li::before {
+  content: '→';
+}
+
+/* ─── BRAND SECTION ─── */
+.brand-section {
+  position: relative;
+}
+.brand-pillars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 3rem;
+}
+.pillar {
+  padding: 2.5rem 2rem;
+  border-radius: 12px;
+  border: 1px solid rgba(245,242,237,0.06);
+  background: rgba(245,242,237,0.02);
+  transition: border-color 0.3s, background 0.3s;
+}
+.pillar:hover {
+  border-color: rgba(212,50,44,0.25);
+  background: rgba(212,50,44,0.03);
+}
+.pillar-icon {
+  font-size: 2rem;
+  margin-bottom: 1.25rem;
+  display: block;
+}
+.pillar h3 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  margin-bottom: 0.75rem;
+  color: var(--white);
+}
+.pillar p {
+  color: var(--gray-300);
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+/* ─── APPROACH / HOW IT WORKS ─── */
+.approach-section {
+  background: #0D0C0B;
+}
+.approach-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin-top: 3rem;
+  border: 1px solid rgba(245,242,237,0.06);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.step {
+  padding: 3rem 2.5rem;
+  border-right: 1px solid rgba(245,242,237,0.06);
+  position: relative;
+}
+.step:last-child { border-right: none; }
+.step-num {
+  font-family: var(--font-display);
+  font-size: 4rem;
+  color: rgba(212,50,44,0.15);
+  line-height: 1;
+  margin-bottom: 1.5rem;
+}
+.step h3 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  margin-bottom: 0.75rem;
+  color: var(--white);
+}
+.step p {
+  color: var(--gray-400);
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+.step-detail {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(245,242,237,0.06);
+  font-size: 0.8rem;
+  color: var(--gray-400);
+}
+.step-detail strong { color: var(--gray-300); }
+
+/* ─── LEVERAGE SECTION ─── */
+.leverage-section { }
+.leverage-visual {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 3rem;
+  align-items: center;
+  margin-top: 3rem;
+  padding: 3rem;
+  border-radius: 12px;
+  border: 1px solid rgba(245,242,237,0.06);
+  background: rgba(245,242,237,0.02);
+}
+.leverage-diagram {
+  text-align: center;
+}
+.leverage-center {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: var(--red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  color: var(--white);
+  margin: 0 auto 1rem;
+  text-align: center;
+  line-height: 1.2;
+  padding: 1rem;
+}
+.leverage-arrows {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 1.5rem;
+  color: var(--red);
+  opacity: 0.5;
+}
+.leverage-text h3 {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  color: var(--white);
+}
+.leverage-text p {
+  color: var(--gray-300);
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+/* ─── CALCULATOR SECTION ─── */
+.calc-section {
+  background: #0D0C0B;
+  position: relative;
+}
+.calc-wrapper {
+  max-width: 860px;
+  margin: 0 auto;
+}
+.calc-card {
+  background: rgba(245,242,237,0.025);
+  border: 1px solid rgba(245,242,237,0.08);
+  border-radius: 16px;
+  padding: clamp(2rem, 4vw, 3.5rem);
+  position: relative;
+  overflow: hidden;
+}
+.calc-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--red), var(--red-dark), transparent);
+}
+
+.calc-intro {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.calc-intro h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  margin-bottom: 0.75rem;
+  color: var(--white);
+}
+.calc-intro h2 em { font-style: italic; color: var(--red); }
+.calc-intro p {
+  color: var(--gray-300);
+  font-size: 1rem;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.calc-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+.calc-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.calc-field.full-width {
+  grid-column: 1 / -1;
+}
+.calc-field label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gray-300);
+}
+.calc-field input,
+.calc-field select {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  padding: 1rem 1.25rem;
+  background: rgba(245,242,237,0.04);
+  border: 1px solid rgba(245,242,237,0.1);
+  border-radius: 8px;
+  color: var(--white);
+  outline: none;
+  transition: border-color 0.3s;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.calc-field select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='%239A958C'%3E%3Cpath d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1.25rem center;
+  padding-right: 3rem;
+}
+.calc-field select option {
+  background: var(--black);
+  color: var(--white);
+}
+.calc-field input:focus,
+.calc-field select:focus {
+  border-color: var(--red);
+}
+.calc-field input::placeholder {
+  color: var(--gray-400);
+}
+.calc-field .hint {
+  font-size: 0.75rem;
+  color: var(--gray-400);
+}
+
+.calc-submit {
+  grid-column: 1 / -1;
+  margin-top: 0.5rem;
+}
+.calc-submit .btn-primary {
+  width: 100%;
+  justify-content: center;
+  padding: 1.1rem 2rem;
+  font-size: 1.05rem;
+}
+
+/* Calculator Results */
+.calc-results {
+  display: none;
+  margin-top: 2.5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid rgba(245,242,237,0.08);
+}
+.calc-results.visible { display: block; }
+
+.results-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.results-header h3 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+}
+.results-header p {
+  color: var(--gray-300);
+  font-size: 0.95rem;
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+.result-card {
+  padding: 1.5rem;
+  border-radius: 10px;
+  border: 1px solid rgba(245,242,237,0.06);
+  background: rgba(245,242,237,0.02);
+  text-align: center;
+}
+.result-card.featured {
+  border-color: rgba(212,50,44,0.3);
+  background: rgba(212,50,44,0.06);
+}
+.result-value {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 0.4rem;
+}
+.result-card.featured .result-value { color: var(--red); }
+.result-label {
+  font-size: 0.8rem;
+  color: var(--gray-400);
+  line-height: 1.3;
+}
+
+.results-insight {
+  padding: 1.5rem 2rem;
+  border-radius: 10px;
+  background: rgba(212,50,44,0.06);
+  border: 1px solid rgba(212,50,44,0.15);
+  margin-bottom: 2rem;
+}
+.results-insight p {
+  color: var(--gray-200);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.results-insight strong { color: var(--white); }
+
+.results-cta {
+  text-align: center;
+}
+.results-cta .btn-primary {
+  font-size: 1.05rem;
+  padding: 1rem 2.5rem;
+}
+.results-cta p {
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  color: var(--gray-400);
+}
+
+/* ─── WHAT WE DO ─── */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+.service-card {
+  padding: 2rem 2rem;
+  border-radius: 12px;
+  border: 1px solid rgba(245,242,237,0.06);
+  background: rgba(245,242,237,0.02);
+  transition: border-color 0.3s;
+}
+.service-card:hover { border-color: rgba(245,242,237,0.12); }
+.service-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  margin-bottom: 0.6rem;
+  color: var(--white);
+}
+.service-card p {
+  color: var(--gray-400);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* ─── QUOTE / INSIGHT ─── */
+.insight-section {
+  padding: 5rem 0;
+  text-align: center;
+}
+.insight-quote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  line-height: 1.3;
+  color: var(--gray-200);
+  max-width: 800px;
+  margin: 0 auto 1.5rem;
+}
+.insight-quote em { color: var(--red); font-style: italic; }
+.insight-attr {
+  font-size: 0.85rem;
+  color: var(--gray-400);
+}
+
+/* ─── FOOTER CTA ─── */
+.footer-cta {
+  padding: 6rem 0;
+  text-align: center;
+  background: linear-gradient(180deg, var(--black) 0%, #110F0E 100%);
+  position: relative;
+}
+.footer-cta::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60vw;
+  height: 40vw;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212,50,44,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.footer-cta h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-bottom: 1rem;
+  color: var(--white);
+  position: relative;
+}
+.footer-cta h2 em { font-style: italic; color: var(--red); }
+.footer-cta p {
+  color: var(--gray-300);
+  font-size: 1.1rem;
+  max-width: 550px;
+  margin: 0 auto 2rem;
+  position: relative;
+}
+.footer-cta .btn-primary { position: relative; }
+
+/* ─── FOOTER ─── */
+footer {
+  padding: 3rem 0;
+  border-top: 1px solid rgba(245,242,237,0.06);
+}
+footer .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.footer-left {
+  font-size: 0.8rem;
+  color: var(--gray-400);
+}
+.footer-left strong { color: var(--gray-300); }
+.footer-right {
+  font-size: 0.8rem;
+  color: var(--gray-400);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  .stat-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .problem-grid { grid-template-columns: 1fr; }
+  .brand-pillars { grid-template-columns: 1fr; }
+  .approach-steps { grid-template-columns: 1fr; }
+  .step { border-right: none; border-bottom: 1px solid rgba(245,242,237,0.06); }
+  .step:last-child { border-bottom: none; }
+  .leverage-visual { grid-template-columns: 1fr; text-align: center; }
+  .calc-form { grid-template-columns: 1fr; }
+  .calc-field.full-width { grid-column: 1; }
+  .calc-submit { grid-column: 1; }
+  .results-grid { grid-template-columns: 1fr; }
+  .services-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .stat-grid { grid-template-columns: 1fr 1fr; }
+  .hero h1 { font-size: 2.2rem; }
+  .hero-sub { font-size: 1.15rem; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <div class="container">
+    <a href="#" class="nav-logo">DÖRING <span>MEDIA</span></a>
+    <a href="#potenzial" class="nav-cta">Standort-Potenzial berechnen →</a>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <span class="label">Multistandort-Wachstumspartner</span>
+      <h1>Wenn die Unternehmensgruppe<br>zur <em>Lovebrand</em> wird —</h1>
+      <p class="hero-sub">wachsen alle Standorte mit.</p>
+      <p class="hero-body">Kunden gewinnen. Mitarbeiter finden. Neue Partner anziehen — mit einer Marke, die auf Gruppenebene gedacht und an jedem Standort spürbar wird. Für inhabergeführte Unternehmensgruppen und Franchise-Systeme.</p>
+      <div class="hero-cta-row">
+        <a href="#potenzial" class="btn-primary">Standort-Potenzial berechnen →</a>
+        <a href="#ansatz" class="btn-secondary">So arbeiten wir ↓</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── STAT BAR ─── -->
+<div class="stat-bar">
+  <div class="container">
+    <div class="stat-grid">
+      <div>
+        <div class="stat-number">5<span>+</span></div>
+        <div class="stat-desc">Standorte genügen<br>für den Skaleneffekt</div>
+      </div>
+      <div>
+        <div class="stat-number">1<span>×</span></div>
+        <div class="stat-desc">Infrastruktur aufbauen,<br>überall einsetzen</div>
+      </div>
+      <div>
+        <div class="stat-number">3<span>×</span></div>
+        <div class="stat-desc">Wachstumshebel aus<br>einer Markenstrategie</div>
+      </div>
+      <div>
+        <div class="stat-number">100<span>%</span></div>
+        <div class="stat-desc">Konzept, Produktion<br>und Media inhouse</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── PROBLEM ─── -->
+<section class="problem-section">
+  <div class="container">
+    <span class="label">Das Problem</span>
+    <div class="section-divider"></div>
+    <h2 class="section-title">Dutzende Standorte. <em>Keiner macht Marketing.</em></h2>
+    <p class="section-intro">Marketing-Marie kennt das: Eine Person, verantwortlich für die gesamte Gruppe — und jeder Standort macht sein eigenes Ding. Oder gar nichts.</p>
+
+    <div class="problem-grid">
+      <div class="problem-card">
+        <h3>Was wir immer wieder sehen</h3>
+        <ul class="pain-list">
+          <li>Jeder Standort bastelt eigene Flyer, Posts und Anzeigen</li>
+          <li>Die Marke sieht an jedem Standort anders aus</li>
+          <li>Budget verpufft in unkoordinierten Einzelmaßnahmen</li>
+          <li>Offene Stellen bleiben wochenlang unbesetzt</li>
+          <li>Neue Franchise-Partner werden nicht systematisch gewonnen</li>
+          <li>Kein übergreifendes Reporting — kein Lernen im System</li>
+        </ul>
+      </div>
+      <div class="problem-card highlight">
+        <h3>Was die meisten nicht sehen</h3>
+        <p>Das eigentliche Problem ist kein Marketing-Problem. Es ist ein Marken-Problem.</p>
+        <ul class="pain-list">
+          <li>Eine starke Marke zieht Kunden an — an jedem Standort</li>
+          <li>Eine starke Marke macht Recruiting einfacher — überall</li>
+          <li>Eine starke Marke zieht neue Partner und Franchisenehmer an</li>
+          <li>Der größte Hebel ist nicht die nächste Kampagne — sondern die Marke dahinter</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── BRAND AS LEVER ─── -->
+<section class="brand-section" id="marke">
+  <div class="container">
+    <span class="label">Der Hebel</span>
+    <div class="section-divider"></div>
+    <h2 class="section-title">Marke schlägt Kampagne.<br><em>Immer.</em></h2>
+    <p class="section-intro">Performance-Marketing verstärkt, was da ist. Wenn keine Marke da ist, verstärkt es — nichts. Der wahre Wachstumshebel für Multistandort-Unternehmen ist eine Marke, die auf drei Ebenen gleichzeitig wirkt.</p>
+
+    <div class="brand-pillars">
+      <div class="pillar">
+        <span class="pillar-icon">◎</span>
+        <h3>Kunden gewinnen</h3>
+        <p>Eine konsistente Marke erzeugt Vertrauen — vor dem ersten Klick. Wenn der Kunde an jedem Standort dasselbe Markenerlebnis hat, wächst die Reputation im gesamten System. Jeder Standort profitiert von jedem anderen.</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-icon">◉</span>
+        <h3>Mitarbeiter finden</h3>
+        <p>Employer Branding ist kein separates Projekt — es ist dieselbe Marke, anders erzählt. Wer als Arbeitgeber sichtbar und attraktiv ist, besetzt offene Stellen schneller und günstiger. An jedem Standort.</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-icon">◈</span>
+        <h3>Partner anziehen</h3>
+        <p>Franchise-Nehmer, Investoren, neue Standort-Partner — sie alle entscheiden sich für Systeme mit starker Marke. Eine professionelle Außendarstellung ist der beste Pitch für Expansion.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── INSIGHT QUOTE ─── -->
+<section class="insight-section">
+  <div class="container">
+    <p class="insight-quote">»Euer angeblicher Nachteil — <em>die Komplexität mit den ganzen Standorten</em> — ist euer unfairer Wettbewerbsvorteil im Marketing.«</p>
+    <p class="insight-attr">Mehr Standorte = mehr Daten, mehr Testfläche, mehr Skaleneffekte.</p>
+  </div>
+</section>
+
+<!-- ─── APPROACH ─── -->
+<section class="approach-section" id="ansatz">
+  <div class="container">
+    <span class="label">Der Ansatz</span>
+    <div class="section-divider"></div>
+    <h2 class="section-title">Einmal entwickeln.<br><em>Überall performen.</em></h2>
+    <p class="section-intro">Wir bauen die Markeninfrastruktur einmal auf Gruppenebene — und rollen sie standortspezifisch aus. Kein Copy-Paste. Individuelle Kreation auf gemeinsamer Basis.</p>
+
+    <div class="approach-steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Netzwerk-Audit</h3>
+        <p>Wir analysieren eure Marketing-Aufstellung über alle Standorte: Markenkonsistenz, lokale Sichtbarkeit, Tracking, Kanäle, Wettbewerb — und identifizieren die größten Hebel.</p>
+        <div class="step-detail"><strong>Ergebnis:</strong> Strategische Roadmap mit konkreten Prioritäten und Quick Wins. BAFA-förderfähig.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>System aufbauen</h3>
+        <p>Kampagnenarchitektur, Tracking, CRM-Anbindung, Creative-Framework, Reporting — einmal auf Gruppenebene entwickelt. Dann standortspezifisch adaptiert.</p>
+        <div class="step-detail"><strong>Ergebnis:</strong> Marketing-Infrastruktur, die mit jedem neuen Standort wertvoller wird.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>Marke skalieren</h3>
+        <p>Laufende Kampagnen, Creative-Produktion, Performance-Optimierung — zentral gesteuert, lokal wirksam. Learnings fließen ins gesamte System zurück.</p>
+        <div class="step-detail"><strong>Ergebnis:</strong> Jeder Standort profitiert von den Erkenntnissen aller anderen.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── LEVERAGE ─── -->
+<section class="leverage-section">
+  <div class="container">
+    <span class="label">Die Logik</span>
+    <div class="section-divider"></div>
+    <h2 class="section-title">Infrastruktur einmal bauen.<br><em>An jedem Standort wirken lassen.</em></h2>
+
+    <div class="leverage-visual">
+      <div class="leverage-diagram">
+        <div class="leverage-center">Zentrale Marke</div>
+        <div class="leverage-arrows">↙ ↓ ↘</div>
+        <div style="display:flex; gap:0.5rem; justify-content:center; margin-top:0.5rem;">
+          <span style="font-size:0.7rem; color:var(--gray-400); padding:0.3rem 0.6rem; border:1px solid rgba(245,242,237,0.1); border-radius:4px;">Standort 1</span>
+          <span style="font-size:0.7rem; color:var(--gray-400); padding:0.3rem 0.6rem; border:1px solid rgba(245,242,237,0.1); border-radius:4px;">Standort 2</span>
+          <span style="font-size:0.7rem; color:var(--gray-400); padding:0.3rem 0.6rem; border:1px solid rgba(245,242,237,0.1); border-radius:4px;">…n</span>
+        </div>
+      </div>
+      <div class="leverage-text">
+        <h3>Kein Copy-Paste. Hebelwirkung.</h3>
+        <p>Jede Kampagne wird individuell erarbeitet. Aber die Infrastruktur dahinter — Tracking, CRM, Reporting, Creative-Frameworks, Learnings aus A/B-Tests — existiert einmal und wirkt überall.</p>
+        <p>Das unterscheidet uns von Agenturen, die überall dasselbe Template ausrollen. Und von Standorten, die jedes Mal bei Null anfangen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── POTENZIALRECHNER ─── -->
+<section class="calc-section" id="potenzial">
+  <div class="container">
+    <div class="calc-wrapper">
+      <div class="calc-card">
+
+        <div class="calc-intro">
+          <span class="label">Standort-Potenzial</span>
+          <h2 style="margin-top:0.75rem;">Wie viel Wachstum bleibt <em>liegen?</em></h2>
+          <p>Vier Fragen. Eine Einschätzung, wie groß der Hebel für eure Gruppe wirklich ist.</p>
+        </div>
+
+        <div class="calc-form" id="calcForm">
+          <div class="calc-field">
+            <label for="standorte">Anzahl Standorte</label>
+            <input type="number" id="standorte" placeholder="z.B. 25" min="1" max="1000">
+            <span class="hint">Filialen, Franchise-Standorte oder Tochtergesellschaften</span>
+          </div>
+
+          <div class="calc-field">
+            <label for="ticket">Ø Kunden-Ticket (€)</label>
+            <input type="number" id="ticket" placeholder="z.B. 45" min="1">
+            <span class="hint">Durchschnittlicher Umsatz pro Kunde / Transaktion</span>
+          </div>
+
+          <div class="calc-field">
+            <label for="stellen">Offene Stellen pro Standort</label>
+            <input type="number" id="stellen" placeholder="z.B. 2" min="0" max="50" step="0.5">
+            <span class="hint">Im Durchschnitt über alle Standorte</span>
+          </div>
+
+          <div class="calc-field">
+            <label for="marketing">Wie wird Marketing heute gesteuert?</label>
+            <select id="marketing">
+              <option value="" disabled selected>Bitte wählen</option>
+              <option value="dezentral">Jeder Standort macht sein eigenes Ding</option>
+              <option value="hybrid">Mix — teils zentral, teils lokal</option>
+              <option value="zentral">Zentral aus der Gruppe heraus</option>
+              <option value="keins">Kaum systematisches Marketing</option>
+            </select>
+          </div>
+
+          <div class="calc-submit">
+            <button class="btn-primary" onclick="berechnen()">Potenzial berechnen →</button>
+          </div>
+        </div>
+
+        <div class="calc-results" id="calcResults">
+          <div class="results-header">
+            <h3>Euer Standort-Potenzial</h3>
+            <p id="resultsSubtitle"></p>
+          </div>
+
+          <div class="results-grid">
+            <div class="result-card">
+              <div class="result-value" id="resKunden"></div>
+              <div class="result-label">Potenzielle Neukunden/Monat durch koordiniertes Marketing</div>
+            </div>
+            <div class="result-card featured">
+              <div class="result-value" id="resUmsatz"></div>
+              <div class="result-label">Ungenutztes Umsatzpotenzial pro Monat</div>
+            </div>
+            <div class="result-card">
+              <div class="result-value" id="resRecruiting"></div>
+              <div class="result-label">Recruiting-Kosten, die eine starke Marke reduzieren kann</div>
+            </div>
+          </div>
+
+          <div class="results-insight" id="insightBox">
+            <p id="insightText"></p>
+          </div>
+
+          <div class="results-cta">
+            <a href="mailto:christoph@doeringmedia.de?subject=Multistandort-Potenzial%20besprechen" class="btn-primary">Potenzial besprechen →</a>
+            <p>Kostenlos. 30 Minuten. Keine Verpflichtung.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SERVICES ─── -->
+<section>
+  <div class="container">
+    <span class="label">Was wir liefern</span>
+    <div class="section-divider"></div>
+    <h2 class="section-title">Brandformance für <em>Multistandort.</em></h2>
+    <p class="section-intro">Alles aus einer Hand. Konzept, Produktion, Media und Optimierung — mit einem Team, das Marke und Performance zusammendenkt.</p>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <h3>Kampagnenstrategie & Media Buying</h3>
+        <p>Meta, Google, TikTok, LinkedIn — zentral gesteuert, standortspezifisch ausgespielt. Inklusive Tracking-Infrastruktur und Cross-Location-Reporting.</p>
+      </div>
+      <div class="service-card">
+        <h3>Creative-Produktion</h3>
+        <p>Video, Foto, Design, Motion Graphics — komplett inhouse. Kein Freelancer-Roulette. Kampagnenkreation, die zur Marke passt und messbar performt.</p>
+      </div>
+      <div class="service-card">
+        <h3>Organische Sichtbarkeit</h3>
+        <p>Content-Strategie für Instagram, TikTok, YouTube und LinkedIn. Local SEO und Google Business für jeden Standort. Systematisch, nicht zufällig.</p>
+      </div>
+      <div class="service-card">
+        <h3>Employer Branding & Recruiting</h3>
+        <p>Dieselbe Marke, anders erzählt. Sichtbarkeit als Arbeitgeber aufbauen — zentral gesteuert, lokal relevant. Offene Stellen schneller und günstiger besetzen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER CTA ─── -->
+<section class="footer-cta">
+  <div class="container">
+    <h2>Bereit, euer Standort-Potenzial<br><em>zu aktivieren?</em></h2>
+    <p>Wir zeigen euch in 30 Minuten, wo der größte Hebel in eurem Netzwerk liegt — kostenlos und unverbindlich.</p>
+    <a href="#potenzial" class="btn-primary">Potenzial berechnen →</a>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="container">
+    <div class="footer-left">
+      <strong>Döring Media GmbH</strong> · Sarotti-Höfe, Mehringdamm 53–57 · 10961 Berlin
+    </div>
+    <div class="footer-right">
+      Brandformance für Multistandort-Unternehmen
+    </div>
+  </div>
+</footer>
+
+<script>
+function berechnen() {
+  const standorte = parseInt(document.getElementById('standorte').value);
+  const ticket = parseFloat(document.getElementById('ticket').value);
+  const stellen = parseFloat(document.getElementById('stellen').value);
+  const marketing = document.getElementById('marketing').value;
+
+  if (!standorte || !ticket || isNaN(stellen) || !marketing) {
+    alert('Bitte alle Felder ausfüllen.');
+    return;
+  }
+
+  // Multiplier based on marketing maturity
+  let maturityMultiplier = 1;
+  let maturityLabel = '';
+  switch (marketing) {
+    case 'keins':
+      maturityMultiplier = 1.5;
+      maturityLabel = 'kaum systematisches Marketing';
+      break;
+    case 'dezentral':
+      maturityMultiplier = 1.3;
+      maturityLabel = 'dezentrales Marketing';
+      break;
+    case 'hybrid':
+      maturityMultiplier = 1.1;
+      maturityLabel = 'teilweise zentrales Marketing';
+      break;
+    case 'zentral':
+      maturityMultiplier = 0.8;
+      maturityLabel = 'zentrales Marketing';
+      break;
+  }
+
+  // Conservative estimate: coordinated marketing can generate 15-40 additional customers per location/month
+  const kundenProStandort = Math.round((8 + ticket * 0.05) * maturityMultiplier);
+  const kundenGesamt = kundenProStandort * standorte;
+  const umsatzGesamt = kundenGesamt * ticket;
+
+  // Recruiting cost saving: avg €4,500 cost per hire in Germany, strong brand reduces time-to-hire by ~30%
+  const gesamtStellen = Math.round(stellen * standorte);
+  const recruitingKosten = Math.round(gesamtStellen * 4500 * 0.3);
+
+  // Format
+  const fmt = (n) => new Intl.NumberFormat('de-DE').format(n);
+  const fmtEur = (n) => {
+    if (n >= 1000000) return (n / 1000000).toFixed(1).replace('.', ',') + ' Mio. €';
+    if (n >= 1000) return fmt(Math.round(n / 100) * 100) + ' €';
+    return fmt(n) + ' €';
+  };
+
+  document.getElementById('resKunden').textContent = '+' + fmt(kundenGesamt);
+  document.getElementById('resUmsatz').textContent = '+' + fmtEur(umsatzGesamt);
+  document.getElementById('resRecruiting').textContent = '–' + fmtEur(recruitingKosten);
+  document.getElementById('resultsSubtitle').textContent =
+    fmt(standorte) + ' Standorte · Ø ' + fmt(ticket) + ' € Ticket · ' + maturityLabel;
+
+  // Insight text
+  let insight = '';
+  if (marketing === 'dezentral' || marketing === 'keins') {
+    insight = `Bei <strong>${fmt(standorte)} Standorten mit ${maturityLabel}</strong> liegt der größte Hebel in der Zentralisierung: Eine gemeinsame Markeninfrastruktur, die Kampagnen-Learnings, Creative-Testing und Tracking über alle Standorte vernetzt. Jeder Standort profitiert sofort von den Erkenntnissen der anderen — ohne eigenes Marketing-Team.`;
+  } else if (marketing === 'hybrid') {
+    insight = `Euer hybrides Setup zeigt, dass die Richtung stimmt. Der nächste Schritt: eine durchgängige Infrastruktur, die <strong>zentrale Markenkonsistenz mit lokaler Relevanz</strong> verbindet — und gleichzeitig als Arbeitgeber- und Partner-Marke wirkt.`;
+  } else {
+    insight = `Zentrales Marketing ist eine starke Basis. Die Frage ist: Wird die Marke heute schon als <strong>Hebel für Recruiting und Partnergewinnung</strong> genutzt — oder nur für Kundenakquise? Die meisten Unternehmensgruppen lassen zwei von drei Wachstumshebeln ungenutzt.`;
+  }
+  document.getElementById('insightText').innerHTML = insight;
+
+  // Show results
+  document.getElementById('calcResults').classList.add('visible');
+  document.getElementById('calcResults').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+
+</body>
+</html>
