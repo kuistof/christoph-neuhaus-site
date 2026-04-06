@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TPC April Ad Creatives Produktion – 5×3 Teststrategie</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --tpc-pink: #F5C6D0;
+    --tpc-coral: #E8573A;
+    --tpc-yellow: #F5D93A;
+    --tpc-green: #3A7D44;
+    --tpc-dark: #1A1A1A;
+    --tpc-light: #FFF8F5;
+    --tpc-mid: #F0E8E3;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--tpc-light);
+    color: var(--tpc-dark);
+    line-height: 1.6;
+    padding: 0;
+  }
+
+  .header {
+    background: linear-gradient(135deg, var(--tpc-coral), #D14428);
+    color: white;
+    padding: 48px 40px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::after {
+    content: '🥒';
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 80px;
+    opacity: 0.2;
+  }
+
+  .header-label {
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0.8;
+    margin-bottom: 12px;
+  }
+
+  .header h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: 36px;
+    line-height: 1.2;
+    max-width: 700px;
+  }
+
+  .header-meta {
+    margin-top: 16px;
+    font-size: 14px;
+    opacity: 0.85;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 40px 80px;
+  }
+
+  .intro {
+    background: white;
+    border-radius: 12px;
+    padding: 32px;
+    margin-bottom: 40px;
+    border-left: 4px solid var(--tpc-coral);
+  }
+
+  .intro h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    color: var(--tpc-coral);
+    margin-bottom: 12px;
+  }
+
+  .intro p {
+    font-size: 15px;
+    color: #444;
+  }
+
+  .angle {
+    margin-bottom: 48px;
+  }
+
+  .angle-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 3px solid var(--tpc-coral);
+  }
+
+  .angle-number {
+    background: var(--tpc-coral);
+    color: white;
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: 28px;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .angle-title {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--tpc-dark);
+  }
+
+  .angle-subtitle {
+    font-size: 14px;
+    color: #666;
+    margin-top: 2px;
+  }
+
+  .angle-rationale {
+    background: var(--tpc-yellow);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .angle-rationale strong {
+    color: var(--tpc-coral);
+  }
+
+  .format-card {
+    background: white;
+    border-radius: 12px;
+    padding: 28px;
+    margin-bottom: 16px;
+    border: 1px solid #E8E0DB;
+    transition: box-shadow 0.2s;
+  }
+
+  .format-card:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  }
+
+  .format-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+
+  .badge-video { background: #FDDDE6; color: #C0392B; }
+  .badge-static { background: #D5F5E3; color: #1E8449; }
+  .badge-carousel { background: #D6EAF8; color: #2471A3; }
+
+  .format-card h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+
+  .creative-section {
+    margin-bottom: 14px;
+  }
+
+  .creative-section .label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--tpc-coral);
+    margin-bottom: 4px;
+  }
+
+  .creative-section .content {
+    font-size: 14px;
+    color: #333;
+  }
+
+  .creative-section .content em {
+    color: #666;
+    font-style: italic;
+  }
+
+  .hook-text {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--tpc-dark);
+    background: var(--tpc-light);
+    padding: 10px 14px;
+    border-radius: 6px;
+    border-left: 3px solid var(--tpc-coral);
+    margin: 4px 0;
+  }
+
+  .slides-list {
+    list-style: none;
+    counter-reset: slide;
+  }
+
+  .slides-list li {
+    counter-increment: slide;
+    padding: 6px 0 6px 32px;
+    position: relative;
+    font-size: 14px;
+  }
+
+  .slides-list li::before {
+    content: 'Slide ' counter(slide);
+    position: absolute;
+    left: 0;
+    font-weight: 700;
+    font-size: 11px;
+    color: var(--tpc-coral);
+    top: 8px;
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--tpc-mid);
+    margin: 48px 0;
+  }
+
+  .notes-box {
+    background: #FFF9E6;
+    border: 1px solid #F0E0A0;
+    border-radius: 12px;
+    padding: 28px;
+    margin-top: 40px;
+  }
+
+  .notes-box h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    color: var(--tpc-dark);
+    margin-bottom: 16px;
+  }
+
+  .notes-box ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .notes-box li {
+    padding: 6px 0;
+    font-size: 14px;
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .notes-box li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--tpc-coral);
+    font-weight: 700;
+  }
+
+  .cta-label {
+    display: inline-block;
+    background: var(--tpc-green);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 3px 10px;
+    border-radius: 4px;
+    margin-top: 4px;
+  }
+
+  .variant-divider {
+    border: none;
+    border-top: 2px dashed #E8E0DB;
+    margin: 24px 0;
+  }
+
+  .variant-label {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+
+  .variant-a { background: var(--tpc-coral); }
+  .variant-b { background: #7B68A6; }
+
+  @media (max-width: 600px) {
+    .header { padding: 32px 20px; }
+    .header h1 { font-size: 26px; }
+    .container { padding: 24px 20px 60px; }
+    .angle-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-label">The Pickle Company — Creative Briefing</div>
+  <h1>April Ad Creatives Produktion — 5×3 Teststrategie</h1>
+  <div class="header-meta">Stand: 07. April 2026 · Erstellt von: Christoph Neuhaus · Für: Michelle Fleer</div>
+</div>
+
+<div class="container">
+
+  <!-- INTRO -->
+  <div class="intro">
+    <h2>Was ist das hier?</h2>
+    <p>
+      Dieses Briefing definiert <strong>5 Angles × 3 Formate = 15 Creatives</strong> (plus Video-Varianten) als erste Testrunde für Meta Ads.
+      Ziel: Datenbasiert herausfinden, welcher Angle und welches Format bei der TPC-Zielgruppe am stärksten resoniert — und daraus einen skalierbaren Creative-Loop aufbauen (70/20/10-Prinzip).
+    </p>
+    <p style="margin-top: 10px;">
+      <strong>Conversion-Ziel:</strong> Add to Cart — Pickle Trio (6 Gläser, je 2 pro Sorte, 29,95 €)<br>
+      <strong>Zielgruppe:</strong> Gen Z & Millennials — urbane, food-affine Frauen mit Qualitätsanspruch<br>
+      <strong>Tonalität:</strong> Denglisch, modern, frech, warm, "Pickles aber sexy"-Energy
+    </p>
+  </div>
+
+  <!-- MATRIX OVERVIEW -->
+  <div style="margin-bottom: 40px;">
+    <h3 style="font-family: 'Fraunces', serif; font-size: 20px; margin-bottom: 16px;">Die Matrix auf einen Blick</h3>
+    <div style="overflow-x: auto;">
+      <table style="width: 100%; border-collapse: collapse; font-size: 13px; background: white; border-radius: 12px; overflow: hidden;">
+        <thead>
+          <tr style="background: var(--tpc-dark); color: white;">
+            <th style="padding: 14px 16px; text-align: left; font-weight: 700; letter-spacing: 1px; font-size: 11px; text-transform: uppercase;">Angle</th>
+            <th style="padding: 14px 16px; text-align: center; font-weight: 700; letter-spacing: 1px; font-size: 11px; text-transform: uppercase;">📹 Video / Reel (je 2 Varianten)</th>
+            <th style="padding: 14px 16px; text-align: center; font-weight: 700; letter-spacing: 1px; font-size: 11px; text-transform: uppercase;">📸 Static</th>
+            <th style="padding: 14px 16px; text-align: center; font-weight: 700; letter-spacing: 1px; font-size: 11px; text-transform: uppercase;">🎠 Karussell</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 12px 16px; font-weight: 700;">1 — Pickle Trend</td>
+            <td style="padding: 12px 16px; text-align: center;">UGC Talking-Head (A/B)</td>
+            <td style="padding: 12px 16px; text-align: center;">Meme-Style + Viral Pickle Trend (A/B)</td>
+            <td style="padding: 12px 16px; text-align: center;">Trend-Explainer + Pickle Hack (A/B)</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #eee; background: #FAFAF7;">
+            <td style="padding: 12px 16px; font-weight: 700;">2 — Female Founded</td>
+            <td style="padding: 12px 16px; text-align: center;">Founder-Story Reel (A/B)</td>
+            <td style="padding: 12px 16px; text-align: center;">Quote-Card</td>
+            <td style="padding: 12px 16px; text-align: center;">Behind the Brand</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 12px 16px; font-weight: 700;">3 — Frische & Qualität</td>
+            <td style="padding: 12px 16px; text-align: center;">Split-Screen / Voiceover (A/B)</td>
+            <td style="padding: 12px 16px; text-align: center;">Vs.-Graphic</td>
+            <td style="padding: 12px 16px; text-align: center;">Zutatenliste-Swipe</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #eee; background: #FAFAF7;">
+            <td style="padding: 12px 16px; font-weight: 700;">4 — Pickle Trio</td>
+            <td style="padding: 12px 16px; text-align: center;">Unboxing / Taste-Test (A/B)</td>
+            <td style="padding: 12px 16px; text-align: center;">Angebots-Visual</td>
+            <td style="padding: 12px 16px; text-align: center;">3-Sorten-Vorstellung</td>
+          </tr>
+          <tr>
+            <td style="padding: 12px 16px; font-weight: 700;">5 — Rezepte</td>
+            <td style="padding: 12px 16px; text-align: center;">Rezept-Reel (A/B)</td>
+            <td style="padding: 12px 16px; text-align: center;">Food-Styling Shot</td>
+            <td style="padding: 12px 16px; text-align: center;">Rezept-Swipe</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ============================================ -->
+  <!-- ANGLE 1: PICKLE TREND -->
+  <!-- ============================================ -->
+  <div class="angle">
+    <div class="angle-header">
+      <div class="angle-number">1</div>
+      <div>
+        <div class="angle-title">Pickle Trend Capture</div>
+        <div class="angle-subtitle">Kulturelles Momentum nutzen — "Wenn du's noch nicht weißt, bist du late"</div>
+      </div>
+    </div>
+
+    <div class="angle-rationale">
+      <strong>Warum dieser Angle?</strong> Der Pickle-Trend aus den USA (Pickle Juice, Pickle Merch, Pickle Girly) ist bei Gen Z & Millennials angekommen. TPC ist die einzige deutsche Brand, die das glaubwürdig besetzen kann. Trend-Capture-Ads haben typisch die niedrigsten CPMs, weil sie native wirken. <strong>Bonus:</strong> Neben dem allgemeinen "Pickle Girly"-Lifestyle gibt es konkrete virale Pickle-Trends (Pickle Wraps, Pickle Juice Shots, Pickle Cocktails), die als eigene Creative-Varianten mitlaufen — so testen wir, ob der kulturelle Überbau oder der konkrete Food-Hack besser performt.
+    </div>
+
+    <!-- Video -->
+    <div class="format-card">
+      <span class="format-badge badge-video">📹 Video / Reel</span>
+      <h4>UGC Talking-Head: "Pickle Girly Confession"</h4>
+      <p style="font-size: 13px; color: #888; margin-bottom: 16px; font-style: italic;">Zwei Varianten mit unterschiedlichen Creatorinnen — gleicher Angle, unterschiedliche Persönlichkeiten. So testen wir, welcher Typ besser resoniert.</p>
+
+      <!-- Variante A -->
+      <span class="variant-label variant-a">Variante A — "Die Begeisterte"</span>
+
+      <div class="creative-section">
+        <div class="label">Setting & Creatorin</div>
+        <div class="content">Junge Creatorin (Mitte 20, Gen Z Vibe), hält TPC-Glas in die Kamera. Selfie-Perspektive, Küche oder Sofa. Natürliches Licht, authentisch, kein Studio.</div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">Verbaler Hook (Vorschlag)</div>
+        <div class="hook-text">"Okay ich bin offiziell ein Pickle Girly und das hier ist schuld."</div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">Body (Sek. 3–20)</div>
+        <div class="content">
+          Creatorin erzählt, wie sie über Insta auf TPC gestoßen ist. Öffnet das Glas on-camera. Crunch-Sound beim Reinbeißen (ASMR-Moment). Schneller Schnitt auf Reaktion: "Okay, die sind absurd gut." Zeigt die drei Sorten kurz. "Die Hot One ist lowkey addictive." Fokus auf Energie und Begeisterung.
+        </div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">CTA (Sek. 20–25)</div>
+        <div class="content">"Link ist in der Ad — Pickle Trio, 6 Gläser, alle 3 Sorten. Du wirst's nicht bereuen."</div>
+        <div class="cta-label">→ Pickle Trio bestellen — 29,95 €</div>
+      </div>
+
+      <hr class="variant-divider">
+
+      <!-- Variante B -->
+      <span class="variant-label variant-b">Variante B — "Die Chill-Empfehlerin"</span>
+
+      <div class="creative-section">
+        <div class="label">Setting & Creatorin</div>
+        <div class="content">Andere Creatorin (eher late 20s/Millennial, ruhigerer Ton), sitzt am Esstisch oder in der Küche. Overhead-Shot auf das geöffnete Glas, dann Schnitt auf Gesicht. Eher "chill recommendation" als hyped-up.</div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">Verbaler Hook (Vorschlag)</div>
+        <div class="hook-text">"Falls du den Pickle-Trend noch nicht mitbekommen hast — here's your sign."</div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">Body (Sek. 3–20)</div>
+        <div class="content">
+          Ruhigere Erzählweise: "Ich bin normalerweise skeptisch bei Food-Hypes, aber..." Zeigt das Produkt, liest kurz die Zutatenliste vor ("Keine Zusatzstoffe, kein Zucker — krass, oder?"). Probiert, reagiert authentisch. Kann auch ein "Ranking meiner Favoriten"-Moment sein.
+        </div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">CTA (Sek. 20–25)</div>
+        <div class="content">"Pickle Trio über den Link — 6 Gläser, alle Sorten. Seriously, probier's einfach."</div>
+        <div class="cta-label">→ Pickle Trio bestellen — 29,95 €</div>
+      </div>
+
+      <div class="creative-section" style="margin-top: 20px;">
+        <div class="label">Ad Copy für beide Varianten (Primary Text)</div>
+        <div class="content">Pickles aber sexy. 🥒 Drei Sorten, null Zusatzstoffe, maximaler Crunch. Werde Teil vom Pickle Trend — mit Pickles, die tatsächlich so gut schmecken wie sie aussehen. → Pickle Trio sichern (6 Gläser, 29,95 €)</div>
+      </div>
+    </div>
+
+    <!-- Static -->
+    <div class="format-card">
+      <span class="format-badge badge-static">📸 Static</span>
+      <h4>Static: Pickle Girly / Viral Pickle Trends</h4>
+      <p style="font-size: 13px; color: #888; margin-bottom: 16px; font-style: italic;">Zwei Richtungen: einmal der allgemeine "Pickle Girly"-Lifestyle-Vibe, einmal ein konkreter viraler Pickle-Trend als Hook.</p>
+
+      <span class="variant-label variant-a">Variante A — "Pickle Girly Starter Pack"</span>
+
+      <div class="creative-section">
+        <div class="label">Headline</div>
+        <div class="hook-text">"Pickle Girly aufgepasst 🥒"</div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">Visual</div>
+        <div class="content">
+          Splitscreen oder Grid-Layout im Meme-Stil: Oben Bild von TPC-Gläsern in buntem Setting, unten Text-Overlay. Alternativ: "Things I can't live without"-Format mit TPC-Glas als zentrales Element. Pink/Gelb-Farbwelt passend zur Brand.
+        </div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">Subline</div>
+        <div class="content">Die Pickles, die deinen Feed und deinen Kühlschrank upgraden. Keine Zusatzstoffe. Maximaler Crunch. Made in Germany.</div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">CTA</div>
+        <div class="content">"Jetzt Pickle Trio holen"</div>
+        <div class="cta-label">→ Pickle Trio bestellen — 29,95 €</div>
+      </div>
+
+      <hr class="variant-divider">
+
+      <span class="variant-label variant-b">Variante B — Konkreter Pickle-Trend (z. B. Pickle Wrap / Pickle Juice)</span>
+
+      <div class="creative-section">
+        <div class="label">Headline (Vorschlag — je nach aktuellem Trend anpassen)</div>
+        <div class="hook-text">"Pickle Wraps sind überall — aber hast du schon die richtigen Pickles dafür?"</div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">Visual</div>
+        <div class="content">
+          Zeigt den konkreten Trend (z. B. Pickle Wrap mit TPC-Pickles, Pickle Juice Shot, Pickles im Cocktail) als Hero-Bild. Darunter: TPC-Produktshot als "missing ingredient". Kann auch als "Du machst Pickle Wraps mit Supermarkt-Gurken? Girl..." aufgezogen werden.
+        </div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">Subline</div>
+        <div class="content">Upgrade deinen Pickle-Game. Drei Sorten, extra Crunch, null Zusatzstoffe.</div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">CTA</div>
+        <div class="content">"Pickle Trio bestellen"</div>
+        <div class="cta-label">→ Pickle Trio bestellen — 29,95 €</div>
+      </div>
+    </div>
+
+    <!-- Carousel -->
+    <div class="format-card">
+      <span class="format-badge badge-carousel">🎠 Karussell</span>
+      <h4>Karussell: Trend-Explainer / Pickle-Hack</h4>
+      <p style="font-size: 13px; color: #888; margin-bottom: 16px; font-style: italic;">Zwei Richtungen: einmal der breite Trend-Überblick ("Warum Pickles gerade überall sind"), einmal ein konkreter viraler Pickle-Hack als Swipe-Format.</p>
+
+      <span class="variant-label variant-a">Variante A — "Why Pickles are having a Moment"</span>
+
+      <div class="creative-section">
+        <div class="label">Storyline über die Slides</div>
+        <ol class="slides-list">
+          <li><strong>"Pickles sind gerade überall — here's why."</strong><br><em>Eyecatcher-Statement, knalliges TPC-Visual, stoppt den Scroll</em></li>
+          <li><strong>"Der Pickle Trend kommt aus den USA — und ist jetzt hier."</strong><br><em>Collage: Pickle Juice, Pickle Merch, Viral Moments. Kontext geben.</em></li>
+          <li><strong>"Aber mal ehrlich: Supermarkt-Gurken? Mid."</strong><br><em>Bild eines traurigen Discounter-Gurkenglases vs. TPC. Humor.</em></li>
+          <li><strong>"The Pickle Company macht Pickles, die den Trend verdienen."</strong><br><em>Produktbild aller 3 Sorten mit USP-Bullets: No Sugar, No BS, Extra Crunch</em></li>
+          <li><strong>"Pickle Trio — 6 Gläser, alle 3 Sorten, 29,95 €."</strong><br><em>Trio-Visual + CTA-Button</em></li>
+        </ol>
+      </div>
+
+      <hr class="variant-divider">
+
+      <span class="variant-label variant-b">Variante B — Konkreter Pickle-Hack (z. B. "3 Pickle Wraps, die du probieren musst")</span>
+
+      <div class="creative-section">
+        <div class="label">Storyline über die Slides</div>
+        <ol class="slides-list">
+          <li><strong>"3 Pickle Wraps, die gerade viral gehen 🔥"</strong><br><em>Eyecatcher, Trend-Format, Food-Bild als Stopper</em></li>
+          <li><strong>"#1: Classic Pickle Wrap — Frischkäse, TPC Classic One, Schinken, einrollen, fertig."</strong><br><em>Appetitliches Food-Foto oder Illustration, Rezept als Overlay</em></li>
+          <li><strong>"#2: Spicy Pickle Wrap — TPC Hot One + Avocado + Sriracha Mayo."</strong><br><em>Gleicher Aufbau, andere Farbwelt (rot/scharf)</em></li>
+          <li><strong>"#3: Golden Pickle Wrap — TPC Golden One + Hummus + Rucola."</strong><br><em>Warme Farbwelt, goldene Töne</em></li>
+          <li><strong>"Welcher ist dein Favorit? Pickle Trio — alle 3 Sorten, 29,95 €."</strong><br><em>Alle drei Gläser + CTA</em></li>
+        </ol>
+      </div>
+
+      <div class="creative-section" style="margin-top: 16px;">
+        <div class="label">Hinweis</div>
+        <div class="content"><em>Die B-Variante kann flexibel an den aktuellsten Pickle-Trend angepasst werden — Pickle Wraps ist nur ein Beispiel. Pickle Juice Shots, Pickle Cocktails, Pickle Grilled Cheese, etc. funktionieren im gleichen Swipe-Format.</em></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ============================================ -->
+  <!-- ANGLE 2: FEMALE FOUNDED -->
+  <!-- ============================================ -->
+  <div class="angle">
+    <div class="angle-header">
+      <div class="angle-number">2</div>
+      <div>
+        <div class="angle-title">Female Founded aus Berlin</div>
+        <div class="angle-subtitle">Founder-Story als Differenzierungsmerkmal — People buy from People</div>
+      </div>
+    </div>
+
+    <div class="angle-rationale">
+      <strong>Warum dieser Angle?</strong> Im "Sea of Sameness" der Gewürzgurken-Kategorie ist die Founder-Story der stärkste Emotional-Hook. Michelle als Gesicht der Brand schafft Nahbarkeit und Identifikation — sowohl bei Gen Z als auch bei Millennials. Die Person in der Ad sollte aussehen wie der ideale Kunde: junge Gründerin = perfekter Avatar.
+    </div>
+
+    <!-- Video -->
+    <div class="format-card">
+      <span class="format-badge badge-video">📹 Video / Reel</span>
+      <h4>Founder-Story: "Ich hab eine Gewürzgurken-Firma gegründet"</h4>
+      <p style="font-size: 13px; color: #888; margin-bottom: 16px; font-style: italic;">Zwei Varianten: einmal Michelle selbst als Founderin, einmal eine Creatorin, die über die Brand spricht. Beide Wege haben Vorteile — Michelle bringt Authentizität, eine externe Creatorin bringt Third-Party-Credibility.</p>
+
+      <!-- Variante A -->
+      <span class="variant-label variant-a">Variante A — Michelle als Founderin</span>
+
+      <div class="creative-section">
+        <div class="label">Setting</div>
+        <div class="content">Michelle direkt in die Kamera, lässiges Setting (Küche, Berliner Altbau, oder vor Produktregal). Authentisch, kein Studio-Look. Selfie-Perspektive oder jemand filmt sie locker.</div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">Verbaler Hook (Vorschlag)</div>
+        <div class="hook-text">"Ich hab mit 26 eine Gewürzgurken-Firma in Berlin gegründet. Ja, wirklich."</div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">Body (Sek. 3–25)</div>
+        <div class="content">
+          Michelle erzählt kurz die Origin Story: Küchenprojekt in Neukölln → Idee, eine vergessene Kategorie aufzumischen → Zusammenarbeit mit Traditionsproduzent in Niederbayern → nur frische deutsche Gurken, null Zusatzstoffe. B-Roll: Gläser werden abgefüllt, Produkt-Shots, eventuell Ausschnitt vom Markt/Feinkostladen. Ton: stolz aber nahbar, nicht inszeniert.
+        </div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">CTA (Sek. 25–30)</div>
+        <div class="content">"Probier's aus — Pickle Trio mit allen drei Sorten, Link ist hier unten."</div>
+        <div class="cta-label">→ Pickle Trio bestellen — 29,95 €</div>
+      </div>
+
+      <hr class="variant-divider">
+
+      <!-- Variante B -->
+      <span class="variant-label variant-b">Variante B — Creatorin erzählt über die Brand</span>
+
+      <div class="creative-section">
+        <div class="label">Setting & Creatorin</div>
+        <div class="content">Creatorin (Mitte/Ende 20) bei sich zu Hause oder in einem Café-Setting. Hält das Glas, spricht in die Kamera. "Storytelling over a product"-Vibe — sie hat die Brand entdeckt und ist beeindruckt von der Story dahinter.</div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">Verbaler Hook (Vorschlag)</div>
+        <div class="hook-text">"Eine Frau aus Berlin hat die Gewürzgurke neu erfunden — und ich hab's probiert."</div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">Body (Sek. 3–25)</div>
+        <div class="content">
+          Creatorin erzählt die TPC-Story aus ihrer Perspektive: "Ich hab diese Brand auf Insta gefunden — female founded, aus Berlin, und die machen nur Pickles." Zeigt das Produkt, probiert es. "Die sind wirklich anders als alles im Supermarkt." Kann auch kurze Text-Overlays mit Facts nutzen (Female Founded, Made in Germany, No Additives).
+        </div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">CTA (Sek. 25–30)</div>
+        <div class="content">"Pickle Trio über den Link — 6 Gläser, du wirst's lieben."</div>
+        <div class="cta-label">→ Pickle Trio bestellen — 29,95 €</div>
+      </div>
+
+      <div class="creative-section" style="margin-top: 20px;">
+        <div class="label">Ad Copy für beide Varianten (Primary Text)</div>
+        <div class="content">Ich hab die Gewürzgurke neu erfunden. 🥒 Female founded in Berlin, produziert in Bayern. Drei Sorten, die zeigen, was Pickles können — wenn man's richtig macht. Null Zusatzstoffe, extra Crunch, und ein Geschmack, der süchtig macht. → Pickle Trio testen (6 Gläser, 29,95 €)</div>
+      </div>
+    </div>
+
+    <!-- Static -->
+    <div class="format-card">
+      <span class="format-badge badge-static">📸 Static</span>
+      <h4>Quote-Card: Founder Statement</h4>
+
+      <div class="creative-section">
+        <div class="label">Headline</div>
+        <div class="hook-text">"Ich wollte Pickles machen, die ich selbst kaufen würde."</div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">Visual</div>
+        <div class="content">
+          Michelle-Portrait (authentisch, lächelnd, mit Glas in der Hand oder im Produktions-Setting). Quote als großer Text-Overlay. Unten: "— Michelle, Gründerin The Pickle Company, Berlin". TPC-Branding dezent eingebaut. Farbwelt: TPC-Pink + Weiß.
+        </div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">Subline</div>
+        <div class="content">Female Founded. Handgemacht in Bayern. Null Kompromisse bei Geschmack und Zutaten.</div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">CTA</div>
+        <div class="content">"Jetzt die Pickles probieren"</div>
+        <div class="cta-label">→ Pickle Trio bestellen — 29,95 €</div>
+      </div>
+    </div>
+
+    <!-- Carousel -->
+    <div class="format-card">
+      <span class="format-badge badge-carousel">🎠 Karussell</span>
+      <h4>Behind the Brand: "Von der Küche in Neukölln zum Regal"</h4>
+
+      <div class="creative-section">
+        <div class="label">Storyline über die Slides</div>
+        <ol class="slides-list">
+          <li><strong>"Das hier ist Michelle. Sie hat die Gewürzgurke neu erfunden."</strong><br><em>Portrait Michelle, Berlin-Vibe, authentisch</em></li>
+          <li><strong>"Angefangen in einer Küche in Neukölln."</strong><br><em>Behind-the-Scenes, Küchensetting, early-days-Feeling</em></li>
+          <li><strong>"Heute: Drei Sorten, die zeigen, was Pickles können."</strong><br><em>Produktreihe nebeneinander, farbenfroher Produktshot</em></li>
+          <li><strong>"Nur natürliche Zutaten. Kein Zucker-Überschuss. Extra Crunch."</strong><br><em>Close-up einer Gurke im Glas oder angebissene Gurke mit sichtbarem Crunch</em></li>
+          <li><strong>"Pickle Trio: 6 Gläser, alle 3 Sorten, 29,95 € — dein Einstieg in bessere Pickles."</strong><br><em>Trio-Visual + CTA</em></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ============================================ -->
+  <!-- ANGLE 3: FRISCHE & QUALITÄT -->
+  <!-- ============================================ -->
+  <div class="angle">
+    <div class="angle-header">
+      <div class="angle-number">3</div>
+      <div>
+        <div class="angle-title">Frische & Produktqualität</div>
+        <div class="angle-subtitle">Rationaler Differenzierungs-Angle — Supermarkt vs. TPC</div>
+      </div>
+    </div>
+
+    <div class="angle-rationale">
+      <strong>Warum dieser Angle?</strong> Spricht die "High-Info Buyers" an, die Fakten brauchen, bevor sie kaufen — eher Millennials, aber auch qualitätsbewusste Gen Z. Die Positionierung zwischen Discounter (4,42 €/kg) und Luxus-Gourmet (35 €/kg) ist der Sweet Spot. Produktwahrheit als Hook: frische Gurken, schnelle Verarbeitung, keine Konservierungsstoffe — das ist das "It's toasted"-Moment für TPC.
+    </div>
+
+    <!-- Video -->
+    <div class="format-card">
+      <span class="format-badge badge-video">📹 Video / Reel</span>
+      <h4>Vergleichs-Video: "Supermarkt vs. The Pickle Company"</h4>
+      <p style="font-size: 13px; color: #888; margin-bottom: 16px; font-style: italic;">Zwei Umsetzungswege denkbar: einmal als Splitscreen-Grafik mit Voiceover (kein Gesicht nötig), einmal als UGC-Vergleich mit Creatorin. Beides kann gut funktionieren.</p>
+
+      <!-- Variante A -->
+      <span class="variant-label variant-a">Variante A — Splitscreen mit Voiceover</span>
+
+      <div class="creative-section">
+        <div class="label">Visueller Hook (Sek. 0–3)</div>
+        <div class="content">Splitscreen: Links ein tristes Supermarkt-Gurkenregal (Discounter-Feeling). Rechts ein TPC-Glas wird geöffnet — Farbe, Frische, Crunch. Kein Gesicht nötig, rein visuell getrieben.</div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">Verbaler Hook (Vorschlag)</div>
+        <div class="hook-text">"Das ist der Unterschied zwischen Supermarkt-Gurken und echten Pickles."</div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">Body (Sek. 3–20)</div>
+        <div class="content">
+          Voiceover + Text-Overlays: "Die meisten Gewürzgurken stehen monatelang im Lager, bevor sie ins Glas kommen. Unsere? Frische Gurken aus Deutschland, direkt verarbeitet." Cut auf Crunch-ASMR-Moment. "Keine Konservierungsstoffe. Kein zugesetzter Zucker." Cut auf Zutatenliste (kurz und clean vs. Supermarkt-Zutatenliste lang und unverständlich).
+        </div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">CTA (Sek. 20–25)</div>
+        <div class="content">"Schmeck den Unterschied selbst — Pickle Trio, Link in der Ad."</div>
+        <div class="cta-label">→ Pickle Trio bestellen — 29,95 €</div>
+      </div>
+
+      <hr class="variant-divider">
+
+      <!-- Variante B -->
+      <span class="variant-label variant-b">Variante B — Creatorin macht den Live-Vergleich</span>
+
+      <div class="creative-section">
+        <div class="label">Setting & Creatorin</div>
+        <div class="content">Creatorin steht in der Küche, hat ein Supermarkt-Gurkenglas und ein TPC-Glas nebeneinander. Probiert beide nacheinander. Ehrliche Reaktion, keine übertriebene Inszenierung.</div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">Verbaler Hook (Vorschlag)</div>
+        <div class="hook-text">"Supermarkt-Gurke vs. Premium-Pickle — ich teste beides."</div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">Body (Sek. 3–20)</div>
+        <div class="content">
+          Creatorin probiert erst die Supermarkt-Gurke: "Naja, ist halt eine Gurke." Dann TPC: Crunch-Moment, sichtbare Überraschung. "Okay, das ist eine andere Liga." Dreht das TPC-Glas um, zeigt die Zutatenliste: "Schaut euch an, wie kurz die ist." Optional: Quick-Check auf Zucker und Zusatzstoffe bei beiden.
+        </div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">CTA (Sek. 20–25)</div>
+        <div class="content">"Pickle Trio — 6 Gläser, alle Sorten, Link unten. Probier den Unterschied."</div>
+        <div class="cta-label">→ Pickle Trio bestellen — 29,95 €</div>
+      </div>
+
+      <div class="creative-section" style="margin-top: 20px;">
+        <div class="label">Ad Copy für beide Varianten (Primary Text)</div>
+        <div class="content">Supermarkt-Gurken: Zucker, Konservierungsstoffe, null Crunch. 😐 The Pickle Company: Frische Gurken aus Deutschland, nur natürliche Zutaten, extra knackig. Du entscheidest. → Pickle Trio bestellen (6 Gläser, 29,95 €)</div>
+      </div>
+    </div>
+
+    <!-- Static -->
+    <div class="format-card">
+      <span class="format-badge badge-static">📸 Static</span>
+      <h4>Vs.-Graphic: Zutatenliste Face-Off</h4>
+
+      <div class="creative-section">
+        <div class="label">Headline</div>
+        <div class="hook-text">"Weißt du, was in deinen Gurken drin ist?"</div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">Visual</div>
+        <div class="content">
+          Links: Supermarkt-Zutatenliste (lang, chemisch klingend, unübersichtlich — Zucker, Süßungsmittel, Konservierungsstoffe markiert). Rechts: TPC-Zutatenliste (5–6 Zutaten, clean, natürlich). Großer Kontrast. Clean Design, TPC-Farbwelt.
+        </div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">Subline</div>
+        <div class="content">Nur Gurken, Gewürze und Aufguss. Keine Zusatzstoffe. So sollten Pickles schmecken.</div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">CTA</div>
+        <div class="content">"Jetzt den Unterschied probieren"</div>
+        <div class="cta-label">→ Pickle Trio bestellen — 29,95 €</div>
+      </div>
+    </div>
+
+    <!-- Carousel -->
+    <div class="format-card">
+      <span class="format-badge badge-carousel">🎠 Karussell</span>
+      <h4>Zutatenliste-Swipe: "Was NICHT in unseren Pickles ist"</h4>
+
+      <div class="creative-section">
+        <div class="label">Storyline über die Slides</div>
+        <ol class="slides-list">
+          <li><strong>"Was in den meisten Gewürzgurken steckt: 🚩"</strong><br><em>Rote Flaggen-Emojis, typische Supermarkt-Zutatenliste, bewusst abschreckend</em></li>
+          <li><strong>"Zugesetzter Zucker. Konservierungsstoffe. Aromen."</strong><br><em>Jeder Begriff durchgestrichen oder rot markiert</em></li>
+          <li><strong>"Was in unseren Pickles steckt:"</strong><br><em>Clean-Slide, viel Whitespace</em></li>
+          <li><strong>"Gurken. Gewürze. Aufguss. Fertig."</strong><br><em>Produktbild mit aufgezählten Zutaten, appetitlich, hell und frisch</em></li>
+          <li><strong>"Pickle Trio: 6 Gläser, alle 3 Sorten, 29,95 €."</strong><br><em>Trio-Visual + CTA: "Jetzt den Unterschied schmecken"</em></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ============================================ -->
+  <!-- ANGLE 4: PICKLE TRIO / CONVERSION -->
+  <!-- ============================================ -->
+  <div class="angle">
+    <div class="angle-header">
+      <div class="angle-number">4</div>
+      <div>
+        <div class="angle-title">Pickle Trio als Einstieg</div>
+        <div class="angle-subtitle">Conversion-Angle — das Produkt direkt in den Vordergrund</div>
+      </div>
+    </div>
+
+    <div class="angle-rationale">
+      <strong>Warum dieser Angle (mein Vorschlag)?</strong> Die anderen drei Angles erzählen eine Story — dieser Angle ist der direkte Conversion-Driver. Das Pickle Trio (6 Gläser, 29,95 €) ist der ideale Neukunden-Einstieg: alle Sorten probieren, gutes Preis-Leistungs-Verhältnis (5 €/Glas). Funktioniert besonders gut als zweite Touchpoint-Ad oder im warmen Traffic.
+    </div>
+
+    <!-- Video -->
+    <div class="format-card">
+      <span class="format-badge badge-video">📹 Video / Reel</span>
+      <h4>Unboxing / Taste-Test: "Ich teste alle 3 Sorten"</h4>
+      <p style="font-size: 13px; color: #888; margin-bottom: 16px; font-style: italic;">Zwei Varianten: verschiedene Creatorinnen mit unterschiedlichem Stil. Unboxing funktioniert sowohl energetisch als auch laid-back.</p>
+
+      <!-- Variante A -->
+      <span class="variant-label variant-a">Variante A — "Energetisches Unboxing"</span>
+
+      <div class="creative-section">
+        <div class="label">Setting & Creatorin</div>
+        <div class="content">Junge Creatorin, energisch, hands-on. Paket wird geöffnet, drei Gläser kommen raus. Overhead-Shot oder Selfie-Perspektive. Aufregung spürbar, schnelle Schnitte.</div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">Verbaler Hook (Vorschlag)</div>
+        <div class="hook-text">"Ich hab mir das Pickle Trio bestellt und teste jetzt alle 3 Sorten live."</div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">Body (Sek. 3–25)</div>
+        <div class="content">
+          Creatorin testet alle drei Sorten nacheinander: Classic → "Wow, der Crunch!" / Hot → "Okay, die Schärfe kickt, das ist wie Kimchi meets Gurke" / Golden → "Die Kurkuma ist so unexpected." Jede Sorte kurz gezeigt + ehrliche Reaktion. Schnelle Schnitte, viel Energie. Ranking am Ende: "Mein Favorit ist..."
+        </div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">CTA (Sek. 25–30)</div>
+        <div class="content">"Pickle Trio — 6 Gläser, alle drei Sorten, 29,95 €. Link unten. Trust me."</div>
+        <div class="cta-label">→ Pickle Trio bestellen — 29,95 €</div>
+      </div>
+
+      <hr class="variant-divider">
+
+      <!-- Variante B -->
+      <span class="variant-label variant-b">Variante B — "ASMR / Food-Aesthetic Taste-Test"</span>
+
+      <div class="creative-section">
+        <div class="label">Setting & Creatorin</div>
+        <div class="content">Andere Creatorin oder auch ohne Gesicht (nur Hände). Schön angerichtete Szene: Gläser stehen auf einem Holzbrett, gutes Licht. ASMR-Fokus: Glasöffnen, Crunch-Sounds, Close-ups. Eher visuell-sensorisch als talking-head.</div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">Verbaler Hook (Vorschlag)</div>
+        <div class="hook-text">"POV: Du öffnest das Pickle Trio zum ersten Mal 🥒"</div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">Body (Sek. 3–25)</div>
+        <div class="content">
+          Visuell getrieben: Glas öffnen (Pop-Sound), Gurke rausholen (close-up), reinbeißen (maximaler Crunch-ASMR). Wiederholung für alle drei Sorten mit jeweils unterschiedlicher Farbwelt. Text-Overlays mit Sortenname und Geschmacksprofil. Minimale Worte, maximale Sensorik.
+        </div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">CTA (Sek. 25–30)</div>
+        <div class="content">Text-Overlay: "Pickle Trio — 6 Gläser, 29,95 € → Link in Bio"</div>
+        <div class="cta-label">→ Pickle Trio bestellen — 29,95 €</div>
+      </div>
+
+      <div class="creative-section" style="margin-top: 20px;">
+        <div class="label">Ad Copy für beide Varianten (Primary Text)</div>
+        <div class="content">3 Sorten. 6 Gläser. 29,95 €. Null Kompromisse. 🥒 Das Pickle Trio: Classic, Hot und Golden — finde deinen Favoriten. Keine Zusatzstoffe, extra Crunch, made in Germany. → Jetzt Pickle Trio bestellen</div>
+      </div>
+    </div>
+
+    <!-- Static -->
+    <div class="format-card">
+      <span class="format-badge badge-static">📸 Static</span>
+      <h4>Angebots-Visual: "6 Gläser, 29,95 €"</h4>
+
+      <div class="creative-section">
+        <div class="label">Headline</div>
+        <div class="hook-text">"Dein Einstieg in bessere Pickles: 29,95 €"</div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">Visual</div>
+        <div class="content">
+          Flat-lay oder leicht schräger Shot: Alle drei Gläser (je 2 Stück = 6 Gläser) nebeneinander, Deckel offen, eine Gurke lehnt heraus. Knalliger Hintergrund (TPC-Pink oder Gelb). Preis prominent: "Pickle Trio — 29,95 €". Badges: "6 Gläser" + "Keine Zusatzstoffe" + "Made in Germany".
+        </div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">Subline</div>
+        <div class="content">Classic, Hot & Golden — je 2 Gläser pro Sorte. Finde deinen Favoriten.</div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">CTA</div>
+        <div class="content">"Jetzt bestellen"</div>
+        <div class="cta-label">→ Pickle Trio bestellen — 29,95 €</div>
+      </div>
+    </div>
+
+    <!-- Carousel -->
+    <div class="format-card">
+      <span class="format-badge badge-carousel">🎠 Karussell</span>
+      <h4>3-Sorten-Vorstellung: "Welcher Pickle bist du?"</h4>
+
+      <div class="creative-section">
+        <div class="label">Storyline über die Slides</div>
+        <ol class="slides-list">
+          <li><strong>"Welcher Pickle bist du? 🥒"</strong><br><em>Eyecatcher-Slide, spielerisch, Personality-Quiz-Vibe</em></li>
+          <li><strong>"The Classic One — Dill, Senfsaat, Zwiebel. Für alle, die wissen, was gut ist."</strong><br><em>Produktshot Classic, gelber Hintergrund, appetitlich</em></li>
+          <li><strong>"The Hot One — Chili, Ingwer, Knoblauch. Für alle, die's scharf mögen."</strong><br><em>Produktshot Hot, roter/pinker Hintergrund, Flammen-Emoji-Energy</em></li>
+          <li><strong>"The Golden One — Kurkuma, Cumin, Dill. Für alle, die was Neues wagen."</strong><br><em>Produktshot Golden, oranger Hintergrund, warm und einladend</em></li>
+          <li><strong>"Kannst dich nicht entscheiden? Pickle Trio: 6 Gläser, alle 3 Sorten, 29,95 €."</strong><br><em>Alle drei Gläser zusammen + CTA prominent</em></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ============================================ -->
+  <!-- ANGLE 5: REZEPTE -->
+  <!-- ============================================ -->
+  <div class="angle">
+    <div class="angle-header">
+      <div class="angle-number">5</div>
+      <div>
+        <div class="angle-title">Rezepte & Anwendungsideen</div>
+        <div class="angle-subtitle">Utility-Angle — "Ich zeig dir, was du damit machen kannst"</div>
+      </div>
+    </div>
+
+    <div class="angle-rationale">
+      <strong>Warum dieser Angle?</strong> Rezept-Content ist der stärkste TOFU-Magnet für Food-Brands: Er liefert einen konkreten Nutzen (Inspiration), senkt die kognitive Hürde ("Wie benutze ich Pickles überhaupt?") und performt organisch wie paid. Gerade bei Millennials mit Koch-Affinität ein starker Trigger. Bonus: Rezept-Reels können parallel auch auf dem TPC-Instagram-Kanal laufen — Paid und Organic verstärken sich gegenseitig.
+    </div>
+
+    <!-- Video -->
+    <div class="format-card">
+      <span class="format-badge badge-video">📹 Video / Reel</span>
+      <h4>Rezept-Reel: Quick Pickle Recipes</h4>
+      <p style="font-size: 13px; color: #888; margin-bottom: 16px; font-style: italic;">Zwei Richtungen: einmal eine Creatorin, die kocht und erzählt, einmal ein reines Hands-Video ohne Gesicht (Food-Content-Stil). Beide Formate funktionieren stark in der Food-Nische.</p>
+
+      <!-- Variante A -->
+      <span class="variant-label variant-a">Variante A — Creatorin kocht mit Pickles</span>
+
+      <div class="creative-section">
+        <div class="label">Setting & Creatorin</div>
+        <div class="content">Creatorin in der Küche, locker, "Ich zeig euch was"-Energie. TPC-Glas steht prominent im Bild. Gut ausgeleuchtete Küche, aber kein Profi-Studio.</div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">Verbaler Hook (Vorschlag)</div>
+        <div class="hook-text">"Diesen Smash Burger mit Pickles musst du probieren."</div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">Body (Sek. 3–25)</div>
+        <div class="content">
+          Schnelle Rezept-Sequenz: Zutaten vorbereiten → Burger braten → TPC Classic One als Topping (Crunch-Moment!) → Zusammenbauen → fertiges Ergebnis in Nahaufnahme. Creatorin kommentiert: "Die Pickles machen den ganzen Burger." Alternative Rezepte je nach Sorte: Hot One auf Avocado-Toast, Golden One im Kartoffelsalat. Schnelle Schnitte, appetitliche Close-ups.
+        </div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">CTA (Sek. 25–30)</div>
+        <div class="content">"Pickle Trio über den Link — alle drei Sorten für deine Küche."</div>
+        <div class="cta-label">→ Pickle Trio bestellen — 29,95 €</div>
+      </div>
+
+      <hr class="variant-divider">
+
+      <!-- Variante B -->
+      <span class="variant-label variant-b">Variante B — Hands-Only Food-Content (kein Gesicht)</span>
+
+      <div class="creative-section">
+        <div class="label">Setting</div>
+        <div class="content">Overhead-Shot oder 45°-Winkel auf Arbeitsfläche. Nur Hände sichtbar. Hochwertiges Food-Styling, gutes Licht. Trending Audio oder ASMR-Sounds (Schneiden, Crunch, Brutzeln). Kein Voiceover, nur Text-Overlays.</div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">Verbaler Hook (Text-Overlay)</div>
+        <div class="hook-text">"Das einfachste Apéro-Board mit Pickles 🥒✨"</div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">Body (Sek. 3–25)</div>
+        <div class="content">
+          Visuell getriebene Rezept-Sequenz: Board vorbereiten → Käse und Cracker anordnen → TPC-Gläser öffnen (alle drei Sorten) → Pickles auf dem Board arrangieren → Dip daneben → fertiges Board als Hero-Shot. Text-Overlays mit Zutaten und Sortenname. Maximale Food-Ästhetik, kein Wort gesprochen.
+        </div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">CTA (Sek. 25–30)</div>
+        <div class="content">Text-Overlay: "Pickle Trio — 6 Gläser, 29,95 € → Link in der Ad"</div>
+        <div class="cta-label">→ Pickle Trio bestellen — 29,95 €</div>
+      </div>
+
+      <div class="creative-section" style="margin-top: 20px;">
+        <div class="label">Ad Copy für beide Varianten (Primary Text)</div>
+        <div class="content">Pickles gehören auf alles. Wirklich alles. 🥒 Smash Burger, Apéro-Board, Sandwich, Salat — drei Sorten für jede Situation. Keine Zusatzstoffe, extra Crunch, made in Germany. → Pickle Trio bestellen (6 Gläser, 29,95 €)</div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">Rezeptideen-Pool (für weitere Iterationen)</div>
+        <div class="content"><em>Smash Burger mit Classic One · Pickle-Wrap mit Hot One · Apéro-Board mit allen drei Sorten · Pickle-Grilled-Cheese · Kartoffelsalat mit Golden One · Pickle-Dip (Frischkäse + gehackte Pickles) · Sandwich-Upgrade · Pickle auf Pizza (controversial but viral)</em></div>
+      </div>
+    </div>
+
+    <!-- Static -->
+    <div class="format-card">
+      <span class="format-badge badge-static">📸 Static</span>
+      <h4>Food-Styling Shot: Pickle in Action</h4>
+
+      <div class="creative-section">
+        <div class="label">Headline</div>
+        <div class="hook-text">"Pickles machen alles besser. Literally."</div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">Visual</div>
+        <div class="content">
+          Hero-Shot eines appetitlichen Gerichts mit TPC-Pickles als Star (z. B. Smash Burger mit sichtbarem Pickle-Crunch, oder ein perfekt angerichtetes Apéro-Board). TPC-Glas im Hintergrund sichtbar, aber nicht aufdringlich. Professionelle Food-Fotografie-Ästhetik, kann aber auch "elevated casual" sein (schöne Küche, natürliches Licht).
+        </div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">Subline</div>
+        <div class="content">Drei Sorten für jede Situation. Extra Crunch, null Zusatzstoffe. Von Smash Burger bis Apéro.</div>
+      </div>
+
+      <div class="creative-section">
+        <div class="label">CTA</div>
+        <div class="content">"Pickle Trio bestellen"</div>
+        <div class="cta-label">→ Pickle Trio bestellen — 29,95 €</div>
+      </div>
+    </div>
+
+    <!-- Carousel -->
+    <div class="format-card">
+      <span class="format-badge badge-carousel">🎠 Karussell</span>
+      <h4>Rezept-Swipe: "3 Sorten, 3 Rezepte"</h4>
+
+      <div class="creative-section">
+        <div class="label">Storyline über die Slides</div>
+        <ol class="slides-list">
+          <li><strong>"3 Sorten, 3 Rezepte — welches probierst du zuerst?"</strong><br><em>Eyecatcher, alle drei Gläser nebeneinander, food-styled</em></li>
+          <li><strong>"The Classic One → Smash Burger mit extra Crunch."</strong><br><em>Appetitliches Burger-Foto, Gurke im Close-up sichtbar, gelbe Farbwelt</em></li>
+          <li><strong>"The Hot One → Spicy Pickle Wrap mit Frischkäse."</strong><br><em>Pickle-Wrap in Nahaufnahme, rote/pinke Farbwelt, Schärfe-Vibes</em></li>
+          <li><strong>"The Golden One → Kartoffelsalat, aber make it fancy."</strong><br><em>Kartoffelsalat mit goldener Gurke, warme Farbwelt, elevated casual</em></li>
+          <li><strong>"Pickle Trio: 6 Gläser, alle 3 Sorten, 29,95 €."</strong><br><em>Trio-Visual + CTA: "Jetzt bestellen und loskochen"</em></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ============================================ -->
+  <!-- TESTING & PRODUCTION NOTES -->
+  <!-- ============================================ -->
+  <div class="notes-box">
+    <h3>📋 Testing & Produktionshinweise</h3>
+    <ul>
+      <li><strong>Kampagnenstruktur:</strong> Alle 15 Basis-Creatives (zzgl. Video-Varianten und A/B-Varianten bei Angle 1) laufen initial im bestehenden ABO-Ad-Set. Bei genügend Spend-Daten (50+ Add to Cart Events pro Angle) kann die Segmentierung in Angle-basierte Ad Sets erfolgen — Masterclass-Ansatz für Concept-Level-KPIs.</li>
+      <li><strong>Optimierungs-Event:</strong> Add to Cart (nicht Purchase), solange das Volumen für Purchase-Optimierung zu niedrig ist.</li>
+      <li><strong>Pickle Trio als Conversion-Ziel:</strong> Alle CTAs leiten auf die Pickle-Trio-Produktseite (6 Gläser, 29,95 €). Nicht auf die Startseite. Nicht auf Einzelsorten.</li>
+      <li><strong>Video-Varianten:</strong> Pro Angle gibt es zwei Video-Vorschläge. Diese können parallel getestet werden oder man startet mit der naheliegendsten Variante und testet die zweite in Woche 2.</li>
+      <li><strong>Creative-Produktion Videos:</strong> UGC-Stil, kein High-Production-Value nötig. Authentizität > Hochglanz. Creatorinnen briefen, aber kreativen Freiraum lassen. Videoeditor-Kontakt für Post-Production steht bereit.</li>
+      <li><strong>Statics & Karussells:</strong> In Canva produzierbar. TPC-Farbwelt (Pink, Gelb, Koralle) als Basis. Konsistentes Branding über alle Formate.</li>
+      <li><strong>Tonalität in allen Creatives:</strong> Denglisch ist erlaubt und erwünscht. "Pickles aber sexy" als North Star für den Vibe. Duzen. Kurze Sätze. Keine Werbesprache. Ansprache: Gen Z & Millennials.</li>
+      <li><strong>Auswertungszyklus:</strong> Nach 7 Tagen erstes Read. Winning Angles nach 70/20/10-Regel skalieren: 70% Carbon Copy der Gewinner, 20% leichte Variationen, 10% neue Tests.</li>
+      <li><strong>Crunch-Sound:</strong> In jedem Video-Creative mindestens ein hörbarer Crunch-Moment. Das ist das sensorische Branding-Element von TPC.</li>
+      <li><strong>Rezept-Content Doppelnutzung:</strong> Angle 5 (Rezepte) eignet sich besonders gut zur Doppelnutzung — die Reels können 1:1 auch organisch auf dem TPC-Instagram-Kanal laufen. Paid amplified Organic.</li>
+      <li><strong>Angle 1 Trend-Varianten:</strong> Die B-Varianten bei Statics und Karussells greifen konkrete virale Pickle-Trends auf (Pickle Wraps, Pickle Juice, etc.). Diese sollten immer aktuell gehalten und an den neuesten Trend angepasst werden — das Format bleibt gleich, nur der Trend-Hook wechselt.</li>
+    </ul>
+  </div>
+
+  <div style="margin-top: 48px; padding-top: 24px; border-top: 1px solid #ddd; font-size: 12px; color: #999; text-align: center;">
+    The Pickle Company · April Ad Creatives Produktion · 5×3 Briefing · April 2026 · Christoph Neuhaus Berater
+  </div>
+
+</div>
+
+</body>
+</html>
