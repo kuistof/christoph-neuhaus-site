@@ -19,6 +19,8 @@
     --red: #ff5252;
     --orange: #ffab40;
     --gold: #ffd740;
+    --gold-dim: rgba(255,215,64,0.08);
+    --gold-border: rgba(255,215,64,0.25);
   }
 
   * { margin:0; padding:0; box-sizing:border-box; }
@@ -31,7 +33,6 @@
     overflow-x: hidden;
   }
 
-  /* NOISE OVERLAY */
   body::before {
     content: '';
     position: fixed;
@@ -47,12 +48,7 @@
     padding: 40px 24px 80px;
   }
 
-  /* HEADER */
-  .header {
-    text-align: center;
-    margin-bottom: 48px;
-    position: relative;
-  }
+  .header { text-align: center; margin-bottom: 48px; }
 
   .header__label {
     font-family: 'Space Mono', monospace;
@@ -84,21 +80,10 @@
     margin-bottom: 32px;
   }
 
-  .header__target span {
-    color: var(--accent);
-  }
+  .header__target span { color: var(--accent); }
 
-  /* COUNTDOWN */
-  .countdown {
-    display: flex;
-    justify-content: center;
-    gap: 24px;
-    margin-bottom: 48px;
-  }
-
-  .countdown__block {
-    text-align: center;
-  }
+  .countdown { display: flex; justify-content: center; gap: 24px; margin-bottom: 48px; }
+  .countdown__block { text-align: center; }
 
   .countdown__value {
     font-family: 'Space Mono', monospace;
@@ -110,13 +95,7 @@
     display: block;
   }
 
-  .countdown__label {
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-top: 6px;
-  }
+  .countdown__label { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted); margin-top: 6px; }
 
   .countdown__sep {
     font-family: 'Space Mono', monospace;
@@ -127,473 +106,201 @@
     animation: blink 1s step-end infinite;
   }
 
-  @keyframes blink {
-    50% { opacity: 0.2; }
-  }
+  @keyframes blink { 50% { opacity: 0.2; } }
 
-  /* PROGRESS BAR */
-  .progress-section {
-    margin-bottom: 48px;
-  }
+  .progress-section { margin-bottom: 12px; }
 
-  .progress-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 12px;
-  }
+  .progress-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; }
 
-  .progress-header__amount {
-    font-family: 'Space Mono', monospace;
-    font-size: clamp(28px, 4vw, 40px);
-    font-weight: 700;
-    color: var(--accent);
-  }
+  .progress-header__amount { font-family: 'Space Mono', monospace; font-size: clamp(28px, 4vw, 40px); font-weight: 700; color: var(--accent); }
+  .progress-header__pct { font-family: 'Space Mono', monospace; font-size: 18px; color: var(--text-muted); }
 
-  .progress-header__pct {
-    font-family: 'Space Mono', monospace;
-    font-size: 18px;
-    color: var(--text-muted);
-  }
+  .progress-bar { width: 100%; height: 28px; background: var(--surface); border-radius: 14px; overflow: hidden; border: 1px solid var(--border); position: relative; }
 
-  .progress-bar {
-    width: 100%;
-    height: 28px;
-    background: var(--surface);
-    border-radius: 14px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    position: relative;
-  }
+  .progress-bar__fill { height: 100%; border-radius: 14px; transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1); position: absolute; left: 0; top: 0; min-width: 0; }
+  .progress-bar__fill--confirmed { background: linear-gradient(90deg, #00c853, #00e676, #69f0ae); z-index: 2; }
+  .progress-bar__fill--total { background: linear-gradient(90deg, rgba(255,215,64,0.25), rgba(255,171,64,0.3)); z-index: 1; }
 
-  .progress-bar__fill {
-    height: 100%;
-    background: linear-gradient(90deg, #00c853, #00e676, #69f0ae);
-    border-radius: 14px;
-    transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-    position: relative;
-    min-width: 0;
-  }
-
-  .progress-bar__fill::after {
+  .progress-bar__fill--confirmed::after {
     content: '';
     position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
+    right: 0; top: 0; bottom: 0;
     width: 60px;
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15));
     border-radius: 14px;
   }
 
-  .progress-bar__markers {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    pointer-events: none;
-  }
+  .progress-bar__markers { position: absolute; inset: 0; pointer-events: none; z-index: 3; }
+  .progress-bar__marker { width: 1px; height: 100%; background: rgba(255,255,255,0.06); position: absolute; }
 
-  .progress-bar__marker {
-    width: 1px;
-    height: 100%;
-    background: rgba(255,255,255,0.06);
-  }
+  .progress-legend { display: flex; gap: 24px; justify-content: center; margin-bottom: 48px; font-size: 13px; color: var(--text-muted); }
+  .progress-legend__item { display: flex; align-items: center; gap: 8px; }
+  .progress-legend__dot { width: 10px; height: 10px; border-radius: 3px; }
+  .progress-legend__dot--confirmed { background: var(--accent); }
+  .progress-legend__dot--option { background: var(--gold); opacity: 0.5; }
+  .progress-legend__value { font-family: 'Space Mono', monospace; font-weight: 700; }
+  .progress-legend__value--confirmed { color: var(--accent); }
+  .progress-legend__value--option { color: var(--gold); }
 
-  /* PROJECT INPUT */
-  .add-project {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 24px;
-    margin-bottom: 48px;
-  }
+  .add-project { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin-bottom: 48px; }
+  .add-project__title { font-size: 14px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; }
+  .add-project__row { display: flex; gap: 12px; flex-wrap: wrap; align-items: stretch; }
 
-  .add-project__title {
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 16px;
-  }
+  .add-project__input { flex: 1; min-width: 160px; padding: 12px 16px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; color: var(--text); font-family: 'Outfit', sans-serif; font-size: 15px; outline: none; transition: border-color 0.2s; }
+  .add-project__input:focus { border-color: var(--accent); }
+  .add-project__input::placeholder { color: var(--text-muted); }
+  .add-project__input--amount { max-width: 180px; font-family: 'Space Mono', monospace; }
 
-  .add-project__row {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
+  .status-toggle { display: flex; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); flex-shrink: 0; }
+  .status-toggle__btn { padding: 12px 16px; background: var(--surface-2); color: var(--text-muted); border: none; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+  .status-toggle__btn:first-child { border-right: 1px solid var(--border); }
+  .status-toggle__btn--active-confirmed { background: var(--accent-dim); color: var(--accent); }
+  .status-toggle__btn--active-option { background: var(--gold-dim); color: var(--gold); }
+  .status-toggle__btn:hover { background: var(--surface); }
 
-  .add-project__input {
-    flex: 1;
-    min-width: 160px;
-    padding: 12px 16px;
-    background: var(--surface-2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    color: var(--text);
-    font-family: 'Outfit', sans-serif;
-    font-size: 15px;
-    outline: none;
-    transition: border-color 0.2s;
-  }
+  .add-project__btn { padding: 12px 28px; background: var(--accent); color: var(--bg); border: none; border-radius: 10px; font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.2s; letter-spacing: 0.5px; }
+  .add-project__btn:hover { background: #00ff88; transform: translateY(-1px); box-shadow: 0 4px 20px var(--accent-glow); }
 
-  .add-project__input:focus {
-    border-color: var(--accent);
-  }
+  .projects { margin-bottom: 48px; }
+  .projects__title { font-size: 14px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; }
+  .projects__empty { color: var(--text-muted); font-style: italic; font-size: 14px; padding: 16px 0; }
 
-  .add-project__input::placeholder {
-    color: var(--text-muted);
-  }
+  .project-card { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 8px; transition: border-color 0.2s; }
+  .project-card:hover { border-color: var(--accent-glow); }
+  .project-card--option { border-color: var(--gold-border); border-style: dashed; }
+  .project-card--option:hover { border-color: var(--gold); }
 
-  .add-project__input--amount {
-    max-width: 180px;
-    font-family: 'Space Mono', monospace;
-  }
+  .project-card__left { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
+  .project-card__status-icon { flex-shrink: 0; width: 22px; height: 22px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; }
+  .project-card__status-icon--confirmed { background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(0,230,118,0.3); }
+  .project-card__status-icon--option { background: var(--gold-dim); color: var(--gold); border: 1px solid var(--gold-border); }
 
-  .add-project__btn {
-    padding: 12px 28px;
-    background: var(--accent);
-    color: var(--bg);
-    border: none;
-    border-radius: 10px;
-    font-family: 'Outfit', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s;
-    letter-spacing: 0.5px;
-  }
+  .project-card__name { font-weight: 600; font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .project-card__name--option { color: var(--text-muted); }
 
-  .add-project__btn:hover {
-    background: #00ff88;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 20px var(--accent-glow);
-  }
+  .project-card__right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; margin-left: 16px; }
+  .project-card__amount { font-family: 'Space Mono', monospace; font-size: 15px; color: var(--accent); white-space: nowrap; }
+  .project-card__amount--option { color: var(--gold); opacity: 0.8; }
+  .project-card__amount--option::before { content: '('; }
+  .project-card__amount--option::after { content: ')'; }
 
-  /* PROJECTS LIST */
-  .projects {
-    margin-bottom: 48px;
-  }
+  .project-card__toggle { background: none; border: 1px solid var(--border); color: var(--text-muted); cursor: pointer; font-size: 10px; padding: 4px 8px; border-radius: 6px; transition: all 0.2s; font-family: 'Space Mono', monospace; letter-spacing: 0.5px; white-space: nowrap; }
+  .project-card__toggle:hover { border-color: var(--accent); color: var(--accent); }
 
-  .projects__title {
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 16px;
-  }
+  .project-card__delete { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 18px; padding: 4px 8px; border-radius: 6px; transition: all 0.2s; line-height: 1; }
+  .project-card__delete:hover { color: var(--red); background: rgba(255,82,82,0.1); }
 
-  .projects__empty {
-    color: var(--text-muted);
-    font-style: italic;
-    font-size: 14px;
-    padding: 16px 0;
-  }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 48px; }
+  .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-align: center; }
+  .stat-card__value { font-family: 'Space Mono', monospace; font-size: 22px; font-weight: 700; color: var(--accent); line-height: 1; margin-bottom: 6px; }
+  .stat-card__value--gold { color: var(--gold); }
+  .stat-card__label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); }
 
-  .project-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px 20px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    margin-bottom: 8px;
-    transition: border-color 0.2s;
-  }
+  .checks-section { margin-bottom: 48px; }
+  .checks-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px; }
+  .checks-header__title { font-size: 14px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); }
+  .checks-header__count { font-family: 'Space Mono', monospace; font-size: 14px; color: var(--text-muted); }
 
-  .project-card:hover {
-    border-color: var(--accent-glow);
-  }
+  .checks-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(36px, 1fr)); gap: 6px; }
+  .check-box { aspect-ratio: 1; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; cursor: pointer; transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1); display: flex; align-items: center; justify-content: center; }
+  .check-box:hover { border-color: var(--accent); transform: scale(1.08); }
+  .check-box--auto { background: var(--accent-dim); border-color: rgba(0,230,118,0.3); }
+  .check-box--auto::after { content: ''; width: 50%; height: 50%; background: var(--accent); border-radius: 3px; opacity: 0.6; }
+  .check-box--option { background: var(--gold-dim); border-color: var(--gold-border); }
+  .check-box--option::after { content: ''; width: 50%; height: 50%; background: var(--gold); border-radius: 50%; opacity: 0.5; }
+  .check-box--manual { background: var(--accent-dim); border-color: rgba(0,230,118,0.3); }
+  .check-box--manual::after { content: '✓'; color: var(--accent); font-size: 16px; font-weight: 700; }
 
-  .project-card__name {
-    font-weight: 600;
-    font-size: 15px;
-    flex: 1;
-  }
+  .velocity { font-family: 'Space Mono', monospace; font-size: 13px; color: var(--text-muted); text-align: center; margin-bottom: 32px; }
+  .velocity span { color: var(--orange); }
 
-  .project-card__amount {
-    font-family: 'Space Mono', monospace;
-    font-size: 15px;
-    color: var(--accent);
-    margin-left: 16px;
-    white-space: nowrap;
-  }
+  .conn-status { position: fixed; bottom: 16px; right: 16px; font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 1px; padding: 6px 12px; border-radius: 20px; background: var(--surface); border: 1px solid var(--border); color: var(--text-muted); z-index: 100; display: flex; align-items: center; gap: 6px; }
+  .conn-status__dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+  .conn-status--offline .conn-status__dot { background: var(--red); animation: none; }
 
-  .project-card__delete {
-    background: none;
-    border: none;
-    color: var(--text-muted);
-    cursor: pointer;
-    margin-left: 16px;
-    font-size: 18px;
-    padding: 4px 8px;
-    border-radius: 6px;
-    transition: all 0.2s;
-    line-height: 1;
-  }
-
-  .project-card__delete:hover {
-    color: var(--red);
-    background: rgba(255,82,82,0.1);
-  }
-
-  /* CHECKBOXES GRID */
-  .checks-section {
-    margin-bottom: 48px;
-  }
-
-  .checks-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 16px;
-  }
-
-  .checks-header__title {
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-  }
-
-  .checks-header__count {
-    font-family: 'Space Mono', monospace;
-    font-size: 14px;
-    color: var(--text-muted);
-  }
-
-  .checks-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(36px, 1fr));
-    gap: 6px;
-  }
-
-  .check-box {
-    aspect-ratio: 1;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .check-box:hover {
-    border-color: var(--accent);
-    transform: scale(1.08);
-  }
-
-  .check-box--auto {
-    background: var(--accent-dim);
-    border-color: rgba(0,230,118,0.3);
-  }
-
-  .check-box--auto::after {
-    content: '';
-    width: 50%;
-    height: 50%;
-    background: var(--accent);
-    border-radius: 3px;
-    opacity: 0.6;
-  }
-
-  .check-box--manual {
-    background: var(--accent-dim);
-    border-color: rgba(0,230,118,0.3);
-  }
-
-  .check-box--manual::after {
-    content: '✓';
-    color: var(--accent);
-    font-size: 16px;
-    font-weight: 700;
-  }
-
-  /* STATS ROW */
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 12px;
-    margin-bottom: 48px;
-  }
-
-  .stat-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px;
-    text-align: center;
-  }
-
-  .stat-card__value {
-    font-family: 'Space Mono', monospace;
-    font-size: 28px;
-    font-weight: 700;
-    color: var(--accent);
-    line-height: 1;
-    margin-bottom: 6px;
-  }
-
-  .stat-card__label {
-    font-size: 12px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-  }
-
-  /* STATUS INDICATOR */
-  .status {
-    position: fixed;
-    bottom: 16px;
-    right: 16px;
-    font-family: 'Space Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 1px;
-    padding: 6px 12px;
-    border-radius: 20px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    color: var(--text-muted);
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .status__dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--accent);
-    animation: pulse 2s infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-  }
-
-  .status--offline .status__dot {
-    background: var(--red);
-    animation: none;
-  }
-
-  /* VELOCITY INDICATOR */
-  .velocity {
-    font-family: 'Space Mono', monospace;
-    font-size: 13px;
-    color: var(--text-muted);
-    text-align: center;
-    margin-top: -8px;
-    margin-bottom: 32px;
-  }
-
-  .velocity span {
-    color: var(--orange);
-  }
-
-  /* RESPONSIVE */
   @media (max-width: 600px) {
     .container { padding: 24px 16px 60px; }
     .countdown { gap: 12px; }
     .add-project__row { flex-direction: column; }
     .add-project__input--amount { max-width: 100%; }
+    .status-toggle { width: 100%; }
+    .status-toggle__btn { flex: 1; }
     .checks-grid { grid-template-columns: repeat(10, 1fr); gap: 4px; }
+    .project-card { flex-wrap: wrap; gap: 8px; }
+    .project-card__right { margin-left: 32px; }
   }
 </style>
 </head>
 <body>
-
 <div class="container">
-  <!-- HEADER -->
   <div class="header">
     <div class="header__label">Revenue Tracker</div>
     <h1 class="header__title">Momentum Board</h1>
     <div class="header__target">Ziel April 2026: <span>€100.000</span></div>
   </div>
 
-  <!-- COUNTDOWN -->
-  <div class="countdown" id="countdown">
-    <div class="countdown__block">
-      <span class="countdown__value" id="cd-days">--</span>
-      <div class="countdown__label">Tage</div>
-    </div>
+  <div class="countdown">
+    <div class="countdown__block"><span class="countdown__value" id="cd-days">--</span><div class="countdown__label">Tage</div></div>
     <span class="countdown__sep">:</span>
-    <div class="countdown__block">
-      <span class="countdown__value" id="cd-hours">--</span>
-      <div class="countdown__label">Stunden</div>
-    </div>
+    <div class="countdown__block"><span class="countdown__value" id="cd-hours">--</span><div class="countdown__label">Stunden</div></div>
     <span class="countdown__sep">:</span>
-    <div class="countdown__block">
-      <span class="countdown__value" id="cd-mins">--</span>
-      <div class="countdown__label">Minuten</div>
-    </div>
+    <div class="countdown__block"><span class="countdown__value" id="cd-mins">--</span><div class="countdown__label">Minuten</div></div>
     <span class="countdown__sep">:</span>
-    <div class="countdown__block">
-      <span class="countdown__value" id="cd-secs">--</span>
-      <div class="countdown__label">Sekunden</div>
-    </div>
+    <div class="countdown__block"><span class="countdown__value" id="cd-secs">--</span><div class="countdown__label">Sekunden</div></div>
   </div>
 
-  <!-- PROGRESS -->
   <div class="progress-section">
     <div class="progress-header">
       <div class="progress-header__amount" id="total-amount">€0</div>
       <div class="progress-header__pct" id="total-pct">0%</div>
     </div>
     <div class="progress-bar">
-      <div class="progress-bar__fill" id="progress-fill" style="width:0%"></div>
+      <div class="progress-bar__fill progress-bar__fill--total" id="progress-fill-total" style="width:0%"></div>
+      <div class="progress-bar__fill progress-bar__fill--confirmed" id="progress-fill-confirmed" style="width:0%"></div>
       <div class="progress-bar__markers" id="progress-markers"></div>
+    </div>
+  </div>
+
+  <div class="progress-legend">
+    <div class="progress-legend__item">
+      <div class="progress-legend__dot progress-legend__dot--confirmed"></div>
+      Bestätigt: <span class="progress-legend__value progress-legend__value--confirmed" id="legend-confirmed">€0</span>
+    </div>
+    <div class="progress-legend__item">
+      <div class="progress-legend__dot progress-legend__dot--option"></div>
+      Optioniert: <span class="progress-legend__value progress-legend__value--option" id="legend-option">€0</span>
     </div>
   </div>
 
   <div class="velocity" id="velocity"></div>
 
-  <!-- STATS -->
   <div class="stats">
-    <div class="stat-card">
-      <div class="stat-card__value" id="stat-projects">0</div>
-      <div class="stat-card__label">Projekte</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-card__value" id="stat-avg">€0</div>
-      <div class="stat-card__label">Ø Volumen</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-card__value" id="stat-remaining">€100.000</div>
-      <div class="stat-card__label">Verbleibend</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-card__value" id="stat-daily">€0</div>
-      <div class="stat-card__label">€/Tag nötig</div>
-    </div>
+    <div class="stat-card"><div class="stat-card__value" id="stat-projects">0</div><div class="stat-card__label">Projekte</div></div>
+    <div class="stat-card"><div class="stat-card__value" id="stat-confirmed">€0</div><div class="stat-card__label">Bestätigt</div></div>
+    <div class="stat-card"><div class="stat-card__value stat-card__value--gold" id="stat-option">€0</div><div class="stat-card__label">Optioniert</div></div>
+    <div class="stat-card"><div class="stat-card__value" id="stat-remaining">€100.000</div><div class="stat-card__label">Verbleibend</div></div>
+    <div class="stat-card"><div class="stat-card__value" id="stat-daily">€0</div><div class="stat-card__label">€/Tag nötig</div></div>
   </div>
 
-  <!-- ADD PROJECT -->
   <div class="add-project">
     <div class="add-project__title">+ Projekt eintragen</div>
     <div class="add-project__row">
       <input type="text" class="add-project__input" id="input-name" placeholder="Projektname / Kunde">
-      <input type="number" class="add-project__input add-project__input--amount" id="input-amount" placeholder="Volumen €" min="0" step="100">
-      <button class="add-project__btn" id="btn-add" onclick="addProject()">Eintragen</button>
+      <input type="text" class="add-project__input add-project__input--amount" id="input-amount" placeholder="Volumen €" inputmode="numeric">
+      <div class="status-toggle">
+        <button class="status-toggle__btn status-toggle__btn--active-confirmed" id="toggle-confirmed">✓ Bestätigt</button>
+        <button class="status-toggle__btn" id="toggle-option">◎ Option</button>
+      </div>
+      <button class="add-project__btn" onclick="window.addProject()">Eintragen</button>
     </div>
   </div>
 
-  <!-- PROJECTS LIST -->
   <div class="projects">
     <div class="projects__title">Projekte</div>
-    <div id="projects-list">
-      <div class="projects__empty">Noch keine Projekte eingetragen.</div>
-    </div>
+    <div id="projects-list"><div class="projects__empty">Noch keine Projekte eingetragen.</div></div>
   </div>
 
-  <!-- CHECKBOXES -->
   <div class="checks-section">
     <div class="checks-header">
       <div class="checks-header__title">100 × €1.000 Kästchen</div>
@@ -603,17 +310,15 @@
   </div>
 </div>
 
-<!-- STATUS -->
-<div class="status" id="status">
-  <div class="status__dot"></div>
+<div class="conn-status" id="conn-status">
+  <div class="conn-status__dot"></div>
   <span>LIVE SYNC</span>
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getDatabase, ref, push, set, remove, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+import { getDatabase, ref, push, set, remove, update, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-// ── Firebase Init ──
 const app = initializeApp({
   apiKey: "AIzaSyAYlkFOaHcUEm20xiJ4EghMoOrDvslOuAc",
   authDomain: "momentum-board-7207e.firebaseapp.com",
@@ -627,218 +332,177 @@ const app = initializeApp({
 const db = getDatabase(app);
 const TARGET = 100000;
 const BOXES = 100;
-
-// ── State ──
 let projects = {};
 let manualChecks = {};
+let selectedStatus = 'confirmed';
+
+function eur(n) { return '€' + Math.round(n).toLocaleString('de-DE'); }
+
+// ── Amount input: live formatting with thousand separators ──
+const amountInput = document.getElementById('input-amount');
+amountInput.addEventListener('input', () => {
+  const raw = amountInput.value.replace(/[^\d]/g, '');
+  if (!raw) { amountInput.value = ''; return; }
+  amountInput.value = parseInt(raw, 10).toLocaleString('de-DE');
+});
+function getAmountValue() {
+  return parseInt(amountInput.value.replace(/[^\d]/g, ''), 10) || 0;
+}
+
+// ── Status toggle ──
+const tConf = document.getElementById('toggle-confirmed');
+const tOpt = document.getElementById('toggle-option');
+tConf.addEventListener('click', () => {
+  selectedStatus = 'confirmed';
+  tConf.className = 'status-toggle__btn status-toggle__btn--active-confirmed';
+  tOpt.className = 'status-toggle__btn';
+});
+tOpt.addEventListener('click', () => {
+  selectedStatus = 'option';
+  tOpt.className = 'status-toggle__btn status-toggle__btn--active-option';
+  tConf.className = 'status-toggle__btn';
+});
 
 // ── Countdown ──
 function updateCountdown() {
   const end = new Date('2026-05-01T00:00:00+02:00');
-  const now = new Date();
-  let diff = end - now;
-
-  if (diff <= 0) {
-    document.getElementById('cd-days').textContent = '00';
-    document.getElementById('cd-hours').textContent = '00';
-    document.getElementById('cd-mins').textContent = '00';
-    document.getElementById('cd-secs').textContent = '00';
-    return;
-  }
-
-  const days = Math.floor(diff / 86400000);
-  diff %= 86400000;
-  const hours = Math.floor(diff / 3600000);
-  diff %= 3600000;
-  const mins = Math.floor(diff / 60000);
-  diff %= 60000;
-  const secs = Math.floor(diff / 1000);
-
-  document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
-  document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
-  document.getElementById('cd-mins').textContent = String(mins).padStart(2, '0');
-  document.getElementById('cd-secs').textContent = String(secs).padStart(2, '0');
+  let diff = Math.max(0, end - new Date());
+  const d = Math.floor(diff / 864e5); diff %= 864e5;
+  const h = Math.floor(diff / 36e5); diff %= 36e5;
+  const m = Math.floor(diff / 6e4); diff %= 6e4;
+  const s = Math.floor(diff / 1e3);
+  document.getElementById('cd-days').textContent = String(d).padStart(2,'0');
+  document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
+  document.getElementById('cd-mins').textContent = String(m).padStart(2,'0');
+  document.getElementById('cd-secs').textContent = String(s).padStart(2,'0');
 }
-
 setInterval(updateCountdown, 1000);
 updateCountdown();
 
-// ── Progress Markers ──
-(function initMarkers() {
-  const container = document.getElementById('progress-markers');
-  for (let i = 1; i < 10; i++) {
-    const m = document.createElement('div');
-    m.className = 'progress-bar__marker';
-    m.style.position = 'absolute';
-    m.style.left = (i * 10) + '%';
-    container.appendChild(m);
-  }
-})();
+// ── Progress markers ──
+(function(){const c=document.getElementById('progress-markers');for(let i=1;i<10;i++){const m=document.createElement('div');m.className='progress-bar__marker';m.style.left=(i*10)+'%';c.appendChild(m);}})();
 
-// ── Checkbox Grid ──
-function initGrid() {
-  const grid = document.getElementById('checks-grid');
-  grid.innerHTML = '';
-  for (let i = 0; i < BOXES; i++) {
-    const box = document.createElement('div');
-    box.className = 'check-box';
-    box.dataset.index = i;
-    box.onclick = () => toggleManualCheck(i);
-    grid.appendChild(box);
-  }
-}
+// ── Checkbox grid ──
+function initGrid(){const g=document.getElementById('checks-grid');g.innerHTML='';for(let i=0;i<BOXES;i++){const b=document.createElement('div');b.className='check-box';b.dataset.index=i;b.onclick=()=>toggleManualCheck(i);g.appendChild(b);}}
 initGrid();
 
-// ── Helpers ──
-function escHtml(str) {
-  const div = document.createElement('div');
-  div.textContent = str;
-  return div.innerHTML;
-}
+function escHtml(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML;}
 
 // ── Render ──
 function render() {
-  const projectList = Object.values(projects);
-  const total = projectList.reduce((sum, p) => sum + (p.amount || 0), 0);
-  const pct = Math.min((total / TARGET) * 100, 100);
-  const autoBoxes = Math.floor(total / 1000);
+  const list = Object.values(projects);
+  const confirmed = list.filter(p => p.status !== 'option');
+  const options = list.filter(p => p.status === 'option');
+  const totalC = confirmed.reduce((s,p) => s + (p.amount||0), 0);
+  const totalO = options.reduce((s,p) => s + (p.amount||0), 0);
+  const totalAll = totalC + totalO;
+  const pctC = Math.min((totalC / TARGET) * 100, 100);
+  const pctAll = Math.min((totalAll / TARGET) * 100, 100);
 
-  // Progress
-  document.getElementById('total-amount').textContent = '€' + total.toLocaleString('de-DE');
-  document.getElementById('total-pct').textContent = Math.round(pct) + '%';
-  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('total-amount').textContent = eur(totalC);
+  document.getElementById('total-pct').textContent = Math.round(pctC) + '%';
+  document.getElementById('progress-fill-confirmed').style.width = pctC + '%';
+  document.getElementById('progress-fill-total').style.width = pctAll + '%';
+  document.getElementById('legend-confirmed').textContent = eur(totalC);
+  document.getElementById('legend-option').textContent = eur(totalO);
 
-  // Stats
-  document.getElementById('stat-projects').textContent = projectList.length;
-  document.getElementById('stat-avg').textContent = projectList.length
-    ? '€' + Math.round(total / projectList.length).toLocaleString('de-DE')
-    : '€0';
-  document.getElementById('stat-remaining').textContent = '€' + Math.max(0, TARGET - total).toLocaleString('de-DE');
+  document.getElementById('stat-projects').textContent = list.length;
+  document.getElementById('stat-confirmed').textContent = eur(totalC);
+  document.getElementById('stat-option').textContent = eur(totalO);
+  document.getElementById('stat-remaining').textContent = eur(Math.max(0, TARGET - totalC));
 
-  // Daily needed
-  const end = new Date('2026-05-01T00:00:00+02:00');
-  const now = new Date();
-  const daysLeft = Math.max(1, Math.ceil((end - now) / 86400000));
-  const remaining = Math.max(0, TARGET - total);
-  document.getElementById('stat-daily').textContent = '€' + Math.round(remaining / daysLeft).toLocaleString('de-DE');
+  const daysLeft = Math.max(1, Math.ceil((new Date('2026-05-01T00:00:00+02:00') - new Date()) / 864e5));
+  document.getElementById('stat-daily').textContent = eur(Math.max(0, TARGET - totalC) / daysLeft);
 
-  // Velocity
   const velEl = document.getElementById('velocity');
-  if (projectList.length > 0) {
+  if (confirmed.length > 0) {
     const daysPassed = Math.max(1, 30 - daysLeft + 1);
-    const pace = total / daysPassed;
-    const projected = pace * 30;
-    velEl.innerHTML = `Pace: <span>€${Math.round(pace).toLocaleString('de-DE')}/Tag</span> → Projektion: <span>€${Math.round(projected).toLocaleString('de-DE')}</span>`;
-  } else {
-    velEl.innerHTML = '';
-  }
+    const pace = totalC / daysPassed;
+    velEl.innerHTML = `Pace: <span>${eur(pace)}/Tag</span> → Projektion: <span>${eur(pace * 30)}</span>`;
+  } else { velEl.innerHTML = ''; }
 
   // Projects list
   const listEl = document.getElementById('projects-list');
-  if (projectList.length === 0) {
+  if (list.length === 0) {
     listEl.innerHTML = '<div class="projects__empty">Noch keine Projekte eingetragen.</div>';
   } else {
-    listEl.innerHTML = projectList
-      .sort((a, b) => (b.amount || 0) - (a.amount || 0))
-      .map(p => `
-        <div class="project-card">
-          <div class="project-card__name">${escHtml(p.name)}</div>
-          <div class="project-card__amount">€${(p.amount || 0).toLocaleString('de-DE')}</div>
-          <button class="project-card__delete" data-id="${p.id}" title="Löschen">×</button>
+    const sorted = [...confirmed.sort((a,b)=>(b.amount||0)-(a.amount||0)), ...options.sort((a,b)=>(b.amount||0)-(a.amount||0))];
+    listEl.innerHTML = sorted.map(p => {
+      const isOpt = p.status === 'option';
+      return `<div class="project-card ${isOpt?'project-card--option':''}">
+        <div class="project-card__left">
+          <div class="project-card__status-icon ${isOpt?'project-card__status-icon--option':'project-card__status-icon--confirmed'}">${isOpt?'◎':'✓'}</div>
+          <div class="project-card__name ${isOpt?'project-card__name--option':''}">${escHtml(p.name)}</div>
         </div>
-      `).join('');
+        <div class="project-card__right">
+          <div class="project-card__amount ${isOpt?'project-card__amount--option':''}">${eur(p.amount||0)}</div>
+          <button class="project-card__toggle" data-id="${p.id}" data-action="toggle">${isOpt?'→ Bestätigen':'→ Option'}</button>
+          <button class="project-card__delete" data-id="${p.id}" data-action="delete" title="Löschen">×</button>
+        </div>
+      </div>`;
+    }).join('');
 
-    // Attach delete handlers
-    listEl.querySelectorAll('.project-card__delete').forEach(btn => {
-      btn.onclick = () => deleteProject(btn.dataset.id);
-    });
+    listEl.querySelectorAll('[data-action="delete"]').forEach(b => { b.onclick = () => deleteProject(b.dataset.id); });
+    listEl.querySelectorAll('[data-action="toggle"]').forEach(b => { b.onclick = () => toggleProjectStatus(b.dataset.id); });
   }
 
-  // Checkboxes
+  // Checkboxes — confirmed fills green, options fill yellow after
+  const autoBoxesC = Math.floor(totalC / 1000);
+  const autoBoxesO = Math.floor(totalO / 1000);
   const boxes = document.querySelectorAll('.check-box');
-  let checkedCount = 0;
-
+  let cnt = 0;
   boxes.forEach((box, i) => {
     box.className = 'check-box';
-    if (i < autoBoxes) {
-      box.classList.add('check-box--auto');
-      checkedCount++;
+    if (i < autoBoxesC) {
+      box.classList.add('check-box--auto'); cnt++;
+    } else if (i < autoBoxesC + autoBoxesO) {
+      box.classList.add('check-box--option'); cnt++;
     } else if (manualChecks[i]) {
-      box.classList.add('check-box--manual');
-      checkedCount++;
+      box.classList.add('check-box--manual'); cnt++;
     }
   });
-
-  document.getElementById('checks-count').textContent = checkedCount + ' / ' + BOXES;
+  document.getElementById('checks-count').textContent = cnt + ' / ' + BOXES;
 }
 
-// ── Firebase Listeners ──
-onValue(ref(db, 'projects'), snap => {
-  projects = snap.val() || {};
-  render();
-});
-
-onValue(ref(db, 'manualChecks'), snap => {
-  manualChecks = snap.val() || {};
-  render();
-});
-
-// Connection status
-onValue(ref(db, '.info/connected'), snap => {
-  const el = document.getElementById('status');
-  if (snap.val()) {
-    el.className = 'status';
-    el.querySelector('span').textContent = 'LIVE SYNC';
-  } else {
-    el.className = 'status status--offline';
-    el.querySelector('span').textContent = 'OFFLINE';
-  }
+// ── Firebase ──
+onValue(ref(db,'projects'), s => { projects = s.val() || {}; render(); });
+onValue(ref(db,'manualChecks'), s => { manualChecks = s.val() || {}; render(); });
+onValue(ref(db,'.info/connected'), s => {
+  const el = document.getElementById('conn-status');
+  el.className = s.val() ? 'conn-status' : 'conn-status conn-status--offline';
+  el.querySelector('span').textContent = s.val() ? 'LIVE SYNC' : 'OFFLINE';
 });
 
 // ── Actions ──
 window.addProject = function() {
   const nameInput = document.getElementById('input-name');
-  const amountInput = document.getElementById('input-amount');
   const name = nameInput.value.trim();
-  const amount = parseFloat(amountInput.value) || 0;
-
+  const amount = getAmountValue();
   if (!name || amount <= 0) return;
+  const r = push(ref(db,'projects'));
+  set(r, { id: r.key, name, amount, status: selectedStatus, createdAt: Date.now() });
+  nameInput.value = ''; amountInput.value = ''; nameInput.focus();
+};
 
-  const newRef = push(ref(db, 'projects'));
-  set(newRef, {
-    id: newRef.key,
-    name,
-    amount,
-    createdAt: Date.now()
-  });
+function deleteProject(id) { if (confirm('Projekt wirklich löschen?')) remove(ref(db,'projects/'+id)); }
 
-  nameInput.value = '';
-  amountInput.value = '';
-  nameInput.focus();
+function toggleProjectStatus(id) {
+  const p = projects[id];
+  if (!p) return;
+  update(ref(db,'projects/'+id), { status: p.status === 'option' ? 'confirmed' : 'option' });
 }
 
-function deleteProject(id) {
-  if (confirm('Projekt wirklich löschen?')) {
-    remove(ref(db, 'projects/' + id));
-  }
+function toggleManualCheck(i) {
+  const conf = Object.values(projects).filter(p=>p.status!=='option');
+  const opts = Object.values(projects).filter(p=>p.status==='option');
+  const autoC = Math.floor(conf.reduce((s,p)=>s+(p.amount||0),0)/1000);
+  const autoO = Math.floor(opts.reduce((s,p)=>s+(p.amount||0),0)/1000);
+  if (i < autoC + autoO) return;
+  set(ref(db,'manualChecks/'+i), !(manualChecks[i]||false));
 }
 
-function toggleManualCheck(index) {
-  const total = Object.values(projects).reduce((sum, p) => sum + (p.amount || 0), 0);
-  const autoBoxes = Math.floor(total / 1000);
-  if (index < autoBoxes) return;
-
-  const current = manualChecks[index] || false;
-  set(ref(db, 'manualChecks/' + index), !current);
-}
-
-// Enter key support
-document.getElementById('input-amount').addEventListener('keydown', e => {
-  if (e.key === 'Enter') window.addProject();
-});
-document.getElementById('input-name').addEventListener('keydown', e => {
-  if (e.key === 'Enter') document.getElementById('input-amount').focus();
-});
+amountInput.addEventListener('keydown', e => { if(e.key==='Enter') window.addProject(); });
+document.getElementById('input-name').addEventListener('keydown', e => { if(e.key==='Enter') amountInput.focus(); });
 </script>
 </body>
 </html>
