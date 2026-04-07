@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Christoph Neuhaus — Der Growth-Operator für den Swamp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0A0A0F;
+    --paper: #F2EDE3;
+    --gold: #B8963E;
+    --dim: #6B6560;
+    --rule: rgba(184,150,62,0.22);
+    --red: #B83232;
+    --green: #2C6E49;
+    --swamp: #121F12;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{font-size:16px;scroll-behavior:smooth;}
+  body{background:var(--paper);color:var(--ink);font-family:'Syne',sans-serif;font-weight:400;line-height:1.6;}
+
+  @media print{
+    .no-print{display:none!important;}
+    .page{page-break-after:always;min-height:unset;padding:48px;}
+    body{background:#fff;}
+    #cover{background:var(--swamp)!important;}
+  }
+
+  /* NAV */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(242,237,227,0.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule);display:flex;justify-content:space-between;align-items:center;padding:14px 48px;}
+  .nav-brand{font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);}
+  .nav-links{display:flex;gap:28px;}
+  .nav-links a{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);text-decoration:none;transition:color .2s;}
+  .nav-links a:hover{color:var(--gold);}
+  .nav-cta{background:var(--ink);color:var(--paper);border:none;cursor:pointer;font-family:'Syne',sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:9px 20px;transition:background .2s;}
+  .nav-cta:hover{background:var(--gold);}
+  .nav-spacer{height:52px;}
+
+  /* SHARED */
+  .page{max-width:960px;margin:0 auto;padding:88px 72px;min-height:100vh;position:relative;}
+  .page+.page{border-top:1px solid var(--rule);}
+  .tag{font-size:9px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:block;}
+  .h2{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,5vw,58px);font-weight:300;line-height:1.02;color:var(--ink);margin-bottom:20px;}
+  .h2 em{font-style:italic;color:var(--gold);}
+  .lead{font-size:14px;font-weight:400;color:var(--dim);max-width:560px;line-height:1.82;margin-bottom:56px;}
+  .rule{width:100%;height:1px;background:var(--rule);margin:52px 0;}
+  .pg-num{position:absolute;bottom:32px;right:72px;font-size:9px;font-weight:700;letter-spacing:.22em;color:rgba(10,10,15,.18);}
+
+  /* COVER */
+  #cover{background:var(--swamp);min-height:100vh;display:flex;flex-direction:column;justify-content:space-between;padding:80px 72px;position:relative;overflow:hidden;max-width:100%;}
+  #cover::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 50%,rgba(184,150,62,.07) 0%,transparent 70%);pointer-events:none;}
+  .cover-wm{position:absolute;bottom:-60px;right:-20px;font-family:'Cormorant Garamond',serif;font-size:360px;font-weight:300;line-height:1;color:rgba(255,255,255,.025);pointer-events:none;user-select:none;letter-spacing:-.05em;}
+  .cover-eyebrow{font-size:9px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:48px;}
+  .cover-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(58px,9vw,110px);font-weight:300;line-height:.92;color:#F2EDE3;}
+  .cover-h1 em{font-style:italic;color:var(--gold);}
+  .cover-claim{margin-top:40px;font-size:15px;font-weight:400;color:rgba(242,237,227,.5);max-width:520px;line-height:1.8;border-left:2px solid var(--gold);padding-left:20px;}
+  .cover-divider{width:56px;height:1px;background:var(--gold);margin-bottom:28px;}
+  .cover-stats{display:flex;gap:56px;align-items:flex-end;justify-content:space-between;}
+  .stat-lbl{font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:5px;}
+  .stat-val{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;color:#F2EDE3;}
+
+  /* PAGE 1 */
+  .swamp-box{background:var(--swamp);padding:56px 56px 48px;margin-bottom:48px;position:relative;overflow:hidden;}
+  .swamp-box::after{content:'SWAMP';position:absolute;bottom:-24px;right:32px;font-family:'Cormorant Garamond',serif;font-size:140px;font-weight:300;color:rgba(255,255,255,.03);letter-spacing:.08em;line-height:1;pointer-events:none;}
+  .swamp-box .tag{color:rgba(184,150,62,.7);}
+  .swamp-hl{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,3.5vw,40px);font-weight:300;color:#F2EDE3;line-height:1.15;margin-bottom:32px;}
+  .swamp-hl em{font-style:italic;color:var(--gold);}
+  .options-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:rgba(255,255,255,.05);}
+  .opt{padding:28px 24px;background:rgba(10,10,15,.5);}
+  .opt-num{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(184,150,62,.5);margin-bottom:10px;}
+  .opt-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:#F2EDE3;margin-bottom:8px;line-height:1.2;}
+  .opt-body{font-size:11px;color:rgba(242,237,227,.42);line-height:1.7;}
+  .opt.bad{background:rgba(184,150,62,.08);border-top:2px solid var(--gold);}
+  .opt.bad .opt-num{color:var(--gold);}
+  .opt.bad .opt-title{color:var(--gold);}
+  .opt.bad .opt-body{color:rgba(242,237,227,.65);}
+  .math-strip{display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;margin-top:40px;}
+  .math-item{border-top:1px solid var(--rule);padding-top:20px;}
+  .math-n{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:300;line-height:1;color:var(--ink);margin-bottom:6px;}
+  .math-lbl{font-size:11px;color:var(--dim);line-height:1.6;}
+  .math-item.pain .math-n{color:var(--red);}
+
+  /* PAGE 2 */
+  .answer-hero{background:var(--ink);padding:56px;margin-bottom:40px;position:relative;overflow:hidden;}
+  .answer-hero::before{content:'"';position:absolute;top:-40px;left:40px;font-family:'Cormorant Garamond',serif;font-size:360px;font-weight:300;color:rgba(255,255,255,.025);line-height:1;pointer-events:none;}
+  .answer-quote{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,3vw,34px);font-weight:300;color:#F2EDE3;line-height:1.35;position:relative;max-width:720px;}
+  .answer-quote em{font-style:italic;color:var(--gold);}
+  .answer-quote strong{font-weight:600;color:#F2EDE3;border-bottom:1px solid var(--gold);padding-bottom:1px;}
+  .answer-attr{margin-top:28px;font-size:11px;color:rgba(242,237,227,.35);letter-spacing:.08em;}
+  .pillar-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:var(--rule);border:1px solid var(--rule);margin-top:40px;}
+  .pillar{background:var(--paper);padding:32px 28px;}
+  .pillar-icon{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;color:rgba(10,10,15,.07);line-height:1;margin-bottom:16px;}
+  .pillar-tag{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+  .pillar-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--ink);margin-bottom:10px;line-height:1.2;}
+  .pillar-body{font-size:12px;color:var(--dim);line-height:1.75;}
+
+  /* PAGE 3 */
+  .icp-cols{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-bottom:48px;}
+  .icp-col-head{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding-bottom:14px;border-bottom:2px solid;margin-bottom:24px;}
+  .icp-col.yes .icp-col-head{color:var(--green);border-color:var(--green);}
+  .icp-col.no .icp-col-head{color:var(--red);border-color:var(--red);}
+  .icp-list{list-style:none;}
+  .icp-list li{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--rule);font-size:13px;line-height:1.55;color:var(--ink);}
+  .icp-list li:last-child{border:none;}
+  .icp-col.yes .icp-list li::before{content:'✓';color:var(--green);font-weight:700;font-size:10px;flex-shrink:0;margin-top:2px;}
+  .icp-col.no .icp-list li::before{content:'✕';color:var(--red);font-weight:700;font-size:10px;flex-shrink:0;margin-top:2px;}
+  .arch-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--rule);border:1px solid var(--rule);}
+  .arch{background:var(--paper);padding:28px 24px;}
+  .arch-n{font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:300;line-height:1;color:rgba(10,10,15,.07);margin-bottom:14px;}
+  .arch-badge{font-size:8px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+  .arch-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--ink);margin-bottom:10px;line-height:1.2;}
+  .arch-body{font-size:11px;color:var(--dim);line-height:1.75;}
+  .arch-tags{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px;}
+  .arch-tag{font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border:1px solid var(--rule);color:var(--dim);}
+
+  /* PAGE 4 */
+  .hormozi-wrap{background:var(--swamp);padding:56px;margin-bottom:40px;position:relative;overflow:hidden;}
+  .hormozi-wrap::before{content:'V';position:absolute;bottom:-60px;right:20px;font-family:'Cormorant Garamond',serif;font-size:420px;font-weight:300;color:rgba(255,255,255,.025);line-height:1;pointer-events:none;}
+  .horm-formula{display:flex;align-items:center;justify-content:center;gap:16px;margin:40px 0;padding:32px;border-top:1px solid rgba(184,150,62,.25);border-bottom:1px solid rgba(184,150,62,.25);font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:#F2EDE3;flex-wrap:wrap;text-align:center;}
+  .frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;}
+  .frac .num{border-bottom:1px solid var(--gold);padding:0 8px 4px;color:var(--gold);font-style:italic;font-size:18px;}
+  .frac .den{padding:4px 8px 0;color:rgba(242,237,227,.4);font-style:italic;font-size:16px;}
+  .vq-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;position:relative;}
+  .vq-dir{display:inline-block;font-size:8px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:3px 10px;margin-bottom:10px;}
+  .vq-item.up .vq-dir{background:rgba(184,150,62,.15);color:var(--gold);}
+  .vq-item.dn .vq-dir{background:rgba(255,255,255,.04);color:rgba(242,237,227,.3);}
+  .vq-n{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;line-height:1;margin-bottom:8px;}
+  .vq-item.up .vq-n{color:var(--gold);}
+  .vq-item.dn .vq-n{color:rgba(242,237,227,.18);}
+  .vq-lbl{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(242,237,227,.35);margin-bottom:8px;}
+  .vq-head{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:#F2EDE3;margin-bottom:8px;line-height:1.2;}
+  .vq-body{font-size:12px;color:rgba(242,237,227,.48);line-height:1.75;}
+
+  /* PAGE 5 */
+  .price-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--rule);border:1px solid var(--rule);margin-bottom:48px;}
+  .tier{background:var(--paper);padding:40px 36px;}
+  .tier.star{background:var(--ink);}
+  .tier-badge{display:inline-block;font-size:8px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:4px 10px;margin-bottom:24px;}
+  .tier .tier-badge{border:1px solid var(--rule);color:var(--dim);}
+  .tier.star .tier-badge{background:var(--gold);color:var(--ink);border:none;}
+  .tier-name{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;margin-bottom:8px;line-height:1.1;}
+  .tier .tier-name{color:var(--ink);}
+  .tier.star .tier-name{color:#F2EDE3;}
+  .tier-price{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;line-height:1;margin:20px 0 4px;}
+  .tier .tier-price{color:var(--ink);}
+  .tier.star .tier-price{color:var(--gold);}
+  .tier-sub{font-size:11px;color:var(--dim);margin-bottom:24px;}
+  .tier.star .tier-sub{color:rgba(242,237,227,.38);}
+  .tier-sep{height:1px;background:var(--rule);margin:20px 0;}
+  .tier.star .tier-sep{background:rgba(184,150,62,.2);}
+  .tier-inc{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+  .tier-list{list-style:none;}
+  .tier-list li{display:flex;gap:10px;align-items:flex-start;font-size:12px;padding:8px 0;border-bottom:1px solid var(--rule);line-height:1.5;}
+  .tier-list li:last-child{border:none;}
+  .tier .tier-list li{color:var(--ink);border-color:var(--rule);}
+  .tier.star .tier-list li{color:rgba(242,237,227,.72);border-color:rgba(184,150,62,.12);}
+  .tier-list li::before{content:'—';color:var(--gold);flex-shrink:0;font-size:10px;margin-top:1px;}
+  .rs-box{margin-top:20px;padding:14px 16px;}
+  .tier .rs-box{background:rgba(10,10,15,.04);}
+  .tier.star .rs-box{background:rgba(184,150,62,.1);}
+  .rs-lbl{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;}
+  .rs-txt{font-size:11px;line-height:1.6;}
+  .tier .rs-txt{color:var(--dim);}
+  .tier.star .rs-txt{color:rgba(242,237,227,.55);}
+  .kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;}
+  .kpi{border-top:2px solid var(--ink);padding-top:20px;}
+  .kpi-n{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:300;color:var(--ink);margin:8px 0;}
+  .kpi-lbl{font-size:11px;color:var(--dim);line-height:1.7;}
+
+  /* PAGE 6 */
+  .qual-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-bottom:48px;}
+  .qual-col{border-top:2px solid;padding-top:24px;}
+  .qual-col.hard{border-color:var(--ink);}
+  .qual-col.soft{border-color:var(--rule);}
+  .qual-lbl{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:16px;}
+  .qual-list{list-style:none;}
+  .qual-list li{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--rule);font-size:13px;line-height:1.5;}
+  .qual-list li:last-child{border:none;}
+  .q-ic{flex-shrink:0;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;margin-top:1px;}
+  .qual-col.hard .q-ic{background:var(--ink);color:var(--paper);}
+  .qual-col.soft .q-ic{border:1px solid var(--rule);color:var(--dim);}
+  .breaker{background:#FDF2F2;border:1px solid rgba(184,50,50,.2);padding:32px;display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:start;}
+  .breaker-glyph{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;color:var(--red);line-height:1;}
+  .breaker-lbl{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:12px;}
+  .breaker-tags{display:flex;flex-wrap:wrap;gap:8px;}
+  .breaker-tag{font-size:11px;color:var(--red);padding:4px 12px;border:1px solid rgba(184,50,50,.22);}
+
+  /* PAGE 7 */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--rule);border:1px solid var(--rule);margin-bottom:48px;}
+  .step{background:var(--paper);padding:28px 22px;}
+  .step-n{font-family:'Cormorant Garamond',serif;font-size:60px;font-weight:300;color:rgba(10,10,15,.07);line-height:1;margin-bottom:14px;}
+  .step-tag2{font-size:8px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+  .step-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--ink);margin-bottom:8px;line-height:1.2;}
+  .step-body{font-size:11px;color:var(--dim);line-height:1.7;}
+  .step-out{margin-top:14px;border-top:1px solid var(--rule);padding-top:12px;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:40px;}
+  .tc-head{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+  .tc-list{list-style:none;}
+  .tc-list li{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--rule);font-size:13px;line-height:1.5;}
+  .tc-list li:last-child{border:none;}
+  .tc-list li::before{content:'—';color:var(--gold);font-weight:700;flex-shrink:0;font-size:10px;margin-top:1px;}
+
+  /* FOOTER */
+  .footer{padding:48px 72px 64px;max-width:960px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid var(--rule);}
+  .footer-name{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:300;color:var(--ink);}
+  .footer-name strong{font-weight:600;}
+  .footer-sub{font-size:10px;color:var(--dim);margin-top:6px;letter-spacing:.12em;text-transform:uppercase;}
+  .footer-right{text-align:right;font-size:11px;color:var(--dim);line-height:1.9;}
+  .footer-right a{color:var(--gold);text-decoration:none;}
+
+  @media(max-width:680px){
+    .page{padding:48px 24px;}
+    .icp-cols,.qual-grid,.two-col,.price-grid,.pillar-grid,.arch-strip,.kpi-row,.options-row,.steps,.vq-grid,.math-strip{grid-template-columns:1fr;}
+    .cover-stats{flex-direction:column;gap:24px;}
+    #cover{padding:56px 28px;}
+    .answer-hero,.swamp-box,.hormozi-wrap{padding:32px 24px;}
+    .nav-links{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav no-print">
+  <div class="nav-brand">CN · Revenue Operator</div>
+  <div class="nav-links">
+    <a href="#problem">Der Swamp</a>
+    <a href="#answer">Meine Antwort</a>
+    <a href="#icp">ICP</a>
+    <a href="#value">Value Eq.</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#process">Prozess</a>
+  </div>
+  <button class="nav-cta no-print" onclick="window.print()">↓ PDF speichern</button>
+</nav>
+<div class="nav-spacer no-print"></div>
+
+<!-- COVER -->
+<section id="cover">
+  <div style="position:relative;">
+    <div class="cover-eyebrow">Christoph Neuhaus · NovaCasa UG · Berlin · Q2 2026</div>
+    <div class="cover-h1">
+      Der Growth-<br>
+      Operator für<br>
+      <em>den Swamp.</em>
+    </div>
+    <div class="cover-claim">
+      „Ich bin der Growth-Operator, den du dir als Vollzeit-Hire nicht leisten kannst —
+      und den du als RevShare-Partner nicht ablehnen kannst."
+    </div>
+  </div>
+  <div style="position:relative;">
+    <div class="cover-divider"></div>
+    <div class="cover-stats">
+      <div><div class="stat-lbl">Zielkunde</div><div class="stat-val">€3M – €10M Umsatz</div></div>
+      <div><div class="stat-lbl">Modell</div><div class="stat-val">Retainer + RevShare</div></div>
+      <div><div class="stat-lbl">Honorar-Ziel</div><div class="stat-val">€5.000+/Monat</div></div>
+      <div><div class="stat-lbl">Fokus</div><div class="stat-val">Digital Sales &amp; Marketing</div></div>
+    </div>
+  </div>
+  <div class="cover-wm" aria-hidden="true">S</div>
+  <div class="pg-num" style="color:rgba(242,237,227,.2);">00 · Cover</div>
+</section>
+
+<!-- PAGE 1: DAS PROBLEM -->
+<section id="problem" class="page">
+  <span class="tag">01 · Das Problem — Der Swamp</span>
+  <h2 class="h2">€3M – €10M Umsatz.<br><em>Feststecken zwischen zwei schlechten Entscheidungen.</em></h2>
+  <p class="lead">Dein Geschäft läuft. Aber der nächste Wachstumsschritt erfordert Senior-Talent, das du dir eigentlich noch nicht leisten kannst. Das ist der Swamp — und die meisten Unternehmen stecken dort für Jahre.</p>
+
+  <div class="swamp-box">
+    <span class="tag">Das klassische Dilemma</span>
+    <div class="swamp-hl">Du brauchst höheres Talent, um durchzubrechen.<br>Aber du kannst dir <em>höheres Talent noch nicht leisten.</em></div>
+    <div class="options-row">
+      <div class="opt">
+        <div class="opt-num">Option 01</div>
+        <div class="opt-title">Bet the Farm</div>
+        <div class="opt-body">Engagiere einen VP Growth für €200–300K/Jahr. Das sind 60–75 % deines Gewinns — auf eine einzige Person, die vielleicht nicht funktioniert. Ein Fehlgriff, und du bist zurück auf null.</div>
+      </div>
+      <div class="opt">
+        <div class="opt-num">Option 02</div>
+        <div class="opt-title">Doppelte Schicht</div>
+        <div class="opt-body">Du machst deinen aktuellen Job plus den nächst-höheren Job selbst. Das kostet Zeit, Energie und die Fähigkeit, strategisch zu denken. Du wächst, aber du brennst aus.</div>
+      </div>
+      <div class="opt bad">
+        <div class="opt-num">Option 03</div>
+        <div class="opt-title">Komfort-Zone</div>
+        <div class="opt-body">Die meisten wählen das. Der Swamp ist voll von €2M-Businesses, die nie gewachsen sind — weil Sicherheit sich besser anfühlt als das Risiko der richtigen Entscheidung.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="math-strip">
+    <div class="math-item">
+      <div class="math-n">€5M</div>
+      <div class="math-lbl">Jahresumsatz. Typisch 20–25 % Marge = €1M Gewinn. Ordentlich. Aber noch nicht genug für den nächsten Schritt.</div>
+    </div>
+    <div class="math-item pain">
+      <div class="math-n">€250K</div>
+      <div class="math-lbl">Was ein Head of Growth kostet. Fix. Jedes Jahr. Unabhängig davon, ob er liefert oder nicht. Das ist 25 % deines gesamten Gewinns.</div>
+    </div>
+    <div class="math-item">
+      <div class="math-n">25 %</div>
+      <div class="math-lbl">Deines gesamten Jahresgewinns — für eine einzige Hire-Entscheidung. Das ist der Swamp. Genau hier setze ich an.</div>
+    </div>
+  </div>
+  <div class="pg-num">01 · Der Swamp</div>
+</section>
+
+<!-- PAGE 2: MEINE ANTWORT -->
+<section id="answer" class="page">
+  <span class="tag">02 · Meine Antwort</span>
+  <h2 class="h2">Option 1 —<br><em>ohne den Bet-the-Farm-Schmerz.</em></h2>
+  <p class="lead">Du brauchst kein Vollzeit-Gehalt. Du brauchst Senior-Operator-Denken, das nur dann kostet, wenn es liefert. Genau das bin ich.</p>
+
+  <div class="answer-hero">
+    <div class="answer-quote">
+      „Ich bin der Growth-Operator, den du dir als<br>
+      Vollzeit-Hire <strong>nicht leisten kannst</strong> —<br>
+      und den du als RevShare-Partner<br><em>nicht ablehnen kannst.</em>"
+    </div>
+    <div class="answer-attr">— Christoph Neuhaus · NovaCasa UG · Berlin</div>
+  </div>
+
+  <div class="pillar-grid">
+    <div class="pillar">
+      <div class="pillar-icon">01</div>
+      <div class="pillar-tag">Was ich bin</div>
+      <div class="pillar-title">Senior Growth Operator — kein Freelancer</div>
+      <div class="pillar-body">Ich denke wie ein VP Growth: Systeme, Unit Economics, Kapitalallokation. Ich liefere wie ein Operator: Kampagnen, Funnels, E-Mail, Content — vollständig umgesetzt, nicht nur konzipiert.</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">02</div>
+      <div class="pillar-tag">Was mich multipliziert</div>
+      <div class="pillar-title">KI-Agenten als Hebelarm</div>
+      <div class="pillar-body">Claude, GPT-4o, n8n, Meta API, Klaviyo. Meine operative Kapazität ist nicht manuell begrenzt. Ich liefere Outputs, für die ein normales Team das Dreifache der Zeit bräuchte.</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon">03</div>
+      <div class="pillar-tag">Was mein Anreiz ist</div>
+      <div class="pillar-title">Skin in the Game via RevShare</div>
+      <div class="pillar-body">Ich trage eigenes Risiko. Mein RevShare-Anteil koppelt meine Vergütung direkt an deinen Erfolg. Kein Interessenskonflikt. Ich verdiene nur, wenn du wächst.</div>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;">
+    <div>
+      <span class="tag">Was das bedeutet</span>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;line-height:1.4;color:var(--ink);">Du zahlst €3.000 Retainer — und trägst kein Festkosten-Risiko für ein 250K-Jahresgehalt. Ich trage das Performance-Risiko via RevShare. Option 1 ohne den Schmerz.</p>
+    </div>
+    <div>
+      <span class="tag">Was das nicht ist</span>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;line-height:1.4;color:var(--ink);">Kein Stundenhonorar. Keine Strategie-Folien ohne Umsetzung. Kein Berater, der Empfehlungen abgibt und geht. Ich implementiere, messe, optimiere — laufend.</p>
+    </div>
+  </div>
+  <div class="pg-num">02 · Meine Antwort</div>
+</section>
+
+<!-- PAGE 3: ICP -->
+<section id="icp" class="page">
+  <span class="tag">03 · Ideal Customer Profile</span>
+  <h2 class="h2">Wen ich nehme —<br><em>wen ich ablehne.</em></h2>
+  <p class="lead">Ich arbeite nur mit Unternehmen, bei denen mein Beitrag einen echten Unterschied macht. Das setzt voraus, dass das Fundament steht. Ich optimiere — ich baue nicht auf.</p>
+
+  <div class="icp-cols">
+    <div class="icp-col yes">
+      <div class="icp-col-head">✓ Diese Kunden nehme ich an</div>
+      <ul class="icp-list">
+        <li>€3M – €10M Jahresumsatz, nachgewiesen und stabil</li>
+        <li>Funktionierendes Geschäftsmodell — kein MVP, kein Aufbau</li>
+        <li>Kunden-LTV über €1.000 — kein Niedrigpreis-Massenmarkt</li>
+        <li>Mindestens ein aktiver digitaler Kanal (auch wenn schlecht)</li>
+        <li>Entscheider direkt erreichbar, kein Komitee</li>
+        <li>Bereit, Daten zu teilen: Ad-Accounts, CRM, Analytics</li>
+        <li>Offenheit für datengetriebene Entscheidungen</li>
+        <li>Marketingbudget mind. €3.000–5.000/Monat Media Spend</li>
+        <li>Gute Margen (>35 %) — RevShare muss für beide rechnen</li>
+      </ul>
+    </div>
+    <div class="icp-col no">
+      <div class="icp-col-head">✕ Diese Kunden lehne ich ab</div>
+      <ul class="icp-list">
+        <li>Unter €1M Umsatz — zu wenig Hebelmasse für das Modell</li>
+        <li>Business im Aufbau oder Pre-Revenue</li>
+        <li>LTV unter €500 — Massenmodell, nicht mein Ansatz</li>
+        <li>Kein aktiver digitaler Kanal überhaupt vorhanden</li>
+        <li>Entscheider nicht im ersten Gespräch dabei</li>
+        <li>Mehr als 2–3 Freigabestufen für Kampagnen</li>
+        <li>Kein Budget für Media Spend</li>
+        <li>Stundenhonorar-only — kein ergebnisbasiertes Denken</li>
+        <li>Erwartung sofortiger Ergebnisse in unter 30 Tagen</li>
+      </ul>
+    </div>
+  </div>
+
+  <span class="tag">Beispiel-Archetypen</span>
+  <div class="arch-strip">
+    <div class="arch">
+      <div class="arch-n">01</div>
+      <div class="arch-badge">Traumkunde</div>
+      <div class="arch-title">DTC-Brand — bewiesene Nachfrage, ungenutzte Retention</div>
+      <div class="arch-body">Shopify, €3–8M GMV/Jahr, gute Margen. Meta läuft, aber kein Creative-Testing-System. Klaviyo kaum genutzt. Umsatz fast vollständig aus Neukundenakquise. Retention-Hebel ist massiv.</div>
+      <div class="arch-tags"><span class="arch-tag">E-Commerce</span><span class="arch-tag">Meta</span><span class="arch-tag">Klaviyo</span><span class="arch-tag">LTV &gt; €300</span></div>
+    </div>
+    <div class="arch">
+      <div class="arch-n">02</div>
+      <div class="arch-badge">Starker Fit</div>
+      <div class="arch-title">B2B-Dienstleister — wächst über Empfehlung, will Skalierung</div>
+      <div class="arch-body">Agentur, SaaS oder Beratung. €2–6M ARR. Wächst organisch, aber ohne digitalen Leadflow. Hoher Deal-Value (€5K–50K). RevShare auf qualifizierte Abschlüsse — klare Metrik.</div>
+      <div class="arch-tags"><span class="arch-tag">B2B</span><span class="arch-tag">LinkedIn</span><span class="arch-tag">Content</span><span class="arch-tag">LTV &gt; €5K</span></div>
+    </div>
+    <div class="arch">
+      <div class="arch-n">03</div>
+      <div class="arch-badge">Opportunistisch</div>
+      <div class="arch-title">Event &amp; Experiential — klare Conversion-Fenster</div>
+      <div class="arch-body">Festivals, Hospitality, Branded Events. Saisonales Geschäft mit messbaren Ticketverkäufen. Paid Social + E-Mail-Funnel — ROAS direkt auf Ticketkauf messbar.</div>
+      <div class="arch-tags"><span class="arch-tag">Events</span><span class="arch-tag">Ticketing</span><span class="arch-tag">Meta</span><span class="arch-tag">Saisonal</span></div>
+    </div>
+  </div>
+  <div class="pg-num">03 · ICP</div>
+</section>
+
+<!-- PAGE 4: VALUE EQUATION -->
+<section id="value" class="page">
+  <span class="tag">04 · Value Equation nach Hormozi</span>
+  <h2 class="h2">Was mein Kunde<br><em>wirklich kauft.</em></h2>
+  <p class="lead">Wert entsteht nicht durch Leistung allein — sondern durch das Verhältnis von Traumergebnis und Wahrscheinlichkeit zu Zeitaufwand und wahrgenommenem Risiko. So kommuniziere ich mein Angebot.</p>
+
+  <div class="hormozi-wrap">
+    <span class="tag" style="color:rgba(184,150,62,.65);">Die Formel hinter meinem Angebot</span>
+    <div class="horm-formula">
+      Wert&nbsp;=&nbsp;
+      <span class="frac">
+        <span class="num">Traumergebnis &nbsp;×&nbsp; Wahrscheinlichkeit</span>
+        <span class="den">Zeitverzug &nbsp;×&nbsp; Aufwand &amp; Risiko</span>
+      </span>
+    </div>
+    <div class="vq-grid">
+      <div class="vq-item up">
+        <div class="vq-dir">↑ Maximieren</div>
+        <div class="vq-n">01</div>
+        <div class="vq-lbl">Traumergebnis</div>
+        <div class="vq-head">Verlässlicher digitaler Umsatzkanal — unabhängig vom Netzwerk</div>
+        <div class="vq-body">Der Kunde will aus dem Swamp raus: skalierbares Wachstum, das nicht davon abhängt, ob sein Netzwerk gerade gut gelaunt ist. Messbar, wiederholbar, ohne ihn täglich zu beanspruchen.</div>
+      </div>
+      <div class="vq-item up">
+        <div class="vq-dir">↑ Maximieren</div>
+        <div class="vq-n">02</div>
+        <div class="vq-lbl">Wahrscheinlichkeit</div>
+        <div class="vq-head">Nachweise statt Versprechen — RevShare als Commitment</div>
+        <div class="vq-body">Case Studies aus laufenden Mandaten, BAFA-Zertifizierung, transparentes Reporting ab Woche 1. Mein RevShare-Anteil ist der stärkste Beweis: Ich verdiene nur, wenn du wächst.</div>
+      </div>
+      <div class="vq-item dn">
+        <div class="vq-dir">↓ Minimieren</div>
+        <div class="vq-n">03</div>
+        <div class="vq-lbl">Zeitverzug</div>
+        <div class="vq-head">Erste Ergebnisse in 30 Tagen — nicht in 6 Monaten</div>
+        <div class="vq-body">Kein endloses Strategie-Vorprojekt. Onboarding Woche 1, erste Kampagnen live Woche 2, erste KPIs Woche 4. Schnelle Wins schaffen Vertrauen für langfristige Zusammenarbeit.</div>
+      </div>
+      <div class="vq-item dn">
+        <div class="vq-dir">↓ Minimieren</div>
+        <div class="vq-n">04</div>
+        <div class="vq-lbl">Aufwand &amp; Risiko</div>
+        <div class="vq-head">Max. 2h/Woche — ich tue, du entscheidest</div>
+        <div class="vq-body">Ein Status-Call, Freigaben per Loom oder Notion. Konzept, Setup, Umsetzung, Reporting, Optimierung — alles auf meiner Seite. KI-Agenten multiplizieren meinen Output. Dein Risiko: €3K statt €250K fix.</div>
+      </div>
+    </div>
+  </div>
+  <div class="pg-num">04 · Value Equation</div>
+</section>
+
+<!-- PAGE 5: PRICING -->
+<section id="pricing" class="page">
+  <span class="tag">05 · Pricing &amp; Angebots-Struktur</span>
+  <h2 class="h2">Option 1 —<br><em>ohne den Bet-the-Farm-Schmerz.</em></h2>
+  <p class="lead">Ein VP Growth kostet dich €250K fix. Ich koste dich €3K Retainer — und verdiene den Rest via RevShare auf nachgewiesenem Wachstum. Dein Risiko: minimal. Mein Anreiz: maximal aligned.</p>
+
+  <div class="price-grid">
+    <div class="tier">
+      <span class="tier-badge">Einstieg</span>
+      <div class="tier-name">Swamp Audit &amp; Roadmap</div>
+      <div class="tier-price">€2.500</div>
+      <div class="tier-sub">Einmalig · kein Abo · kein RevShare</div>
+      <div class="tier-sep"></div>
+      <div class="tier-inc">Enthält</div>
+      <ul class="tier-list">
+        <li>Vollständiger Audit: Funnel, Tracking, Creatives, E-Mail, Ads</li>
+        <li>Wachstumslücken mit Potenzialquantifizierung in €</li>
+        <li>90-Tage-Prioritäts-Roadmap mit konkreten nächsten Schritten</li>
+        <li>2 Deep-Dive Calls (Kickoff + Ergebnis-Präsentation)</li>
+        <li>Loom-basiertes Feedback-Protokoll</li>
+      </ul>
+      <div class="rs-box">
+        <div class="rs-lbl">Folgemodell</div>
+        <div class="rs-txt">Übergang in Retainer + RevShare nach Abschluss möglich. Audit-Betrag wird auf ersten Retainer angerechnet.</div>
+      </div>
+    </div>
+    <div class="tier star">
+      <span class="tier-badge">⭑ Kernmandat</span>
+      <div class="tier-name">Revenue Growth Partner</div>
+      <div class="tier-price">€3.000</div>
+      <div class="tier-sub">/ Monat Retainer + RevShare auf Wachstum</div>
+      <div class="tier-sep"></div>
+      <div class="tier-inc">Enthält</div>
+      <ul class="tier-list">
+        <li>Vollständiges digitales Marketing-Management (Meta, E-Mail, Content)</li>
+        <li>KI-gestütztes Creative Testing (3×3 Framework, wöchentliche Rotation)</li>
+        <li>Monatliches Performance-Reporting mit Strategie-Update</li>
+        <li>Direktzugang via Slack oder WhatsApp (Mo–Fr, 9–18 Uhr)</li>
+        <li>Unbegrenzte Iterationen innerhalb des Mandats</li>
+        <li>n8n-Automatisierungen für Reporting + Lead-Flows</li>
+      </ul>
+      <div class="rs-box">
+        <div class="rs-lbl">RevShare-Komponente</div>
+        <div class="rs-txt">10–15 % auf nachweisbaren Incremental Revenue über vereinbarter Baseline. Klar dokumentiert, gemeinsam definiert. Cap optional vereinbar.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi">
+      <span class="tag">Honorar-Ziel</span>
+      <div class="kpi-n">€5.000+</div>
+      <div class="kpi-lbl">pro Mandat und Monat (Retainer + RevShare kombiniert). Kunden mit geringerem Potenzial passen strukturell nicht ins Modell.</div>
+    </div>
+    <div class="kpi">
+      <span class="tag">BAFA-Förderung</span>
+      <div class="kpi-n">bis 80 %</div>
+      <div class="kpi-lbl">Für KMU in Deutschland: BAFA-zertifiziertes Beratungshonorar bis €3.200 netto förderfähig. Ich begleite den Antrag vollständig.</div>
+    </div>
+    <div class="kpi">
+      <span class="tag">Mindest-Laufzeit</span>
+      <div class="kpi-n">3 Monate</div>
+      <div class="kpi-lbl">Danach monatlich kündbar. Echte Systeme brauchen 90 Tage, um messbar zu performen. Alles darunter ist Ergebnis-Theater.</div>
+    </div>
+  </div>
+  <div class="pg-num">05 · Pricing</div>
+</section>
+
+<!-- PAGE 6: QUALIFYING -->
+<section id="qualifying" class="page">
+  <span class="tag">06 · Qualifying — Mein Entscheidungsrahmen</span>
+  <h2 class="h2">Die Fragen, die ich stelle,<br><em>bevor ich ja sage.</em></h2>
+  <p class="lead">Ich lehne Kunden ab. Nicht aus Arroganz — sondern weil ein schlechter Fit für beide Seiten teurer ist als ein höfliches Nein am Anfang. Diese Kriterien sind nicht verhandelbar.</p>
+
+  <div class="qual-grid">
+    <div class="qual-col hard">
+      <div class="qual-lbl">Harte Kriterien — Pflicht</div>
+      <ul class="qual-list">
+        <li><span class="q-ic">1</span><span>Umsatz zwischen €3M–€10M, nachgewiesen. Darunter fehlt Hebelmasse für das Modell.</span></li>
+        <li><span class="q-ic">2</span><span>Kunden-LTV über €1.000. Niedrigpreis-Massenvolumen braucht ein anderes Modell.</span></li>
+        <li><span class="q-ic">3</span><span>Mindestens ein aktiver digitaler Kanal. Ich optimiere — ich baue nicht aus dem Nichts.</span></li>
+        <li><span class="q-ic">4</span><span>Entscheider direkt im ersten Call. Kein Mandat über Mittelsmänner oder mit 5 Freigabestufen.</span></li>
+        <li><span class="q-ic">5</span><span>Zugang zu Echtzeit-Daten: Ad-Account, CRM, Analytics. Ohne Daten kein Wachstum.</span></li>
+      </ul>
+    </div>
+    <div class="qual-col soft">
+      <div class="qual-lbl">Weiche Kriterien — Stark bevorzugt</div>
+      <ul class="qual-list">
+        <li><span class="q-ic">A</span><span>Margen über 35 % — RevShare-Modell funktioniert nur mit gesunden Unit Economics.</span></li>
+        <li><span class="q-ic">B</span><span>Bestehende E-Mail-Liste oder CRM — Retention ist der schnellste Hebel mit dem höchsten ROI.</span></li>
+        <li><span class="q-ic">C</span><span>Offen für KI-Automatisierung — multipliziert meinen Output und damit deinen Wachstumsvorteil.</span></li>
+        <li><span class="q-ic">D</span><span>Klares Umsatzziel: „Von €5M auf €10M" — macht Erfolg unmissverständlich messbar.</span></li>
+        <li><span class="q-ic">E</span><span>Media Budget mind. €3–5K/Monat — Performance Marketing braucht Spielmasse.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="breaker">
+    <div class="breaker-glyph">✕</div>
+    <div>
+      <div class="breaker-lbl">Absolute Deal Breaker — Sofortiges Nein</div>
+      <div class="breaker-tags">
+        <span class="breaker-tag">Kein Media Budget</span>
+        <span class="breaker-tag">Business im Aufbau</span>
+        <span class="breaker-tag">Entscheider nicht erreichbar</span>
+        <span class="breaker-tag">Stundenhonorar-only</span>
+        <span class="breaker-tag">Kein Datenzugang</span>
+        <span class="breaker-tag">Mehr als 3 Freigabestufen</span>
+        <span class="breaker-tag">Ergebnisse in &lt;30 Tagen erwartet</span>
+        <span class="breaker-tag">Kein klares Wachstumsziel</span>
+      </div>
+    </div>
+  </div>
+  <div class="pg-num">06 · Qualifying</div>
+</section>
+
+<!-- PAGE 7: PROZESS -->
+<section id="process" class="page">
+  <span class="tag">07 · Von 0 zu laufendem System</span>
+  <h2 class="h2">30 Tage bis zum<br><em>ersten messbaren Ergebnis.</em></h2>
+  <p class="lead">Kein strategisches Endlos-Vorprojekt. Kein 6-Monats-Anlauf. Innerhalb von 4 Wochen ist das System live und beginnt, die Baseline für unseren RevShare zu definieren.</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">01</div>
+      <div class="step-tag2">Woche 0–1</div>
+      <div class="step-title">Discovery &amp; Audit</div>
+      <div class="step-body">90-minütiger Deep-Dive. Vollzugang zu allen Systemen. Funnel, Tracking, Creatives, E-Mail, Ads — alles auf den Tisch. Klare Baseline definieren.</div>
+      <div class="step-out">→ Audit + Quick Wins</div>
+    </div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <div class="step-tag2">Woche 1–2</div>
+      <div class="step-title">Setup &amp; System</div>
+      <div class="step-body">Tracking korrekt. Creative-Framework aufgesetzt. Erste Kampagnen live. E-Mail-Flows installiert. Echtzeit-Dashboard aktiv.</div>
+      <div class="step-out">→ Erstes System live</div>
+    </div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <div class="step-tag2">Woche 2–4</div>
+      <div class="step-title">Erste Iteration</div>
+      <div class="step-body">A/B-Tests laufen. Creative-Rotation. Zielgruppen-Optimierung. Wöchentlicher Loom-Update. Erste KPIs gegen Ziel gemessen.</div>
+      <div class="step-out">→ Erste Daten &amp; Learnings</div>
+    </div>
+    <div class="step">
+      <div class="step-n">04</div>
+      <div class="step-tag2">Monat 2–3</div>
+      <div class="step-title">Scale &amp; RevShare</div>
+      <div class="step-body">Gewinnende Kanäle skalieren. KI-Automatisierung für Reporting. RevShare-Berechnung startet auf vereinbarter Baseline. Transparentes Monitoring.</div>
+      <div class="step-out">→ Nachweisbarer ROI</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <div class="tc-head">Was du investierst</div>
+      <ul class="tc-list">
+        <li>Max. 2 Stunden/Woche für Status-Call und Freigaben</li>
+        <li>Media Budget mind. €3.000–5.000/Monat</li>
+        <li>Zugang zu allen relevanten Systemen und Daten</li>
+        <li>Vertrauen in Daten als primäre Entscheidungsgrundlage</li>
+      </ul>
+    </div>
+    <div>
+      <div class="tc-head">Was ich einbringe</div>
+      <ul class="tc-list">
+        <li>Vollständige operative Umsetzung — Konzept bis Optimierung</li>
+        <li>KI-Agenten multiplizieren Output — mehr Qualität, schnellere Iteration</li>
+        <li>Eigenes Risiko via RevShare — aligned incentives</li>
+        <li>Netzwerk: Adobe, Meta, Red Bull, Delta — wenn relevant</li>
+      </ul>
+    </div>
+  </div>
+  <div class="pg-num">07 · Prozess</div>
+</section>
+
+<footer class="footer no-print">
+  <div>
+    <div class="footer-name">Christoph <strong>Neuhaus</strong></div>
+    <div class="footer-sub">NovaCasa UG (haftungsbeschränkt) · Berlin · BAFA-zertifiziert</div>
+  </div>
+  <div class="footer-right">
+    <div><a href="https://christophneuhaus.de">christophneuhaus.de</a></div>
+    <div>Q2 · 2026 · Vertraulich</div>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click',e=>{
+      e.preventDefault();
+      const t=document.querySelector(a.getAttribute('href'));
+      if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  });
+</script>
+</body>
+</html>
