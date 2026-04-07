@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>POWERWOCHE — Sales Sprint</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+--bg:#08080d;--s1:#0f0f18;--s2:#161623;--s3:#1e1e30;--brd:#252540;
+--tx:#e4e4f0;--dim:#7070a0;
+--neon:#00ffaa;--neon8:rgba(0,255,170,.08);--neong:rgba(0,255,170,.3);
+--fire:#ff6b35;--fire8:rgba(255,107,53,.1);
+--gold:#ffd740;--gold8:rgba(255,215,64,.08);--goldb:rgba(255,215,64,.25);
+--purple:#b388ff;--red:#ff5252;--blue:#40c4ff;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--tx);font-family:'Sora',sans-serif;min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
+.app{max-width:880px;margin:0 auto;padding:32px 20px 100px}
+.mono{font-family:'JetBrains Mono',monospace}
+
+/* HERO */
+.hero{text-align:center;margin-bottom:36px}
+.hero__badge{display:inline-block;font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--fire);background:var(--fire8);padding:6px 16px;border-radius:20px;margin-bottom:14px;border:1px solid rgba(255,107,53,.2)}
+.hero__title{font-size:clamp(30px,6vw,50px);font-weight:800;letter-spacing:-2px;line-height:1;margin-bottom:6px;background:linear-gradient(135deg,#fff,var(--neon) 50%,var(--fire));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero__sub{font-size:14px;color:var(--dim)}.hero__sub span{color:var(--neon)}
+
+/* SECTION TITLES */
+.stitle{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:14px;font-weight:600}
+
+/* CARD */
+.card{background:var(--s1);border:1px solid var(--brd);border-radius:14px;padding:22px;margin-bottom:20px}
+
+/* STREAK BAR */
+.streak{display:flex;gap:8px;margin-bottom:24px;justify-content:center}
+.streak__day{flex:1;max-width:120px;padding:14px 8px;border-radius:10px;text-align:center;border:2px solid var(--brd);background:var(--s1);transition:all .3s}
+.streak__day--done{border-color:var(--neon);background:var(--neon8)}
+.streak__day--fail{border-color:var(--red);background:rgba(255,82,82,.06)}
+.streak__day--today{border-color:var(--gold);box-shadow:0 0 16px rgba(255,215,64,.15)}
+.streak__day-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:4px}
+.streak__day-icon{font-size:22px;line-height:1}
+.streak__day-score{font-size:10px;color:var(--dim);margin-top:4px}
+
+/* POWER SCORE */
+.pscore{text-align:center;margin-bottom:24px}
+.pscore__ring{position:relative;width:140px;height:140px;margin:0 auto 12px}
+.pscore__ring svg{transform:rotate(-90deg)}
+.pscore__val{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.pscore__num{font-size:40px;font-weight:800;line-height:1}
+.pscore__label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+.pscore__breakdown{display:flex;gap:16px;justify-content:center;font-size:11px;color:var(--dim)}
+.pscore__breakdown span{font-weight:700}
+
+/* MOMENTUM INDICATOR */
+.momentum{text-align:center;padding:16px 20px;border-radius:12px;margin-bottom:24px;font-size:14px;border:1px solid var(--brd);background:var(--s1)}
+.momentum__proj{font-size:28px;font-weight:800;margin-bottom:4px}
+.momentum--green{border-color:rgba(0,255,170,.3);color:var(--neon)}.momentum--green .momentum__proj{color:var(--neon)}
+.momentum--orange{border-color:rgba(255,171,64,.3);color:var(--gold)}.momentum--orange .momentum__proj{color:var(--gold)}
+.momentum--red{border-color:rgba(255,82,82,.3);color:var(--red)}.momentum--red .momentum__proj{color:var(--red)}
+
+/* ENERGY LOG */
+.energy{display:flex;gap:8px;margin-bottom:24px;justify-content:center}
+.energy__btn{padding:10px 20px;border-radius:10px;border:1px solid var(--brd);background:var(--s2);color:var(--dim);font-family:'Sora',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;flex:1;max-width:140px;text-align:center}
+.energy__btn:hover{border-color:var(--neon);color:var(--tx)}
+.energy__btn--high{border-color:var(--neon);background:var(--neon8);color:var(--neon)}
+.energy__btn--med{border-color:var(--gold);background:var(--gold8);color:var(--gold)}
+.energy__btn--low{border-color:var(--blue);background:rgba(64,196,255,.08);color:var(--blue)}
+
+/* COMMITMENT */
+.commit{margin-bottom:24px}
+.commit__row{display:flex;gap:10px}
+.commit__input{flex:1;padding:10px 14px;background:var(--s2);border:1px solid var(--brd);border-radius:8px;color:var(--tx);font-family:'Sora',sans-serif;font-size:14px;outline:none}
+.commit__input:focus{border-color:var(--neon)}
+.commit__input::placeholder{color:var(--dim)}
+.commit__btn{padding:10px 18px;background:var(--fire);color:#fff;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:13px}
+.commit__display{margin-top:10px;padding:12px 16px;background:var(--s2);border:1px dashed var(--fire);border-radius:8px;font-size:14px;color:var(--fire);display:none}
+.commit__display span{color:var(--tx)}
+
+/* NUDGE */
+.nudge{border:1px solid var(--brd);border-radius:14px;padding:16px 20px;margin-bottom:24px;display:flex;align-items:flex-start;gap:12px;background:var(--s1)}
+.nudge--fire{border-color:rgba(255,107,53,.3);background:linear-gradient(135deg,var(--s1),var(--fire8))}
+.nudge--good{border-color:rgba(0,255,170,.2);background:linear-gradient(135deg,var(--s1),var(--neon8))}
+.nudge__icon{font-size:22px;flex-shrink:0;line-height:1.4}
+.nudge__text{font-size:13px;line-height:1.6}.nudge__text strong{color:var(--neon)}.nudge__text .warn{color:var(--fire)}
+
+/* DAY TABS */
+.dtabs{display:flex;gap:5px;margin-bottom:24px;overflow-x:auto}
+.dtab{flex:1;min-width:70px;padding:10px 6px;background:var(--s1);border:1px solid var(--brd);border-radius:9px;text-align:center;cursor:pointer;transition:all .2s;font-size:12px;font-weight:600;color:var(--dim)}
+.dtab:hover{border-color:var(--neon);color:var(--tx)}
+.dtab--active{background:var(--neon8);border-color:var(--neon);color:var(--neon)}
+.dtab__lbl{display:block;font-size:9px;letter-spacing:1px;text-transform:uppercase;margin-bottom:3px}
+.dtab__xp{display:block;font-size:9px;margin-top:3px}
+.dtab--active .dtab__xp{color:var(--neon)}
+.dtab--week{background:var(--s2);border-color:var(--purple);color:var(--purple)}
+.dtab--week.dtab--active{background:rgba(179,136,255,.08)}
+
+/* XP */
+.xp-sec{margin-bottom:20px}
+.xp-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.xp-lvl{font-size:13px;font-weight:700;color:var(--fire)}.xp-lvl span{color:var(--dim);font-weight:400}
+.xp-pts{font-size:11px;color:var(--dim)}
+.xp-bar{height:7px;background:var(--s2);border-radius:4px;overflow:hidden;border:1px solid var(--brd)}
+.xp-bar__f{height:100%;background:linear-gradient(90deg,var(--fire),var(--gold),var(--neon));border-radius:4px;transition:width .6s}
+
+/* TIMER */
+.timer{text-align:center;padding:20px}
+.timer__display{font-size:clamp(34px,6vw,52px);font-weight:800;letter-spacing:2px;margin-bottom:14px}
+.timer__display.on{color:var(--neon);text-shadow:0 0 30px var(--neong)}
+.timer__btns{display:flex;gap:8px;justify-content:center;margin-bottom:12px}
+.tbtn{padding:9px 22px;border:none;border-radius:9px;font-family:'Sora',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s}
+.tbtn--go{background:var(--neon);color:var(--bg)}.tbtn--go:hover{box-shadow:0 0 18px var(--neong)}
+.tbtn--stop{background:var(--fire);color:#fff}
+.tbtn--reset{background:var(--s2);color:var(--dim);border:1px solid var(--brd)}
+.timer__totals{font-size:11px;color:var(--dim);margin-bottom:14px}.timer__totals span{color:var(--blue)}
+/* 4h GOAL */
+.tgoal__hdr{display:flex;justify-content:space-between;margin-bottom:6px;font-size:11px;color:var(--dim)}
+.tgoal__val{font-weight:700}
+.tgoal__val--r{color:var(--fire)}.tgoal__val--y{color:var(--gold)}.tgoal__val--g{color:var(--neon)}
+.tgoal__bar{height:8px;background:var(--s2);border-radius:4px;overflow:hidden;border:1px solid var(--brd);position:relative}
+.tgoal__fill{height:100%;border-radius:4px;transition:width .6s}
+.tgoal__fill--r{background:linear-gradient(90deg,var(--fire),var(--gold))}.tgoal__fill--y{background:linear-gradient(90deg,var(--gold),var(--neon))}.tgoal__fill--g{background:linear-gradient(90deg,var(--neon),#69f0ae)}
+.tgoal__markers{position:absolute;inset:0;pointer-events:none}
+.tgoal__marker{position:absolute;top:0;width:1px;height:100%;background:rgba(255,255,255,.1)}
+.tgoal__hint{font-size:10px;color:var(--dim);margin-top:5px;text-align:center}.tgoal__hint span{color:var(--fire);font-weight:700}
+
+/* FUNNEL */
+.funnel{margin-bottom:24px}
+.funnel__row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.funnel__step{flex:1;padding:10px 12px;background:var(--s2);border:1px solid var(--brd);border-radius:8px;display:flex;justify-content:space-between;align-items:center;font-size:13px}
+.funnel__step-name{font-weight:500}
+.funnel__step-val{font-weight:800;color:var(--neon)}
+.funnel__arrow{color:var(--dim);font-size:16px;flex-shrink:0}
+.funnel__ratios{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.funnel__ratio{flex:1;min-width:120px;padding:8px 12px;background:var(--s1);border:1px solid var(--brd);border-radius:8px;font-size:11px;text-align:center;color:var(--dim)}
+.funnel__ratio-val{font-weight:800;font-size:16px;display:block;margin-bottom:2px}
+.funnel__ratio-val--good{color:var(--neon)}
+.funnel__ratio-val--mid{color:var(--gold)}
+.funnel__ratio-val--bad{color:var(--fire)}
+
+/* ACTIVITY GRID */
+.agrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px}
+.acard{background:var(--s1);border:1px solid var(--brd);border-radius:12px;padding:16px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.acard:hover{border-color:var(--neong)}
+.acard__l{display:flex;align-items:center;gap:10px}
+.acard__icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.acard__name{font-size:12px;font-weight:600}.acard__xp{font-size:9px;color:var(--dim)}
+.acard__r{display:flex;align-items:center;gap:6px}
+.acard__count{font-size:26px;font-weight:800;color:var(--neon);min-width:30px;text-align:center}
+.abtn{width:28px;height:28px;border-radius:6px;border:1px solid var(--brd);background:var(--s2);color:var(--tx);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700;transition:all .15s}
+.abtn:hover{border-color:var(--neon);color:var(--neon);background:var(--neon8)}
+.abtn--m:hover{border-color:var(--red);color:var(--red)}
+
+/* PIPELINE */
+.pipe{margin-bottom:24px}
+.pipe__hdr{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.pipe__total{font-size:clamp(22px,4vw,32px);font-weight:800;color:var(--neon)}
+.pipe__pct{font-size:14px;color:var(--dim)}
+.pipe__bar{height:18px;background:var(--s2);border-radius:9px;overflow:hidden;border:1px solid var(--brd);position:relative;margin-bottom:8px}
+.pipe__fill{height:100%;border-radius:9px;position:absolute;left:0;top:0;transition:width .6s}
+.pipe__fill--c{background:linear-gradient(90deg,#00c853,var(--neon));z-index:2}
+.pipe__fill--o{background:rgba(255,215,64,.2);z-index:1}
+.pipe__leg{display:flex;gap:16px;font-size:11px;color:var(--dim);margin-bottom:16px}
+.pipe__leg-i{display:flex;align-items:center;gap:5px}
+.pipe__leg-d{width:8px;height:8px;border-radius:3px}.pipe__leg-d--c{background:var(--neon)}.pipe__leg-d--o{background:var(--gold);opacity:.5}
+.pipe__leg-v{font-weight:700}.pipe__leg-v--c{color:var(--neon)}.pipe__leg-v--o{color:var(--gold)}
+.pipe__add{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.pipe__in{flex:1;min-width:110px;padding:9px 12px;background:var(--s2);border:1px solid var(--brd);border-radius:7px;color:var(--tx);font-family:'Sora',sans-serif;font-size:13px;outline:none}
+.pipe__in:focus{border-color:var(--neon)}.pipe__in::placeholder{color:var(--dim)}
+.pipe__in--a{max-width:130px}
+.pipe__tog{display:flex;border-radius:7px;overflow:hidden;border:1px solid var(--brd);flex-shrink:0}
+.pipe__tog-b{padding:9px 12px;background:var(--s2);color:var(--dim);border:none;font-size:11px;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;font-family:'Sora',sans-serif}
+.pipe__tog-b:first-child{border-right:1px solid var(--brd)}
+.pipe__tog-b--c{background:var(--neon8);color:var(--neon)}.pipe__tog-b--o{background:var(--gold8);color:var(--gold)}
+.pipe__abtn{padding:9px 16px;background:var(--neon);color:var(--bg);border:none;border-radius:7px;font-weight:700;cursor:pointer;font-size:13px}
+.deal{display:flex;align-items:center;padding:10px 14px;background:var(--s2);border:1px solid var(--brd);border-radius:8px;margin-bottom:5px;gap:8px;font-size:13px}
+.deal--o{border-style:dashed;border-color:var(--goldb)}
+.deal__i{font-size:11px;width:18px;height:18px;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.deal__i--c{background:var(--neon8);color:var(--neon);border:1px solid rgba(0,255,170,.3)}
+.deal__i--o{background:var(--gold8);color:var(--gold);border:1px solid var(--goldb)}
+.deal__n{flex:1;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.deal__n--o{color:var(--dim)}
+.deal__a{color:var(--neon);white-space:nowrap}.deal__a--o{color:var(--gold);opacity:.8}
+.deal__a--o::before{content:'('}.deal__a--o::after{content:')'}
+.deal__t{font-size:9px;padding:3px 5px;border-radius:4px;border:1px solid var(--brd);background:none;color:var(--dim);cursor:pointer;white-space:nowrap}
+.deal__t:hover{border-color:var(--neon);color:var(--neon)}
+.deal__d{background:none;border:none;color:var(--dim);cursor:pointer;font-size:15px;padding:2px 5px;border-radius:4px}
+.deal__d:hover{color:var(--red)}
+
+/* TODOS */
+.todos__add{display:flex;gap:8px;margin-bottom:12px}
+.todos__in{flex:1;padding:9px 12px;background:var(--s2);border:1px solid var(--brd);border-radius:7px;color:var(--tx);font-size:13px;outline:none;font-family:'Sora',sans-serif}
+.todos__in:focus{border-color:var(--neon)}.todos__in::placeholder{color:var(--dim)}
+.todos__abtn{padding:9px 16px;background:var(--neon);color:var(--bg);border:none;border-radius:7px;font-weight:700;cursor:pointer;font-size:13px}
+.todo{display:flex;align-items:center;gap:8px;padding:9px 12px;background:var(--s2);border:1px solid var(--brd);border-radius:7px;margin-bottom:5px}
+.todo--done{opacity:.35;border-color:transparent}
+.todo__chk{width:18px;height:18px;border-radius:5px;border:2px solid var(--brd);background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;color:transparent;flex-shrink:0;transition:all .2s}
+.todo__chk:hover{border-color:var(--neon)}
+.todo--done .todo__chk{border-color:var(--neon);background:var(--neon8);color:var(--neon)}
+.todo__txt{flex:1;font-size:13px}.todo--done .todo__txt{text-decoration:line-through;color:var(--dim)}
+.todo__del{background:none;border:none;color:var(--dim);cursor:pointer;font-size:13px;padding:2px 5px;border-radius:4px}.todo__del:hover{color:var(--red)}
+
+/* WEEK STATS */
+.wstats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-bottom:24px}
+.ws{background:var(--s1);border:1px solid var(--brd);border-radius:10px;padding:14px;text-align:center}
+.ws__v{font-size:20px;font-weight:800;color:var(--neon);margin-bottom:3px}
+.ws__v--f{color:var(--fire)}.ws__v--g{color:var(--gold)}.ws__v--p{color:var(--purple)}
+.ws__l{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+
+/* CONN */
+.conn{position:fixed;bottom:14px;right:14px;font-size:9px;letter-spacing:1px;padding:5px 10px;border-radius:16px;background:var(--s1);border:1px solid var(--brd);color:var(--dim);z-index:100;display:flex;align-items:center;gap:5px}
+.conn__dot{width:5px;height:5px;border-radius:50%;background:var(--neon);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.conn--off .conn__dot{background:var(--red);animation:none}
+
+/* XP POP */
+.xpop{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);font-size:48px;font-weight:800;color:var(--neon);text-shadow:0 0 40px var(--neong);pointer-events:none;z-index:1000;opacity:0;transition:all .4s cubic-bezier(.22,1,.36,1)}
+.xpop.show{transform:translate(-50%,-50%) scale(1);opacity:1}.xpop.fade{transform:translate(-50%,-80%) scale(.8);opacity:0}
+
+@media(max-width:600px){
+.app{padding:20px 14px 80px}.agrid{grid-template-columns:1fr}
+.pipe__add{flex-direction:column}.pipe__in--a{max-width:100%}
+.streak{flex-wrap:wrap}.streak__day{min-width:70px}
+.energy{flex-wrap:wrap}.funnel__row{flex-wrap:wrap}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="hero">
+<div class="hero__badge mono">🔥 Powerwoche April 2026</div>
+<h1 class="hero__title">SALES SPRINT</h1>
+<div class="hero__sub mono">Di 7. – Fr 10. April · Ziel: <span>€100.000</span></div>
+</div>
+
+<!-- STREAK -->
+<div class="streak" id="streak"></div>
+
+<!-- POWER SCORE -->
+<div class="pscore" id="pscore"></div>
+
+<!-- MOMENTUM -->
+<div class="momentum" id="momentum"></div>
+
+<!-- ENERGY LOG -->
+<div class="card">
+<div class="stitle">⚡ Energie heute</div>
+<div class="energy" id="energy"></div>
+</div>
+
+<!-- COMMITMENT -->
+<div class="card commit">
+<div class="stitle">🎯 Tages-Commitment</div>
+<div class="commit__row">
+<input class="commit__input" id="commit-in" placeholder="Heute schaffe ich: ...">
+<button class="commit__btn" onclick="window.setCommit()">Setzen</button>
+</div>
+<div class="commit__display" id="commit-display">🎯 <span id="commit-text"></span></div>
+</div>
+
+<!-- NUDGE -->
+<div class="nudge" id="nudge"><div class="nudge__icon">⚡</div><div class="nudge__text" id="nudge-text">Lade...</div></div>
+
+<!-- XP -->
+<div class="xp-sec">
+<div class="xp-hdr"><div class="xp-lvl mono" id="xp-lvl">Level 1</div><div class="xp-pts mono" id="xp-pts">0 XP</div></div>
+<div class="xp-bar"><div class="xp-bar__f" id="xp-fill" style="width:0%"></div></div>
+</div>
+
+<!-- DAY TABS -->
+<div class="dtabs" id="dtabs"></div>
+
+<!-- TIMER -->
+<div class="card timer">
+<div class="stitle">⏱ Deep Work Timer</div>
+<div class="timer__display mono" id="t-disp">00:00:00</div>
+<div class="timer__btns">
+<button class="tbtn tbtn--go" id="t-go" onclick="window.tStart()">▶ Start</button>
+<button class="tbtn tbtn--stop" id="t-stop" onclick="window.tStop()" style="display:none">⏸ Pause</button>
+<button class="tbtn tbtn--reset" onclick="window.tReset()">↺</button>
+</div>
+<div class="timer__totals mono">Heute: <span id="t-today">0 Min</span> · Woche: <span id="t-week">0 Min</span></div>
+<div class="tgoal__hdr"><span>⏱ Tagesziel: 4 Stunden</span><span class="tgoal__val" id="tg-val">0 / 240 Min</span></div>
+<div class="tgoal__bar"><div class="tgoal__fill" id="tg-fill" style="width:0%"></div><div class="tgoal__markers"><div class="tgoal__marker" style="left:25%"></div><div class="tgoal__marker" style="left:50%"></div><div class="tgoal__marker" style="left:75%"></div></div></div>
+<div class="tgoal__hint" id="tg-hint"></div>
+</div>
+
+<!-- CONVERSION FUNNEL -->
+<div class="card funnel" id="funnel-card">
+<div class="stitle">🔄 Conversion Funnel</div>
+<div id="funnel"></div>
+</div>
+
+<!-- ACTIVITIES -->
+<div class="stitle">📊 Aktivitäten</div>
+<div class="agrid" id="agrid"></div>
+
+<!-- PIPELINE -->
+<div class="card pipe">
+<div class="stitle">💰 Deal Pipeline</div>
+<div class="pipe__hdr"><div class="pipe__total mono" id="p-total">€0</div><div class="pipe__pct mono" id="p-pct">0%</div></div>
+<div class="pipe__bar"><div class="pipe__fill pipe__fill--o" id="p-fo" style="width:0%"></div><div class="pipe__fill pipe__fill--c" id="p-fc" style="width:0%"></div></div>
+<div class="pipe__leg">
+<div class="pipe__leg-i"><div class="pipe__leg-d pipe__leg-d--c"></div>Bestätigt: <span class="pipe__leg-v pipe__leg-v--c" id="p-lc">€0</span></div>
+<div class="pipe__leg-i"><div class="pipe__leg-d pipe__leg-d--o"></div>Optioniert: <span class="pipe__leg-v pipe__leg-v--o" id="p-lo">€0</span></div>
+</div>
+<div class="pipe__add">
+<input type="text" class="pipe__in" id="d-name" placeholder="Deal / Kunde">
+<input type="text" class="pipe__in pipe__in--a mono" id="d-amt" placeholder="€" inputmode="numeric">
+<div class="pipe__tog"><button class="pipe__tog-b pipe__tog-b--c" id="dt-c">✓ Fest</button><button class="pipe__tog-b" id="dt-o">◎ Option</button></div>
+<button class="pipe__abtn" onclick="window.addDeal()">+</button>
+</div>
+<div id="deals"></div>
+</div>
+
+<!-- TODOS -->
+<div class="card">
+<div class="stitle">📋 Tasks</div>
+<div class="todos__add"><input class="todos__in" id="todo-in" placeholder="Task..."><button class="todos__abtn" onclick="window.addTodo()">+</button></div>
+<div id="todos"></div>
+</div>
+
+<!-- WEEK STATS -->
+<div class="stitle">📈 Wochenübersicht</div>
+<div class="wstats" id="wstats"></div>
+</div>
+
+<div class="conn" id="conn"><div class="conn__dot"></div><span>LIVE</span></div>
+<div class="xpop mono" id="xpop"></div>
+
+<script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import{getDatabase,ref,set,push,remove,update,onValue}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+const app=initializeApp({apiKey:"AIzaSyAYlkFOaHcUEm20xiJ4EghMoOrDvslOuAc",authDomain:"momentum-board-7207e.firebaseapp.com",databaseURL:"https://momentum-board-7207e-default-rtdb.europe-west1.firebasedatabase.app",projectId:"momentum-board-7207e",storageBucket:"momentum-board-7207e.firebasestorage.app",messagingSenderId:"1177515175",appId:"1:1177515175:web:e2cd640252003c13c19782"});
+const db=getDatabase(app),R='powerwoche',TGT=100000;
+
+const DAYS=[{key:'di',label:'Di',date:'7. Apr',dow:2},{key:'mi',label:'Mi',date:'8. Apr',dow:3},{key:'do',label:'Do',date:'9. Apr',dow:4},{key:'fr',label:'Fr',date:'10. Apr',dow:5}];
+const ACTS=[
+{key:'leads',name:'Leads recherchiert',icon:'🔍',c:'var(--blue)',xp:5},
+{key:'calls',name:'Telefonate',icon:'📞',c:'var(--neon)',xp:15},
+{key:'emails',name:'E-Mails gesendet',icon:'✉️',c:'var(--purple)',xp:8},
+{key:'settings',name:'Termine gesettet',icon:'📅',c:'var(--fire)',xp:25},
+{key:'salescalls',name:'Sales Calls',icon:'🎯',c:'var(--gold)',xp:40},
+{key:'followups',name:'Follow-ups',icon:'🔄',c:'var(--blue)',xp:10}
+];
+const LVLS=[{min:0,name:'Kaltstart',e:'🧊'},{min:100,name:'Aufgewärmt',e:'🌡️'},{min:300,name:'In Fahrt',e:'🚀'},{min:600,name:'On Fire',e:'🔥'},{min:1000,name:'Unstoppable',e:'⚡'},{min:1500,name:'Sales Machine',e:'🤖'},{min:2500,name:'Legende',e:'👑'}];
+
+let D={},curDay='di',dStat='confirmed',tInt=null,tOn=false,tEl=0,tStart0=null;
+
+function todayKey(){const d=new Date().getDay();return d===2?'di':d===3?'mi':d===4?'do':d===5?'fr':'di'}
+curDay=todayKey();
+
+function eur(n){return'€'+Math.round(n).toLocaleString('de-DE')}
+function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
+function gd(k){return D.days?.[k]||{}}
+function ga(k){return gd(k).activities||{}}
+function gt(k){return gd(k).timerMins||0}
+function allActs(){let t={};ACTS.forEach(a=>t[a.key]=0);DAYS.forEach(d=>{const ac=ga(d.key);ACTS.forEach(a=>t[a.key]+=(ac[a.key]||0))});return t}
+function totalTimer(){let t=0;DAYS.forEach(d=>t+=gt(d.key));return t}
+
+function dayXP(k){const ac=ga(k);let x=0;ACTS.forEach(a=>x+=(ac[a.key]||0)*a.xp);x+=Math.floor(gt(k)/5)*3;return x}
+function totalXP(){let x=0;DAYS.forEach(d=>x+=dayXP(d.key));return x}
+function getLevel(xp){let l=LVLS[0];for(let i=LVLS.length-1;i>=0;i--)if(xp>=LVLS[i].min){l=LVLS[i];break}return{...l,idx:LVLS.indexOf(l)+1,next:LVLS[LVLS.indexOf(l)+1]}}
+
+// Power Score: 0-100 based on time(40%), activities(30%), pipeline(30%)
+function powerScore(k){
+  const mins=gt(k);const timePct=Math.min(mins/240,1);
+  const ac=ga(k);let actCount=0;ACTS.forEach(a=>actCount+=(ac[a.key]||0));const actPct=Math.min(actCount/15,1);
+  const deals=Object.values(D.deals||{});const totalC=deals.filter(d=>d.status!=='option').reduce((s,d)=>s+(d.amount||0),0);
+  const pipePct=Math.min(totalC/TGT,1);
+  return Math.round(timePct*40+actPct*30+pipePct*30);
+}
+
+// Streak check: day is "done" if >=4h AND >=3 activities
+function dayDone(k){
+  const mins=gt(k);const ac=ga(k);let actCount=0;ACTS.forEach(a=>actCount+=(ac[a.key]||0));
+  return mins>=240&&actCount>=3;
+}
+
+function showXP(n){const e=document.getElementById('xpop');e.textContent='+'+n+' XP';e.className='xpop show';setTimeout(()=>e.className='xpop fade',600);setTimeout(()=>e.className='xpop',1200)}
+
+// ── RENDER FUNCTIONS ──
+
+function rStreak(){
+  const c=document.getElementById('streak');const today=todayKey();
+  c.innerHTML=DAYS.map(d=>{
+    const done=dayDone(d.key);const isToday=d.key===today;
+    const isPast=d.dow<new Date().getDay();
+    let cls='streak__day';
+    if(done)cls+=' streak__day--done';
+    else if(isPast&&!done)cls+=' streak__day--fail';
+    if(isToday)cls+=' streak__day--today';
+    const icon=done?'✅':(isPast?'❌':(isToday?'🔥':'⬜'));
+    const score=powerScore(d.key);
+    return`<div class="${cls}"><div class="streak__day-label mono">${d.label}</div><div class="streak__day-icon">${icon}</div><div class="streak__day-score mono">${score}/100</div></div>`
+  }).join('');
+}
+
+function rPowerScore(){
+  const c=document.getElementById('pscore');
+  const isWeek=curDay==='week';
+  let score;
+  if(isWeek){let s=0;DAYS.forEach(d=>s+=powerScore(d.key));score=Math.round(s/4)}
+  else score=powerScore(curDay);
+  const color=score>=70?'var(--neon)':score>=40?'var(--gold)':'var(--fire)';
+  const r=56,circ=2*Math.PI*r,off=circ-(score/100)*circ;
+  const mins=isWeek?totalTimer():gt(curDay);
+  const ac=isWeek?allActs():(ga(curDay));
+  let actC=0;ACTS.forEach(a=>actC+=(ac[a.key]||0));
+  const deals=Object.values(D.deals||{});const pipeC=deals.filter(d=>d.status!=='option').reduce((s,d)=>s+(d.amount||0),0);
+  c.innerHTML=`
+  <div class="pscore__ring"><svg width="140" height="140"><circle cx="70" cy="70" r="${r}" fill="none" stroke="var(--s2)" stroke-width="10"/><circle cx="70" cy="70" r="${r}" fill="none" stroke="${color}" stroke-width="10" stroke-linecap="round" stroke-dasharray="${circ}" stroke-dashoffset="${off}" style="transition:stroke-dashoffset .8s"/></svg>
+  <div class="pscore__val"><div class="pscore__num mono" style="color:${color}">${score}</div><div class="pscore__label mono">Power Score</div></div></div>
+  <div class="pscore__breakdown mono"><div>⏱ <span>${mins}min</span></div><div>📊 <span>${actC} Acts</span></div><div>💰 <span>${Math.round(pipeC/1000)}K</span></div></div>`;
+}
+
+function rMomentum(){
+  const c=document.getElementById('momentum');
+  const deals=Object.values(D.deals||{});
+  const totalC=deals.filter(d=>d.status!=='option').reduce((s,d)=>s+(d.amount||0),0);
+  const totalO=deals.filter(d=>d.status==='option').reduce((s,d)=>s+(d.amount||0),0);
+  const now=new Date();const daysLeft=Math.max(1,5-now.getDay()+1);
+  const daysPassed=Math.max(1,4-daysLeft+1);
+  const paceC=totalC/daysPassed;const projC=paceC*4;
+  const projAll=(totalC+totalO)/daysPassed*4;
+  let cls,msg;
+  if(projC>=TGT){cls='momentum--green';msg='Du bist über dem Ziel. Keep going!'}
+  else if(projAll>=TGT){cls='momentum--orange';msg=`Mit Optionen erreichbar. Follow-ups priorisieren!`}
+  else if(projC>=TGT*0.5){cls='momentum--orange';msg=`Machbar, aber du musst Gas geben.`}
+  else{cls='momentum--red';msg=`Noch ${eur(TGT-totalC)} offen. Maximaler Fokus nötig.`}
+  c.className=`momentum ${cls}`;
+  c.innerHTML=`<div class="mono" style="font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px">📈 Hochrechnung Freitag</div><div class="momentum__proj mono">${eur(projC)}</div><div>${msg}</div><div style="font-size:11px;margin-top:4px;opacity:.7">inkl. Optionen: ${eur(projAll)}</div>`;
+}
+
+function rEnergy(){
+  const c=document.getElementById('energy');
+  const today=todayKey();
+  const cur=gd(today).energy||'';
+  const opts=[{key:'high',label:'🔥 High',cls:'--high'},{key:'med',label:'⚡ Medium',cls:'--med'},{key:'low',label:'🧊 Low',cls:'--low'}];
+  c.innerHTML=opts.map(o=>`<button class="energy__btn ${cur===o.key?'energy__btn'+o.cls:''}" data-e="${o.key}">${o.label}</button>`).join('');
+  c.querySelectorAll('.energy__btn').forEach(b=>{
+    b.onclick=()=>set(ref(db,`${R}/days/${today}/energy`),b.dataset.e);
+  });
+}
+
+function rCommit(){
+  const today=todayKey();
+  const commit=gd(today).commitment||'';
+  const disp=document.getElementById('commit-display');
+  const txt=document.getElementById('commit-text');
+  if(commit){disp.style.display='block';txt.textContent=commit}
+  else{disp.style.display='none'}
+}
+window.setCommit=function(){
+  const input=document.getElementById('commit-in');
+  const v=input.value.trim();if(!v)return;
+  set(ref(db,`${R}/days/${todayKey()}/commitment`),v);
+  input.value='';
+}
+
+function rDayTabs(){
+  const c=document.getElementById('dtabs');
+  c.innerHTML=DAYS.map(d=>`<div class="dtab ${curDay===d.key?'dtab--active':''}" data-day="${d.key}"><span class="dtab__lbl">${d.label}</span>${d.date}<span class="dtab__xp mono">${dayXP(d.key)} XP</span></div>`).join('')+
+  `<div class="dtab dtab--week ${curDay==='week'?'dtab--active':''}" data-day="week"><span class="dtab__lbl">Σ</span>Woche<span class="dtab__xp mono">${totalXP()} XP</span></div>`;
+  c.querySelectorAll('.dtab').forEach(t=>{t.onclick=()=>{curDay=t.dataset.day;render()}});
+}
+
+function rXP(){
+  const xp=totalXP(),l=getLevel(xp);
+  document.getElementById('xp-lvl').innerHTML=`Level ${l.idx} ${l.e} <span>— ${l.name}</span>`;
+  if(l.next){const p=((xp-l.min)/(l.next.min-l.min))*100;document.getElementById('xp-fill').style.width=Math.min(p,100)+'%';document.getElementById('xp-pts').textContent=`${xp} / ${l.next.min} XP`}
+  else{document.getElementById('xp-fill').style.width='100%';document.getElementById('xp-pts').textContent=xp+' XP — MAX'}
+}
+
+function rTimer(){
+  const d=document.getElementById('t-disp');
+  const h=Math.floor(tEl/3600),m=Math.floor((tEl%3600)/60),s=tEl%60;
+  d.textContent=`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  d.className=tOn?'timer__display mono on':'timer__display mono';
+  document.getElementById('t-go').style.display=tOn?'none':'inline-flex';
+  document.getElementById('t-stop').style.display=tOn?'inline-flex':'none';
+  const todayM=gt(todayKey())+(tOn?Math.floor(tEl/60):0);
+  document.getElementById('t-today').textContent=todayM+' Min';
+  document.getElementById('t-week').textContent=(totalTimer()+(tOn?Math.floor(tEl/60):0))+' Min';
+  // 4h goal
+  const G=240,pct=Math.min(todayM/G*100,100);
+  const vE=document.getElementById('tg-val'),fE=document.getElementById('tg-fill'),hE=document.getElementById('tg-hint');
+  vE.textContent=`${todayM} / ${G} Min`;
+  if(todayM>=G){vE.className='tgoal__val tgoal__val--g';fE.className='tgoal__fill tgoal__fill--g';hE.innerHTML='✅ Tagesziel erreicht!'}
+  else if(todayM>=G*.5){vE.className='tgoal__val tgoal__val--y';fE.className='tgoal__fill tgoal__fill--y';hE.innerHTML=`Noch <span>${G-todayM} Min</span> — weiter so!`}
+  else{vE.className='tgoal__val tgoal__val--r';fE.className='tgoal__fill tgoal__fill--r';const r=G-todayM,hh=Math.floor(r/60),mm=r%60;hE.innerHTML=`Noch <span>${hh}h${mm>0?' '+mm+'min':''}</span> — ohne 4h wird das nichts.`}
+  fE.style.width=pct+'%';
+}
+function tick(){if(!tOn)return;tEl=Math.floor((Date.now()-tStart0)/1000);rTimer()}
+window.tStart=function(){if(tOn)return;tOn=true;tStart0=Date.now()-tEl*1000;tInt=setInterval(tick,1000);rTimer()}
+window.tStop=function(){if(!tOn)return;tOn=false;clearInterval(tInt);const mins=Math.floor(tEl/60);if(mins>0){const k=todayKey();set(ref(db,`${R}/days/${k}/timerMins`),gt(k)+mins);showXP(Math.floor(mins/5)*3)}tEl=0;rTimer()}
+window.tReset=function(){tOn=false;clearInterval(tInt);tEl=0;rTimer()}
+
+// FUNNEL
+function rFunnel(){
+  const c=document.getElementById('funnel');
+  const isW=curDay==='week';
+  const ac=isW?allActs():ga(curDay);
+  const steps=[
+    {name:'Leads',val:ac.leads||0},
+    {name:'Telefonate',val:ac.calls||0},
+    {name:'Termine',val:ac.settings||0},
+    {name:'Sales Calls',val:ac.salescalls||0}
+  ];
+  const deals=Object.values(D.deals||{});
+  const closedCount=deals.filter(d=>d.status!=='option').length;
+  steps.push({name:'Deals',val:closedCount});
+
+  const rows=steps.map((s,i)=>{
+    const arrow=i<steps.length-1?'<div class="funnel__arrow">→</div>':'';
+    return`<div class="funnel__step"><span class="funnel__step-name">${s.name}</span><span class="funnel__step-val mono">${s.val}</span></div>${arrow}`
+  }).join('');
+
+  // Ratios
+  const r1=steps[1].val>0?(steps[2].val/steps[1].val*100).toFixed(0):'-';
+  const r2=steps[3].val>0?(closedCount/steps[3].val*100).toFixed(0):'-';
+  const r1c=r1==='-'?'':r1>=20?'funnel__ratio-val--good':r1>=10?'funnel__ratio-val--mid':'funnel__ratio-val--bad';
+  const r2c=r2==='-'?'':r2>=25?'funnel__ratio-val--good':r2>=15?'funnel__ratio-val--mid':'funnel__ratio-val--bad';
+
+  c.innerHTML=`<div class="funnel__row">${rows}</div>
+  <div class="funnel__ratios">
+    <div class="funnel__ratio mono">
+      <span class="funnel__ratio-val ${r1c}">${r1}${r1!=='-'?'%':''}</span>
+      Call → Termin<br><span style="font-size:9px;opacity:.6">Benchmark: ≥5%</span>
+    </div>
+    <div class="funnel__ratio mono">
+      <span class="funnel__ratio-val ${r2c}">${r2}${r2!=='-'?'%':''}</span>
+      Sales Call → Deal<br><span style="font-size:9px;opacity:.6">Benchmark: ≥20%</span>
+    </div>
+    <div class="funnel__ratio mono">
+      <span class="funnel__ratio-val">${(ac.followups||0)}</span>
+      Follow-ups<br><span style="font-size:9px;opacity:.6">Ziel: 2× pro Termin</span>
+    </div>
+  </div>`;
+}
+
+function rActs(){
+  const g=document.getElementById('agrid');const isW=curDay==='week';
+  const ac=isW?allActs():ga(curDay);
+  g.innerHTML=ACTS.map(a=>{
+    const v=ac[a.key]||0;
+    return`<div class="acard"><div class="acard__l"><div class="acard__icon" style="background:${a.c}22;color:${a.c}">${a.icon}</div><div><div class="acard__name">${a.name}</div><div class="acard__xp mono">+${a.xp} XP</div></div></div>
+    <div class="acard__r">${!isW?`<button class="abtn abtn--m" data-a="${a.key}" data-d="-1">−</button>`:''}<div class="acard__count mono">${v}</div>${!isW?`<button class="abtn" data-a="${a.key}" data-d="1">+</button>`:''}</div></div>`
+  }).join('');
+  if(!isW)g.querySelectorAll('.abtn').forEach(b=>{
+    b.onclick=()=>{const k=b.dataset.a,dir=+b.dataset.d,cur=(ga(curDay)[k]||0)+dir;if(cur<0)return;set(ref(db,`${R}/days/${curDay}/activities/${k}`),cur);if(dir>0)showXP(ACTS.find(a=>a.key===k).xp)}
+  });
+}
+
+function rPipeline(){
+  const deals=Object.values(D.deals||{});
+  const conf=deals.filter(d=>d.status!=='option'),opts=deals.filter(d=>d.status==='option');
+  const tC=conf.reduce((s,d)=>s+(d.amount||0),0),tO=opts.reduce((s,d)=>s+(d.amount||0),0);
+  const pC=Math.min(tC/TGT*100,100),pA=Math.min((tC+tO)/TGT*100,100);
+  document.getElementById('p-total').textContent=eur(tC);
+  document.getElementById('p-pct').textContent=Math.round(pC)+'%';
+  document.getElementById('p-fc').style.width=pC+'%';document.getElementById('p-fo').style.width=pA+'%';
+  document.getElementById('p-lc').textContent=eur(tC);document.getElementById('p-lo').textContent=eur(tO);
+  const list=document.getElementById('deals');
+  const sorted=[...conf.sort((a,b)=>(b.amount||0)-(a.amount||0)),...opts.sort((a,b)=>(b.amount||0)-(a.amount||0))];
+  list.innerHTML=sorted.map(d=>{const o=d.status==='option';return`<div class="deal ${o?'deal--o':''}"><div class="deal__i ${o?'deal__i--o':'deal__i--c'} mono">${o?'◎':'✓'}</div><div class="deal__n ${o?'deal__n--o':''}">${esc(d.name)}</div><div class="deal__a mono ${o?'deal__a--o':''}">${eur(d.amount||0)}</div><button class="deal__t mono" data-id="${d.id}">${o?'→Fest':'→Opt'}</button><button class="deal__d" data-id="${d.id}">×</button></div>`}).join('');
+  list.querySelectorAll('.deal__t').forEach(b=>{b.onclick=()=>{const d=(D.deals||{})[b.dataset.id];if(d)update(ref(db,`${R}/deals/${b.dataset.id}`),{status:d.status==='option'?'confirmed':'option'})}});
+  list.querySelectorAll('.deal__d').forEach(b=>{b.onclick=()=>{if(confirm('Löschen?'))remove(ref(db,`${R}/deals/${b.dataset.id}`))}});
+}
+
+// Deal toggle & amount formatting
+const dtC=document.getElementById('dt-c'),dtO=document.getElementById('dt-o');
+dtC.onclick=()=>{dStat='confirmed';dtC.className='pipe__tog-b pipe__tog-b--c';dtO.className='pipe__tog-b'};
+dtO.onclick=()=>{dStat='option';dtO.className='pipe__tog-b pipe__tog-b--o';dtC.className='pipe__tog-b'};
+const dAmt=document.getElementById('d-amt');
+dAmt.addEventListener('input',()=>{const r=dAmt.value.replace(/[^\d]/g,'');if(!r){dAmt.value='';return}dAmt.value=parseInt(r,10).toLocaleString('de-DE')});
+window.addDeal=function(){const nE=document.getElementById('d-name'),n=nE.value.trim(),a=parseInt(dAmt.value.replace(/[^\d]/g,''),10)||0;if(!n||a<=0)return;const r2=push(ref(db,`${R}/deals`));set(r2,{id:r2.key,name:n,amount:a,status:dStat,createdAt:Date.now()});nE.value='';dAmt.value='';nE.focus();showXP(dStat==='confirmed'?50:20)}
+dAmt.addEventListener('keydown',e=>{if(e.key==='Enter')window.addDeal()});
+document.getElementById('d-name').addEventListener('keydown',e=>{if(e.key==='Enter')dAmt.focus()});
+
+function rTodos(){
+  const todos=Object.values(D.todos||{});const list=document.getElementById('todos');
+  const sorted=todos.sort((a,b)=>(a.done?1:0)-(b.done?1:0)||(a.createdAt||0)-(b.createdAt||0));
+  list.innerHTML=sorted.map(t=>`<div class="todo ${t.done?'todo--done':''}"><button class="todo__chk" data-id="${t.id}">${t.done?'✓':''}</button><div class="todo__txt">${esc(t.text)}</div><button class="todo__del" data-id="${t.id}">×</button></div>`).join('');
+  list.querySelectorAll('.todo__chk').forEach(b=>{b.onclick=()=>{const t=(D.todos||{})[b.dataset.id];if(t){update(ref(db,`${R}/todos/${b.dataset.id}`),{done:!t.done});if(!t.done)showXP(10)}}});
+  list.querySelectorAll('.todo__del').forEach(b=>{b.onclick=()=>remove(ref(db,`${R}/todos/${b.dataset.id}`))});
+}
+window.addTodo=function(){const i=document.getElementById('todo-in'),t=i.value.trim();if(!t)return;const r2=push(ref(db,`${R}/todos`));set(r2,{id:r2.key,text:t,done:false,createdAt:Date.now()});i.value=''}
+document.getElementById('todo-in').addEventListener('keydown',e=>{if(e.key==='Enter')window.addTodo()});
+
+// NUDGE
+function rNudge(){
+  const xp=totalXP();
+  const deals=Object.values(D.deals||{});
+  const tC=deals.filter(d=>d.status!=='option').reduce((s,d)=>s+(d.amount||0),0);
+  const tO=deals.filter(d=>d.status==='option').reduce((s,d)=>s+(d.amount||0),0);
+  const tA=tC+tO;
+  const ac=allActs();
+  const todayMins=gt(todayKey());
+  const energy=gd(todayKey()).energy||'';
+  const now=new Date(),hr=now.getHours(),dow=now.getDay();
+  const dLeft=Math.max(1,5-dow+1);
+  const daily=Math.max(0,TGT-tC)/dLeft;
+
+  const el=document.getElementById('nudge'),txt=document.getElementById('nudge-text');
+  let msg='',type='';
+
+  if(tC>=TGT){msg='🎉 <strong>ZIEL ERREICHT!</strong> €100K bestätigt. Absolute Legende.';type='good'}
+  else if(todayMins<60&&hr>=14){msg=`<span class="warn">Unter 1h getrackt und es ist ${hr} Uhr!</span> Ohne 4h pro Tag kein €100K. Timer starten. JETZT.`;type='fire'}
+  else if(todayMins<120&&hr>=16){msg=`<span class="warn">${todayMins} Min heute — noch ${240-todayMins} bis Tagesziel.</span> Kopfhörer rein, Timer an.`;type='fire'}
+  else if(energy==='low'){msg='Low Energy Tag? <strong>Starte mit dem Leichtesten</strong> — ein Follow-up per E-Mail. Momentum aufbauen, dann steigern.';type=''}
+  else if(energy==='high'&&(ac.calls||0)<3){msg='🔥 High Energy! <strong>Jetzt ist die Zeit für Telefonate.</strong> Greif zum Hörer — die dicken Deals kommen nicht per E-Mail.';type='fire'}
+  else if(tA>=TGT&&tC<TGT){msg=`<strong>${eur(tO)}</strong> in der Pipeline. Follow-ups priorisieren und Optionen zu Deals machen!`;type='fire'}
+  else if(tC>=TGT*.7){msg=`<strong>${Math.round(tC/TGT*100)}%</strong> bestätigt! Noch ${eur(TGT-tC)} — du packst das.`;type='good'}
+  else if((ac.calls||0)<3&&(ac.emails||0)<5){msg=`Wenig Outreach: <span class="warn">${ac.calls||0} Anrufe, ${ac.emails||0} E-Mails.</span> Timer starten und Leads kontaktieren.`;type='fire'}
+  else if((ac.settings||0)===0&&(ac.calls||0)>=5){msg=`${ac.calls||0} Anrufe aber <span class="warn">0 Termine</span>. Wer hat Interesse signalisiert? Fokus auf warme Kontakte.`;type='fire'}
+  else if((ac.followups||0)<(ac.settings||0)*2&&(ac.settings||0)>0){msg=`${ac.settings||0} Termine aber nur ${ac.followups||0} Follow-ups. <strong>Pro Termin 2 Follow-ups!</strong>`;type='fire'}
+  else if(daily>30000){msg=`<span class="warn">Es wird eng:</span> Noch <strong>${eur(daily)}/Tag</strong>. Fokus auf die größten Deals. Telefonate > E-Mails.`;type='fire'}
+  else if(xp<50){msg='Powerwoche startet! Timer an, Leads recherchieren, erste XP sammeln. <strong>Los!</strong>';type=''}
+  else{msg=`Solider Fortschritt! <strong>${eur(tC)}</strong> bestätigt, <strong>${xp} XP</strong>. ${(ac.salescalls||0)<2?'Mehr Sales Calls buchen.':(ac.followups||0)<5?'Follow-ups nachlegen.':'Momentum halten!'}`;type='good'}
+
+  txt.innerHTML=msg;el.className='nudge'+(type?' nudge--'+type:'');
+}
+
+function rWeekStats(){
+  const ac=allActs();const deals=Object.values(D.deals||{});
+  const tC=deals.filter(d=>d.status!=='option').reduce((s,d)=>s+(d.amount||0),0);
+  const streak=DAYS.filter(d=>dayDone(d.key)).length;
+  document.getElementById('wstats').innerHTML=`
+  <div class="ws"><div class="ws__v mono">${totalXP()}</div><div class="ws__l">Total XP</div></div>
+  <div class="ws"><div class="ws__v ws__v--f mono">${totalTimer()} min</div><div class="ws__l">Deep Work</div></div>
+  <div class="ws"><div class="ws__v ws__v--g mono">${ac.calls||0}</div><div class="ws__l">Telefonate</div></div>
+  <div class="ws"><div class="ws__v ws__v--p mono">${ac.settings||0}</div><div class="ws__l">Termine</div></div>
+  <div class="ws"><div class="ws__v mono">${ac.salescalls||0}</div><div class="ws__l">Sales Calls</div></div>
+  <div class="ws"><div class="ws__v mono">${eur(tC)}</div><div class="ws__l">Bestätigt</div></div>
+  <div class="ws"><div class="ws__v mono">${streak}/4</div><div class="ws__l">Streak 🔥</div></div>`;
+}
+
+// ── MASTER RENDER ──
+function render(){rStreak();rPowerScore();rMomentum();rEnergy();rCommit();rNudge();rDayTabs();rXP();rTimer();rFunnel();rActs();rPipeline();rTodos();rWeekStats()}
+
+// ── FIREBASE ──
+onValue(ref(db,R),s=>{D=s.val()||{};render()});
+onValue(ref(db,'.info/connected'),s=>{const e=document.getElementById('conn');e.className=s.val()?'conn':'conn conn--off';e.querySelector('span').textContent=s.val()?'LIVE':'OFFLINE'});
+render();
+</script>
+</body>
+</html>
