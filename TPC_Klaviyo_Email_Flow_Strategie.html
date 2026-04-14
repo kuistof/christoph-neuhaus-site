@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Pickle Company – Klaviyo E-Mail-Flows</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink: #FFD6E8;
+    --pink-dark: #F5A5C8;
+    --green: #2D6A4F;
+    --green-light: #40916C;
+    --green-dark: #1B4332;
+    --orange: #E85D26;
+    --orange-light: #FF7B47;
+    --cream: #FFF8F0;
+    --white: #FFFFFF;
+    --gray-50: #FAFAF9;
+    --gray-100: #F5F5F4;
+    --gray-200: #E7E5E4;
+    --gray-300: #D6D3D1;
+    --gray-500: #78716C;
+    --gray-700: #44403C;
+    --gray-900: #1C1917;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+    --shadow-lg: 0 4px 24px rgba(0,0,0,0.10);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--gray-900);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HEADER ── */
+  .hero {
+    background: linear-gradient(135deg, var(--green-dark) 0%, var(--green) 50%, var(--green-light) 100%);
+    color: var(--white);
+    padding: 3rem 1.5rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '🥒';
+    position: absolute;
+    font-size: 8rem;
+    opacity: 0.07;
+    top: -1rem;
+    right: -1rem;
+    transform: rotate(15deg);
+  }
+  .hero::after {
+    content: '🥒';
+    position: absolute;
+    font-size: 6rem;
+    opacity: 0.05;
+    bottom: -0.5rem;
+    left: 1rem;
+    transform: rotate(-20deg);
+  }
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    position: relative;
+  }
+  .hero p {
+    font-size: 1rem;
+    opacity: 0.85;
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .hero .badge {
+    display: inline-block;
+    background: var(--orange);
+    color: var(--white);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.25rem 0.75rem;
+    border-radius: 99px;
+    margin-bottom: 1rem;
+  }
+
+  /* ── NAV ── */
+  .flow-nav {
+    display: flex;
+    gap: 0.5rem;
+    padding: 1rem 1.5rem;
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-200);
+    overflow-x: auto;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .flow-nav button {
+    flex-shrink: 0;
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--gray-200);
+    border-radius: 99px;
+    background: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--gray-700);
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .flow-nav button:hover { border-color: var(--green); color: var(--green); }
+  .flow-nav button.active {
+    background: var(--green-dark);
+    border-color: var(--green-dark);
+    color: var(--white);
+  }
+
+  /* ── MAIN ── */
+  .container { max-width: 900px; margin: 0 auto; padding: 1.5rem; }
+
+  /* ── FLOW SECTIONS ── */
+  .flow-section { display: none; }
+  .flow-section.active { display: block; }
+
+  /* ── FLOW HEADER ── */
+  .flow-header {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--green);
+  }
+  .flow-header h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.5rem;
+    color: var(--green-dark);
+    margin-bottom: 0.5rem;
+  }
+  .flow-header p { color: var(--gray-500); font-size: 0.9rem; }
+
+  /* ── SETUP BOX ── */
+  .setup-box {
+    background: var(--pink);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+  .setup-box h3 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--green-dark);
+    margin-bottom: 0.75rem;
+  }
+  .setup-box ul {
+    list-style: none;
+    font-size: 0.85rem;
+    color: var(--gray-700);
+  }
+  .setup-box li {
+    padding: 0.3rem 0;
+    padding-left: 1.2rem;
+    position: relative;
+  }
+  .setup-box li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--orange);
+    font-weight: 700;
+  }
+
+  /* ── TIMELINE ── */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.65rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--gray-200);
+  }
+
+  /* ── EMAIL CARD ── */
+  .email-card {
+    position: relative;
+    background: var(--white);
+    border-radius: var(--radius);
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .email-card:hover { box-shadow: var(--shadow-lg); }
+
+  .email-card::before {
+    content: '';
+    position: absolute;
+    left: -1.65rem;
+    top: 1.5rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--green);
+    border: 3px solid var(--cream);
+    z-index: 2;
+  }
+
+  .email-card-header {
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    user-select: none;
+  }
+  .email-card-header:hover { background: var(--gray-50); }
+
+  .email-num {
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: var(--green);
+    color: var(--white);
+    font-weight: 700;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .email-num.resend { background: var(--orange); }
+  .email-num.split { background: var(--pink-dark); color: var(--green-dark); }
+
+  .email-meta { flex: 1; min-width: 0; }
+  .email-meta h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--gray-900);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .email-meta .timing {
+    font-size: 0.75rem;
+    color: var(--gray-500);
+    margin-top: 0.1rem;
+  }
+
+  .email-type-tag {
+    flex-shrink: 0;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.2rem 0.5rem;
+    border-radius: 99px;
+    white-space: nowrap;
+  }
+  .tag-designed { background: #DBEAFE; color: #1E40AF; }
+  .tag-plaintext { background: #FEF3C7; color: #92400E; }
+  .tag-urgency { background: #FEE2E2; color: #991B1B; }
+  .tag-upsell { background: #D1FAE5; color: #065F46; }
+  .tag-split { background: #F3E8FF; color: #6B21A8; }
+  .tag-reminder { background: #FFE4C9; color: #9A3412; }
+
+  .chevron {
+    flex-shrink: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+    transition: transform 0.25s;
+    color: var(--gray-300);
+  }
+  .email-card.open .chevron { transform: rotate(180deg); }
+
+  /* ── EMAIL BODY ── */
+  .email-body {
+    display: none;
+    border-top: 1px solid var(--gray-100);
+  }
+  .email-card.open .email-body { display: block; }
+
+  .email-purpose {
+    padding: 1rem 1.25rem;
+    background: var(--gray-50);
+    font-size: 0.85rem;
+    color: var(--gray-700);
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .email-purpose strong { color: var(--green-dark); }
+
+  .email-content-block {
+    padding: 1.25rem;
+  }
+
+  .content-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gray-500);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: var(--green);
+    color: var(--white);
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.3rem 0.6rem;
+    border-radius: 99px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .copy-btn:hover { background: var(--green-dark); }
+  .copy-btn.copied { background: var(--orange); }
+
+  .copyable {
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-sm);
+    padding: 1rem;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: var(--gray-700);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+
+  .subject-line {
+    background: var(--green-dark);
+    color: var(--white);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .subject-line .sl-label {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    opacity: 0.6;
+    margin-right: 0.5rem;
+  }
+
+  /* ── NOTES ── */
+  .notes-box {
+    background: #FFFBEB;
+    border: 1px solid #FDE68A;
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 1rem;
+    font-size: 0.8rem;
+    color: #92400E;
+    margin-top: 0.5rem;
+  }
+  .notes-box::before { content: '💡 '; }
+
+  /* ── STRATEGY OVERVIEW ── */
+  .strategy-overview {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow);
+  }
+  .strategy-overview h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.5rem;
+    color: var(--green-dark);
+    margin-bottom: 1rem;
+  }
+  .overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+  .overview-card {
+    background: var(--gray-50);
+    border-radius: var(--radius-sm);
+    padding: 1rem;
+    border: 1px solid var(--gray-200);
+  }
+  .overview-card .oc-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+  .overview-card h4 { font-size: 0.9rem; color: var(--green-dark); margin-bottom: 0.25rem; }
+  .overview-card p { font-size: 0.8rem; color: var(--gray-500); }
+  .overview-card .oc-count {
+    font-family: 'Fraunces', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--orange);
+    margin-top: 0.25rem;
+  }
+
+  /* ── MISTAKES ── */
+  .mistakes-box {
+    background: #FEF2F2;
+    border: 1px solid #FECACA;
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    margin-top: 1.5rem;
+  }
+  .mistakes-box h3 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #991B1B;
+    margin-bottom: 0.5rem;
+  }
+  .mistakes-box ul { list-style: none; font-size: 0.85rem; color: #7F1D1D; }
+  .mistakes-box li { padding: 0.3rem 0; padding-left: 1.2rem; position: relative; }
+  .mistakes-box li::before { content: '✗'; position: absolute; left: 0; font-weight: 700; color: #DC2626; }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    color: var(--gray-500);
+    font-size: 0.75rem;
+  }
+
+  /* ── CONDITIONAL SPLIT VISUAL ── */
+  .split-indicator {
+    background: #F3E8FF;
+    border: 1px dashed #C084FC;
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 1rem;
+    margin: 0.75rem 0;
+    font-size: 0.8rem;
+    color: #6B21A8;
+    text-align: center;
+    font-weight: 500;
+  }
+
+  @media (max-width: 640px) {
+    .hero { padding: 2rem 1rem 1.5rem; }
+    .container { padding: 1rem; }
+    .flow-nav { padding: 0.75rem 1rem; }
+    .email-card-header { padding: 0.75rem 1rem; }
+    .email-content-block { padding: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="badge">Klaviyo Playbook 2026</div>
+  <h1>🥒 The Pickle Company<br>E-Mail-Flow-Strategie</h1>
+  <p>3 Core Flows für maximalen Customer Lifetime Value – komplett auf TPC zugeschnitten, ready to copy & paste in Klaviyo.</p>
+</div>
+
+<!-- NAV -->
+<div class="flow-nav">
+  <button class="active" onclick="showSection('overview')">Übersicht</button>
+  <button onclick="showSection('welcome')">Welcome Flow</button>
+  <button onclick="showSection('cart')">Abandoned Cart & Checkout</button>
+  <button onclick="showSection('postpurchase')">Post-Purchase</button>
+</div>
+
+<div class="container">
+
+<!-- ═══════════════════════════════ OVERVIEW ═══════════════════════════════ -->
+<div id="overview" class="flow-section active">
+  <div class="strategy-overview">
+    <h2>Strategie-Überblick</h2>
+    <p style="font-size:0.9rem; color:var(--gray-700); margin-bottom:1.25rem;">
+      Diese drei Flows bilden das Rückgrat deiner Klaviyo-Strategie. Zusammen können sie 50–70 % deines gesamten E-Mail-Umsatzes ausmachen – und laufen komplett auf Autopilot neben deinen Campaigns und Ads.
+    </p>
+    <div class="overview-grid">
+      <div class="overview-card">
+        <div class="oc-icon">👋</div>
+        <h4>Welcome Flow</h4>
+        <p>Neue Subscribers zu Erstkäufern konvertieren. Discount, Brand Story, Social Proof – alles in 72h.</p>
+        <div class="oc-count">6 E-Mails</div>
+      </div>
+      <div class="overview-card">
+        <div class="oc-icon">🛒</div>
+        <h4>Abandoned Cart & Checkout</h4>
+        <p>Warenkörbe und Checkouts recovern. Split nach Neu- vs. Bestandskunden. Discount nur für Neukunden.</p>
+        <div class="oc-count">5 E-Mails</div>
+      </div>
+      <div class="overview-card">
+        <div class="oc-icon">📦</div>
+        <h4>Post-Purchase Flow</h4>
+        <p>Buyer's Remorse eliminieren, Wiederkauf anstoßen, Community aufbauen. Der wichtigste LTV-Hebel.</p>
+        <div class="oc-count">6 E-Mails</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="setup-box">
+    <h3>🔧 Generelle Klaviyo-Einstellungen</h3>
+    <ul>
+      <li><strong>Smart Sending: AUS</strong> in allen Flows (besonders Welcome) – wir wollen, dass jede Mail ankommt</li>
+      <li><strong>Trigger immer auf die Liste</strong>, nicht auf Segmente (schnellere Zustellung)</li>
+      <li><strong>Filter: "Placed Order zero times since starting this flow"</strong> in Welcome &amp; Abandoned Flows</li>
+      <li><strong>Pop-up Discount:</strong> 10 % auf die erste Bestellung (Code: PICKLE10 o. ä.) – wird im Welcome Flow kommuniziert</li>
+      <li><strong>Tonalität:</strong> Duzen, locker, frech, Pickles (nie "Gurken"), Crunch &amp; Fun &amp; Vibes</li>
+      <li><strong>Produkte:</strong> The Classic One, The Hot One, The Golden One – immer diese Namen verwenden</li>
+    </ul>
+  </div>
+
+  <div class="setup-box" style="background: #DBEAFE;">
+    <h3>📊 Warum diese 3 Flows entscheidend sind</h3>
+    <ul>
+      <li><strong>95 % der Subscribers</strong> konvertieren innerhalb der ersten 72 Stunden – deshalb ist der Welcome Flow so top-heavy</li>
+      <li><strong>70 % der Warenkörbe</strong> werden abgebrochen – der Abandoned Cart Flow holt diese Leute zurück</li>
+      <li><strong>5x wahrscheinlicher Wiederkauf</strong> bei guter Post-Purchase-Experience – deshalb Buyer's Remorse eliminieren</li>
+      <li>Zusammen treiben diese Flows <strong>50–70 % des gesamten E-Mail-Umsatzes</strong></li>
+      <li>Alles läuft <strong>automatisiert</strong> – einmal aufsetzen, dauerhaft Umsatz generieren</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ WELCOME FLOW ═══════════════════════════════ -->
+<div id="welcome" class="flow-section">
+  <div class="flow-header">
+    <h2>👋 Welcome Flow</h2>
+    <p>Trigger: Jemand meldet sich für den Pickle Club Newsletter an. Ziel: Discount kommunizieren, Brand Story erzählen, Social Proof liefern, zum Erstkauf konvertieren. Die ersten 72 Stunden sind entscheidend – hier passiert 95 % der Conversion.</p>
+  </div>
+
+  <div class="setup-box">
+    <h3>⚙️ Klaviyo Setup</h3>
+    <ul>
+      <li><strong>Trigger:</strong> Added to List → Newsletter / Pickle Club Liste</li>
+      <li><strong>Filter:</strong> Placed Order zero times since starting this flow</li>
+      <li><strong>Smart Sending:</strong> AUS (für den kompletten Flow)</li>
+      <li><strong>Ziel:</strong> Subscriber → Erstkauf innerhalb von 72h</li>
+    </ul>
+  </div>
+
+  <div class="timeline">
+
+    <!-- WELCOME E-MAIL 1 -->
+    <div class="email-card" onclick="toggleCard(this)">
+      <div class="email-card-header">
+        <div class="email-num">1</div>
+        <div class="email-meta">
+          <h4>Willkommen + Discount Code</h4>
+          <div class="timing">⏱ Sofort nach Signup · Designed E-Mail</div>
+        </div>
+        <span class="email-type-tag tag-designed">Designed</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="email-body">
+        <div class="email-purpose">
+          <strong>Ziel:</strong> Discount Code sofort liefern. Bestseller zeigen. Kein Smalltalk – die Person will ihren Code. Front & Center.
+        </div>
+        <div class="email-content-block">
+          <div class="subject-line">
+            <span><span class="sl-label">Betreff:</span>Dein 10 %-Willkommens-Crunch wartet 🥒</span>
+            <button class="copy-btn" onclick="event.stopPropagation(); copyText(this, 'Dein 10 %-Willkommens-Crunch wartet 🥒')">Kopieren</button>
+          </div>
+          <div class="subject-line" style="background: var(--gray-500);">
+            <span><span class="sl-label">Preview:</span>Willkommen im Pickle Club – hier ist dein Code.</span>
+            <button class="copy-btn" onclick="event.stopPropagation(); copyText(this, 'Willkommen im Pickle Club – hier ist dein Code.')">Kopieren</button>
+          </div>
+
+          <div class="content-label">
+            E-Mail-Inhalt (Designed Template)
+            <button class="copy-btn" onclick="event.stopPropagation(); copyBlock(this)">Alles kopieren</button>
+          </div>
+          <div class="copyable">Willkommen im Pickle Club! 🥒
+
+Schön, dass du da bist. Als Dankeschön gibt's direkt 10 % auf deine erste Bestellung:
+
+DEIN CODE: PICKLE10
+
+→ [JETZT EINLÖSEN – Button]
+
+(Code ist 7 Tage gültig)
+
+---
+
+UNSERE BESTSELLER
+
+🟢 The Classic One
+Dill, Senfsaat & Zwiebel – der knackige Klassiker. So muss eine Pickle schmecken.
+
+🔴 The Hot One
+Chili, Ingwer & Knoblauch – Kimchi-inspiriert, für alle, die's feurig mögen.
+
+🟡 The Golden One
+Kurkuma, Kreuzkümmel & Knoblauch – warm, aromatisch und goldrichtig.
+
+→ [ZUM SHOP – Button]
+
+---
+
+✓ Natürliche Zutaten – keine Zusatzstoffe
+✓ Extra Crunch – garantiert
+✓ Made in Germany
+✓ 4,9/5 Sterne ⭐ von über 50 Reviews</div>
+
+          <div class="notes-box">Design-Tipp: Discount-Code in großer Schrift als Hero-Element. Darunter ein 3er-Grid der Sorten mit Produktbildern. Trust-Badges ganz unten. Brand-Farben (Pink, Grün, Orange) nutzen.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WELCOME RESEND -->
+    <div class="email-card" onclick="toggleCard(this)">
+      <div class="email-card-header">
+        <div class="email-num resend">↻</div>
+        <div class="email-meta">
+          <h4>Resend: Discount-Reminder (Nicht-Öffner)</h4>
+          <div class="timing">⏱ 12h nach E-Mail 1 · Conditional Split: Hat E-Mail 1 NICHT geöffnet</div>
+        </div>
+        <span class="email-type-tag tag-reminder">Resend</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="email-body">
+        <div class="email-purpose">
+          <strong>Ziel:</strong> Gleiche E-Mail, anderer Betreff. An Leute, die E-Mail 1 nicht geöffnet haben. Bumpt die Mail nach oben in der Inbox. Easy Win – 10–20 % mehr Opens ohne zusätzlichen Aufwand.
+        </div>
+        <div class="email-content-block">
+          <div class="subject-line">
+            <span><span class="sl-label">Betreff:</span>Psst… dein Pickle-Code läuft bald ab 👀</span>
+            <button class="copy-btn" onclick="event.stopPropagation(); copyText(this, 'Psst… dein Pickle-Code läuft bald ab 👀')">Kopieren</button>
+          </div>
+          <div class="notes-box">Klaviyo: Conditional Split nach 12h → "Has opened Welcome E-Mail 1 = NO" → Resend identische Mail mit neuem Betreff. Für Öffner: 24h Delay bis E-Mail 2.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WELCOME E-MAIL 2 -->
+    <div class="email-card" onclick="toggleCard(this)">
+      <div class="email-card-header">
+        <div class="email-num">2</div>
+        <div class="email-meta">
+          <h4>Founder Story – Von Michelle persönlich</h4>
+          <div class="timing">⏱ 24h nach E-Mail 1 · Plain Text</div>
+        </div>
+        <span class="email-type-tag tag-plaintext">Plain Text</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="email-body">
+        <div class="email-purpose">
+          <strong>Ziel:</strong> Brand Story erzählen, persönliche Connection herstellen. Plain Text für Authentizität. Michelle als Gründerin positionieren. Discount-Code nochmal erwähnen.
+        </div>
+        <div class="email-content-block">
+          <div class="subject-line">
+            <span><span class="sl-label">Betreff:</span>Warum ich angefangen hab, Pickles zu machen 🥒</span>
+            <button class="copy-btn" onclick="event.stopPropagation(); copyText(this, 'Warum ich angefangen hab, Pickles zu machen 🥒')">Kopieren</button>
+          </div>
+
+          <div class="content-label">
+            E-Mail-Inhalt (Plain Text)
+            <button class="copy-btn" onclick="event.stopPropagation(); copyBlock(this)">Alles kopieren</button>
+          </div>
+          <div class="copyable">Hey!
+
+Ich bin Michelle, Gründerin von The Pickle Company – und ich freu mich riesig, dass du Teil unseres Pickle Clubs bist. 💚
+
+Kurze Story, wie das hier alles angefangen hat:
+
+Anfang 2025 stand ich in meiner Küche in Berlin-Neukölln und hab mich gefragt: Warum gibt's eigentlich keine richtig geilen Pickles in Deutschland? Die Regale sind voll mit immer denselben langweiligen Gewürzgurken – viel Zucker, wenig Geschmack, null Crunch.
+
+Also hab ich's einfach selbst gemacht. Hunderte Rezeptversuche, etliche verbrannte Finger (The Hot One ist kein Witz 🌶️) und eine Reise nach Niederbayern zum besten Gurkenproduzenten des Landes später… waren unsere drei Sorten geboren.
+
+The Classic One – für alle, die wissen, wie eine Pickle schmecken MUSS.
+The Hot One – Kimchi-inspiriert und nichts für schwache Nerven.
+The Golden One – Kurkuma-Kreuzkümmel-Vibes und goldrichtig gut.
+
+Jedes Glas: natürliche Zutaten, keine Zusatzstoffe, extra Crunch. Das war mir von Tag 1 wichtig.
+
+Heute sind unsere Pickles in über 20 Feinkostläden in ganz Deutschland und in bald noch viel mehr Regalen. Aber der wichtigste Kanal bist du – unsere Community.
+
+Dein 10 %-Willkommenscode ist übrigens noch aktiv:
+
+→ PICKLE10
+
+Einfach im Shop einlösen: thepicklecompany.de
+
+Wenn du Fragen hast – antworte einfach auf diese Mail. Ich lese alles persönlich.
+
+Crunchige Grüße,
+Michelle 🥒
+
+Gründerin, The Pickle Company</div>
+
+          <div class="notes-box">Plain-Text-Format (kein Template nötig) für maximale Authentizität. Absendername: "Michelle von The Pickle Company". Reply-to: michelle@thepicklecompany.de oder info@</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WELCOME E-MAIL 3 -->
+    <div class="email-card" onclick="toggleCard(this)">
+      <div class="email-card-header">
+        <div class="email-num">3</div>
+        <div class="email-meta">
+          <h4>Social Proof – Reviews & Community</h4>
+          <div class="timing">⏱ 48h nach E-Mail 1 (Tag 2) · Designed E-Mail</div>
+        </div>
+        <span class="email-type-tag tag-designed">Designed</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="email-body">
+        <div class="email-purpose">
+          <strong>Ziel:</strong> Trust-Hürde überwinden. Hier wird die Trust-Objection geknackt. Wer nach E-Mail 1 und 2 noch nicht gekauft hat, braucht Beweise. Reviews, UGC, Social Proof – alles was wir haben.
+        </div>
+        <div class="email-content-block">
+          <div class="subject-line">
+            <span><span class="sl-label">Betreff:</span>4,9 Sterne – das sagen unsere Pickle Friends ⭐</span>
+            <button class="copy-btn" onclick="event.stopPropagation(); copyText(this, '4,9 Sterne – das sagen unsere Pickle Friends ⭐')">Kopieren</button>
+          </div>
+
+          <div class="content-label">
+            E-Mail-Inhalt (Designed Template)
+            <button class="copy-btn" onclick="event.stopPropagation(); copyBlock(this)">Alles kopieren</button>
+          </div>
+          <div class="copyable">DAS SAGT UNSERE COMMUNITY 💚
+
+4,9 / 5 Sterne aus über 50 verifizierten Bewertungen
+
+---
+
+⭐⭐⭐⭐⭐
+"Der Crunch ist unreal. Ich hab schon 3x nachbestellt."
+– Anna M., Berlin
+
+⭐⭐⭐⭐⭐
+"The Hot One ist mein neues Lieblingstopping auf literally allem."
+– Lena K., München
+
+⭐⭐⭐⭐⭐
+"Endlich Pickles, die nicht nach Zucker und Essig schmecken. Richtig guter Geschmack."
+– Moritz T., Hamburg
+
+---
+
+WARUM THE PICKLE COMPANY?
+
+🥒 Supermarkt-Pickles → viel Zucker, Zusatzstoffe, wenig Crunch
+🥒 The Pickle Company → natürliche Zutaten, kein Zucker, EXTRA Crunch
+
+✓ Keine Konservierungsstoffe
+✓ Keine künstlichen Aromen
+✓ Deutlich weniger Zucker als Marktstandard
+✓ Gurken aus Deutschland, Produktion in Bayern
+✓ Vegan & kalorienarm (ca. 20 kcal / 100g)
+
+---
+
+Bekannt aus: Süddeutsche Zeitung · ELLE · AD Magazine · Myself
+
+---
+
+Dein Code PICKLE10 ist noch aktiv – 10 % auf deine erste Bestellung.
+
+→ [JETZT PROBIEREN – Button]</div>
+
+          <div class="notes-box">Design: UGC-Fotos einbauen (falls vorhanden), Review-Sterne als visuelle Elemente. "Uns vs. Supermarkt"-Vergleich als Infografik-Block. Press-Logos als Trust-Leiste unten.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WELCOME E-MAIL 4 -->
+    <div class="email-card" onclick="toggleCard(this)">
+      <div class="email-card-header">
+        <div class="email-num">4</div>
+        <div class="email-meta">
+          <h4>Objection Handling – Mythen & Anlässe</h4>
+          <div class="timing">⏱ 72h nach E-Mail 1 (Tag 3) · Designed E-Mail</div>
+        </div>
+        <span class="email-type-tag tag-designed">Designed</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="email-body">
+        <div class="email-purpose">
+          <strong>Ziel:</strong> Letzte Objections entkräften. Zeigen, wie vielseitig Pickles sind. Wer nach 72h noch nicht gekauft hat, braucht entweder noch einen Anlass oder hat noch eine Einwand-Hürde.
+        </div>
+        <div class="email-content-block">
+          <div class="subject-line">
+            <span><span class="sl-label">Betreff:</span>5 Wege, wie du Pickles noch nie gegessen hast 🔥</span>
+            <button class="copy-btn" onclick="event.stopPropagation(); copyText(this, '5 Wege, wie du Pickles noch nie gegessen hast 🔥')">Kopieren</button>
+          </div>
+
+          <div class="content-label">
+            E-Mail-Inhalt (Designed Template)
+            <button class="copy-btn" onclick="event.stopPropagation(); copyBlock(this)">Alles kopieren</button>
+          </div>
+          <div class="copyable">PICKLES SIND MEHR ALS NUR EIN SNACK 🥒
+
+Du denkst, Pickles sind nur was fürs Brot? Think again.
+
+---
+
+🍔 AUF DEM BURGER
+The Classic One macht jeden Smash Burger zum absoluten Game-Changer. Crunch meets Umami.
+
+🥗 IN DER BOWL
+The Golden One mit Kurkuma-Kick in deiner nächsten Buddha Bowl. Trust us.
+
+🌮 ALS TACO-TOPPING
+The Hot One auf Tacos? Kimchi-Vibes treffen auf Mexican Street Food. 🤯
+
+🧀 AUF DEM KÄSEBRETT
+Pickle + Käse = die Kombi, die du nicht wusstest, dass du sie brauchst. Perfekt für den nächsten Apéro.
+
+🍸 IM DRINK
+Pickle Juice im Martini oder als Shot. Ja, wirklich. Der Trend aus den USA ist real.
+
+---
+
+"Aber Premium-Pickles für 5 € pro Glas?"
+
+Gegenfrage: Was zahlst du für ein Craft Beer? Für Specialty Coffee? Für guten Käse? Unsere Pickles sind handgemacht, aus natürlichen Zutaten, ohne Zusatzstoffe – und ein Glas hält locker für mehrere Anlässe.
+
+---
+
+Noch 4 Tage: PICKLE10 für 10 % auf deine Erstbestellung.
+
+→ [PICKLES ENTDECKEN – Button]</div>
+
+          <div class="notes-box">Der Preis-Objection "5 € für Pickles?" muss hier adressiert werden. Vergleich mit anderen Premium-Produkten normalisiert den Preis. Die Anlass-Inspo zeigt Vielseitigkeit.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WELCOME E-MAIL 5 -->
+    <div class="email-card" onclick="toggleCard(this)">
+      <div class="email-card-header">
+        <div class="email-num">5</div>
+        <div class="email-meta">
+          <h4>Urgency Reminder – Persönlich von Michelle</h4>
+          <div class="timing">⏱ Tag 5 · Plain Text</div>
+        </div>
+        <span class="email-type-tag tag-plaintext">Plain Text</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="email-body">
+        <div class="email-purpose">
+          <strong>Ziel:</strong> Urgency aufbauen. Persönliche Erinnerung, dass der Code bald abläuft. Kurz und direkt.
+        </div>
+        <div class="email-content-block">
+          <div class="subject-line">
+            <span><span class="sl-label">Betreff:</span>Kurze Erinnerung von mir 💚</span>
+            <button class="copy-btn" onclick="event.stopPropagation(); copyText(this, 'Kurze Erinnerung von mir 💚')">Kopieren</button>
+          </div>
+
+          <div class="content-label">
+            E-Mail-Inhalt (Plain Text)
+            <button class="copy-btn" onclick="event.stopPropagation(); copyBlock(this)">Alles kopieren</button>
+          </div>
+          <div class="copyable">Hey!
+
+Nur ein kurzer Reminder von mir: Dein persönlicher Willkommenscode PICKLE10 läuft in 2 Tagen ab.
+
+10 % auf deine erste Bestellung – einfach im Checkout eingeben:
+→ thepicklecompany.de
+
+Falls du Fragen hast zu den Sorten oder zur Bestellung – schreib mir einfach. Ich helfe gerne!
+
+Bis bald,
+Michelle 🥒</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WELCOME E-MAIL 6 -->
+    <div class="email-card" onclick="toggleCard(this)">
+      <div class="email-card-header">
+        <div class="email-num">6</div>
+        <div class="email-meta">
+          <h4>Last Chance – Code läuft ab!</h4>
+          <div class="timing">⏱ Tag 7 · Designed E-Mail</div>
+        </div>
+        <span class="email-type-tag tag-urgency">Urgency</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="email-body">
+        <div class="email-purpose">
+          <strong>Ziel:</strong> Letzte Chance. Maximale Urgency. Countdown-Timer einbauen. Wer hier nicht kauft, bekommt danach die besten Campaigns aus dem Archiv.
+        </div>
+        <div class="email-content-block">
+          <div class="subject-line">
+            <span><span class="sl-label">Betreff:</span>⏰ Letzte Chance: Dein 10 %-Code läuft HEUTE ab</span>
+            <button class="copy-btn" onclick="event.stopPropagation(); copyText(this, '⏰ Letzte Chance: Dein 10 %-Code läuft HEUTE ab')">Kopieren</button>
+          </div>
+
+          <div class="content-label">
+            E-Mail-Inhalt (Designed Template)
+            <button class="copy-btn" onclick="event.stopPropagation(); copyBlock(this)">Alles kopieren</button>
+          </div>
+          <div class="copyable">DEIN CODE LÄUFT HEUTE AB ⏰
+
+PICKLE10 → 10 % auf deine erste Bestellung
+
+[COUNTDOWN-TIMER]
+
+→ [JETZT EINLÖSEN – Button]
+
+---
+
+Unsere Top-Reviews:
+
+⭐⭐⭐⭐⭐ "Einmal probiert, nie wieder ohne."
+⭐⭐⭐⭐⭐ "Die besten Pickles, die ich je gegessen hab."
+⭐⭐⭐⭐⭐ "Crunch-Level: unmatched."
+
+---
+
+✓ Kostenloser Versand ab XX € · ✓ Natürliche Zutaten · ✓ Made in Germany</div>
+
+          <div class="notes-box">In Klaviyo einen Countdown-Timer einbauen, der zum Ablaufdatum des Codes runterzählt. Danach: Best-performing Campaigns als Evergreen-Mails anhängen (optional).</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /timeline -->
+
+  <div class="mistakes-box">
+    <h3>❌ Häufige Fehler beim Welcome Flow</h3>
+    <ul>
+      <li>Nur 1–2 E-Mails aufsetzen und dann vergessen – mindestens 4 starke Mails in den ersten 72h</li>
+      <li>Discount-Code nicht prominent zeigen – der Code muss SOFORT sichtbar sein</li>
+      <li>Kein Resend der ersten Mail – easy 10–20 % mehr Opens</li>
+      <li>Smart Sending anlassen – MUSS ausgeschaltet sein im Welcome Flow</li>
+      <li>20 perfekte E-Mails bauen wollen statt 4 starke – nach dem 4. Tag sinkt die Conversion drastisch</li>
+      <li>Keinen Expiry auf den Discount – ohne Urgency kein Handlungsdruck</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ ABANDONED CART & CHECKOUT ═══════════════════════════════ -->
+<div id="cart" class="flow-section">
+  <div class="flow-header">
+    <h2>🛒 Abandoned Cart & Checkout Flow</h2>
+    <p>Zwei separate Flows: Einer für "Added to Cart" (hat nicht zum Checkout weitergemacht), einer für "Started Checkout" (hat Checkout nicht abgeschlossen). Zusammen recovern sie einen signifikanten Teil des verlorenen Umsatzes. Wichtig: Discount nur an Neukunden, nie an Bestandskunden.</p>
+  </div>
+
+  <div class="setup-box">
+    <h3>⚙️ Abandoned Cart – Klaviyo Setup</h3>
+    <ul>
+      <li><strong>Trigger:</strong> Added to Cart (Shopify Metric)</li>
+      <li><strong>Filter 1:</strong> Placed Order zero times since starting this flow</li>
+      <li><strong>Filter 2:</strong> Has not been in this flow in the last 7 days</li>
+      <li><strong>Filter 3:</strong> Started Checkout zero times since starting this flow (→ sonst geht die Person in den Checkout-Flow)</li>
+      <li><strong>Smart Sending:</strong> AUS</li>
+    </ul>
+  </div>
+
+  <div class="setup-box" style="background: #DBEAFE;">
+    <h3>⚙️ Abandoned Checkout – Klaviyo Setup</h3>
+    <ul>
+      <li><strong>Trigger:</strong> Started Checkout (Shopify Metric)</li>
+      <li><strong>Filter 1:</strong> Placed Order zero times since starting this flow</li>
+      <li><strong>Filter 2:</strong> Has not been in this flow in the last 7 days</li>
+      <li><strong>Smart Sending:</strong> AUS</li>
+      <li><strong>Hinweis:</strong> Der Inhalt der E-Mails ist für beide Flows identisch – nur der Trigger unterscheidet sich</li>
+    </ul>
+  </div>
+
+  <div class="timeline">
+
+    <!-- CART E-MAIL 1 -->
+    <div class="email-card" onclick="toggleCard(this)">
+      <div class="email-card-header">
+        <div class="email-num">1</div>
+        <div class="email-meta">
+          <h4>Erinnerung – Du hast was vergessen</h4>
+          <div class="timing">⏱ 1 Stunde nach Abbruch · Designed E-Mail</div>
+        </div>
+        <span class="email-type-tag tag-designed">Designed</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="email-body">
+        <div class="email-purpose">
+          <strong>Ziel:</strong> Simple Erinnerung, kein Discount. Die meisten Abbrecher waren nur abgelenkt. Produkt zeigen (dynamischer Block), zurück zum Cart leiten.
+        </div>
+        <div class="email-content-block">
+          <div class="subject-line">
+            <span><span class="sl-label">Betreff:</span>Hey, du hast Pickles im Warenkorb vergessen 🥒</span>
+            <button class="copy-btn" onclick="event.stopPropagation(); copyText(this, 'Hey, du hast Pickles im Warenkorb vergessen 🥒')">Kopieren</button>
+          </div>
+
+          <div class="content-label">
+            E-Mail-Inhalt (Designed Template)
+            <button class="copy-btn" onclick="event.stopPropagation(); copyBlock(this)">Alles kopieren</button>
+          </div>
+          <div class="copyable">CRUNCH WARTET AUF DICH 🥒
+
+Hey, sieht so aus als hättest du was im Warenkorb vergessen:
+
+[DYNAMISCHER BLOCK: Produkt aus dem Warenkorb mit Bild & Preis]
+
+Deine Pickles warten – aber sie warten nicht ewig. 😉
+
+→ [ZURÜCK ZUM WARENKORB – Button]
+
+---
+
+DAS KÖNNTE DIR AUCH GEFALLEN:
+
+[DYNAMISCHER BLOCK: 2–3 weitere Produkte / Bundles]
+
+---
+
+✓ 4,9/5 Sterne · ✓ Natürliche Zutaten · ✓ Extra Crunch</div>
+
+          <div class="notes-box">Klaviyo: Dynamischen Produktblock verwenden, der automatisch das Produkt aus dem Warenkorb anzeigt. Checkout-URL mit dem Cart-Token verlinken (Shopify generiert das automatisch).</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CART E-MAIL 2 -->
+    <div class="email-card" onclick="toggleCard(this)">
+      <div class="email-card-header">
+        <div class="email-num">2</div>
+        <div class="email-meta">
+          <h4>Objection Handling – Warum Pickle Company?</h4>
+          <div class="timing">⏱ 1 Tag nach E-Mail 1 · Designed E-Mail</div>
+        </div>
+        <span class="email-type-tag tag-designed">Designed</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="email-body">
+        <div class="email-purpose">
+          <strong>Ziel:</strong> Objections überwinden. Reviews zeigen, UGC, Vergleich mit Alternativen. Immer noch KEIN Discount – egal ob Neu- oder Bestandskunde.
+        </div>
+        <div class="email-content-block">
+          <div class="subject-line">
+            <span><span class="sl-label">Betreff:</span>Darum lieben unsere Kund:innen The Pickle Company ⭐</span>
+            <button class="copy-btn" onclick="event.stopPropagation(); copyText(this, 'Darum lieben unsere Kund:innen The Pickle Company ⭐')">Kopieren</button>
+          </div>
+
+          <div class="content-label">
+            E-Mail-Inhalt (Designed Template)
+            <button class="copy-btn" onclick="event.stopPropagation(); copyBlock(this)">Alles kopieren</button>
+          </div>
+          <div class="copyable">NOCH UNSICHER? DAS SAGEN ANDERE 💚
+
+[DYNAMISCHER BLOCK: Produkt aus dem Warenkorb]
+
+---
+
+WARUM UNSERE PICKLE FRIENDS IMMER WIEDER BESTELLEN:
+
+⭐⭐⭐⭐⭐
+"Ich hab das Probierpaket bestellt und direkt 3x nachgeordert. Der Crunch ist einfach anders."
+
+⭐⭐⭐⭐⭐
+"The Hot One auf meinem Burger hat mein Grillgame für immer verändert."
+
+⭐⭐⭐⭐⭐
+"Endlich Pickles ohne den ganzen Zucker. Schmeckt man sofort."
+
+---
+
+DER UNTERSCHIED:
+
+🥒 Supermarkt-Gurken: Zucker, Konservierungsstoffe, labbriger Crunch
+🥒 The Pickle Company: Natürliche Zutaten, kein Zucker, EXTRA Crunch
+
+Bekannt aus: Süddeutsche Zeitung · ELLE · AD Magazine
+
+---
+
+[DYNAMISCHER BLOCK: 2–3 weitere Produkte]
+
+→ [ZUM WARENKORB – Button]</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONDITIONAL SPLIT -->
+    <div class="split-indicator">
+      ⚡ CONDITIONAL SPLIT: Hat schon einmal bestellt? → JA = Bestandskunden-Mail / NEIN = Neukunden-Mails (mit Discount)
+    </div>
+
+    <!-- CART E-MAIL 3A – BESTANDSKUNDEN -->
+    <div class="email-card" onclick="toggleCard(this)">
+      <div class="email-card-header">
+        <div class="email-num split">3A</div>
+        <div class="email-meta">
+          <h4>Bestandskunden: Soft Reminder</h4>
+          <div class="timing">⏱ 1 Tag nach Split · Designed E-Mail · NUR Bestandskunden</div>
+        </div>
+        <span class="email-type-tag tag-split">Bestandskunde</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="email-body">
+        <div class="email-purpose">
+          <strong>Ziel:</strong> Soft Reminder für Leute, die schon mal bestellt haben. KEIN Discount – sie kennen das Produkt bereits und brauchen nur einen Nudge. Danach endet der Flow für Bestandskunden.
+        </div>
+        <div class="email-content-block">
+          <div class="subject-line">
+            <span><span class="sl-label">Betreff:</span>Schön, dass du wieder da bist 🥒</span>
+            <button class="copy-btn" onclick="event.stopPropagation(); copyText(this, 'Schön, dass du wieder da bist 🥒')">Kopieren</button>
+          </div>
+
+          <div class="content-label">
+            E-Mail-Inhalt (Designed Template)
+            <button class="copy-btn" onclick="event.stopPropagation(); copyBlock(this)">Alles kopieren</button>
+          </div>
+          <div class="copyable">SCHÖN, DASS DU WIEDER DA BIST! 💚
+
+Du weißt ja, wie gut unsere Pickles sind – und dein Warenkorb wartet noch auf dich:
+
+[DYNAMISCHER BLOCK: Produkt aus dem Warenkorb]
+
+---
+
+SCHON ALLE DREI SORTEN PROBIERT?
+
+🟢 The Classic One – der Allrounder
+🔴 The Hot One – für Chili-Heads
+🟡 The Golden One – Kurkuma-Vibes
+
+→ [BESTELLUNG ABSCHLIESSEN – Button]
+
+---
+
+Danke, dass du ein Pickle Friend bist. Wir freuen uns auf deine nächste Bestellung! 🥒</div>
+
+          <div class="notes-box">Kein Discount! Bestandskunden sollen nicht lernen, dass Warenkorbabbruch = Rabatt. Stattdessen: Wertschätzung und sanfte Erinnerung.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CART E-MAIL 3B – NEUKUNDEN -->
+    <div class="email-card" onclick="toggleCard(this)">
+      <div class="email-card-header">
+        <div class="email-num split">3B</div>
+        <div class="email-meta">
+          <h4>Neukunden: Discount-Reminder</h4>
+          <div class="timing">⏱ 1 Tag nach Split · Plain Text · NUR Neukunden</div>
+        </div>
+        <span class="email-type-tag tag-split">Neukunde + Discount</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="email-body">
+        <div class="email-purpose">
+          <strong>Ziel:</strong> Neukunden den Welcome-Discount erneut kommunizieren. Plain Text für persönlichen Touch. Jetzt wird's direkt – die Person hat Interesse gezeigt (Cart) und braucht den letzten Nudge.
+        </div>
+        <div class="email-content-block">
+          <div class="subject-line">
+            <span><span class="sl-label">Betreff:</span>Dein 10 %-Code wartet noch auf dich 👀</span>
+            <button class="copy-btn" onclick="event.stopPropagation(); copyText(this, 'Dein 10 %-Code wartet noch auf dich 👀')">Kopieren</button>
+          </div>
+
+          <div class="content-label">
+            E-Mail-Inhalt (Plain Text)
+            <button class="copy-btn" onclick="event.stopPropagation(); copyBlock(this)">Alles kopieren</button>
+          </div>
+          <div class="copyable">Hey!
+
+Mir ist aufgefallen, dass du noch Pickles im Warenkorb hast – und dein Willkommenscode PICKLE10 ist noch aktiv.
+
+Das heißt: 10 % auf deine erste Bestellung.
+
+Einfach im Checkout eingeben und fertig:
+→ thepicklecompany.de
+
+Falls du irgendwelche Fragen hast (Sorten, Versand, was auch immer) – schreib mir einfach. Ich helfe gerne.
+
+Crunchige Grüße,
+Michelle 🥒</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CART E-MAIL 4B – NEUKUNDEN LAST CHANCE -->
+    <div class="email-card" onclick="toggleCard(this)">
+      <div class="email-card-header">
+        <div class="email-num split">4B</div>
+        <div class="email-meta">
+          <h4>Neukunden: Last Chance + Social Proof</h4>
+          <div class="timing">⏱ 2 Tage nach E-Mail 3B · Designed E-Mail · NUR Neukunden</div>
+        </div>
+        <span class="email-type-tag tag-urgency">Urgency</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="email-body">
+        <div class="email-purpose">
+          <strong>Ziel:</strong> Letzter Versuch. Urgency + Social Proof kombiniert. Danach endet der Flow auch für Neukunden.
+        </div>
+        <div class="email-content-block">
+          <div class="subject-line">
+            <span><span class="sl-label">Betreff:</span>Noch unsicher? Das überzeugt dich vielleicht 🥒</span>
+            <button class="copy-btn" onclick="event.stopPropagation(); copyText(this, 'Noch unsicher? Das überzeugt dich vielleicht 🥒')">Kopieren</button>
+          </div>
+
+          <div class="content-label">
+            E-Mail-Inhalt (Designed Template)
+            <button class="copy-btn" onclick="event.stopPropagation(); copyBlock(this)">Alles kopieren</button>
+          </div>
+          <div class="copyable">LETZTE ERINNERUNG 🥒
+
+Dein Warenkorb und dein 10 %-Code PICKLE10 warten noch auf dich.
+
+[DYNAMISCHER BLOCK: Produkt aus dem Warenkorb]
+
+→ [JETZT BESTELLEN – Button]
+
+---
+
+WARUM TAUSENDE PICKLE FRIENDS BEGEISTERT SIND:
+
+⭐ "Hab schon 4x bestellt. The Hot One geht immer."
+⭐ "Mein neuer Go-To-Snack. Crunch-Level over 9000."
+⭐ "Perfekt zum Apéro – meine Freunde sind süchtig."
+
+---
+
+✓ Natürliche Zutaten
+✓ Extra Crunch
+✓ 4,9/5 Sterne
+✓ Made in Germany
+
+→ [PICKLES SICHERN – Button]</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /timeline -->
+
+  <div class="mistakes-box">
+    <h3>❌ Häufige Fehler beim Abandoned Cart Flow</h3>
+    <ul>
+      <li>Keinen separaten Abandoned CART Flow haben – nur Checkout reicht nicht, du verlierst alle, die gar nicht zum Checkout kommen</li>
+      <li>Discount an alle geben – trainiert Bestandskunden, immer abzubrechen für Rabatt</li>
+      <li>Discount zu früh geben – erst nach 72h+ und nur an Neukunden</li>
+      <li>Nicht zwischen Neu- und Bestandskunden splitten – komplett unterschiedliche Bedürfnisse</li>
+      <li>Keine dynamischen Produktblöcke nutzen – Klaviyo kann automatisch das Produkt aus dem Cart zeigen</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ POST-PURCHASE ═══════════════════════════════ -->
+<div id="postpurchase" class="flow-section">
+  <div class="flow-header">
+    <h2>📦 Post-Purchase Flow</h2>
+    <p>Der unterschätzteste Flow im E-Commerce. Hier wird Buyer's Remorse eliminiert, die Beziehung aufgebaut und der Grundstein für den Wiederkauf gelegt. Kunden, die eine gute Post-Purchase-Experience haben, kaufen 5x wahrscheinlicher wieder. Dieser Flow ist DER LTV-Hebel für TPC.</p>
+  </div>
+
+  <div class="setup-box">
+    <h3>⚙️ Klaviyo Setup</h3>
+    <ul>
+      <li><strong>Trigger:</strong> Placed Order (Shopify Metric)</li>
+      <li><strong>Filter:</strong> Cancelled Order zero times (damit stornierte Bestellungen nicht den Flow auslösen)</li>
+      <li><strong>Delay:</strong> 5 Minuten (damit Shopify-Bestellbestätigung zuerst rausgeht)</li>
+      <li><strong>Conditional Split:</strong> Neukunde vs. Returning Customer (direkt nach dem Delay)</li>
+      <li><strong>Fokus unten:</strong> Neukunden-Pfad (am wichtigsten für TPC)</li>
+    </ul>
+  </div>
+
+  <div class="split-indicator">
+    ⚡ CONDITIONAL SPLIT direkt am Anfang: Placed Order = 1 (Neukunde) vs. Placed Order > 1 (Returning Customer)
+  </div>
+
+  <div class="timeline">
+
+    <!-- POST-PURCHASE E-MAIL 1 (NEUKUNDE) -->
+    <div class="email-card" onclick="toggleCard(this)">
+      <div class="email-card-header">
+        <div class="email-num">1</div>
+        <div class="email-meta">
+          <h4>Danke & Willkommen in der Pickle Family</h4>
+          <div class="timing">⏱ 5 Minuten nach Bestellung · Designed E-Mail · Neukunden</div>
+        </div>
+        <span class="email-type-tag tag-designed">Designed</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="email-body">
+        <div class="email-purpose">
+          <strong>Ziel:</strong> Sofortiges "Danke" senden. Buyer's Remorse verhindern, bevor es überhaupt losgeht. Zeigen: Du hast die richtige Entscheidung getroffen. Nicht pushy – einfach warm und wertschätzend.
+        </div>
+        <div class="email-content-block">
+          <div class="subject-line">
+            <span><span class="sl-label">Betreff:</span>Willkommen in der Pickle Family! 🥒💚</span>
+            <button class="copy-btn" onclick="event.stopPropagation(); copyText(this, 'Willkommen in der Pickle Family! 🥒💚')">Kopieren</button>
+          </div>
+
+          <div class="content-label">
+            E-Mail-Inhalt (Designed Template)
+            <button class="copy-btn" onclick="event.stopPropagation(); copyBlock(this)">Alles kopieren</button>
+          </div>
+          <div class="copyable">DANKE FÜR DEINE BESTELLUNG! 🥒💚
+
+Du bist jetzt offiziell Teil der Pickle Family – und wir freuen uns riesig!
+
+Wir packen deine Pickles mit extra viel Liebe ein. Hier ist, was als Nächstes passiert:
+
+📦 Deine Bestellung wird in den nächsten 1–2 Werktagen versendet
+📬 Du bekommst eine Versandbestätigung mit Tracking-Link per Mail
+🏠 Lieferzeit: 2–4 Werktage mit DHL
+
+---
+
+DEIN PICKLE-TIPP FÜR DEN ERSTEN BISS:
+
+Stell das Glas vor dem Öffnen für mindestens 2 Stunden in den Kühlschrank. Cold Pickles = Maximum Crunch. Trust us. 🧊
+
+---
+
+FOLGE UNS FÜR MEHR CRUNCH:
+
+📸 @thepicklecompany auf Instagram
+Rezepte, Behind-the-Scenes, Community-Vibes und der ein oder andere Pickle-Meme.
+
+---
+
+Fragen? Einfach auf diese Mail antworten – wir sind für dich da!
+
+Michelle & das Pickle Team 🥒</div>
+
+          <div class="notes-box">Nicht versuchen, hier direkt zu upsellen. Der Fokus liegt auf: "Du hast die richtige Entscheidung getroffen." Der Kühlschrank-Tipp ist ein kleines Detail, das die Experience verbessert.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- POST-PURCHASE RETURNING CUSTOMER -->
+    <div class="email-card" onclick="toggleCard(this)">
+      <div class="email-card-header">
+        <div class="email-num split">1R</div>
+        <div class="email-meta">
+          <h4>Returning Customer: Danke für die Treue</h4>
+          <div class="timing">⏱ 5 Minuten nach Bestellung · Designed E-Mail · Returning Customers</div>
+        </div>
+        <span class="email-type-tag tag-split">Returning</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="email-body">
+        <div class="email-purpose">
+          <strong>Ziel:</strong> Wertschätzung zeigen. Returning Customers bekommen eine eigene, kürzere Version. Danach nur noch Cross-Sell-Empfehlungen.
+        </div>
+        <div class="email-content-block">
+          <div class="subject-line">
+            <span><span class="sl-label">Betreff:</span>Du bist zurück! Danke, Pickle Friend 💚</span>
+            <button class="copy-btn" onclick="event.stopPropagation(); copyText(this, 'Du bist zurück! Danke, Pickle Friend 💚')">Kopieren</button>
+          </div>
+
+          <div class="content-label">
+            E-Mail-Inhalt (Designed Template)
+            <button class="copy-btn" onclick="event.stopPropagation(); copyBlock(this)">Alles kopieren</button>
+          </div>
+          <div class="copyable">SCHÖN, DASS DU WIEDER DA BIST! 💚
+
+Danke für deine erneute Bestellung – du weißt halt, was gut ist. 😉
+
+Deine Pickles sind auf dem Weg zu dir. Wir melden uns mit dem Tracking-Link.
+
+---
+
+SCHON ENTDECKT?
+
+[DYNAMISCHER BLOCK: Andere Sorten / Bundles, die der Kunde noch NICHT bestellt hat]
+
+---
+
+Du bist ein echter Pickle Friend – und das bedeutet uns richtig viel. Danke für dein Vertrauen! 🥒
+
+Michelle & Team</div>
+
+          <div class="notes-box">Klaviyo: Dynamischen Block nutzen, der NUR Produkte zeigt, die der Kunde noch nicht bestellt hat. So wird Cross-Selling relevant statt redundant.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- POST-PURCHASE E-MAIL 2 -->
+    <div class="email-card" onclick="toggleCard(this)">
+      <div class="email-card-header">
+        <div class="email-num">2</div>
+        <div class="email-meta">
+          <h4>Founder-Story – Hinter den Kulissen</h4>
+          <div class="timing">⏱ 1 Tag nach Bestellung · Plain Text · Neukunden</div>
+        </div>
+        <span class="email-type-tag tag-plaintext">Plain Text</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="email-body">
+        <div class="email-purpose">
+          <strong>Ziel:</strong> Buyer's Remorse aktiv entgegenwirken. Brand-Connection vertiefen. Die Person soll sich als Teil von etwas Größerem fühlen. Falls sie den Welcome-Flow übersprungen hat (direkt gekauft), kriegt sie die Story hier.
+        </div>
+        <div class="email-content-block">
+          <div class="subject-line">
+            <span><span class="sl-label">Betreff:</span>Ein kleiner Blick hinter die Kulissen 🥒</span>
+            <button class="copy-btn" onclick="event.stopPropagation(); copyText(this, 'Ein kleiner Blick hinter die Kulissen 🥒')">Kopieren</button>
+          </div>
+
+          <div class="content-label">
+            E-Mail-Inhalt (Plain Text)
+            <button class="copy-btn" onclick="event.stopPropagation(); copyBlock(this)">Alles kopieren</button>
+          </div>
+          <div class="copyable">Hey!
+
+Ich bin Michelle – und ich wollte dir persönlich danken, dass du The Pickle Company unterstützt. Das bedeutet mir wirklich viel.
+
+Kleine Fun Fact: Jedes einzelne Glas, das du gerade bekommst, wird von einem Traditions-Produzenten in Niederbayern hergestellt. Die machen das seit Jahrzehnten – und wir haben zusammen an unseren Rezepturen getüftelt, bis der Crunch und der Geschmack perfekt waren.
+
+Was mir von Anfang an wichtig war:
+→ Keine Zusatzstoffe. Gar keine. Nada.
+→ Deutlich weniger Zucker als alles, was du im Supermarkt findest.
+→ Gurken aus Deutschland. Immer.
+→ Und natürlich: EXTRA CRUNCH. Das ist unser Ding. 🥒
+
+The Pickle Company ist vor etwas über einem Jahr als Küchenprojekt in Berlin gestartet – und mittlerweile stehen unsere Pickles in über 20 Läden in ganz Deutschland. Das geht nur dank Leuten wie dir.
+
+Wenn dir unsere Pickles schmecken (ich bin mir ziemlich sicher, dass sie das tun 😉), dann freue ich mich mega, wenn du uns auf Instagram folgst: @thepicklecompany
+
+Da teilen wir Rezepte, Behind-the-Scenes und eine Menge Pickle-Content.
+
+Ganz liebe Grüße,
+Michelle 🥒
+
+Gründerin, The Pickle Company
+Berlin-Kreuzberg</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- POST-PURCHASE E-MAIL 3 -->
+    <div class="email-card" onclick="toggleCard(this)">
+      <div class="email-card-header">
+        <div class="email-num">3</div>
+        <div class="email-meta">
+          <h4>Pickle-Rezepte & Tipps</h4>
+          <div class="timing">⏱ 3 Tage nach Bestellung · Designed E-Mail · Neukunden</div>
+        </div>
+        <span class="email-type-tag tag-designed">Designed</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="email-body">
+        <div class="email-purpose">
+          <strong>Ziel:</strong> Produktnutzung maximieren. Je mehr jemand die Pickles in den Alltag integriert, desto schneller ist das Glas leer → desto schneller Nachbestellung. Free Value liefern, nicht verkaufen.
+        </div>
+        <div class="email-content-block">
+          <div class="subject-line">
+            <span><span class="sl-label">Betreff:</span>3 Rezepte, die mit Pickles nochmal besser werden 🔥</span>
+            <button class="copy-btn" onclick="event.stopPropagation(); copyText(this, '3 Rezepte, die mit Pickles nochmal besser werden 🔥')">Kopieren</button>
+          </div>
+
+          <div class="content-label">
+            E-Mail-Inhalt (Designed Template)
+            <button class="copy-btn" onclick="event.stopPropagation(); copyBlock(this)">Alles kopieren</button>
+          </div>
+          <div class="copyable">DEINE PICKLES SIND DA (ODER BALD) – SO HOLST DU DAS MAXIMUM RAUS 🥒
+
+Pickles sind viel mehr als ein Snack zwischendurch. Hier sind unsere 3 Lieblings-Kombis:
+
+---
+
+🍔 DER ULTIMATE PICKLE BURGER
+Smash Patty + Cheddar + The Classic One + Brioche Bun
+Der Crunch der Pickles macht den Unterschied. Seriously.
+
+🥗 GOLDEN BOWL
+Reis + Avocado + Edamame + The Golden One (in Scheiben) + Sesam-Dressing
+Kurkuma-Pickles in einer Bowl = dein neues Lieblings-Lunch.
+
+🌶️ SPICY PICKLE GRILLED CHEESE
+Sourdough + Gouda + The Hot One + Butter
+Gegrilltes Käsebrot mit Chili-Pickles. Game. Over.
+
+---
+
+PROFI-TIPP:
+Schmeiß den Pickle Juice nicht weg! Du kannst ihn als Salat-Dressing-Base, Marinade für Hähnchen oder sogar als Shot (ja, wirklich!) verwenden. In den USA ist Pickle Juice der absolute Hype. 🇺🇸
+
+---
+
+Mehr Inspo auf Instagram: @thepicklecompany
+Und wenn du ein Pickle-Rezept ausprobierst – tagge uns! Wir reposten die besten. 📸</div>
+
+          <div class="notes-box">Dieser Free-Value-Content ist entscheidend für den Wiederkauf. Wer die Pickles in Rezepte einbaut, verbraucht sie schneller UND verbindet positive Erlebnisse mit der Marke. Flywheel-Effekt!</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- POST-PURCHASE E-MAIL 4 -->
+    <div class="email-card" onclick="toggleCard(this)">
+      <div class="email-card-header">
+        <div class="email-num">4</div>
+        <div class="email-meta">
+          <h4>Review-Request</h4>
+          <div class="timing">⏱ 10 Tage nach Bestellung · Designed E-Mail · Alle Kunden</div>
+        </div>
+        <span class="email-type-tag tag-designed">Designed</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="email-body">
+        <div class="email-purpose">
+          <strong>Ziel:</strong> Review generieren. Social Proof für den Shop und für die E-Mail-Flows (die Reviews brauchen wir!). Timing: ~10 Tage = Lieferung erhalten + ein paar Tage getestet.
+        </div>
+        <div class="email-content-block">
+          <div class="subject-line">
+            <span><span class="sl-label">Betreff:</span>Und? Wie schmecken deine Pickles? 🤤</span>
+            <button class="copy-btn" onclick="event.stopPropagation(); copyText(this, 'Und? Wie schmecken deine Pickles? 🤤')">Kopieren</button>
+          </div>
+
+          <div class="content-label">
+            E-Mail-Inhalt (Designed Template)
+            <button class="copy-btn" onclick="event.stopPropagation(); copyBlock(this)">Alles kopieren</button>
+          </div>
+          <div class="copyable">WIR SIND NEUGIERIG! 🥒
+
+Deine Pickles sollten inzwischen bei dir angekommen sein (und hoffentlich schon ein paar davon weg 😉).
+
+Wir würden uns mega freuen, wenn du uns eine kurze Bewertung dalässt. Dein Feedback hilft uns, noch besser zu werden – und anderen Pickle-Neugierigen bei der Entscheidung.
+
+→ [JETZT BEWERTEN – Button]
+
+Dauert nur 30 Sekunden. Versprochen. ⏱
+
+---
+
+Und hey – wenn du ein Pickle-Foto hast, poste es auf Instagram und tagge @thepicklecompany. Die besten Bilder reposten wir! 📸
+
+Danke dir!
+Michelle & Team 💚</div>
+
+          <div class="notes-box">Review-Link muss direkt zur Bewertungsseite im Shopify-Shop führen (oder zu einem Tool wie Judge.me / Loox). Je weniger Klicks, desto mehr Reviews.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- POST-PURCHASE E-MAIL 5 -->
+    <div class="email-card" onclick="toggleCard(this)">
+      <div class="email-card-header">
+        <div class="email-num">5</div>
+        <div class="email-meta">
+          <h4>Empfehlungs-Nudge (Referral)</h4>
+          <div class="timing">⏱ 14 Tage nach Bestellung · Designed E-Mail · Neukunden</div>
+        </div>
+        <span class="email-type-tag tag-designed">Designed</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="email-body">
+        <div class="email-purpose">
+          <strong>Ziel:</strong> Word-of-Mouth aktivieren. Seed für den Referral-Mechanismus pflanzen. Kann erstmal als einfacher "Erzähl's weiter"-Nudge funktionieren, später mit einem Referral-Tool (z. B. Smile.io, ReferralCandy) verknüpft werden.
+        </div>
+        <div class="email-content-block">
+          <div class="subject-line">
+            <span><span class="sl-label">Betreff:</span>Kennst du jemanden, der Pickles lieben würde? 💚</span>
+            <button class="copy-btn" onclick="event.stopPropagation(); copyText(this, 'Kennst du jemanden, der Pickles lieben würde? 💚')">Kopieren</button>
+          </div>
+
+          <div class="content-label">
+            E-Mail-Inhalt (Designed Template)
+            <button class="copy-btn" onclick="event.stopPropagation(); copyBlock(this)">Alles kopieren</button>
+          </div>
+          <div class="copyable">SPREAD THE CRUNCH 🥒💚
+
+Du bist jetzt Teil der Pickle Family – und wir haben eine Bitte:
+
+Wenn dir unsere Pickles geschmeckt haben, erzähl's weiter! Empfiehl uns deinen Freund:innen, deiner Familie, deinen Kolleg:innen – allen, die gutes Essen lieben.
+
+---
+
+SO KANNST DU HELFEN:
+
+📸 Poste ein Foto auf Instagram und tagge @thepicklecompany
+💬 Erzähl Freund:innen davon (Mund-zu-Mund ist unser stärkster Kanal!)
+⭐ Hinterlasse eine Bewertung in unserem Shop
+📲 Teile unsere Website: thepicklecompany.de
+
+---
+
+Als kleines Dankeschön: Wer uns auf Instagram taggt, hat die Chance auf ein kostenloses Pickle-Paket jeden Monat. Wir reposten die besten Beiträge! 🎉
+
+Danke, dass du ein Pickle Friend bist. 💚
+
+Michelle & Team</div>
+
+          <div class="notes-box">Langfristig hier ein richtiges Referral-Programm einbauen (z. B. "Empfiehl eine:n Freund:in → ihr bekommt beide 10 % Rabatt"). Für jetzt reicht der organische Nudge.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- POST-PURCHASE E-MAIL 6 -->
+    <div class="email-card" onclick="toggleCard(this)">
+      <div class="email-card-header">
+        <div class="email-num">6</div>
+        <div class="email-meta">
+          <h4>Wiederkauf-Nudge & Cross-Sell</h4>
+          <div class="timing">⏱ 21 Tage nach Bestellung · Designed E-Mail · Neukunden (kein Repeat Order)</div>
+        </div>
+        <span class="email-type-tag tag-upsell">Upsell</span>
+        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="email-body">
+        <div class="email-purpose">
+          <strong>Ziel:</strong> Wiederkauf anstoßen. Nach 3 Wochen sollten die Pickles aufgebraucht (oder fast aufgebraucht) sein. Jetzt ist der Moment für den Upsell. Conditional: Nur an Leute, die NICHT nochmal bestellt haben.
+        </strong>
+        </div>
+        <div class="email-content-block">
+          <div class="subject-line">
+            <span><span class="sl-label">Betreff:</span>Glas leer? Nachschub ist nur einen Klick entfernt 🥒</span>
+            <button class="copy-btn" onclick="event.stopPropagation(); copyText(this, 'Glas leer? Nachschub ist nur einen Klick entfernt 🥒')">Kopieren</button>
+          </div>
+
+          <div class="content-label">
+            E-Mail-Inhalt (Designed Template)
+            <button class="copy-btn" onclick="event.stopPropagation(); copyBlock(this)">Alles kopieren</button>
+          </div>
+          <div class="copyable">ZEIT FÜR NACHSCHUB? 🥒
+
+Wenn dein Pickle-Vorrat so aussieht wie wir denken… wird's Zeit für Refill!
+
+→ [JETZT NACHBESTELLEN – Button]
+
+---
+
+SCHON ALLE DREI SORTEN PROBIERT?
+
+🟢 The Classic One – der Allrounder für jeden Tag
+🔴 The Hot One – Kimchi-Vibes für Chili-Heads
+🟡 The Golden One – Kurkuma-Gold in deiner Bowl
+
+Unser Tipp: Das Pickle Trio (6 Gläser, je 2 pro Sorte) – so hast du für jeden Anlass die richtige Pickle.
+
+→ [PICKLE TRIO BESTELLEN – Button]
+
+---
+
+EXKLUSIV FÜR DICH: 10 % auf deine nächste Bestellung
+
+Code: NACHSCHUB10
+(Nur 48 Stunden gültig)
+
+→ [JETZT EINLÖSEN – Button]</div>
+
+          <div class="notes-box">Conditional Split vorher: "Has Placed Order since starting this flow = NO". Wer schon nachbestellt hat, bekommt diese Mail nicht. Der 48h-Urgency-Code motiviert zum schnellen Handeln. Discount ist optional – je nach Marge und Strategie.</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /timeline -->
+
+  <div class="mistakes-box">
+    <h3>❌ Häufige Fehler beim Post-Purchase Flow</h3>
+    <ul>
+      <li>Nicht zwischen Neukunden und Returning Customers splitten – komplett unterschiedliche Journeys</li>
+      <li>Erste E-Mail nach >24h senden – muss innerhalb von Minuten rausgehen</li>
+      <li>Sofort upsellen wollen – erst Vertrauen aufbauen, dann nach 2–3 Wochen upsellen</li>
+      <li>Keinen Free-Value-Content liefern (Rezepte, Tipps) – das ist der Schlüssel zum Wiederkauf</li>
+      <li>Reviews nicht aktiv anfordern – die Reviews braucht ihr für alle anderen Flows</li>
+      <li>Kein Referral / Word-of-Mouth aktivieren – der stärkste Wachstums-Hebel für TPC</li>
+    </ul>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>The Pickle Company · Klaviyo E-Mail-Flow-Strategie · Erstellt April 2026</p>
+  <p style="margin-top:0.25rem;">Basierend auf Best Practices aus 80M+ € E-Mail-Revenue-Erfahrung, angepasst für TPC.</p>
+</div>
+
+<script>
+function showSection(id) {
+  document.querySelectorAll('.flow-section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.flow-nav button').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggleCard(card) {
+  // Don't toggle if clicking a button
+  if (event.target.closest('.copy-btn')) return;
+  card.classList.toggle('open');
+}
+
+function copyText(btn, text) {
+  navigator.clipboard.writeText(text).then(() => {
+    btn.classList.add('copied');
+    const orig = btn.innerHTML;
+    btn.innerHTML = '✓ Kopiert!';
+    setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = orig; }, 1500);
+  });
+}
+
+function copyBlock(btn) {
+  const block = btn.closest('.email-content-block');
+  const copyable = block.querySelector('.copyable');
+  if (copyable) {
+    navigator.clipboard.writeText(copyable.textContent.trim()).then(() => {
+      btn.classList.add('copied');
+      const orig = btn.innerHTML;
+      btn.innerHTML = '✓ Kopiert!';
+      setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = orig; }, 1500);
+    });
+  }
+}
+</script>
+
+</body>
+</html>
