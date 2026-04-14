@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lichthaus Berlin – Operations Playbook 2026</title>
+<style>
+:root{--bg:#0a0a0f;--s1:#12121e;--s2:#1a1a2c;--s3:#22223a;--bd:#2a2a42;--acc:#f5c518;--acc2:#d4a800;--bl:#4a9eff;--gr:#34d399;--rd:#f87171;--or:#fb923c;--pu:#a78bfa;--pk:#f472b6;--cy:#22d3ee;--tx:#e8e8f0;--t2:#9999b0;--t3:#666680;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--tx);line-height:1.6;font-size:14px;}
+.wrap{max-width:1480px;margin:0 auto;padding:0 20px;}
+
+/* Top bar */
+.topbar{background:var(--s1);border-bottom:1px solid var(--bd);padding:16px 20px;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px);}
+.topbar h1{font-size:1.2rem;font-weight:700;display:inline;}
+.topbar h1 span{color:var(--acc);}
+.topbar .ver{font-size:.7rem;color:var(--t3);margin-left:8px;}
+
+/* Tabs */
+.main-tabs{display:flex;gap:4px;background:var(--s1);padding:8px 20px;border-bottom:1px solid var(--bd);overflow-x:auto;position:sticky;top:52px;z-index:99;}
+.mt{padding:8px 16px;border-radius:8px;font-size:.78rem;cursor:pointer;border:1px solid transparent;color:var(--t2);white-space:nowrap;transition:all .15s;font-weight:500;}
+.mt:hover{border-color:var(--bd);color:var(--tx);}
+.mt.on{border-color:var(--acc);color:var(--acc);background:rgba(245,197,24,.06);}
+.tab-panel{display:none;padding:32px 20px;}
+.tab-panel.on{display:block;}
+
+/* Common */
+.sec{margin-bottom:48px;}
+.sec-t{font-size:1.3rem;font-weight:600;margin-bottom:4px;}
+.sec-sub{font-size:.85rem;color:var(--t2);margin-bottom:20px;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;}
+.g4{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;}
+@media(max-width:800px){.g2{grid-template-columns:1fr;}}
+
+.cd{background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:20px;transition:border-color .2s;}
+.cd:hover{border-color:var(--acc);}
+.cd h3{font-size:.95rem;margin-bottom:6px;}
+.cd p,.cd li{font-size:.82rem;color:var(--t2);}
+.cd ul{list-style:none;margin-top:6px;}
+.cd ul li{padding:3px 0 3px 16px;position:relative;}
+.cd ul li::before{content:'→';position:absolute;left:0;color:var(--acc);font-size:.8rem;}
+.cd-l{border-left:3px solid var(--acc);border-radius:0 12px 12px 0;}
+.cd-bl{border-left:3px solid var(--bl);border-radius:0 12px 12px 0;}
+.cd-gr{border-left:3px solid var(--gr);border-radius:0 12px 12px 0;}
+.cd-rd{border-left:3px solid var(--rd);border-radius:0 12px 12px 0;}
+.cd-pu{border-left:3px solid var(--pu);border-radius:0 12px 12px 0;}
+.cd-pk{border-left:3px solid var(--pk);border-radius:0 12px 12px 0;}
+.cd-cy{border-left:3px solid var(--cy);border-radius:0 12px 12px 0;}
+
+.tag{display:inline-block;font-size:.65rem;padding:2px 8px;border-radius:12px;font-weight:600;margin:2px;}
+.t-tofu{background:rgba(74,158,255,.15);color:var(--bl);}
+.t-mofu{background:rgba(52,211,153,.15);color:var(--gr);}
+.t-bofu{background:rgba(245,197,24,.15);color:var(--acc);}
+.t-lead{background:rgba(167,139,250,.15);color:var(--pu);}
+.t-lp{background:rgba(244,114,182,.15);color:var(--pk);}
+.t-meta{background:rgba(24,119,242,.15);color:#5b9cf5;}
+.t-goog{background:rgba(234,67,53,.15);color:#f08080;}
+.t-li{background:rgba(10,102,194,.15);color:#5b9cf5;}
+.t-mail{background:rgba(245,197,24,.15);color:var(--acc);}
+
+.tbl{width:100%;border-collapse:separate;border-spacing:0;font-size:.8rem;}
+.tbl th,.tbl td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--bd);}
+.tbl th{color:var(--acc);font-weight:600;font-size:.68rem;text-transform:uppercase;letter-spacing:1px;background:var(--s1);position:sticky;top:0;}
+.tbl td{color:var(--t2);}
+.tbl tr:hover td{background:rgba(245,197,24,.02);}
+.tbl-wrap{border:1px solid var(--bd);border-radius:12px;overflow:auto;max-height:500px;}
+
+/* DM steps */
+.dm{display:flex;gap:14px;align-items:flex-start;margin-bottom:16px;}
+.dm-n{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:#000;flex-shrink:0;}
+.dm-c{flex:1;}
+.dm-c h4{font-size:.88rem;margin-bottom:2px;}
+.dm-c p{font-size:.8rem;color:var(--t2);}
+.dm-ex{font-size:.78rem;color:var(--t3);font-style:italic;margin-top:4px;background:var(--s2);padding:10px 14px;border-radius:8px;border-left:2px solid var(--acc);line-height:1.5;}
+
+/* Email seq */
+.em-card{background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:20px;margin-bottom:12px;}
+.em-card .em-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.em-card .em-day{font-size:.68rem;color:var(--acc);font-weight:600;text-transform:uppercase;letter-spacing:1px;}
+.em-card .em-subj{font-size:.9rem;font-weight:600;margin-bottom:6px;}
+.em-card .em-body{font-size:.8rem;color:var(--t2);margin-bottom:8px;}
+.em-card .em-cta{font-size:.78rem;color:var(--gr);font-weight:600;}
+
+/* Qual system */
+.qual-step{display:flex;gap:16px;margin-bottom:20px;align-items:flex-start;}
+.qual-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+.qual-content{flex:1;}
+.qual-content h4{font-size:.92rem;margin-bottom:4px;}
+.qual-content p{font-size:.8rem;color:var(--t2);}
+.qual-content .script{background:var(--s2);border:1px solid var(--bd);border-radius:8px;padding:12px;margin-top:8px;font-size:.78rem;color:var(--t2);font-style:italic;}
+
+.note{font-size:.76rem;color:var(--t3);font-style:italic;margin-top:8px;}
+.highlight-box{background:linear-gradient(135deg,rgba(245,197,24,.08),rgba(245,197,24,.02));border:1px solid rgba(245,197,24,.2);border-radius:12px;padding:20px;margin:16px 0;}
+.highlight-box h3{color:var(--acc);margin-bottom:8px;}
+
+/* Q Catalog */
+.q-item{background:var(--s1);border:1px solid var(--bd);border-radius:10px;padding:16px;margin-bottom:10px;}
+.q-item .q-cat{font-size:.65rem;text-transform:uppercase;letter-spacing:2px;color:var(--acc);font-weight:600;margin-bottom:4px;}
+.q-item .q-text{font-size:.88rem;font-weight:500;margin-bottom:4px;}
+.q-item .q-why{font-size:.78rem;color:var(--t3);}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="wrap"><h1><span>LICHTHAUS</span> Operations Playbook</h1><span class="ver">v2.0 · April 2026</span></div></div>
+
+<div class="main-tabs" id="tabs">
+  <div class="mt on" onclick="tab(0)">1. Marktforschung</div>
+  <div class="mt" onclick="tab(1)">2. Awareness-Stufen</div>
+  <div class="mt" onclick="tab(2)">3. Freebies & Lead Magnets</div>
+  <div class="mt" onclick="tab(3)">4. LinkedIn & Cold DM</div>
+  <div class="mt" onclick="tab(4)">5. E-Mail-Sequenzen</div>
+  <div class="mt" onclick="tab(5)">6. Ad-Angles</div>
+  <div class="mt" onclick="tab(6)">7. Sales-System</div>
+  <div class="mt" onclick="tab(7)">8. Black & Blue Label</div>
+  <div class="mt" onclick="tab(8)">9. Fragenkatalog</div>
+</div>
+
+<!-- ========== TAB 1: MARKTFORSCHUNG ========== -->
+<div class="tab-panel on" id="p0"><div class="wrap">
+
+<div class="sec">
+  <div class="sec-t">Wettbewerbsanalyse — Berliner Film-Equipment & Studio-Markt</div>
+  <div class="sec-sub">Recherche: 15+ Anbieter analysiert. Lichthaus ist bereits Tier 1 positioniert — die Strategie muss das sichtbar machen.</div>
+
+  <div class="highlight-box">
+    <h3>Lichthaus Ist-Position (laut Recherche)</h3>
+    <p style="font-size:.85rem;color:var(--t2);">Deutschlands erstes 100% nachhaltiges „Green" Studio · Höchstes Film-Equipment-Lager Deutschlands · Joint Venture: LEDcave Berlin (größtes XR-Studio Europas, 800m² LED) · Standort: Groß-Berliner Damm 83A, Adlershof · Full-Service: Kamera, Licht, Grip, Rigging + Studio + Produktionsbüros</p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th>Anbieter</th><th>Kategorie</th><th>Positionierung</th><th>USP</th><th>Schwäche / Gap</th><th>Tier</th></tr></thead>
+      <tbody>
+        <tr><td><strong>ARRI Rental</strong></td><td>Equipment</td><td>Premium, Global Standard</td><td>Eigene Kameras/Objektive, weltweite Logistik</td><td>Kein Studio, kein Personal, kein One-Stop</td><td>1</td></tr>
+        <tr><td><strong>Studio Babelsberg</strong></td><td>Studio + LED</td><td>Mega-Scale, Heritage</td><td>DARK BAY LED Volume (Netflix-Grade), 21 Stages, 100+ Jahre</td><td>Nur Studio, kein Equipment-Verleih, Potsdam (nicht Berlin)</td><td>1</td></tr>
+        <tr><td><strong>Ludwig / MBF</strong></td><td>Equipment</td><td>Comprehensive + Prestige-Optik</td><td>Exklusiv-Panavision-Distributor, 60.000+ Produkte, 9 Standorte</td><td>Kein Studio, kein Personal, keine Büros</td><td>1</td></tr>
+        <tr><td><strong>LEDcave Berlin</strong></td><td>XR/Virtual</td><td>XR-Marktführer</td><td>Europas größtes XR-Studio, 800m² LED, Game-Engine</td><td>Nur Virtual Production, Nische</td><td>2</td></tr>
+        <tr><td><strong>see you RENT</strong></td><td>Equipment</td><td>Qualität + Service</td><td>Top-Equipment + aufmerksame Betreuung</td><td>Kein Studio, kein Personal</td><td>2</td></tr>
+        <tr><td><strong>RGB RENTAL</strong></td><td>Equipment + Crew</td><td>Boutique, Filmmaker-Modell</td><td>Technische Teams + On-Set-Support, Filmemacher im Haus</td><td>Klein, kein eigenes Studio, Kreuzberg</td><td>3</td></tr>
+        <tr><td><strong>CINE PLUS</strong></td><td>Full-Service</td><td>Pan-German AV-Produktion</td><td>8 Standorte, Post-Production integriert</td><td>Generalist, kein LED-Volume</td><td>2</td></tr>
+        <tr><td><strong>UFO Filmgerät</strong></td><td>Equipment</td><td>Mid-Market</td><td>Fusion EEFF + Das Filmgerät, Drohnen</td><td>Kein Studio, limitiertes Netzwerk</td><td>3</td></tr>
+        <tr><td><strong>25p Kameraverleih</strong></td><td>Equipment</td><td>Fair Pricing</td><td>Faire Preise, Multi-Location</td><td>Kein Studio, kein Personal</td><td>3</td></tr>
+        <tr><td><strong>BUFA</strong></td><td>Studio</td><td>Heritage, Dubbing</td><td>60+ Jahre, 11 Synchronstudios, UNESCO-gelistet</td><td>Fokus Synchron/Dubbing, wenig Equipment</td><td>2</td></tr>
+        <tr><td><strong>Pille Film</strong></td><td>Equipment</td><td>— GESCHLOSSEN (2022)</td><td>War: Licht-Spezialist</td><td>Marktaustritt → Konsolidierungschance</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-t">Marktlücken & Positionierungs-Chancen</div>
+  <div class="g3">
+    <div class="cd cd-l"><h3>🎯 Niemand bietet echtes All-in-One</h3><p>Studios und Verleiher sind getrennt. Keiner außer Lichthaus bietet Studio + Equipment + Crew + Büro aus einer Hand. DAS ist der unvergleichbare Vorteil.</p></div>
+    <div class="cd cd-bl"><h3>🔮 Mid-Market Virtual Production fehlt</h3><p>LEDcave und DARK BAY sind Enterprise-Only. Kein bezahlbarer Einstieg in VP für Musik-Videos, Werbespots, kleinere Serien.</p></div>
+    <div class="cd cd-gr"><h3>🛡️ On-Set Technical Support</h3><p>Equipment wird geliefert, aber kein garantierter Tech-Support vor Ort. Premium-Tier: Equipment + 24/7 technische Betreuung.</p></div>
+    <div class="cd cd-pu"><h3>📚 Keine Education im Markt</h3><p>Kein Wettbewerber betreibt Content-Marketing oder Education. Wer es als Erster macht, wird Thought Leader.</p></div>
+    <div class="cd cd-rd"><h3>💰 Pille-Film-Lücke</h3><p>Exit von Pille Filmgeräteverleih 2022 = Marktkonsolidierung. Kunden suchen Alternative → Lichthaus kann übernehmen.</p></div>
+    <div class="cd cd-pk"><h3>🌍 International Crew Coordination</h3><p>Kein englischsprachiger Crew-Koordinationsservice für internationale Co-Produktionen in Berlin.</p></div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-t">Branchentrends 2024–2026</div>
+  <div class="g4">
+    <div class="cd"><h3 style="color:var(--gr);">📈 5.000 Drehtage/Jahr</h3><p>Berlin-Brandenburg hält starkes Produktionslevel trotz Krisenjahr</p></div>
+    <div class="cd"><h3 style="color:var(--bl);">📺 Streaming dominiert</h3><p>„Die Kaiserin" S2: 6,7M Netflix-Viewer in Woche 1. Serien > Kino.</p></div>
+    <div class="cd"><h3 style="color:var(--or);">💸 Kosten steigen</h3><p>Talent-Kosten +40%. Schauspieler-Tagesgage: 1.050–25.000 €</p></div>
+    <div class="cd"><h3 style="color:var(--acc);">🏛️ Neue Filmförderung</h3><p>Bis 30% der dt. Produktionskosten als Zuschuss. Verdopplung auf 250M €/Jahr geplant.</p></div>
+    <div class="cd"><h3 style="color:var(--pu);">📷 Mirrorless +21%</h3><p>Mirrorless-Kamera-Verleih wächst 21% (2023→2024)</p></div>
+    <div class="cd"><h3 style="color:var(--pk);">🌱 Green Shooting</h3><p>Nachhaltigkeit wird Pflicht. Lichthaus ist bereits positioniert.</p></div>
+    <div class="cd"><h3 style="color:var(--cy);">🔄 Konsolidierung</h3><p>Ludwig+MBF Fusion, UFO+dino, Pille raus → Markt wird enger</p></div>
+    <div class="cd"><h3 style="color:var(--gr);">🎮 Virtual Production</h3><p>LED Volume + Game Engine (Unreal/Unity) = Wachstumsvektor</p></div>
+  </div>
+</div>
+</div></div>
+
+<!-- ========== TAB 2: AWARENESS-STUFEN ========== -->
+<div class="tab-panel" id="p1"><div class="wrap">
+<div class="sec">
+  <div class="sec-t">Awareness-Stufen — Detailaufstellung</div>
+  <div class="sec-sub">5 Stufen nach Eugene Schwartz, jeweils mit konkreten Maßnahmen, Kanälen und Zielen.</div>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th>Stufe</th><th>Beschreibung</th><th>Maßnahme</th><th>Kanal</th><th>Content/Angle</th><th>CTA</th><th>Ziel-KPI</th></tr></thead>
+      <tbody>
+        <tr style="background:rgba(74,158,255,.04);"><td><strong>1. Unaware</strong><br><span class="tag t-tofu">TOFU</span></td><td>Kennt weder das Problem noch Lichthaus. Weiß nicht, dass All-in-One existiert.</td><td>Branding-Ads, Content, PR</td><td>Meta Video Ads, LinkedIn Content, YouTube</td><td>Behind-the-Scenes, Branchentrends, „So produziert Berlin 2026"</td><td>Folgen / Video ansehen</td><td>Impressions, View Rate, Follower</td></tr>
+        <tr style="background:rgba(74,158,255,.04);"><td><strong>2. Problem Aware</strong><br><span class="tag t-tofu">TOFU</span></td><td>Weiß: „Meine Produktion ist teuer / stressig / unkoordiniert" — kennt keine Lösung.</td><td>Freebie-Kampagne (Budget-Guide), Pain Point Content</td><td>Meta Lead Ads, Google Search, LinkedIn DMs</td><td>„Warum 40% der Berliner Produktionen über Budget gehen" · Budget-Angle</td><td>Freebie downloaden</td><td>CPL, Downloads, E-Mail Opt-Ins</td></tr>
+        <tr style="background:rgba(52,211,153,.04);"><td><strong>3. Solution Aware</strong><br><span class="tag t-mofu">MOFU</span></td><td>Weiß, dass All-in-One Lösungen existieren, kennt aber Lichthaus noch nicht.</td><td>Education-E-Mails, Case Studies, Retargeting</td><td>E-Mail-Sequenz, Meta Retargeting, Google Display</td><td>Case Studies, Vergleich: Einzelbuchung vs. Paket · Status + Features Angle</td><td>Case Study lesen / Event besuchen</td><td>Open Rate, Click Rate, Event-Anmeldungen</td></tr>
+        <tr style="background:rgba(52,211,153,.04);"><td><strong>4. Product Aware</strong><br><span class="tag t-mofu">MOFU</span></td><td>Kennt Lichthaus, hat aber noch nicht gebucht. Vergleicht mit Alternativen.</td><td>Studio-Event, Testimonials, Direktansprache</td><td>Event, E-Mail Follow-Up, LinkedIn DM, Retargeting</td><td>Testimonials, Studio-Tour, konkreter Vergleich · Alle Angles</td><td>Beratungscall buchen / Event besuchen</td><td>Call-Buchungen, Event-Teilnahme</td></tr>
+        <tr style="background:rgba(245,197,24,.04);"><td><strong>5. Most Aware</strong><br><span class="tag t-bofu">BOFU</span></td><td>Kennt Lichthaus, will buchen, braucht letzten Push.</td><td>Personalisiertes Angebot, Follow-Up, Take-Away Close</td><td>E-Mail, Telefon, LinkedIn DM</td><td>Maßgeschneidertes Paket, Verfügbarkeits-Druck, Garantien · Budget + Exklusivität</td><td>Angebot anfordern / Buchen</td><td>Abschlussrate, Auftragswert</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-t">Kanal-Zuordnung pro Awareness-Stufe</div>
+  <div class="g2">
+    <div class="cd">
+      <h3>TOFU: Reichweite & Lead-Capture</h3>
+      <ul>
+        <li><strong>Meta Ads</strong> → Video-Ads (Studio-Impressionen) + Lead-Gen (Freebie-Download)</li>
+        <li><strong>Google Search</strong> → „Studio mieten Berlin", „Equipment Verleih", „LED Studio"</li>
+        <li><strong>LinkedIn Content</strong> → Behind-the-Scenes, Trend-Artikel, kurze Cases</li>
+        <li><strong>Cold DMs</strong> → Personalisierte Ansprache an Produzenten & Projektleiter</li>
+      </ul>
+    </div>
+    <div class="cd">
+      <h3>MOFU: Education & Engagement</h3>
+      <ul>
+        <li><strong>E-Mail-Sequenz</strong> → 4–6 Mails: Cross-Selling aller Sparten, Case Studies</li>
+        <li><strong>Meta Retargeting</strong> → Pixel-basiert: Testimonial-Ads, Event-Promotion</li>
+        <li><strong>Google Display</strong> → Retargeting auf Branchenportalen</li>
+        <li><strong>Studio-Events</strong> → Themenabend, Live-Tour, Networking</li>
+      </ul>
+    </div>
+    <div class="cd">
+      <h3>BOFU: Conversion & Abschluss</h3>
+      <ul>
+        <li><strong>E-Mail Follow-Up</strong> → Personalisiertes Angebot, Reminder-Sequenz</li>
+        <li><strong>Telefon / Beratungscall</strong> → CLOSER-Methode, Take-Away Close</li>
+        <li><strong>LinkedIn DM</strong> → Persönlicher Follow-Up nach Call</li>
+        <li><strong>Angebotsvorlage</strong> → Value Stacking, Paketpreise, Garantien</li>
+      </ul>
+    </div>
+    <div class="cd">
+      <h3>Retention: Langzeit-Kundenbindung</h3>
+      <ul>
+        <li><strong>Quartals-Newsletter</strong> → Neuigkeiten, neue Referenzen, Upgrades</li>
+        <li><strong>Retainer-Angebot</strong> → Monatspauschale für Stammkunden</li>
+        <li><strong>Upsell-Kampagnen</strong> → Zusätzliche Sparten vorstellen</li>
+        <li><strong>Empfehlungsprogramm</strong> → Rabatt/Bonus für Weiterempfehlung</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</div></div>
+
+<!-- ========== TAB 3: FREEBIES ========== -->
+<div class="tab-panel" id="p2"><div class="wrap">
+<div class="sec">
+  <div class="sec-t">5 Lead Magnets — Blueprints</div>
+  <div class="sec-sub">Jedes Freebie löst ein konkretes Problem der Zielgruppe und positioniert Lichthaus als Experte.</div>
+
+  <div class="cd" style="margin-bottom:16px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;"><h3>1. 📊 „Filmbudget-Kalkulationsvorlage für Berliner Produktionen"</h3><span class="tag t-tofu">TOFU</span><span class="tag t-lead">Lead-Gen</span></div>
+    <p style="margin:8px 0;"><strong>Format:</strong> Interaktives Google Sheet / Excel + 4-seitiger PDF-Guide</p>
+    <p><strong>Inhalt:</strong> Vorgefüllte Positionen für Berlin: Studiotagespreise, typische Crew-Kosten, Equipment-Mietspannen. Automatische Kalkulation: Bundling-Rabatte, Mehrtagespreise, Crew-Paketpreise. Vergleich: Einzelbuchung vs. Lichthaus-Paket. Berliner Marktdaten: Übliche Tagessätze für Beleuchter, Gaffer, Produktionsleiter.</p>
+    <p><strong>Warum es funktioniert:</strong> Steigende Kosten + sinkende Budgets = Pain Point #1. Produzenten brauchen das. Zeigt Preiskompetenz, ohne zu „verkaufen". Natürlicher Upsell: „Wir helfen dir, diese Positionen zu optimieren."</p>
+    <p><strong>Capture-Felder:</strong> Name, E-Mail, Firma, Produktionstyp, Budget-Range (optional)</p>
+  </div>
+
+  <div class="cd" style="margin-bottom:16px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;"><h3>2. 📋 „Drehplan-Optimierungs-Template"</h3><span class="tag t-tofu">TOFU</span><span class="tag t-lead">Lead-Gen</span></div>
+    <p style="margin:8px 0;"><strong>Format:</strong> Excel/Google Sheets Template + PDF-Guide (3–5 Seiten)</p>
+    <p><strong>Inhalt:</strong> Vorgefüllte Drehplan-Struktur (Tage/Szenen/Locations). Automatische Kostenkalkulation nach Crew-Größe. Farbcodierung für Location-Wechsel, Equipment-Bedarf, Cast. Quick-Reference: Typische Dauerschätzungen nach Szenentyp.</p>
+    <p><strong>Warum:</strong> Jede Verzögerung kostet fünfstellig. Template spart 5–10h pro Projekt. Positioniert Lichthaus als Produktions-Versteher, nicht nur Studio-Vermieter.</p>
+  </div>
+
+  <div class="cd" style="margin-bottom:16px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;"><h3>3. 👥 „Crew Management Playbook für Berliner Filmproduktionen"</h3><span class="tag t-mofu">MOFU</span><span class="tag t-lead">Lead-Gen</span></div>
+    <p style="margin:8px 0;"><strong>Format:</strong> 12–15 Seiten PDF + Download-Templates</p>
+    <p><strong>Inhalt:</strong> „Die Crew-Verfügbarkeitskrise: Wie Berlin 2026 besetzt." Rollen-Beschreibungen + Berliner Marktpreise (Beleuchter, Grip, Sound, AD, UPM). Kommunikations-Templates (WhatsApp/E-Mail für Callsheets, Änderungen, Safety Briefings). Crew-Retention-Strategien.</p>
+    <p><strong>Warum:</strong> Crew-Shortage ist realer Pain Point. Umfassender Guide → Thought Leadership. Crew-Management-Kompetenz → direkter Link zu Personalvermittlung.</p>
+  </div>
+
+  <div class="cd" style="margin-bottom:16px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;"><h3>4. 📍 „Berlin-Adlershof Produktionsstandort-Checkliste"</h3><span class="tag t-mofu">MOFU</span><span class="tag t-lead">Lead-Gen</span></div>
+    <p style="margin:8px 0;"><strong>Format:</strong> PDF-Checkliste + interaktive Map (1–2 Seiten)</p>
+    <p><strong>Inhalt:</strong> Comprehensive Location-Tech-Scout-Checkliste für Berlin-Adlershof. Kategorien: Parking/Logistik, Strom/Infrastruktur, Crew-Amenities, Noise, Accessibility. Karte: Distanz zu Catering, Crew-Parking, Equipment-Häusern, Notdiensten. „Was du innerhalb von 5km findest."</p>
+    <p><strong>Warum:</strong> Macht Lichthaus zur „offensichtlichen Wahl", weil es schon auf der Checkliste steht. Geographischer Vorteil: Adlershof = Deutschlands größte Media City.</p>
+  </div>
+
+  <div class="cd" style="margin-bottom:16px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;"><h3>5. 📈 „2026 Deutsches Filmproduktions-Trendreport"</h3><span class="tag t-tofu">TOFU</span><span class="tag t-lead">Lead-Gen</span></div>
+    <p style="margin:8px 0;"><strong>Format:</strong> 20–25 Seiten PDF + 1-Seite Executive Summary</p>
+    <p><strong>Inhalt:</strong> Branchenüberblick: Wachstum Serien vs. Kino. Streaming-Impact auf Workflows. Kostenanalyse + Profitabilitätskrise. Green Shooting. Neue Filmförderung. Case Studies von 2–3 Lichthaus-Kunden.</p>
+    <p><strong>Warum:</strong> White Papers haben höchste Credibility im B2B (54% der Buyer engagieren sich). Zieht Entscheider an. Positioniert als Thought Leader, nicht nur Anbieter.</p>
+  </div>
+
+  <div class="highlight-box">
+    <h3>Empfohlene Reihenfolge</h3>
+    <p style="font-size:.85rem;color:var(--t2);">1. Budget-Kalkulator (sofort umsetzbar, höchster Bedarf) → 2. Drehplan-Template (praktisch, schnell erstellt) → 3. Crew Playbook (tiefe Education) → 4. Standort-Checkliste → 5. Trendreport (aufwändig, aber starker Thought Leadership Hebel)</p>
+  </div>
+</div>
+</div></div>
+
+<!-- ========== TAB 4: LINKEDIN & COLD DM ========== -->
+<div class="tab-panel" id="p3"><div class="wrap">
+<div class="sec">
+  <div class="sec-t">Cold DM Playbook — 7-Schritt-Sequenz</div>
+  <div class="sec-sub">WIIFM (What's In It For Me) für jede Stufe. Nicht pitchen, erst Wert geben.</div>
+
+  <div class="g2">
+    <div>
+      <div class="dm"><div class="dm-n" style="background:var(--bl);">1</div><div class="dm-c"><h4>Open — Persönlicher Einstieg</h4><p>Bezug auf aktuellen Post, Produktion oder Achievement</p><div class="dm-ex">„Hey [Name], hab gesehen dass ihr gerade [Produktion] abgedreht habt — sah richtig stark aus!"</div></div></div>
+      <div class="dm"><div class="dm-n" style="background:var(--gr);">2</div><div class="dm-c"><h4>Hook — Problem identifizieren</h4><p>Konkretes Problem oder verpasste Chance ansprechen</p><div class="dm-ex">„Mir ist aufgefallen, dass ihr für [Projekt] Studio, Equipment und Crew separat gebucht habt — das kostet die meisten Produktionen 20–30% mehr als nötig."</div></div></div>
+      <div class="dm"><div class="dm-n" style="background:var(--acc);">3</div><div class="dm-c"><h4>Relate — Verständnis zeigen</h4><p>Situation spiegeln, Ziel herausarbeiten</p><div class="dm-ex">„Ich sehe, ihr produziert regelmäßig für [Sender/Plattform] — plant ihr, die Produktionskosten 2026 effizienter zu gestalten?"</div></div></div>
+      <div class="dm"><div class="dm-n" style="background:var(--or);">4</div><div class="dm-c"><h4>Clarify Goal — Ziel konkretisieren</h4><p>Konkretes Ziel herausarbeiten</p><div class="dm-ex">„Was ist aktuell eure größte Herausforderung bei der Produktionsplanung?"</div></div></div>
+      <div class="dm"><div class="dm-n" style="background:var(--pu);">5</div><div class="dm-c"><h4>Label Problem — Wert geben (Freebie)</h4><p>Kostenlos Insight oder Resource teilen</p><div class="dm-ex">„Wir haben einen kurzen Guide gemacht: ‚Schlanke Produktionen 2026' — zeigt wie man 25% Produktionskosten spart. Soll ich ihn dir schicken?"</div></div></div>
+      <div class="dm"><div class="dm-n" style="background:var(--pk);">6</div><div class="dm-c"><h4>Create Curiosity — Neugier wecken</h4><p>Andeuten, dass es noch mehr gibt</p><div class="dm-ex">„Ich hätte da noch ein paar Ideen, die speziell für eure Art Produktion relevant wären — magst du hören?"</div></div></div>
+      <div class="dm"><div class="dm-n" style="background:var(--gr);">7</div><div class="dm-c"><h4>CTA — Zum Call einladen</h4><p>Persönliches Gespräch, KEIN Scheduling-Link</p><div class="dm-ex">„Hast du nächste Woche 15 Minuten? Kann dir kurz zeigen, was wir bei [Referenzkunde] gemacht haben — komplett unverbindlich."</div></div></div>
+    </div>
+
+    <div>
+      <div class="cd" style="margin-bottom:14px;">
+        <h3>📊 Erwartbare Conversion Rates</h3>
+        <ul>
+          <li>Connection Request → Accept: <strong>25–35%</strong></li>
+          <li>Accept → Antwort auf DM: <strong>10–15%</strong></li>
+          <li>Antwort → Call gebucht: <strong>15–25%</strong></li>
+          <li>Call → Abschluss: <strong>25–35%</strong></li>
+        </ul>
+        <p style="margin-top:10px;color:var(--acc);font-weight:600;">Bei 400 Requests/Monat ≈ 3–5 Deals</p>
+      </div>
+
+      <div class="cd" style="margin-bottom:14px;">
+        <h3>🎯 Zielgruppen-Filter (LinkedIn Sales Navigator)</h3>
+        <ul>
+          <li><strong>Titel:</strong> Produzent, Produktionsleiter, Regisseur, Herstellungsleiter</li>
+          <li><strong>Branche:</strong> Film, TV, Media, Werbefilm, Streaming</li>
+          <li><strong>Region:</strong> Berlin, Brandenburg, DACH</li>
+          <li><strong>Unternehmen:</strong> 10–500 Mitarbeiter</li>
+          <li><strong>Keywords:</strong> Produktion, Dreh, Studio, Set, Filmproduktion</li>
+        </ul>
+      </div>
+
+      <div class="cd" style="margin-bottom:14px;">
+        <h3>⚡ WIIFM — Warum sollten sie antworten?</h3>
+        <ul>
+          <li>🔒 „Lock in Verfügbarkeit früh — ohne Langzeitverträge"</li>
+          <li>💰 „Spare 20–30% auf Facility-Kosten durch Bundling"</li>
+          <li>🧘 „Ein Ansprechpartner für alles — kein 5-Vendor-Chaos"</li>
+          <li>⚡ „Schnellster Setup in Berlin — mehr Drehzeit"</li>
+          <li>👥 „Zugang zu geprüftem Crew-Netzwerk"</li>
+          <li>📊 „Kostenloses Tool/Template, das sofort hilft"</li>
+        </ul>
+      </div>
+
+      <div class="cd">
+        <h3>🕐 Optimale Send-Zeiten (DACH-Markt)</h3>
+        <ul>
+          <li><strong>Best:</strong> Di–Do, 9–11 Uhr (nach Kaffee, vor Mittagessen)</li>
+          <li><strong>Gut:</strong> Mo 10 Uhr (weniger überfüllt als Freitag)</li>
+          <li><strong>Vermeiden:</strong> Fr Nachmittag, Abends (wirkt verzweifelt)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-t">3 LinkedIn-Sequenzen (Short / Medium / Warm)</div>
+  <div class="g3">
+    <div class="cd cd-bl">
+      <h3>Sequenz A: Short (2 Nachrichten, 2 Wochen)</h3>
+      <p style="margin:8px 0;"><strong>Tag 1:</strong> Connection Request mit kurzem Kontext<br><strong>Tag 5:</strong> Value-First DM nach Accept: Konkreter Tipp + Soft CTA</p>
+      <p class="note">Für: Kalte Kontakte, breites Targeting. Kein Follow-Up bei Nicht-Antwort.</p>
+    </div>
+    <div class="cd cd-gr">
+      <h3>Sequenz B: Medium (3–4 Nachrichten, 4 Wochen)</h3>
+      <p style="margin:8px 0;"><strong>Tag 1:</strong> Connection mit Kontext<br><strong>Tag 3:</strong> Value-First (Trend-Daten / Freebie)<br><strong>Tag 10:</strong> Light Follow-Up mit Spezifität<br><strong>Tag 21:</strong> Re-Engagement mit neuem Content</p>
+      <p class="note">Für: Qualifizierte Zielgruppe, mittleres Engagement. Bei Nicht-Antwort → E-Mail-Sequenz.</p>
+    </div>
+    <div class="cd cd-l">
+      <h3>Sequenz C: Warm (5–6 Nachrichten, 8 Wochen)</h3>
+      <p style="margin:8px 0;"><strong>Tag 1:</strong> Warm Connection (Empfehlung/Event)<br><strong>Tag 4:</strong> Value-Angebot (Freebie)<br><strong>Tag 9:</strong> Follow-Up auf Download<br><strong>Tag 15:</strong> Crew/Office-Services vorstellen (Upsell)<br><strong>Tag 22:</strong> Case Study / Social Proof<br><strong>Tag 35:</strong> Finaler Soft Ask mit klarem CTA</p>
+      <p class="note">Für: Nach Event-Kontakt, Empfehlung, Freebie-Download. Längste Sequenz, höchste Conversion.</p>
+    </div>
+  </div>
+</div>
+</div></div>
+
+<!-- ========== TAB 5: E-MAIL-SEQUENZEN ========== -->
+<div class="tab-panel" id="p4"><div class="wrap">
+<div class="sec">
+  <div class="sec-t">E-Mail-Sequenz 1: Post-Freebie Welcome (6 Mails, 20 Tage)</div>
+  <div class="sec-sub">Ziel: Vom Download zum Beratungscall. Education + Cross-Selling aller Sparten.</div>
+
+  <div class="em-card"><div class="em-head"><div class="em-day">Sofort</div><span class="tag t-mail">Welcome</span></div><div class="em-subj">📧 „Dein Drehplan-Optimierungs-Template ist bereit!"</div><div class="em-body">Danke + Download-Link + 2–3 Sätze zur Nutzung. PS: „Bei Fragen — antworte einfach auf diese E-Mail."</div><div class="em-cta">CTA: Download-Button</div></div>
+
+  <div class="em-card"><div class="em-head"><div class="em-day">Tag 2</div><span class="tag t-mail">Quick Start</span></div><div class="em-subj">📧 „So nutzt du das Template am besten (+ 2 Profi-Tipps)"</div><div class="em-body">3-Schritt-Kurzanleitung. 2 Pro-Tipps (versteckte Kostenersparnisse, Drehfolgen-Optimierung). Kurze Success Story. Soft-Intro Lichthaus: „Nebenbei: Wir helfen auch bei Studio- und Equipment-Planung…"</div><div class="em-cta">CTA: „Brauchst du Hilfe beim Optimieren? Schreib mir."</div></div>
+
+  <div class="em-card"><div class="em-head"><div class="em-day">Tag 5</div><span class="tag t-mail">Education</span></div><div class="em-subj">📧 „Warum deutsche Produktionen gerade Scheduling-Probleme haben"</div><div class="em-body">Hook: Aktuelle Trend-Daten (Serien-Boom, Kosten-Druck). 3 spezifische Probleme, die Lichthaus sieht: Location-Wechsel, Setup-Unterschätzung, Crew-Verfügbarkeit. Überleitung: „Das Template hilft bei #1 und #2. Für #3 sprechen wir gerne."</div><div class="em-cta">CTA: Soft Gesprächsangebot</div></div>
+
+  <div class="em-card"><div class="em-head"><div class="em-day">Tag 9</div><span class="tag t-mail">Cross-Sell</span></div><div class="em-subj">📧 „Hier: Das Crew-Management Playbook (+ Standort-Checkliste)"</div><div class="em-body">2. Freebie vorstellen (Crew Playbook + Location Checkliste). Warum: „Crew-Koordination = Top-3-Stressfaktor." Positionierung: „Alle unsere Tools lösen konkrete Probleme — nicht um Zeug zu verkaufen."</div><div class="em-cta">CTA: Download-Buttons für beide Freebies</div></div>
+
+  <div class="em-card"><div class="em-head"><div class="em-day">Tag 14</div><span class="tag t-mail">Case Study</span></div><div class="em-subj">📧 „Wie eine Berlin-Serie 15% Produktionskosten sparte (Zahlen)"</div><div class="em-body">Konkrete Case Study: Problem → Lösung (konsolidiert bei Lichthaus) → Ergebnis (15% Kosten gespart, 2 Wochen schneller, bessere Crew-Retention). Testimonial-Zitat.</div><div class="em-cta">CTA: „Lass uns eine kurze Analyse für dein Projekt machen — kostenlos."</div></div>
+
+  <div class="em-card"><div class="em-head"><div class="em-day">Tag 20</div><span class="tag t-mail">Conversion</span></div><div class="em-subj">📧 „Nächste Schritte (und wie wir dir konkret helfen)"</div><div class="em-body">Recap: „In 2 Wochen hast du 3 Tools und ein Case Study bekommen." Drei Optionen: A) 20-Min Call, B) E-Mail speichern für später, C) Studio-Tour ohne Verkaufsgespräch.</div><div class="em-cta">CTA: 3 Buttons (Call buchen / Später / Tour)</div></div>
+</div>
+
+<div class="sec">
+  <div class="sec-t">E-Mail-Sequenz 2: Post-Event Follow-Up (4 Mails, 14 Tage)</div>
+  <div class="g2">
+    <div class="em-card"><div class="em-day">Tag 1 (24h nach Event)</div><div class="em-subj">„Danke für gestern — hier ist das, was wir besprochen haben"</div><div class="em-body">Spezifischer Bezug auf Gespräch. Versprochene Ressource liefern (passend zum Thema). Persönlicher Touch.</div></div>
+    <div class="em-card"><div class="em-day">Tag 4</div><div class="em-subj">„So unterstützen wir dein Projekt über alle Phasen"</div><div class="em-body">3 Phasen (Vorproduktion, Produktion, Postproduktion) × Lichthaus-Hilfe. Ökosystem vorstellen.</div></div>
+    <div class="em-card"><div class="em-day">Tag 9</div><div class="em-subj">„Für [dein Projekttyp]: Das brauchen die meisten Produktionen"</div><div class="em-body">Personalisiert nach Projekttyp (Serie/Feature/Commercial). Tailored Checkliste. Success Story von ähnlichem Projekt.</div></div>
+    <div class="em-card"><div class="em-day">Tag 14</div><div class="em-subj">„Wo wir konkret helfen — und nächste Schritte"</div><div class="em-body">Dots verbinden: Bedarf ↔ Service. 3 konkrete Next Steps: Studio-Tour, Planning Call, Self-Service Estimate.</div></div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-t">E-Mail-Sequenz 3: Re-Engagement für kalte Leads (3 Mails, 21 Tage)</div>
+  <div class="g3">
+    <div class="em-card"><div class="em-day">Tag 1</div><div class="em-subj">„Sorry — mein Fehler, nicht deine Schuld. Hier's was Neues."</div><div class="em-body">Entwaffnende Eröffnung. Neue Value-Ressource (neuer Report, neues Freebie). Kein Sales-Pitch.</div></div>
+    <div class="em-card"><div class="em-day">Tag 10</div><div class="em-subj">„Kurze Check-In: Wie läuft's bei dir gerade?"</div><div class="em-body">Casual, menschlich. Echte Frage: „Projekte am Laufen oder Ruhezeit?" 3 Antwort-Optionen vorgeben.</div></div>
+    <div class="em-card"><div class="em-day">Tag 21</div><div class="em-subj">„Letzte Nachricht — dann gebe ich Ruhe"</div><div class="em-body">Respektvoller Abschluss. 2 klare Pfade: „Kontaktiert mich in [Monat]" ODER Abmelden. Kein Druck.</div></div>
+  </div>
+</div>
+</div></div>
+
+<!-- ========== TAB 6: AD-ANGLES ========== -->
+<div class="tab-panel" id="p5"><div class="wrap">
+<div class="sec">
+  <div class="sec-t">6 Ad-Angles — Headlines, Subheadlines, Funnel-Zuordnung</div>
+  <div class="sec-sub">Jeder Angle mit deutscher Copy, Funnel-Stage, und ob Lead-Gen-Only oder Landing Page benötigt wird.</div>
+
+  <div class="tbl-wrap" style="margin-bottom:24px;">
+    <table class="tbl">
+      <thead><tr><th>Angle</th><th>Headline (DE)</th><th>Subheadline</th><th>Funnel</th><th>Format</th><th>CTA</th></tr></thead>
+      <tbody>
+        <tr><td><strong>🏆 Status</strong></td><td>„Die Studios, wo Deutschlands beste Produktionen entstehen"</td><td>„Lichthaus Berlin-Adlershof: Wo Qualität zur Norm wird"</td><td><span class="tag t-tofu">TOFU</span></td><td><span class="tag t-lead">Lead-Gen Only</span></td><td>Case Study downloaden</td></tr>
+        <tr><td><strong>💰 Budget</strong></td><td>„Wie Berlin-Produktionen 20–30% Facility-Kosten sparen"</td><td>„Alles an einem Ort = Keine versteckten Kosten"</td><td><span class="tag t-mofu">MOFU</span></td><td><span class="tag t-lp">Landing Page</span></td><td>Budget-Kalkulator nutzen</td></tr>
+        <tr><td><strong>⚡ Qualität</strong></td><td>„LED-Studios mit Hollywood-Standard, in Berlin"</td><td>„Neueste Technologie + professionelle Crew"</td><td><span class="tag t-tofu">TOFU</span></td><td><span class="tag t-lead">Lead-Gen Only</span></td><td>Tech-Specs ansehen</td></tr>
+        <tr><td><strong>🚀 Speed</strong></td><td>„Warum 40% der Berlin-Produktionen zu Lichthaus wechseln"</td><td>„Alle Dienstleistungen am selben Ort = Weniger Stress"</td><td><span class="tag t-mofu">MOFU</span></td><td><span class="tag t-lp">Landing Page</span></td><td>Case Study kostenlos</td></tr>
+        <tr><td><strong>📦 One-Stop</strong></td><td>„Diese 7 Vendors brauchst du nicht — Lichthaus kombiniert sie"</td><td>„EIN Ansprechpartner für Studio, Equipment, Crew, Büro"</td><td><span class="tag t-tofu">TOFU</span></td><td><span class="tag t-lead">Lead-Gen Only</span></td><td>Vendor-Guide herunterladen</td></tr>
+        <tr><td><strong>👥 Social Proof</strong></td><td>„Die Produktionen, die bereits mit Lichthaus arbeiten"</td><td>„50+ Projekte 2024 | Features, Serien, Commercials"</td><td><span class="tag t-bofu">BOFU</span></td><td><span class="tag t-lp">Landing Page</span></td><td>Case Studies lesen</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="g2">
+    <div class="cd">
+      <h3>Meta Ad Copy — Budget-Angle (Beispiel)</h3>
+      <p style="margin:8px 0;font-size:.82rem;color:var(--t2);line-height:1.7;background:var(--s2);padding:14px;border-radius:8px;">Die teuersten Fehler in der Preproduction: zu viele Vendors, schlechte Koordination, Last-Minute-Buchungen.<br><br>Wir haben das gelöst. Produzenten, die mit uns arbeiten, sparen durchschnittlich 2–3 Wochen Planung + 15–25% auf Facility-Costs.<br><br>Test unseren kostenlosen Budget-Kalkulator — sieh selbst, wie viel du sparen kannst.<br><br>👉 Budget berechnen</p>
+    </div>
+    <div class="cd">
+      <h3>Google Ads — Keyword-Cluster</h3>
+      <ul>
+        <li><strong>Studio:</strong> „LED Studio Berlin" · „Filmstudio Adlershof" · „Studio mieten Berlin"</li>
+        <li><strong>Equipment:</strong> „Kamera Verleih Berlin" · „Licht Verleih Berlin" · „Equipment Verleih Film"</li>
+        <li><strong>Crew:</strong> „Beleuchter buchen Berlin" · „Kamerateam Berlin" · „Filmcrew mieten"</li>
+        <li><strong>Office:</strong> „Produktionsbüro Berlin" · „Production Office Adlershof"</li>
+        <li><strong>Branded:</strong> „Lichthaus Berlin" · „LEDcave Berlin"</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="highlight-box" style="margin-top:16px;">
+    <h3>Ad-Formate Empfehlung</h3>
+    <p style="font-size:.85rem;color:var(--t2);"><strong>Video (15–30s):</strong> Problem-Statement als Text on Screen (kein Sound) → Lichthaus-Lösung zeigen (mit Sound) → CTA. <strong>Carousel (3–5 Karten):</strong> Problem → Lösung → Benefit → Proof → CTA. <strong>Static Image:</strong> Headline = Benefit, Clean-Studio-Foto, kurze Copy (2–3 Zeilen), klarer CTA-Button.</p>
+  </div>
+</div>
+</div></div>
+
+<!-- ========== TAB 7: SALES SYSTEM ========== -->
+<div class="tab-panel" id="p6"><div class="wrap">
+<div class="sec">
+  <div class="sec-t">Qualifizierungs-System — BANT + Disqualification</div>
+  <div class="sec-sub">Nur qualifizierte Leads zum Beratungscall. Disqualifizieren spart Zeit und erhöht die Close Rate.</div>
+
+  <div class="qual-step"><div class="qual-icon" style="background:rgba(245,197,24,.1);color:var(--acc);">💰</div><div class="qual-content"><h4>1. Budget — Hat der Prospect Budget?</h4><p>Mindestbudget: 5.000 € pro Drehtag / 8.000 € Monatspauschale</p><div class="script">„Was ist euer ungefähres Budget-Rahmen für die Produktionsmittel? Wir arbeiten typischerweise mit Budgets ab 5.000 € pro Drehtag — liegt ihr da ungefähr?"</div></div></div>
+
+  <div class="qual-step"><div class="qual-icon" style="background:rgba(74,158,255,.1);color:var(--bl);">⏰</div><div class="qual-content"><h4>2. Authority — Ist es der Entscheider?</h4><p>Wer entscheidet über Studio/Equipment? Produzent, Herstellungsleiter oder Produktionsleiter?</p><div class="script">„Wer ist bei euch final für die Facility-Buchung zuständig? Bist du das direkt, oder gibt es noch jemanden, der grünes Licht geben muss?"</div></div></div>
+
+  <div class="qual-step"><div class="qual-icon" style="background:rgba(52,211,153,.1);color:var(--gr);">📅</div><div class="qual-content"><h4>3. Need — Gibt es einen konkreten Bedarf?</h4><p>Aktive Produktion in Planung? Oder nur „mal gucken"?</p><div class="script">„Habt ihr aktuell ein konkretes Projekt in Planung, oder seid ihr eher in der allgemeinen Orientierungsphase? Beides ist ok — ich möchte nur wissen, wie ich euch am besten helfen kann."</div></div></div>
+
+  <div class="qual-step"><div class="qual-icon" style="background:rgba(248,113,113,.1);color:var(--rd);">🔥</div><div class="qual-content"><h4>4. Timeline — Wann wird produziert?</h4><p>Innerhalb der nächsten 3 Monate? → Heiß. 6+ Monate? → Nurture.</p><div class="script">„Wann plant ihr, in die Produktion zu gehen? Gibt es schon ein Startdatum, oder seid ihr noch in der Vorproduktion?"</div></div></div>
+
+  <div class="highlight-box">
+    <h3>Disqualifikation — Wann NICHT weiter</h3>
+    <p style="font-size:.85rem;color:var(--t2);">Budget unter 3.000 €/Drehtag · Kein konkretes Projekt (nur „Networking") · Nicht der Entscheider UND kein Zugang zum Entscheider · Timeline 12+ Monate → In E-Mail-Nurture verschieben, nicht im Sales-Prozess halten.</p>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-t">Setting-Call Script (15–20 Min.)</div>
+  <div class="sec-sub">Ziel: Qualifizieren + Termin für ausführlichen Beratungscall setzen. Nicht pitchen!</div>
+  <div class="g2">
+    <div class="cd">
+      <h3>Ablauf</h3>
+      <ul>
+        <li><strong>0–2 Min:</strong> Begrüßung, Rapport, „Danke für deine Zeit"</li>
+        <li><strong>2–5 Min:</strong> Situationsfragen: „Erzähl mir über euer aktuelles Projekt"</li>
+        <li><strong>5–10 Min:</strong> BANT-Qualifizierung (Budget, Authority, Need, Timeline)</li>
+        <li><strong>10–15 Min:</strong> Pain Points identifizieren: „Was ist aktuell euer größtes Problem bei…?"</li>
+        <li><strong>15–18 Min:</strong> Kurzer Lichthaus-Teaser: „Basierend auf dem, was du sagst, hätte ich 2–3 Ideen…"</li>
+        <li><strong>18–20 Min:</strong> Next Step setzen: „Sollen wir einen 45-Min Beratungscall machen, wo ich dir ein konkretes Konzept zeige?"</li>
+      </ul>
+    </div>
+    <div class="cd">
+      <h3>Key Phrases</h3>
+      <ul>
+        <li>„Hilf mir zu verstehen…" (statt direkt pitchen)</li>
+        <li>„Wie löst ihr das aktuell?" (Pain Point vertiefen)</li>
+        <li>„Was wäre für euch das ideale Szenario?" (Traumresultat herausarbeiten)</li>
+        <li>„Das klingt bekannt — wir sehen das bei vielen Produktionen." (Validierung)</li>
+        <li>„Ich möchte ehrlich sein: Das passt / passt nicht zu uns." (Vertrauen)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-t">Closing-Gespräch — CLOSER-Methode (45 Min.)</div>
+  <div class="sec-sub">6-Schritt-Framework nach Hormozi. Verkaufen = dem Kunden helfen, eine gute Entscheidung zu treffen.</div>
+  <div class="g2">
+    <div>
+      <div class="qual-step"><div class="qual-icon" style="background:rgba(74,158,255,.1);color:var(--bl);">C</div><div class="qual-content"><h4>Confirm — Situation bestätigen</h4><div class="script">„Du hast mir erzählt, dass [Problem]. Ist das immer noch euer größtes Thema?"</div></div></div>
+      <div class="qual-step"><div class="qual-icon" style="background:rgba(52,211,153,.1);color:var(--gr);">L</div><div class="qual-content"><h4>Listen — 70% zuhören lassen</h4><div class="script">„Erzähl mir mehr. Wie wirkt sich das auf eure Produktion aus? Was kostet euch das?"</div></div></div>
+      <div class="qual-step"><div class="qual-icon" style="background:rgba(245,197,24,.1);color:var(--acc);">O</div><div class="qual-content"><h4>Open Loops — Neugier wecken</h4><div class="script">„Ich habe 3 Ideen, wie man das lösen könnte. Die erste ist…" (die anderen beiden nur andeuten)</div></div></div>
+    </div>
+    <div>
+      <div class="qual-step"><div class="qual-icon" style="background:rgba(167,139,250,.1);color:var(--pu);">S</div><div class="qual-content"><h4>Story — Relevante Case Study erzählen</h4><div class="script">„[Ähnliche Firma] hatte genau das gleiche Problem. Die haben dann [Lösung] gemacht und [Ergebnis mit Zahlen] erreicht."</div></div></div>
+      <div class="qual-step"><div class="qual-icon" style="background:rgba(244,114,182,.1);color:var(--pk);">E</div><div class="qual-content"><h4>Emotional Close — Zukunft malen</h4><div class="script">„Stell dir vor, dein nächstes Projekt: Ein Ansprechpartner, alles am selben Ort, kein Equipment-Stress am Drehtag. Wie würde sich das anfühlen?"</div></div></div>
+      <div class="qual-step"><div class="qual-icon" style="background:rgba(52,211,153,.1);color:var(--gr);">R</div><div class="qual-content"><h4>Resolution — Abschluss oder Take-Away</h4><div class="script">Wenn qualifiziert: „Basierend auf allem, soll ich dir ein konkretes Angebot schicken?"<br><br>Take-Away: „Ich muss ehrlich sein — basierend auf dem, was du sagst, bin ich nicht sicher, ob wir der richtige Partner sind."</div></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-t">Angebotsvorlage — Struktur</div>
+  <div class="cd">
+    <div class="g2">
+      <div>
+        <h3>Aufbau</h3>
+        <ul>
+          <li><strong>1. Executive Summary:</strong> 3 Sätze — Problem, Lösung, Ergebnis</li>
+          <li><strong>2. Ihr Projekt:</strong> Was wir verstanden haben (zeigt Zuhören)</li>
+          <li><strong>3. Unser Vorschlag:</strong> Konkretes Paket mit Value Stacking</li>
+          <li><strong>4. Leistungsumfang:</strong> Was inklusive ist (detailliert)</li>
+          <li><strong>5. Investment:</strong> Preis + Einzelwert-Vergleich (Ersparnis zeigen)</li>
+          <li><strong>6. Garantien:</strong> Equipment-Ausfallgarantie, Verfügbarkeits-Zusage</li>
+          <li><strong>7. Nächste Schritte:</strong> 1-2-3 was jetzt passiert</li>
+          <li><strong>8. Referenzen:</strong> 2–3 relevante Case Studies</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Pricing-Darstellung</h3>
+        <ul>
+          <li>Einzelpreise ALLER Komponenten aufzeigen</li>
+          <li>Paketpreis daneben = Ersparnis sofort sichtbar</li>
+          <li>Beispiel: „Einzelwert: 18.000 € · Ihr Paketpreis: 12.000 € · Ersparnis: 33%"</li>
+          <li>Optional: 3 Optionen (Good / Better / Best)</li>
+          <li>Gültigkeit: 14 Tage (Dringlichkeit ohne Druck)</li>
+        </ul>
+        <p class="note">Hormozi: „Der Preis sollte das Letzte sein, was sie sehen — nach dem ganzen Wert."</p>
+      </div>
+    </div>
+  </div>
+</div>
+</div></div>
+
+<!-- ========== TAB 8: BLACK & BLUE LABEL ========== -->
+<div class="tab-panel" id="p7"><div class="wrap">
+<div class="sec">
+  <div class="sec-t">Zwei-Marken-Strategie: Black Label & Blue Label</div>
+  <div class="sec-sub">Langfristige Positionierung: Zwei Submakren unter dem Lichthaus-Dach für unterschiedliche Marktsegmente.</div>
+
+  <div class="g2">
+    <div class="cd" style="border-top:4px solid #1a1a2c;background:linear-gradient(180deg,rgba(10,10,20,.95),var(--s1));">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+        <div style="width:48px;height:48px;background:#111;border:2px solid #333;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;">⬛</div>
+        <div><h3 style="font-size:1.2rem;">LICHTHAUS <span style="color:#999;">BLACK</span></h3><p style="font-size:.78rem;color:var(--t3);">Premium · Enterprise · Exklusiv</p></div>
+      </div>
+      <p style="margin-bottom:12px;font-size:.88rem;"><strong>Positionierung:</strong> „Die erste Adresse für A-Produktionen in Deutschland."</p>
+      <ul>
+        <li><strong>Zielgruppe:</strong> Serien (Netflix, ARD, ZDF), Kinofilme, große Werbekampagnen</li>
+        <li><strong>Preispunkt:</strong> ab 15.000 €/Drehtag · Enterprise-Pakete ab 25.000 €/Woche</li>
+        <li><strong>USP:</strong> Exklusiv-Nutzung, dedizierter Account Manager, Priority-Booking, 24/7 Support</li>
+        <li><strong>Referenzen:</strong> Nur die größten Produktionen. High-End Social Proof</li>
+        <li><strong>Service-Level:</strong> White-Glove. Alles wird übernommen. Null Eigenaufwand für Kunden</li>
+        <li><strong>Kommunikation:</strong> Minimal, elegant, exklusiv. Einladungen statt Werbung</li>
+        <li><strong>Branding:</strong> Schwarz, Gold, minimalistisch. Hoher Prestige-Faktor</li>
+      </ul>
+      <div style="margin-top:14px;padding:12px;background:rgba(255,255,255,.03);border-radius:8px;">
+        <p style="font-size:.78rem;color:var(--t3);"><strong>Marge:</strong> 30–40% · <strong>Volume:</strong> Wenig Kunden, hoher Wert · <strong>LTV:</strong> 200–500k €</p>
+      </div>
+    </div>
+
+    <div class="cd" style="border-top:4px solid var(--bl);background:linear-gradient(180deg,rgba(74,158,255,.04),var(--s1));">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+        <div style="width:48px;height:48px;background:rgba(74,158,255,.1);border:2px solid rgba(74,158,255,.3);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;">🔵</div>
+        <div><h3 style="font-size:1.2rem;">LICHTHAUS <span style="color:var(--bl);">BLUE</span></h3><p style="font-size:.78rem;color:var(--t3);">Accessible · Mid-Market · Skalierbar</p></div>
+      </div>
+      <p style="margin-bottom:12px;font-size:.88rem;"><strong>Positionierung:</strong> „Professionelle Produktionsinfrastruktur — ohne Enterprise-Budget."</p>
+      <ul>
+        <li><strong>Zielgruppe:</strong> Werbefilme, Social Media Content, Musikvideos, Independent, Corporate</li>
+        <li><strong>Preispunkt:</strong> ab 5.000 €/Drehtag · Flexible Tagespakete</li>
+        <li><strong>USP:</strong> Professionelle Qualität zum fairen Preis. Modular buchbar. Schnell verfügbar</li>
+        <li><strong>Referenzen:</strong> Breitere Palette. Menge + Vielfalt als Social Proof</li>
+        <li><strong>Service-Level:</strong> Self-Service + Unterstützung. Kunde koordiniert mit, Lichthaus liefert</li>
+        <li><strong>Kommunikation:</strong> Offen, transparent, educational. Content-Marketing, Freebies, Events</li>
+        <li><strong>Branding:</strong> Blau, modern, zugänglich. Community-Feeling</li>
+      </ul>
+      <div style="margin-top:14px;padding:12px;background:rgba(74,158,255,.04);border-radius:8px;">
+        <p style="font-size:.78rem;color:var(--t3);"><strong>Marge:</strong> 20–30% · <strong>Volume:</strong> Viele Kunden, mittlerer Wert · <strong>LTV:</strong> 30–100k €</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="highlight-box" style="margin-top:20px;">
+    <h3>Strategie: Warum zwei Labels?</h3>
+    <p style="font-size:.85rem;color:var(--t2);">
+      <strong>Aufwärts-Mobilität:</strong> Blue-Kunden wachsen zu Black-Kunden. Wer einmal im Ökosystem ist, bleibt.<br>
+      <strong>Preisdisziplin:</strong> Black kann Premium-Preise halten, ohne dass Blue die Wahrnehmung drückt.<br>
+      <strong>Marketing-Differenzierung:</strong> Blue bekommt Content-Marketing, Freebies, Events. Black bekommt persönliche Einladungen, exklusive Events.<br>
+      <strong>Risikodiversifizierung:</strong> Black = wenige, große Aufträge (volatil). Blue = viele, mittlere Aufträge (stabil). Zusammen = Planbarkeit.
+    </p>
+  </div>
+
+  <div class="g3" style="margin-top:20px;">
+    <div class="cd cd-l">
+      <h3>Black: Marketing-Strategie</h3>
+      <ul>
+        <li>Kein Content-Marketing — Mundpropaganda + Empfehlung</li>
+        <li>Exklusive Events (nur für A-Produzenten)</li>
+        <li>LinkedIn: Personal Branding der Geschäftsführung</li>
+        <li>PR: Branchenpresse, Awards, Referenz-Dossiers</li>
+        <li>Outreach: Nur Warm-Intro über Netzwerk</li>
+      </ul>
+    </div>
+    <div class="cd cd-bl">
+      <h3>Blue: Marketing-Strategie</h3>
+      <ul>
+        <li>Content-Marketing (Behind-the-Scenes, Education)</li>
+        <li>Freebies, Lead Magnets, E-Mail-Sequenzen</li>
+        <li>Meta Ads + Google Ads (Freebie + Event)</li>
+        <li>LinkedIn Cold DM Outreach (Sequenz A–C)</li>
+        <li>Offene Studio-Events, Community-Aufbau</li>
+      </ul>
+    </div>
+    <div class="cd cd-gr">
+      <h3>Upgrade-Pfad: Blue → Black</h3>
+      <ul>
+        <li>3+ erfolgreiche Projekte über Blue</li>
+        <li>Auftragswert steigt auf 15k+ / Drehtag</li>
+        <li>Persönliche Einladung zum Black-Programm</li>
+        <li>Dedizierter Account Manager zugewiesen</li>
+        <li>Priority-Booking + Premium-Konditionen</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</div></div>
+
+<!-- ========== TAB 9: FRAGENKATALOG ========== -->
+<div class="tab-panel" id="p8"><div class="wrap">
+<div class="sec">
+  <div class="sec-t">Fragenkatalog für Lichthaus Berlin</div>
+  <div class="sec-sub">Diese Fragen müssen im nächsten Meeting beantwortet werden, damit wir die Strategie finalisieren können. Sortiert nach Priorität.</div>
+
+  <h3 style="color:var(--rd);margin:24px 0 12px;">🔴 Kritisch — Ohne diese Antworten geht nichts weiter</h3>
+
+  <div class="q-item"><div class="q-cat">Ist-Zustand</div><div class="q-text">Wie hoch ist die aktuelle durchschnittliche Auslastung (Stunden/Woche und in €)?</div><div class="q-why">Brauchen wir als Baseline für den Kalkulator und die Zielsetzung.</div></div>
+  <div class="q-item"><div class="q-cat">Ist-Zustand</div><div class="q-text">Wie hoch ist der aktuelle Ø Auftragswert? Und die Spanne (kleinstes vs. größtes Projekt)?</div><div class="q-why">Grundlage für Paketpreise und Umsatzprojektion.</div></div>
+  <div class="q-item"><div class="q-cat">Ist-Zustand</div><div class="q-text">Was sind aktuell die Top-5-Kunden (Branche/Typ, nicht unbedingt Name)? Woher kamen sie?</div><div class="q-why">Avatar-Validierung. Verstehen, was bisher funktioniert hat.</div></div>
+  <div class="q-item"><div class="q-cat">Ist-Zustand</div><div class="q-text">Gibt es bereits eine E-Mail-Liste? Wenn ja, wie groß? In welchem Tool?</div><div class="q-why">Entscheidend für E-Mail-Strategie und Toolwahl (ActiveCampaign-Migration?).</div></div>
+  <div class="q-item"><div class="q-cat">Ist-Zustand</div><div class="q-text">Was genau umfasst der aktuelle Service-Umfang? Welche Sparten sind aktiv, welche geplant?</div><div class="q-why">Basis für die 5-Säulen-Darstellung und Paketstruktur.</div></div>
+
+  <h3 style="color:var(--or);margin:24px 0 12px;">🟠 Wichtig — Beeinflusst die Umsetzung stark</h3>
+
+  <div class="q-item"><div class="q-cat">Referenzen</div><div class="q-text">Welche namhaften Produktionen wurden bei Lichthaus / LEDcave realisiert? Dürfen wir sie nennen?</div><div class="q-why">Social Proof ist der stärkste Conversion-Hebel. Ohne Referenzen kein Status-Angle.</div></div>
+  <div class="q-item"><div class="q-cat">Referenzen</div><div class="q-text">Gibt es bestehende Testimonials oder Kunden, die bereit wären, eine Empfehlung auszusprechen?</div><div class="q-why">Für Case Studies, Ads und Landing Page.</div></div>
+  <div class="q-item"><div class="q-cat">Pricing</div><div class="q-text">Was sind die aktuellen Listenpreise? (Studiotag, Equipment-Tagessätze, Crew-Tagessätze, Büro)</div><div class="q-why">Basis für Paket-Kalkulation und Value-Stacking-Berechnung.</div></div>
+  <div class="q-item"><div class="q-cat">Pricing</div><div class="q-text">Wie hoch ist die aktuelle Marge (Brutto / EBIT-Schätzung)?</div><div class="q-why">Brauchen wir für die Beteiligungsberechnung und Skalierungs-Szenarien.</div></div>
+  <div class="q-item"><div class="q-cat">Vertrieb</div><div class="q-text">Wer ist aktuell für Vertrieb zuständig? Wie viele Anfragen kommen pro Monat rein? Woher?</div><div class="q-why">Bestandsaufnahme des Vertriebsprozesses. Wo setzen wir an?</div></div>
+  <div class="q-item"><div class="q-cat">Vertrieb</div><div class="q-text">Wie läuft der aktuelle Sales-Prozess? (Anfrage → Angebot → Abschluss — Schritte + Dauer)</div><div class="q-why">Engstellen identifizieren. Wo verlieren sie Leads?</div></div>
+  <div class="q-item"><div class="q-cat">Positionierung</div><div class="q-text">Wie sieht Lichthaus sich selbst? Was ist die Wunschpositionierung in 3 Jahren?</div><div class="q-why">Black/Blue Label muss mit der Vision matchen.</div></div>
+
+  <h3 style="color:var(--acc);margin:24px 0 12px;">🟡 Nice to Have — Verfeinert die Strategie</h3>
+
+  <div class="q-item"><div class="q-cat">Digital</div><div class="q-text">Gibt es Google Analytics / Meta Pixel auf der Website? Wie viel Traffic kommt aktuell?</div><div class="q-why">Für Retargeting-Strategie und Baseline-Messung.</div></div>
+  <div class="q-item"><div class="q-cat">Digital</div><div class="q-text">Wie aktiv ist Lichthaus auf Social Media? LinkedIn-Followerzahl? Engagement?</div><div class="q-why">Content-Strategie anpassen: Aufbauen vs. Aktivieren.</div></div>
+  <div class="q-item"><div class="q-cat">Events</div><div class="q-text">Wurden bereits Events durchgeführt? Erfahrungen? Kapazität für monatliche Events?</div><div class="q-why">Event-Strategie dimensionieren.</div></div>
+  <div class="q-item"><div class="q-cat">Crew</div><div class="q-text">Wie funktioniert aktuell die Personalvermittlung? Fester Pool oder Ad-hoc?</div><div class="q-why">Für Crew-Playbook und Personal-Sparte des Angebots.</div></div>
+  <div class="q-item"><div class="q-cat">LEDcave</div><div class="q-text">Wie ist die Beziehung zwischen Lichthaus und LEDcave? Cross-Selling möglich?</div><div class="q-why">LEDcave als Upsell-Pfad für Virtual Production einbauen.</div></div>
+  <div class="q-item"><div class="q-cat">Kapazität</div><div class="q-text">Wie viele parallele Produktionen kann der Standort aktuell bedienen?</div><div class="q-why">Kapazitätsgrenzen bestimmen die Wachstumsstrategie.</div></div>
+  <div class="q-item"><div class="q-cat">Wettbewerb</div><div class="q-text">Wer wird aktuell als größter Wettbewerber wahrgenommen? Was machen die besser?</div><div class="q-why">Validierung unserer Wettbewerbsanalyse aus der Recherche.</div></div>
+  <div class="q-item"><div class="q-cat">Green</div><div class="q-text">Wie konkret ist die Green-Studio-Zertifizierung? Welche Label/Standards?</div><div class="q-why">Sustainability als Differentiator braucht Substanz für die Kommunikation.</div></div>
+</div>
+</div></div>
+
+<div style="text-align:center;padding:40px 20px;color:var(--t3);font-size:.75rem;">
+  Lichthaus Berlin · Operations Playbook v2.0 · April 2026 · Basierend auf Hormozi Frameworks, Cold DM Playbook, Scaling Roadmap + Marktforschung
+</div>
+
+<script>
+function tab(i){
+  document.querySelectorAll('.mt').forEach((t,j)=>{t.classList.toggle('on',j===i);});
+  document.querySelectorAll('.tab-panel').forEach((p,j)=>{p.classList.toggle('on',j===i);});
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
