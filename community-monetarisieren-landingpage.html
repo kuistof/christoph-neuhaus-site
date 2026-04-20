@@ -1,0 +1,947 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#0f0d0b" />
+<title>Community Monetarisieren — KI-Workflows für Creator & Personal Brands</title>
+<meta name="description" content="Du hast Reichweite, aber keine Leads? Wir zeigen dir, wie du deine Community über KI-gestützte Funnels in echtes Business verwandelst — individualisiert, markenecht und förderfähig." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ink: #0f0d0b;
+    --ink-soft: #1c1915;
+    --bone: #f0e6d2;
+    --bone-dim: #cdc2ad;
+    --bone-soft: #e4d9c3;
+    --amber: #e6a44c;
+    --amber-deep: #c98832;
+    --rust: #c85a2b;
+    --line: rgba(240,230,210,.14);
+    --line-strong: rgba(240,230,210,.32);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    background: var(--ink);
+    color: var(--bone);
+    font-family: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.6;
+    letter-spacing: -0.005em;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    padding-bottom: 88px; /* room for sticky cta */
+  }
+
+  /* warm film grain + vignette */
+  body::before{
+    content:"";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background-image:
+      radial-gradient(120% 80% at 50% 0%, rgba(230,164,76,.08), transparent 60%),
+      radial-gradient(80% 60% at 100% 100%, rgba(200,90,43,.06), transparent 60%);
+  }
+  body::after{
+    content:"";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    opacity: .035;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  .wrap{
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 22px;
+    position: relative;
+    z-index: 3;
+  }
+
+  /* Typography ---------------------------------------------------------- */
+  .display{
+    font-family: 'Fraunces', ui-serif, Georgia, serif;
+    font-weight: 400;
+    font-variation-settings: "opsz" 144, "SOFT" 40;
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+  }
+  .italic{ font-style: italic; font-variation-settings: "opsz" 144, "SOFT" 100; }
+  .eyebrow{
+    font-family:'Manrope';
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-size: 11px;
+    color: var(--bone-dim);
+  }
+  .eyebrow .dot{
+    display:inline-block;width:6px;height:6px;border-radius:50%;
+    background: var(--amber); margin-right: 10px; vertical-align: 2px;
+    box-shadow: 0 0 12px rgba(230,164,76,.7);
+  }
+  h2.section-title{
+    font-family:'Fraunces';
+    font-weight: 400;
+    font-variation-settings: "opsz" 144, "SOFT" 60;
+    font-size: clamp(34px, 7vw, 56px);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    margin-top: 18px;
+  }
+  p.lede{
+    font-size: clamp(17px, 2.2vw, 19px);
+    color: var(--bone-soft);
+    max-width: 54ch;
+    line-height: 1.55;
+  }
+
+  /* Nav ----------------------------------------------------------------- */
+  nav.top{
+    position: sticky; top: 0; z-index: 40;
+    backdrop-filter: blur(14px) saturate(130%);
+    -webkit-backdrop-filter: blur(14px) saturate(130%);
+    background: rgba(15,13,11,.72);
+    border-bottom: 1px solid var(--line);
+  }
+  nav.top .row{
+    display:flex;align-items:center;justify-content:space-between;
+    padding: 14px 22px;max-width:1080px;margin:0 auto;
+  }
+  .brand{
+    font-family:'Fraunces';
+    font-weight: 500;
+    font-variation-settings:"opsz" 144;
+    font-size: 17px;
+    letter-spacing: -0.02em;
+  }
+  .brand em{font-style:italic; color: var(--amber);}
+  .nav-cta{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size: 13px; font-weight:500;
+    color: var(--bone);
+    text-decoration:none;
+    padding: 9px 14px;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    transition: all .25s ease;
+  }
+  .nav-cta:hover{background: var(--bone); color: var(--ink); border-color: var(--bone);}
+  .nav-cta svg{width:12px;height:12px}
+
+  /* Hero ---------------------------------------------------------------- */
+  header.hero{
+    padding: 48px 0 56px;
+    position: relative;
+  }
+  .hero h1{
+    font-size: clamp(48px, 12vw, 112px);
+    margin-top: 26px;
+  }
+  .hero h1 .accent{
+    color: var(--amber);
+    font-style: italic;
+    font-variation-settings: "opsz" 144, "SOFT" 100;
+    display:inline-block;
+  }
+  .hero h1 .strike{
+    position: relative; display:inline-block;
+  }
+  .hero h1 .strike::after{
+    content:""; position:absolute; left: -2%; right:-2%; top:58%;
+    height: 3px; background: var(--rust); transform: rotate(-2deg);
+    box-shadow: 0 0 18px rgba(200,90,43,.5);
+  }
+  .hero .sub{
+    margin-top: 28px; max-width: 46ch;
+    font-size: clamp(17px, 2.4vw, 20px);
+    color: var(--bone-soft);
+    line-height: 1.5;
+  }
+  .cta-row{
+    margin-top: 36px;
+    display: flex; flex-wrap: wrap; gap: 14px; align-items: center;
+  }
+  .btn{
+    display:inline-flex;align-items:center;gap:12px;
+    padding: 18px 26px;
+    background: var(--amber);
+    color: var(--ink);
+    border: none; border-radius: 999px;
+    font-family:'Manrope'; font-size: 15px; font-weight: 600;
+    letter-spacing: -0.005em;
+    text-decoration:none; cursor:pointer;
+    transition: transform .25s ease, background .25s ease, box-shadow .25s ease;
+    box-shadow: 0 14px 40px -12px rgba(230,164,76,.55), 0 0 0 1px rgba(0,0,0,.02) inset;
+  }
+  .btn:hover{background: var(--bone); transform: translateY(-1px);
+    box-shadow: 0 18px 48px -14px rgba(240,230,210,.35);}
+  .btn .arrow{
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--ink); color: var(--amber);
+    display:inline-flex; align-items:center; justify-content:center;
+    transition: transform .25s ease;
+  }
+  .btn:hover .arrow{transform: translateX(3px) rotate(-8deg)}
+  .btn .arrow svg{width: 12px; height: 12px}
+  .btn-ghost{
+    background: transparent; color: var(--bone);
+    border: 1px solid var(--line-strong);
+    box-shadow: none;
+    padding: 17px 22px;
+    font-size: 14px;
+  }
+  .btn-ghost:hover{background: rgba(240,230,210,.06); transform:none;}
+
+  .hero-meta{
+    margin-top: 34px;
+    display: flex; flex-wrap: wrap; gap: 10px 22px;
+    align-items: center;
+    font-size: 12px;
+    color: var(--bone-dim);
+  }
+  .hero-meta span{display:inline-flex;align-items:center;gap:8px}
+  .hero-meta .tick{color: var(--amber)}
+
+  /* VSL placeholder ----------------------------------------------------- */
+  .vsl{
+    margin-top: 44px;
+    position: relative;
+    border-radius: 18px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #14110e 0%, #1f1a13 100%);
+    border: 1px solid var(--line-strong);
+    aspect-ratio: 16 / 10;
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;
+    transition: transform .3s ease;
+  }
+  .vsl:hover{transform: translateY(-2px)}
+  .vsl::before{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      radial-gradient(60% 50% at 50% 50%, rgba(230,164,76,.22), transparent 70%),
+      radial-gradient(40% 30% at 20% 20%, rgba(200,90,43,.14), transparent 70%);
+  }
+  .vsl .play{
+    width: 78px; height: 78px; border-radius: 50%;
+    background: var(--amber);
+    display:flex;align-items:center;justify-content:center;
+    position: relative; z-index: 2;
+    box-shadow: 0 10px 40px rgba(230,164,76,.5), 0 0 0 12px rgba(230,164,76,.15);
+    transition: transform .25s ease;
+  }
+  .vsl:hover .play{transform: scale(1.06)}
+  .vsl .play::after{
+    content:""; width:0;height:0;
+    border-left: 22px solid var(--ink);
+    border-top: 14px solid transparent;
+    border-bottom: 14px solid transparent;
+    margin-left: 6px;
+  }
+  .vsl .caption{
+    position:absolute; left: 20px; bottom: 18px;
+    font-size: 12px; color: var(--bone-dim);
+    letter-spacing: .18em; text-transform: uppercase;
+    z-index: 2;
+  }
+  .vsl .duration{
+    position:absolute; right: 20px; bottom: 18px;
+    font-family:'Fraunces'; font-style: italic; font-size: 14px;
+    color: var(--bone); z-index:2;
+  }
+
+  /* Dividers ------------------------------------------------------------ */
+  .rule{
+    height:1px; background: var(--line);
+    margin: 64px 0 40px;
+  }
+
+  /* Section shell ------------------------------------------------------- */
+  section{padding: 72px 0}
+  section.tight{padding: 56px 0}
+
+  /* Pain ---------------------------------------------------------------- */
+  .pain-grid{
+    margin-top: 40px;
+    display: grid; gap: 14px;
+    grid-template-columns: 1fr;
+  }
+  .pain-card{
+    border: 1px solid var(--line);
+    padding: 22px 22px 24px;
+    border-radius: 14px;
+    background: linear-gradient(180deg, rgba(240,230,210,.025), rgba(240,230,210,.005));
+    position: relative;
+  }
+  .pain-card .idx{
+    font-family:'Fraunces'; font-style: italic;
+    font-size: 13px; color: var(--amber);
+    display:block; margin-bottom: 6px;
+  }
+  .pain-card h3{
+    font-family:'Fraunces'; font-weight: 400;
+    font-size: 22px; line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  .pain-card p{font-size: 15px; color: var(--bone-soft); line-height: 1.55}
+
+  /* Promise ------------------------------------------------------------- */
+  .promise{
+    background: var(--bone);
+    color: var(--ink);
+    border-radius: 22px;
+    padding: 48px 26px 52px;
+    margin-top: 52px;
+    position: relative;
+    overflow: hidden;
+  }
+  .promise::before{
+    content:""; position:absolute; right:-80px; top:-80px;
+    width: 260px; height: 260px; border-radius: 50%;
+    background: radial-gradient(circle, var(--amber) 0%, transparent 70%);
+    opacity: .3;
+  }
+  .promise .eyebrow{color: #6a5a3f}
+  .promise .eyebrow .dot{background: var(--rust); box-shadow:none;}
+  .promise h2{
+    font-family:'Fraunces'; font-weight: 400;
+    font-variation-settings:"opsz" 144, "SOFT" 70;
+    font-size: clamp(32px, 7vw, 52px);
+    line-height: 1.02; letter-spacing: -0.03em;
+    margin-top: 16px; max-width: 18ch;
+  }
+  .promise h2 em{font-style:italic; color: var(--rust)}
+  .promise .items{
+    margin-top: 32px;
+    display: grid; gap: 18px;
+  }
+  .promise .item{
+    display: grid; grid-template-columns: 28px 1fr; gap: 14px;
+    align-items: start;
+    padding-top: 14px; border-top: 1px solid rgba(15,13,11,.12);
+  }
+  .promise .item:first-child{border-top:none; padding-top:0}
+  .promise .item .num{
+    font-family:'Fraunces'; font-style: italic;
+    font-size: 20px; color: var(--rust);
+    font-variation-settings:"opsz" 144, "SOFT" 100;
+  }
+  .promise .item p{font-size: 16px; line-height: 1.5; color: #2a2621}
+  .promise .item p strong{color: var(--ink); font-weight: 700}
+
+  /* Case study ---------------------------------------------------------- */
+  .case .lead{
+    display:grid; gap: 22px;
+    margin-top: 40px;
+  }
+  .case-quote{
+    font-family:'Fraunces'; font-weight: 300;
+    font-variation-settings:"opsz"144, "SOFT" 80;
+    font-size: clamp(24px, 5.2vw, 36px);
+    line-height: 1.18; letter-spacing: -0.02em;
+    color: var(--bone);
+    padding: 8px 0 8px 22px;
+    border-left: 2px solid var(--amber);
+    max-width: 28ch;
+  }
+  .case-quote em{font-style: italic; color: var(--amber)}
+
+  .stats{
+    margin-top: 40px;
+    display: grid; gap: 1px;
+    background: var(--line-strong);
+    border: 1px solid var(--line-strong);
+    border-radius: 18px;
+    overflow: hidden;
+  }
+  .stat{
+    background: var(--ink-soft);
+    padding: 28px 22px;
+  }
+  .stat .num{
+    font-family:'Fraunces'; font-weight: 400;
+    font-variation-settings: "opsz"144, "SOFT" 50;
+    font-size: clamp(42px, 11vw, 72px);
+    line-height: 1; letter-spacing: -0.045em;
+    color: var(--bone);
+  }
+  .stat .num em{font-style: italic; color: var(--amber); font-weight: 300}
+  .stat .label{
+    margin-top: 10px;
+    font-size: 12px; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--bone-dim);
+  }
+  .stat .desc{
+    margin-top: 10px; font-size: 14px; line-height: 1.5;
+    color: var(--bone-soft);
+  }
+
+  .case-flow{
+    margin-top: 40px;
+    display:grid; gap: 16px;
+  }
+  .flow-step{
+    display:grid; grid-template-columns: 54px 1fr; gap: 16px;
+    align-items: start;
+    padding: 22px 0;
+    border-top: 1px solid var(--line);
+  }
+  .flow-step:first-of-type{border-top: 1px solid var(--line-strong)}
+  .flow-step:last-of-type{border-bottom: 1px solid var(--line-strong)}
+  .flow-step .step-num{
+    font-family:'Fraunces'; font-style: italic;
+    font-variation-settings:"opsz"144, "SOFT" 100;
+    font-size: 34px; color: var(--amber);
+    line-height: 1;
+  }
+  .flow-step h4{
+    font-family:'Fraunces'; font-weight: 500;
+    font-size: 20px; line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+  .flow-step p{font-size: 15px; color: var(--bone-soft); line-height: 1.55}
+
+  .case-finale{
+    margin-top: 40px;
+    padding: 32px 26px;
+    border-radius: 18px;
+    background: linear-gradient(140deg, rgba(230,164,76,.14), rgba(200,90,43,.08) 60%, transparent);
+    border: 1px solid var(--line-strong);
+    position: relative;
+  }
+  .case-finale .tag{
+    font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--amber);
+  }
+  .case-finale h4{
+    font-family:'Fraunces'; font-weight: 400;
+    font-variation-settings:"opsz"144, "SOFT" 80;
+    font-size: clamp(22px, 5vw, 30px);
+    line-height: 1.15; letter-spacing: -0.02em;
+    margin: 10px 0 12px;
+  }
+  .case-finale h4 em{font-style: italic; color: var(--amber)}
+  .case-finale p{font-size: 15px; color: var(--bone-soft); line-height: 1.55}
+  .case-finale .partners{
+    margin-top: 18px; display:flex; gap: 18px; flex-wrap: wrap;
+    font-family:'Fraunces'; font-style: italic;
+    font-size: 14px; color: var(--bone-dim);
+  }
+  .case-finale .partners span{display:inline-flex;align-items:center;gap:8px}
+  .case-finale .partners span::before{
+    content:""; width: 5px; height: 5px; border-radius:50%;
+    background: var(--amber);
+  }
+
+  /* How it works / Modules ---------------------------------------------- */
+  .modules{margin-top: 40px; display: grid; gap: 14px}
+  .module{
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 24px 22px;
+    background: linear-gradient(180deg, rgba(240,230,210,.025), transparent);
+    transition: border-color .25s ease, transform .25s ease;
+  }
+  .module:hover{border-color: var(--line-strong); transform: translateY(-1px)}
+  .module .mnum{
+    font-family:'Fraunces'; font-style: italic;
+    font-size: 13px; color: var(--amber); letter-spacing: .05em;
+    display:block; margin-bottom: 10px;
+  }
+  .module h4{
+    font-family:'Fraunces'; font-weight: 400;
+    font-variation-settings:"opsz"144, "SOFT" 50;
+    font-size: 22px; line-height: 1.15; letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  .module p{font-size: 15px; color: var(--bone-soft); line-height: 1.55}
+
+  /* Objections ---------------------------------------------------------- */
+  .objections{margin-top: 40px; display:grid; gap: 14px}
+  .obj{
+    border-left: 2px solid var(--line-strong);
+    padding: 4px 0 4px 22px;
+  }
+  .obj .q{
+    font-family:'Fraunces'; font-style: italic;
+    font-variation-settings:"opsz"144, "SOFT" 90;
+    font-size: 18px; color: var(--bone);
+    margin-bottom: 8px; line-height: 1.35;
+  }
+  .obj .a{font-size: 15px; color: var(--bone-soft); line-height: 1.6}
+
+  /* BAFA badge ---------------------------------------------------------- */
+  .bafa{
+    margin-top: 44px;
+    border: 1px solid var(--line-strong);
+    border-radius: 18px;
+    padding: 28px 24px;
+    display: grid; gap: 18px;
+    background:
+      radial-gradient(70% 60% at 0% 0%, rgba(230,164,76,.12), transparent 70%),
+      linear-gradient(180deg, rgba(240,230,210,.035), transparent);
+  }
+  .bafa .seal{
+    width: 64px; height: 64px; border-radius: 50%;
+    border: 1px dashed var(--amber);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces'; font-style: italic;
+    font-size: 11px; letter-spacing: .12em;
+    color: var(--amber);
+    flex-shrink: 0;
+    text-transform: uppercase;
+  }
+  .bafa h4{
+    font-family:'Fraunces'; font-weight: 400;
+    font-variation-settings:"opsz"144, "SOFT" 60;
+    font-size: 22px; line-height: 1.2; letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  .bafa h4 em{font-style: italic; color: var(--amber)}
+  .bafa p{font-size: 14px; color: var(--bone-soft); line-height: 1.55}
+
+  /* Final CTA ----------------------------------------------------------- */
+  .finale{
+    margin: 60px 0 80px;
+    padding: 56px 24px 60px;
+    background: var(--bone);
+    color: var(--ink);
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+    text-align: left;
+  }
+  .finale::before{
+    content:""; position:absolute;
+    right:-120px; bottom:-120px; width: 360px; height: 360px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--rust) 0%, transparent 65%);
+    opacity: .22;
+  }
+  .finale .eyebrow{color: #6a5a3f}
+  .finale .eyebrow .dot{background: var(--rust); box-shadow:none}
+  .finale h2{
+    font-family:'Fraunces'; font-weight: 400;
+    font-variation-settings:"opsz"144, "SOFT" 80;
+    font-size: clamp(38px, 9vw, 68px);
+    line-height: 0.98; letter-spacing: -0.035em;
+    margin-top: 18px;
+  }
+  .finale h2 em{font-style: italic; color: var(--rust)}
+  .finale p.lede{color: #3a342c; margin-top: 20px; max-width: 44ch}
+  .finale .btn{margin-top: 28px}
+  .finale .btn-alt{
+    background: var(--ink); color: var(--bone);
+    box-shadow: 0 14px 40px -12px rgba(15,13,11,.5);
+  }
+  .finale .btn-alt:hover{background: var(--rust); color: var(--bone)}
+  .finale .btn-alt .arrow{background: var(--bone); color: var(--ink)}
+
+  /* Footer -------------------------------------------------------------- */
+  footer{
+    padding: 32px 0 40px;
+    border-top: 1px solid var(--line);
+    font-size: 12px;
+    color: var(--bone-dim);
+    letter-spacing: .04em;
+  }
+  footer .row{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:center}
+  footer a{color: var(--bone-dim); text-decoration: none; margin-right: 14px}
+  footer a:hover{color: var(--amber)}
+
+  /* Sticky mobile CTA --------------------------------------------------- */
+  .sticky-cta{
+    position: fixed; left: 14px; right: 14px; bottom: 14px;
+    z-index: 50;
+    padding: 14px 18px;
+    background: var(--amber);
+    color: var(--ink);
+    border-radius: 999px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-family:'Manrope'; font-weight: 600; font-size: 14px;
+    text-decoration: none;
+    box-shadow: 0 20px 50px -14px rgba(230,164,76,.55), 0 0 0 1px rgba(15,13,11,.05);
+    transition: transform .25s ease;
+  }
+  .sticky-cta:hover{transform: translateY(-1px)}
+  .sticky-cta .arrow{
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--ink); color: var(--amber);
+    display:inline-flex;align-items:center;justify-content:center;
+  }
+  .sticky-cta .arrow svg{width: 12px; height: 12px}
+
+  /* Reveal animation ---------------------------------------------------- */
+  .reveal{
+    opacity: 0; transform: translateY(14px);
+    animation: rise .8s cubic-bezier(.2,.7,.2,1) forwards;
+  }
+  .reveal.d1{animation-delay: .08s}
+  .reveal.d2{animation-delay: .16s}
+  .reveal.d3{animation-delay: .24s}
+  .reveal.d4{animation-delay: .34s}
+  .reveal.d5{animation-delay: .44s}
+  @keyframes rise{to{opacity:1; transform: translateY(0)}}
+
+  /* Responsive enhancements -------------------------------------------- */
+  @media (min-width: 720px){
+    .wrap{padding: 0 40px}
+    body{padding-bottom: 0}
+    .sticky-cta{display: none}
+    header.hero{padding: 72px 0 80px}
+    .pain-grid{grid-template-columns: repeat(3, 1fr); gap: 18px}
+    .stats{grid-template-columns: repeat(3, 1fr)}
+    .modules{grid-template-columns: repeat(2, 1fr); gap: 18px}
+    .promise{padding: 64px 54px 68px}
+    .promise .items{grid-template-columns: repeat(3, 1fr); gap: 28px}
+    .promise .item{border-top: none; padding-top: 0}
+    .finale{padding: 80px 60px 84px}
+    section{padding: 96px 0}
+    .case .lead{grid-template-columns: 1fr 1fr; align-items: end; gap: 48px}
+    .bafa{grid-template-columns: 64px 1fr; align-items: start; padding: 36px 40px}
+  }
+  @media (min-width: 980px){
+    .hero h1{font-size: clamp(80px, 11vw, 132px)}
+    .stats{grid-template-columns: repeat(3, 1fr)}
+    .modules{grid-template-columns: repeat(3, 1fr)}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .reveal{animation: none; opacity: 1; transform: none}
+    html{scroll-behavior: auto}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="top">
+  <div class="row">
+    <div class="brand">Neuhaus <em>&amp;</em> Co.</div>
+    <a href="#call" class="nav-cta">
+      Termin finden
+      <svg viewBox="0 0 12 12" fill="none"><path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="dot"></span>Enablement · KI-Workflows · Community Monetarisierung</div>
+
+    <h1 class="display reveal d1">
+      Deine Reichweite ist<br />
+      <span class="strike">laut.</span>
+      <span class="accent">Dein&nbsp;Umsatz</span><br />
+      müsste es auch sein.
+    </h1>
+
+    <p class="sub reveal d2">
+      Du baust Views, Engagement und eine Community auf — aber die Leads bleiben aus, der Newsletter wächst zäh und verkauft wird am Ende fast gar nichts. Wir zeigen dir, wie du mit individualisierten KI-Funnels aus Aufmerksamkeit echtes Business machst. Markenecht. Auf deine Nische zugeschnitten. Fördernfähig.
+    </p>
+
+    <div class="cta-row reveal d3">
+      <a href="#call" class="btn">
+        Finde raus, wie das für dich aussieht
+        <span class="arrow"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+      <a href="#case" class="btn btn-ghost">Case Study ansehen</a>
+    </div>
+
+    <div class="hero-meta reveal d4">
+      <span><span class="tick">✦</span> BAFA-geförderte Beratung</span>
+      <span><span class="tick">✦</span> Für jede Nische adaptierbar</span>
+      <span><span class="tick">✦</span> 1:1 individualisiert</span>
+    </div>
+
+    <!-- VSL Placeholder -->
+    <a href="#call" class="vsl reveal d5" aria-label="Video ansehen">
+      <span class="play" aria-hidden="true"></span>
+      <span class="caption">Watch · 4 Min VSL</span>
+      <span class="duration italic">Story in motion</span>
+    </a>
+  </div>
+</header>
+
+<!-- PAIN -->
+<section class="tight" id="pain">
+  <div class="wrap">
+    <div class="eyebrow"><span class="dot"></span>Kommt dir bekannt vor?</div>
+    <h2 class="section-title display">
+      Du hast die Reichweite.<br />
+      Nur <span class="italic" style="color:var(--amber)">nichts</span> davon zahlt sich aus.
+    </h2>
+    <p class="lede" style="margin-top:22px">
+      Das ist kein Content-Problem. Das ist ein <strong style="color:var(--bone)">Infrastruktur-Problem</strong> — zwischen Reel, Kommentar und Kaufentscheidung fehlt der Raum, in dem aus Fans wirklich Kund:innen werden.
+    </p>
+
+    <div class="pain-grid">
+      <div class="pain-card">
+        <span class="idx italic">I.</span>
+        <h3>Reel geht viral — DMs bleiben leer.</h3>
+        <p>Die Views steigen, die Kommentare sammeln sich, aber niemand landet in deinem Funnel. Die Aufmerksamkeit verpufft innerhalb von 24 Stunden.</p>
+      </div>
+      <div class="pain-card">
+        <span class="idx italic">II.</span>
+        <h3>Newsletter-Wachstum auf Sparflamme.</h3>
+        <p>Du postest Story-Links, bittest um Anmeldungen — und gewinnst pro Monat eine Handvoll Kontakte, während Millionen Views durchrauschen.</p>
+      </div>
+      <div class="pain-card">
+        <span class="idx italic">III.</span>
+        <h3>Launches, die keiner mitbekommt.</h3>
+        <p>Das Produkt ist da, die Landingpage steht, der Content läuft — aber zwischen „gefällt mir" und „ich kaufe" klafft eine Lücke, die niemand schließt.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROMISE -->
+<section class="tight">
+  <div class="wrap">
+    <div class="promise">
+      <div class="eyebrow"><span class="dot"></span>Was sich verändert</div>
+      <h2>
+        Jede Interaktion wird zur <em>Einladung</em> in dein Ökosystem.
+      </h2>
+
+      <div class="items">
+        <div class="item">
+          <span class="num">01</span>
+          <p><strong>Tausende Leads pro Monat</strong> — organisch über deinen bestehenden Content, ohne dass du einen einzigen DM von Hand beantworten musst.</p>
+        </div>
+        <div class="item">
+          <span class="num">02</span>
+          <p><strong>Individualisiert, nicht individuell.</strong> Jede:r Fan fühlt sich persönlich abgeholt — skaliert über KI-Flows, die zu deiner Brand sprechen.</p>
+        </div>
+        <div class="item">
+          <span class="num">03</span>
+          <p><strong>Time on Brand, die du bisher nicht hattest.</strong> Aus einem Scroll wird ein Touchpoint. Aus einem Kommentar eine Beziehung.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDY -->
+<section class="case" id="case">
+  <div class="wrap">
+    <div class="eyebrow"><span class="dot"></span>Case Study · Motion Creators</div>
+    <h2 class="section-title display">
+      Von viralem Reel zur ausverkauften Villa in&nbsp;<span class="italic" style="color:var(--amber)">Marbella</span>.
+    </h2>
+
+    <div class="lead">
+      <p class="lede">
+        Motion Creators ist die Community rund um eine Personal Brand, die regelmäßig Millionen von Views erzielt. Die Reichweite war da. Das Engagement war da. Was fehlte, war eine Infrastruktur, die das Ganze in echte Beziehungen — und am Ende in ein Offline-Erlebnis — übersetzt.
+      </p>
+      <blockquote class="case-quote">
+        „Aus einem <em>viralen Moment</em> wurde ein Event, das binnen Tagen ausverkauft war."
+      </blockquote>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="num"><em>10M+</em></div>
+        <div class="label">Views generiert</div>
+        <div class="desc">Durch ein Content-Framework, das Viralität strukturell einplant — statt zu hoffen.</div>
+      </div>
+      <div class="stat">
+        <div class="num"><em>40K+</em></div>
+        <div class="label">Kommentare aktiviert</div>
+        <div class="desc">Gezielt getriggert durch Hooks mit Schlagwort-Mechanik — jeder Kommentar ein Flow-Einstieg.</div>
+      </div>
+      <div class="stat">
+        <div class="num"><em>5K+</em></div>
+        <div class="label">Leads in den Funnel</div>
+        <div class="desc">ManyChat-gesteuert, E-Mail qualifiziert, auf das Live-Event vorgewärmt.</div>
+      </div>
+    </div>
+
+    <!-- Flow Steps -->
+    <div class="case-flow">
+      <div class="flow-step">
+        <span class="step-num">i</span>
+        <div>
+          <h4>Content-Framework mit eingebauter Viralität</h4>
+          <p>Hooks, die Neugier erzeugen statt nur Aufmerksamkeit — und die Kommentare systematisch triggern, weil das Reel nach einem Schlagwort fragt.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <span class="step-num">ii</span>
+        <div>
+          <h4>ManyChat-Flow, der zum Erlebnis wird</h4>
+          <p>Jedes Schlagwort-Keyword löst einen individualisierten Chat aus: Willkommen, kleine Überraschung, E-Mail-Opt-in — alles in der Tonalität der Brand.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <span class="step-num">iii</span>
+        <div>
+          <h4>Newsletter-Nurture, KI-gestützt</h4>
+          <p>Mehrere tausend Kontakte werden über segmentierte E-Mail-Strecken warmgehalten und auf den nächsten Brand-Moment vorbereitet.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <span class="step-num">iv</span>
+        <div>
+          <h4>Landingpage &amp; Assets — End-to-End mit KI gebaut</h4>
+          <p>Eventseite, Copy, Funnel-Visuals: in Tagen statt Wochen erstellt. Die gleichen Tools, die wir dir im Programm beibringen.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Finale -->
+    <div class="case-finale">
+      <div class="tag">Das Finale</div>
+      <h4>Eine Luxus-Villa in Marbella. <em>Ausverkauft.</em> Gesponsert von Adobe.</h4>
+      <p>Aus Views wurden Kommentare. Aus Kommentaren wurden Leads. Aus Leads wurden Menschen im Raum — ein markenwirksames Offline-Event, das perfekt zur Zielgruppe passte und ohne Paid-Budget ausverkauft war.</p>
+      <div class="partners">
+        <span>Adobe · Sponsor</span>
+        <span>Marbella · Location</span>
+        <span>Sold out · 48h</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULES / HOW IT WORKS -->
+<section class="tight">
+  <div class="wrap">
+    <div class="eyebrow"><span class="dot"></span>Was du im Programm lernst</div>
+    <h2 class="section-title display">
+      Sechs Module. Ein System, das <span class="italic" style="color:var(--amber)">wirklich</span> zu dir passt.
+    </h2>
+    <p class="lede" style="margin-top:18px">
+      Kein Template-Content von der Stange. Wir arbeiten an deiner Nische, deiner Stimme, deiner Community — und bauen Flows, die sich wie ein natürlicher Teil deiner Brand anfühlen.
+    </p>
+
+    <div class="modules">
+      <div class="module">
+        <span class="mnum">Modul 01</span>
+        <h4>Viral Content Framework</h4>
+        <p>Das Hook-System, das deine Reels strukturell auf Kommentare &amp; Keyword-Trigger auslegt — ohne reißerisch zu wirken.</p>
+      </div>
+      <div class="module">
+        <span class="mnum">Modul 02</span>
+        <h4>ManyChat-Flows in Brand-Voice</h4>
+        <p>Automationen, die sich nach dir anfühlen — mit Überraschungen, kleinen Details und KI-generierten Micro-Interaktionen.</p>
+      </div>
+      <div class="module">
+        <span class="mnum">Modul 03</span>
+        <h4>Lead-Capture &amp; E-Mail-Nurture</h4>
+        <p>Vom ersten Kommentar bis zum qualifizierten Kontakt: Opt-in-Pfade, Tagging, Segmentierung, Nurture-Strecken.</p>
+      </div>
+      <div class="module">
+        <span class="mnum">Modul 04</span>
+        <h4>KI-gestütztes Asset-Building</h4>
+        <p>Landingpages, Copy, Visuals, Event-Seiten — in Tagen gebaut, mit Tools, die du danach eigenständig weiterführst.</p>
+      </div>
+      <div class="module">
+        <span class="mnum">Modul 05</span>
+        <h4>Individualisierung auf Skala</h4>
+        <p>Wie du mit KI tausende Fans persönlich ansprichst, ohne dass es generisch wirkt — inklusive Prompt- &amp; Daten-Setup.</p>
+      </div>
+      <div class="module">
+        <span class="mnum">Modul 06</span>
+        <h4>Monetarisierung &amp; Brand-Momente</h4>
+        <p>Launches, Events, Community-Produkte — wie du deine Reichweite in wiederholbare Umsatz-Momente übersetzt.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BAFA -->
+<section class="tight">
+  <div class="wrap">
+    <div class="bafa">
+      <div class="seal">BAFA</div>
+      <div>
+        <div class="eyebrow"><span class="dot"></span>Förderfähig</div>
+        <h4>Als <em>BAFA-zertifizierter</em> Unternehmensberater kann ein Teil der Beratung staatlich gefördert werden.</h4>
+        <p>Je nach Unternehmensform und Bundesland sind erhebliche Anteile förderfähig — wir prüfen das individuell für dich im Erstgespräch. Nur ein Teil der Zusammenarbeit ist als Beratungsleistung förderfähig; die Module selbst bleiben flexibel buchbar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OBJECTIONS -->
+<section class="tight">
+  <div class="wrap">
+    <div class="eyebrow"><span class="dot"></span>Bedenken ernst genommen</div>
+    <h2 class="section-title display">
+      Was du dich jetzt vielleicht fragst.
+    </h2>
+
+    <div class="objections">
+      <div class="obj">
+        <div class="q">„Mein Content ist doch ganz anders als der im Case …"</div>
+        <div class="a">Genau das ist der Punkt. Das System ist brancheneagal — wir haben es vom Finanzberater bis zur Hunde-Community adaptiert. Dein Content bleibt dein Content; wir bauen die Infrastruktur drumherum.</div>
+      </div>
+      <div class="obj">
+        <div class="q">„Brauche ich eine bestimmte Reichweite, damit das funktioniert?"</div>
+        <div class="a">Nein. Die Mechanik skaliert proportional — 2.000 engagierte Follower:innen mit System schlagen 200.000, die im Leerlauf scrollen. Wir dimensionieren die Flows auf deine Größe.</div>
+      </div>
+      <div class="obj">
+        <div class="q">„Wird das am Ende nicht unpersönlich?"</div>
+        <div class="a">Im Gegenteil. Richtig aufgesetzte KI-Flows wirken persönlicher als 1:1-DMs, weil sie schneller, aufmerksamer und markenstimmig antworten. Wir trainieren die Systeme auf deine Tonalität — nicht umgekehrt.</div>
+      </div>
+      <div class="obj">
+        <div class="q">„Wie schnell sehe ich Ergebnisse?"</div>
+        <div class="a">Der erste Flow steht in der Regel innerhalb von zwei Wochen live. Erste Leads meist am selben Tag. Der Aufbau der vollen Infrastruktur dauert je nach Tiefe 4–8 Wochen.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section id="call">
+  <div class="wrap">
+    <div class="finale">
+      <div class="eyebrow"><span class="dot"></span>Nächster Schritt</div>
+      <h2>
+        Finde raus, wie das <em>für dich</em> aussieht.
+      </h2>
+      <p class="lede">
+        Ein kurzes Gespräch. Kein Pitch, kein Script. Wir schauen gemeinsam auf deine Kanäle, deine Community und überlegen, wo dein größter Hebel liegt — und ob eine Zusammenarbeit überhaupt Sinn ergibt.
+      </p>
+      <a href="#" class="btn btn-alt">
+        Kostenfreies Erstgespräch anfragen
+        <span class="arrow"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap row">
+    <div>© 2026 · Christoph Neuhaus · Unternehmensberatung</div>
+    <div>
+      <a href="#">Impressum</a>
+      <a href="#">Datenschutz</a>
+    </div>
+  </div>
+</footer>
+
+<!-- STICKY MOBILE CTA -->
+<a href="#call" class="sticky-cta">
+  Finde raus, wie das für dich aussieht
+  <span class="arrow"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+</a>
+
+</body>
+</html>
